@@ -8,6 +8,7 @@ function parseIni() {
 
 #下载项目需要的代码的方法
 function init() {
+    echo $1-----------------------------
     #获取./config中以config-xxx.ini格式的文件总共有多少个，每个配置文件对应一个md文件
     TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./config/start.ini | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
     echo '可以处理的md文件最大个数：'$TOTAL_MD_COUNTS
