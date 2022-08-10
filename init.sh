@@ -39,12 +39,12 @@ function init() {
                 #如果代码还没有被下载过，执行执行下载代码的操作
                 git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
                 #写入commit-message
-                curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token=04cacc5f135e93b1ed679462a55260b7' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
+                curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$GITEE_TOKEN'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
             else
                 #如果存在该文件夹，则说明代码已经被下载过了，则对比最新的提交信息和当前项目中已经有的提交信息，看是否一致，不一致说明项目有新提交，需要重新下载
                 echo '代码已经下载过了.....................................'
                 #写入最新的commit信息
-                curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token=04cacc5f135e93b1ed679462a55260b7' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit-new.txt
+                curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$GITEE_TOKEN"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit-new.txt
                 #比较两个commit.txt文件是否相同
                 DIFF_RESULT=`diff $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit-new.txt`  
                 
@@ -60,7 +60,7 @@ function init() {
                     #重新下载代码
                     git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
                     #重新生成commit.txt信息
-                    curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token=04cacc5f135e93b1ed679462a55260b7' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
+                    curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$GITEE_TOKEN"'04cacc5f135e93b1ed679462a55260b7''' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
                 else
                     #diff执行结果为空，说明没有新提交，不做任何处理
                     echo '代码没有更新，不用重新下载.....................................'
