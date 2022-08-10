@@ -4,4 +4,4 @@ echo $1
    
 }
 
-init
+init $1
