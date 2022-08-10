@@ -16,7 +16,6 @@ pipeline {
     stage('执行下载代码的脚本') {
       steps {
         echo '正在下载博客所引用的代码...'
-        sh 'sudo dpkg-reconfigure dash'
         sh 'chmod +x ./init.sh'
         sh './init.sh ${GITEE_TOKEN}'
         echo '完成下载博客所引用的代码...'
