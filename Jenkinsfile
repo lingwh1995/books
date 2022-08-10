@@ -17,7 +17,7 @@ pipeline {
       steps {
         echo '正在下载博客所引用的代码...'
         sh 'chmod +x ./init.sh'
-        sh './init.sh ${GITEE_TOKEN}'
+        bash './init.sh ${GITEE_TOKEN}'
         echo '完成下载博客所引用的代码...'
       }
     }
