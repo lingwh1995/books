@@ -1,6 +1,4 @@
-:<< EOF
-解析ini配置文件的方法
-EOF
+#解析ini配置文件的方法
 function parseIni() {
     INIFILE=$1; SECTION=$2; ITEM=$3
     result=`awk -F '=' '/\['$SECTION'\]/{a=1}a==1&&$1~/'$ITEM'/{print $2;exit}' $INIFILE`
@@ -8,9 +6,7 @@ function parseIni() {
     echo ${result}
 } 
  
-:<< EOF
-下载项目需要的代码的方法
-EOF
+#下载项目需要的代码的方法
 function init() {
     #获取./config中以config-xxx.ini格式的文件总共有多少个，每个配置文件对应一个md文件
     TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./config/start.ini | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
