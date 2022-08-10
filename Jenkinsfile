@@ -39,7 +39,7 @@ pipeline {
         echo '正在推送文件...'
         echo '${GIT_COMMIT_MSG}'
         sh 'git add .'
-        sh "git commit -m 'xx'"
+        sh "git commit -m ${GIT_COMMIT_MSG}"
         sh 'git fetch https://lingwh:${CODINGS_TOKEN}@e.coding.net/lingwh/java/books.git'
         sh 'git push -f https://lingwh:${CODINGS_TOKEN}@e.coding.net/lingwh/java/books.git HEAD:master'
         echo '完成文件推送...'
