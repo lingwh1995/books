@@ -22,7 +22,7 @@ pipeline {
       }
     }
 
-    stage('推送部署') {
+    stage('推送部署到GITEE') {
       steps {
         echo '正在推送文件...'
         echo '${GIT_COMMIT_MSG}'
@@ -30,6 +30,18 @@ pipeline {
         sh 'git push -f https://lingwh1995:${GITEE_TOKEN}@gitee.com/lingwh1995/books.git HEAD:master'
         //sh 'git fetch https://lingwh1995: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@github.com/lingwh1995/springcloud-eureka.git'
         //sh 'git push -f https://lingwh1995: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@github.com/lingwh1995/springcloud-eureka.git HEAD:master'
+        echo '完成文件推送...'
+      }
+    }
+
+    stage('提交代码当远程') {
+      steps {
+        echo '正在推送文件...'
+        echo '${GIT_COMMIT_MSG}'
+        //sh 'git add .'
+        //sh "git commit -m ''"
+        sh 'git fetch https://lingwh:${CODINGS_TOKEN}@e.coding.net/lingwh/java/books.git'
+        sh 'git push -f https://lingwh:${CODINGS_TOKEN}@e.coding.net/lingwh/java/books.git HEAD:master'
         echo '完成文件推送...'
       }
     }
