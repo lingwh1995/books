@@ -60,7 +60,7 @@ function init() {
                     #重新下载代码
                     git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
                     #重新生成commit.txt信息
-                    curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$GITEE_TOKEN"'04cacc5f135e93b1ed679462a55260b7''' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
+                    curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$GITEE_TOKEN'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
                 else
                     #diff执行结果为空，说明没有新提交，不做任何处理
                     echo '代码没有更新，不用重新下载.....................................'
