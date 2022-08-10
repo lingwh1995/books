@@ -8,15 +8,16 @@ function parseIni() {
 
 #下载项目需要的代码的方法
 function init() {
-    echo $1
     #获取./config中以config-xxx.ini格式的文件总共有多少个，每个配置文件对应一个md文件
     TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./config/start.ini | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
     echo '可以处理的md文件最大个数：'$TOTAL_MD_COUNTS
-    
+    echo '111111111111111111111111111111111111111111111'
     #解析config.ini中配置要操作的md文件的名称，并根据配置对md文件进行增强
     for((a=1;a<=$TOTAL_MD_COUNTS;a++))
     do
+        echo '222222222222222222222222222222222222222222222'
         IS_ENHANCE=( $( parseIni ./config/start.ini markdown-$a enhance) )
+        echo '333333333333333333333333333333333333333333333'
         #如果启用了增强该md，则继续执行下一步
         if [ $IS_ENHANCE == "true" ]
         then
