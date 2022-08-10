@@ -1,13 +1,7 @@
+# 1.安装Linux操作系统
 ```java
 //@include(./Account.java)
 ```
-
-
-
-
-
-# 1.安装Linux操作系统
-
 ## 1.1.Linux重要目录介绍
 
 	/usr → C:/Windows/ /*系统级的目录
