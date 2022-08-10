@@ -58,7 +58,7 @@ function init() {
                     curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$1"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
                 else
                     #diff执行结果为空，说明没有新提交，不做任何处理
-                    echo '代码没有更新，不用重新下载.....................................'
+                    echo '当前已是最新版本代码，不用重新下载.....................................'
                 fi
             fi
 
