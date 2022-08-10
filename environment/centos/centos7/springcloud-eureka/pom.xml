@@ -226,7 +226,6 @@
             </properties>
         </profile>
 
-
         <!--测试环境-->
         <profile>
             <id>test</id>
