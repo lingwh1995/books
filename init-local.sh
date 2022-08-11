@@ -1,3 +1,5 @@
+#使用前需要安装Markdown Preview Enhanced这个插件
+#中文官网：https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/
 :<< EOF
 这个脚本的用途：
     1.在本地编辑xxx.md文件时如果要引用到代码文件，执行一下这个脚本，可以从远程仓库拉取最新版本的代码
