@@ -6,26 +6,26 @@ function parseIni() {
     echo ${result}
 } 
 
-#下载项目需要的代码的方法
-function init() {
+#更新项目需要的代码的方法
+function updateDependentCode() {
     #获取./config中以config-xxx.ini格式的文件总共有多少个，每个配置文件对应一个md文件
-    TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./config/start.ini | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
+    TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./enhance/bootstrap.ini | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
     echo '可以处理的md文件最大个数：'$TOTAL_MD_COUNTS
     #解析config.ini中配置要操作的md文件的名称，并根据配置对md文件进行增强
     for((a=1;a<=$TOTAL_MD_COUNTS;a++))
     do
-        IS_ENHANCE=( $( parseIni ./config/start.ini markdown-$a clone) )
+        CLONE_STATE=( $( parseIni ./enhance/bootstrap.ini markdown-$a clone) )
         #如果启用了增强该md，则继续执行下一步
-        if [ $IS_ENHANCE == "true" ]
+        if [ $CLONE_STATE == "true" ]
         then
             #获取文件相对路径
-            MD_FILE_RELATIVE_PATH=( $( parseIni ./config/start.ini markdown-$a relativePath) )
+            MD_FILE_RELATIVE_PATH=( $( parseIni ./enhance/bootstrap.ini markdown-$a relativePath) )
 
             #获取git仓库的地址
-            GIT_REPOSITORY_URL=( $( parseIni ./config/start.ini markdown-$a gitRepositoryUrl) )
+            GIT_REPOSITORY_URL=( $( parseIni ./enhance/bootstrap.ini markdown-$a gitRepositoryUrl) )
 
             #获取项目名称    
-            PROJECT_NAME=( $( parseIni ./config/start.ini markdown-$a projectName) )
+            PROJECT_NAME=( $( parseIni ./enhance/bootstrap.ini markdown-$a projectName) )
             
             #先判断是否存在该文件夹，就是判断项目需要的代码是否被已经被下载了
             if [ ! -d "$MD_FILE_RELATIVE_PATH/$PROJECT_NAME" ]
@@ -68,8 +68,12 @@ function init() {
     done
 }
 
-#触发blog项目自动构建，暂时未调用
-function buildBlog() {
+#触发blog项目自动构建，将books中最新内容发布到GITHUB/GITEE中博客网站中
+function autoCI() {
+    AUTO_CI_STATE=( $( parseIni ./enhance/pulgins.ini plugin-001 autoCI) )
+    
+            if [ $AUTO_CI_STATE == "true" ]
+        then
     curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
     -v -X POST  'https://lingwh.coding.net/api/cci/job/1461498/trigger' \
     -H 'Content-Type: application/json' \
@@ -78,6 +82,11 @@ function buildBlog() {
         "ref": "master",
         "envs": []
     }'
+}
+
+function init() {
+    updateDependentCode $1
+    autoCI
 }
 
 #$1是jenkins执行这个脚本的时候传过来的$GITEE_TOKEN
