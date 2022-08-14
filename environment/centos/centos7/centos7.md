@@ -18,7 +18,7 @@
 	如果是学习环境，建议安装centos mini版镜像，生产环境可以安装完整   
 
     下载地址
-<http://ftp.sjtu.edu.cn/centos/>	
+<a href="http://ftp.sjtu.edu.cn/centos/">xxx</a>	
 	
 
 ## 1.3.安装前Vmaware相关设置
@@ -107,7 +107,8 @@ yum makecache && yum update
 ### 2.6.1.手动安装常用软件
 **vim**
 
-	安装vim	
+	安装vim
+`yum -y install vim*`
 ```		
 yum -y install vim*
 ```	
