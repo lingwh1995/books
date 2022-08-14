@@ -14,7 +14,7 @@ function init() {
     #解析config.ini中配置要操作的md文件的名称，并根据配置对md文件进行增强
     for((a=1;a<=$TOTAL_MD_COUNTS;a++))
     do
-        IS_ENHANCE=( $( parseIni ./config/start.ini markdown-$a enhance) )
+        IS_ENHANCE=( $( parseIni ./config/start.ini markdown-$a clone) )
         #如果启用了增强该md，则继续执行下一步
         if [ $IS_ENHANCE == "true" ]
         then
