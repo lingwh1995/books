@@ -70,7 +70,8 @@ function updateDependentCode() {
 
 #触发blog项目自动构建，将books中最新内容发布到GITHUB/GITEE中博客网站中
 function autoCI() {
-    AUTO_CI_STATE=( $( parseIni ./enhance/pulgins.ini plugin-001 autoCI) )
+    AUTO_CI_STATE=( $( parseIni ./enhance/plugins.ini plugin-001 enable) )
+    
     if [ $AUTO_CI_STATE == "true" ]
     then
     echo ' XXXXXXXXXX'
