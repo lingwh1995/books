@@ -74,15 +74,14 @@ function autoCI() {
     
     if [ $AUTO_CI_STATE == "true" ]
     then
-    echo ' XXXXXXXXXX'
-        `curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
+        curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
         -v -X POST  'https://lingwh.coding.net/api/cci/job/1461498/trigger' \
         -H 'Content-Type: application/json' \
         -d '
             {
             "ref": "master",
             "envs": []
-        }'`
+        }'
     fi    
 }
 
