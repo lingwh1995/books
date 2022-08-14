@@ -18,6 +18,8 @@ pipeline {
         echo '正在下载博客所引用的代码...'
         sh 'chmod +x ./init.sh'
         sh 'bash ./init.sh ${GITEE_TOKEN}'
+        sh 'git add .'
+        sh "git commit -m '更新项目依赖的代码'"
         echo '完成下载博客所引用的代码...'
       }
     }
