@@ -71,17 +71,17 @@ function updateDependentCode() {
 #触发blog项目自动构建，将books中最新内容发布到GITHUB/GITEE中博客网站中
 function autoCI() {
     AUTO_CI_STATE=( $( parseIni ./enhance/pulgins.ini plugin-001 autoCI) )
-    
-            if [ $AUTO_CI_STATE == "true" ]
-        then
-    curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
-    -v -X POST  'https://lingwh.coding.net/api/cci/job/1461498/trigger' \
-    -H 'Content-Type: application/json' \
-    -d '
-        {
-        "ref": "master",
-        "envs": []
-    }'
+    if [ $AUTO_CI_STATE == "true" ]
+    then
+        curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
+        -v -X POST  'https://lingwh.coding.net/api/cci/job/1461498/trigger' \
+        -H 'Content-Type: application/json' \
+        -d '
+            {
+            "ref": "master",
+            "envs": []
+        }'
+    fi    
 }
 
 function init() {
