@@ -40,7 +40,7 @@
 
 ## 2.1.配置静态IP地址
 **修改网络配置**	
-```bash
+```
 vi /etc/sysconfig/network-scripts/ifcfg-ens32(最后一个为网卡名称)	
 ```	
 	修改后内容如下
@@ -54,48 +54,48 @@ vi /etc/sysconfig/network-scripts/ifcfg-ens32(最后一个为网卡名称)
 	DNS1=8.8.8.8
 	DNS2=8.8.4.4
 **重启网络**
-```bash
+```
 systemctl restart network
 ```
 
 ## 2.2.解决远程连接无法连接的问题
 **修改sshd配置文件**
-```bash
+```
 vim /etc/ssh/sshd_config
 ```	
 	说明：sshd_config里面的UseDNS=no【原本为yes】
 **重启ssh服务**
-```bash
+```
 systemctl restart sshd.service
 ```
 
 ## 2.3.设置系统环境变量
-```bash
+```
 echo "export LC_ALL=en_US.UTF-8"  >>  /etc/profile &&
 source /etc/profile
 ```
 
 ## 2.4.安装curl
 	后面的操作需要curl，所以首先安装curl
-```bash
+```
 yum -y install curl
 ```
 
 ## 2.5.配置yml源
 	下载阿里源，并上传到/opt/software/package
-```bash
+```
 curl http://mirrors.aliyun.com/repo/Centos-7.repo -o Centos-7.repo
 ```	
 	进入/etc/yum.repos.d目录中，备份CentOS-Base.repo
-```bash
+```	
 cd /etc/yum.repos.d && cp CentOS-Base.repo CentOS-Base.repo.bak
 ```	
 	复制/opt/software/package/Centos-7.repo到当前目录并重命名为CentOS-Base.repo
-```bash	
+```	
 cp /opt/software/package/Centos-7.repo /CentOS-Base.repo
 ```	
 	生成yum源缓存并更新yum源
-```bash
+```	
 yum makecache && yum update
 ```
 
@@ -104,7 +104,7 @@ yum makecache && yum update
 **vim**
 
 	安装vim	
-```bash		
+```		
 yum -y install vim*
 ```	
 	配置vim	
@@ -114,26 +114,26 @@ yum -y install vim*
 	set autoindent #设置每次单击Enter键后，光标移动到下一行时与上一行的起始字符对齐
 	syntax on      #即设置语法检测，当编辑C或者Shell脚本时，关键字会用特殊颜色显示		
 **wget**
-```bash
+```
 yum -y install wget
 ```	
 **telnet**
-```bash
+```
 yum -y install telnet
 yum -y install telnet-server
 ```	
 **git**
 
 	卸载旧版本	
-```bash
+```
 yum remove git
 ```
 	安装 yum 源的 Git 版本
-```bash
+```	
 yum install -y git
 ```
 	查看版本
-```bash
+```	
 git version 
 ```
 ### 2.6.2.使用脚本安装常用软件
@@ -141,17 +141,17 @@ git version
 	这个脚本中包含了centos设置yum源并且安装了一些的常用软件，如vim、git、wget、curl、等，会定时更新
 
 	安装curl
-```bash
+```	
 yum -y install curl
 ```
 
 	下载脚本并
-```bash
+```
 curl https://gitee.com/lingwh1995/config-center/raw/master/centos/centos-init.sh -o centos-init.sh
 ```
 
 	赋予可运行权限并运行该脚本
-```bash
+```
 chmod +x centos-init.sh &&
 ./centos-init.sh
 ```
@@ -160,15 +160,15 @@ chmod +x centos-init.sh &&
 ## 3.1.安装jdk
 	查看当前安装的java版本
 
-```bash
+```
 yum list installed | grep java
 ```
 	卸载旧版本jdk
-```bash
+```
 yum -y remove xxx
 ```
 	创建存放安装包的目录->切换到该目录->在该目录中下载jdk
-```bash
+```
 mkdir -p /opt/software/package &&
 cd /opt/software/package &&
 curl -fL -u software-1659088335906:c2e556a8a52386cbe0c6361ee3a7d8a21d3c9ca0 \
@@ -176,13 +176,13 @@ curl -fL -u software-1659088335906:c2e556a8a52386cbe0c6361ee3a7d8a21d3c9ca0 \
 version=latest" -o jdk-8u181-linux-x64.tar.gz
 ```
 	解压jdk后赋予权限并放入指定目录
-```bash
+```
 tar -zxvf jdk-8u181-linux-x64.tar.gz &&
 chmod +x jdk1.8.0_181
 mv jdk1.8.0_181 /usr/local/bin/jdk1.8.0_181
 ```
 	配置环境变量
-```bash
+```	
 vim /etc/profile
 ```
 	添加如下内容
@@ -191,13 +191,13 @@ export JAVA_HOME=/usr/local/bin/jdk1.8.0_181
 export JRE_HOME=${JAVA_HOME}/jre
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 export PATH=${JAVA_HOME}/bin:$PATH
-```
+```	
 	刷新环境变量文件
-```bash
+```	
 source /etc/profile	
 ```
 	查看java版本
-```bash
+```	
 java -version
 ```
 
@@ -206,7 +206,7 @@ java -version
 	maven linux版和windows版并不通用
 
 	创建存放安装包的目录->并切换到该目录->在该目录中下载maven
-```bash
+```
 mkdir -p /opt/software/package &&
 cd /opt/software/package &&
 curl -fL -u software-1659088796431:ba211676fbe4a719c3b40b22083cd70388d41acc \
@@ -214,33 +214,33 @@ curl -fL -u software-1659088796431:ba211676fbe4a719c3b40b22083cd70388d41acc \
 ?version=latest" -o apache-maven-3.8.6-bin.tar.gz
 ```	
 	解压到/usr/local/bin/目录下
-```bash
+```	
 tar -zxvf apache-maven-3.8.6-bin.tar.gz -C /usr/local/bin
 ```	
 	配置环境变量	
-```bash
+```
 vim  /etc/profile
 ```
 	添加如下内容
 	注意事项
 	不要修改原来的path，直接在下面添加新的PATH配置，使用$PATH引用上面的PATH
-```bash
+```
 export M2_HOME=/usr/local/bin/apache-maven-3.8.6
 export PATH=$PATH:$M2_HOME/bin
 ```	
 	刷新配置文件
-```bash
+```	
 source /etc/profile
 ```	
 	查看maven版本
-```bash
+```	
 mvn -v
 ```	
 	修改maven的settings.xml，仓库源<mirrors></mirrors>中添加如下信息:
-```bash
+```
 vim /usr/local/bin/apache-maven-3.8.6/conf/settings.xml
 ```	
-```xml
+```
 <mirror>
 	<id>alimaven</id>
 	<name>aliyun maven</name>
@@ -270,62 +270,62 @@ vim /usr/local/bin/apache-maven-3.8.6/conf/settings.xml
 	使用mysql官方yum源在线安装(不要使用rpm方式安装，非常难以安装成功)
 	
 	查看当前安装的mysql版本
-```bash
+```
 yum list installed | grep mysql
 ```	
 	或
-```bash
+```	
 rpm -qa | grep mysql
 ```	
 	卸载旧版本mysql
-```bash
+```	
 yum -y remove xxx
 ```	
 	Centos终端获取yum源安装包：
-```bash
+```
 cd /opt/software/package &&
 wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 ```	
 	安装mysql的yum源：（二选一）
-```bash
+```	
 rpm -Uvh mysql80-community-release-el7-3.noarch.rpm
 ```
-```bash
+```
 rpm -ivh mysql80-community-release-el7-3.noarch.rpm
 ```	
 	查看刚才下载的mysql安装源，可以看到新增的两个mysql源
-```bash
+```	
 ls /etc/yum.repos.d
-```
+```	
 	[root@localhost package]# ls /etc/yum.repos.d
 	CentOS-Base.repo      CentOS-Debuginfo.repo  CentOS-Vault.repo          mysql-community-source.repo
 	CentOS-Base.repo.bak  CentOS-Media.repo      CentOS-fasttrack.repo      mysql-community.repo
 	CentOS-CR.repo        CentOS-Sources.repo    CentOS-x86_64-kernel.repo
 	
 	修改源中的配置，将所有的gpgkey的值修改为https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
-```bash
+```	
 sed -i 's#file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql#https://repo.mysql.com/\
 RPM-GPG-KEY-mysql-2022#g' /etc/yum.repos.d/mysql-community.repo
 ```	
 	使用yum在线安装mysql
-```bash	
+```	
 yum -y install mysql-community-server
-```bash	
+```	
 	启动mysql-server
-```bash	
+```	
 systemctl start mysqld.service &&
 systemctl enable mysqld.service
-```
+```	
 	查看mysql-server启动状态：
-```bash
+```
 systemctl status mysqld
-```
+```	
 	初始化mysql
-```bash
-mysqld --initialize
 ```
+mysqld --initialize
+```	
 	查看mysql8登录密码
-```bash	
+```	
 cat /var/log/mysqld.log | grep 'temporary password'
 ```	
 	看到如下内容：
@@ -333,16 +333,16 @@ cat /var/log/mysqld.log | grep 'temporary password'
 		A temporary password is generated for root@localhost: %)4(26e++jaK
 		
 登录mysql
-```bash
+```
 mysql -uroot -p'%)4(26e++jaK'
 ```	
 	修改mysql初始密码，规则大小写字母、数字、特殊符号，最少8位
-```bash
+```	
 ALTER USER USER() IDENTIFIED BY 'Mysql123456_';
 FLUSH PRIVILEGES;
 ```	
 	扩展或者添加远程用户权限:
-```bash
+```	
 use mysql;	
 update user set host='%' where user='root';
 flush privileges;
@@ -353,11 +353,11 @@ flush privileges;
 ### 4.1.1.在线安装docker
 
 	以root身份更新yum，将yum包更新到最新
-```bash
+```
 yum -y update
 ```	
 	查看当前安装的docker版本
-```bash
+```
 yum list installed | grep docker
 ```	
 	containerd.io.x86_64 	 1.6.6-3.1.el7                  @docker-ce-stable				
@@ -367,7 +367,7 @@ yum list installed | grep docker
 	docker-scan-plugin.x86_64          0.17.0-3.el7                   @docker-ce-stable
 		
 	卸载旧版本docker
-```bash
+```
 yum -y remove docker-ce.x86_64
 yum -y remove docker-scan-plugin.x86_64
 yum -y remove docker-ce-cli.x86_64
@@ -375,31 +375,31 @@ yum -y remove docker-ce-rootless-extras.x86_64_64
 yum -y remove containerd.io.x86_64
 ```	
 	安装需要的软件包
-```bash
+```	
 yum install -y yum-utils device-mapper-persistent-data lvm2
 ```	
 	配置使用阿里的yum源
-```bash
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+```	
 查看阿里云仓库中所有docker版本，并选择特定版本安装
-```bash
+```
 yum list docker-ce --showduplicates | sort -r
 ```	
 	安装最新版本docker-ce(docker社区、ee企业版 ce为社区版)
-```bash
+```	
 yum -y install docker-ce
 ```	
 	查看安装的docker版本
-```bash
+```	
 docker version
 ```	
 	给docker配置国内镜像源
-```bash
+```	
 vim /etc/docker/daemon.json
 ```
 	添加如下内容
-```bash
+```
 sudo mkdir -p /etc/docker &&
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -411,26 +411,26 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     ]
 }
 EOF
-````bash
+````
 	daemon.json配置说明
 	registry-mirrors：docker国内镜像源地址
 	
 	刷新daemon.json配置启动docker并设置为开机自启动
-```bash
+```	
 systemctl daemon-reload &&
 systemctl start docker &&
 systemctl enable docker
 ```
 	查看启动状态
-```bash
+```	
 systemctl status docker
 ```
 	启动故障排查
-```bash
+```	
 systemctl status docker
 ```
 	测试docker
-```bash
+```	
 docker run hello-world
 ```
 	安装成功则返回下面信息
@@ -464,7 +464,7 @@ docker run hello-world
 
 ### 4.1.2.二进制包安装docker
 	创建存放docker安装包的目录->切换目录->在该目录中下载docker二进制安装包->解压到/usr/bin/
-```bash
+```
 mkdir -p  /opt/software/package/ &&
 cd /opt/software/package/ &&
 curl -fL -u software-1659095503164:3316a6a052e6f17880d37a00d38454342aceffdf \
@@ -474,7 +474,7 @@ tar -xf docker-20.10.9.tgz && mv docker/* /usr/bin/
 ```
 
 	配置docker私有镜像	
-```bash
+```
 sudo mkdir -p /etc/docker &&
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -488,7 +488,7 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 EOF
 ```
 	配置docker.service文件
-```bash
+```
 cat > /usr/lib/systemd/system/docker.service << EOF
 [Unit]
 Description=Docker Application Container Engine
@@ -514,21 +514,21 @@ WantedBy=multi-user.target
 EOF
 ```
 	刷新配置文件后启动三台机器上的docker并设置为开机启动
-```bash
+```
 systemctl daemon-reload &&
 systemctl start docker &&
 systemctl enable docker
 ```
 	查看启动状态
-```bash
+```	
 systemctl status docker
 ```
 	启动故障排查
-```bash
+```	
 systemctl status docker
 ```
 	测试docker
-```bash
+```	
 docker run hello-world
 ```
 	安装成功则返回下面信息
@@ -568,42 +568,42 @@ docker run hello-world
 	
 	解决方式1：使docker与firewall共存
 	关闭docker
-```bash
+```
 systemctl stop docker
 ```
 	设置firewall不拦截docker
-```bash
+```
 firewall-cmd --zone=trusted --remove-interface=docker0 --permanent
 ```
 	重新加载防火墙配置
-```bash
+```
 firewall-cmd --reload
 ```	
 	重新启动防火墙
-```bash
+```
 systemctl restart firewalld
 ```	
 	重新启动docker
-```bash
+```	
 systemctl restart docker
 ```	
 	解决方式2：检查daemon.json配置是否正确
-```bash
+```	
 	cat /etc/docker/daemon.json
 ```
 	看配置的registry-mirrors是否正确，如私服前是否忘记了加http://
 
 ## 4.3.docker容器可视化	
 	查询当前有哪些portainer镜像
-```bash
+```	
 docker search portainer
 ```	
 	下载portainer镜像
-```bash
+```	
 docker pull portainer/portainer:1.24.2
 ```	
 	启动单机版portainer(针对单机版docker)
-```bash
+```	
 docker run -d --name portainer \
 	-p 9000:9000 \
 	--restart=always \
@@ -620,11 +620,11 @@ docker run -d --name portainer \
 ## 4.4.1搭建docke官方私服（不带有用户名和密码校验）
 	
 	拉取仓库镜像
-```bash
+```	
 docker pull registry
 ```	
 	启动注册仓库服务器
-```bash
+```	
 docker run -d --name registry_official \
 	-p 5000:5000 \
 	--restart=always \
@@ -635,11 +635,11 @@ docker run -d --name registry_official \
 	配置私服地址和镜像源地址并且将私服地址加入到镜像源列表，这样就可以从私服中拉取镜像了
 	
 	给docker配置私服
-```bash
+```	
 	vim /etc/docker/daemon.json
 ```
 	添加如下内容
-```json
+```	
 {
 	"insecure-registries":["192.168.0.4:5000","192.168.0.4:5001"],
 	"registry-mirrors": [
@@ -653,7 +653,7 @@ docker run -d --name registry_official \
 }
 ```	
 	或
-```bash
+```	
 sudo mkdir -p /etc/docker &&
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -678,13 +678,13 @@ EOF
 	错误格式: 192.168.0.4:5001
 	
 	放行5000端口并保证5000端口确实被放开
-```bash
+```	
 firewall-cmd --permanent --add-port=5000/tcp &&
 firewall-cmd --reload
 ```	
 				
 	刷新daemon并重启docker
-```bash
+```
 systemctl daemon-reload && 
 systemctl restart docker
 ```	
@@ -698,24 +698,24 @@ rm -rf /registry/public/repos/docker/registry/v2/repositories/springcloud-eureka
 
 ## 4.4.2搭建docke官方私服（带有用户名和密码校验）	
 	拉取仓库镜像
-```bash	
+```	
 docker pull registry
 ```	
 	加密认证配置
 	创建存放加密后用户信息的用户名密码
-```bash
-mkdir -p /opt/docker/auth/
 ```
+mkdir -p /opt/docker/auth/
+```	
 	安装httpd工具
-```bash
+```
 yum -y install httpd
 ```
 	生成带有加密后用户信息的用户名密码
-```bash
+```	
 htpasswd -Bbn docker 123456  >/opt/docker/auth/htpasswd
 ```	
 	启动注册仓库服务器(-p:第一个5000是本地机器端口,第二个5000是docker容器中端口)
-```bash
+```	
 docker run -d --name registry_official_auth  \
 	-p 5000:5000 --restart=always \
 	-v `pwd`/opt/docker/auth:/opt/docker/auth  \
@@ -726,11 +726,11 @@ docker run -d --name registry_official_auth  \
 	registry:latest	
 ```			
 	给docker配置私服
-```bash	
+```	
 	vim /etc/docker/daemon.json
 ```	
 	添加以下内容
-```json	
+```	
 {
 	"insecure-registries":["192.168.0.4:5000","192.168.0.4:5001"],
 	"registry-mirrors": [
@@ -751,19 +751,19 @@ docker run -d --name registry_official_auth  \
 	正确格式: http://192.168.0.4:5000
 	错误格式: 192.168.0.4:5001
 	放行5000端口并保证5000端口确实被放开
-```bash
+```	
 firewall-cmd --permanent --add-port=5000/tcp &&
 firewall-cmd --reload
 ```
 	刷新docker daemon并重启docker
-```bash	
+```	
 systemctl daemon-reload && systemctl restart docker
 ```	
 	验证仓库是否搭建成功
 	访问:http://192.168.0.4:5000/v2/_catalog，看到{"repositories":[]}表示私有仓库搭建成功且内容为空
 	
 	彻底删除私服中的镜像:注意这个路径是要看registry具体挂载到linux上什么位置的
-```bash	
+```	
 rm -rf /registry/public/repos/docker/registry/v2/repositories/springcloud-eureka/
 ```
 
