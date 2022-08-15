@@ -617,7 +617,7 @@ docker run -d --name portainer \
 	单机版选择local即可
 
 ## 4.4.搭建docke私服
-## 4.4.1搭建docke官方私服（不带有用户名和密码校验）
+### 4.4.1.搭建docke官方私服（不带有用户名和密码校验）
 	
 	拉取仓库镜像
 ```	
@@ -696,7 +696,7 @@ systemctl restart docker
 rm -rf /registry/public/repos/docker/registry/v2/repositories/springcloud-eureka/
 ```
 
-## 4.4.2搭建docke官方私服（带有用户名和密码校验）	
+### 4.4.2.搭建docke官方私服（带有用户名和密码校验）	
 	拉取仓库镜像
 ```	
 docker pull registry
