@@ -768,13 +768,13 @@ systemctl restart docker
 rm -rf /registry/public/repos/docker/registry/v2/repositories/springcloud-eureka/
 ```
 
-## 4.4.3.搭建harbor私服
-### 4.4.3.1.harbor简介
+### 4.4.3.搭建harbor私服
+#### 4.4.3.1.harbor简介
 	Harbor是一个用于存储和分发Docker镜像的企业级Registry服务器，虽然Docker官方也提供了公共的镜像仓库，但是
 	从安全和效率等方面考虑，部署企业内部的私有环境Registry是非常必要的，harbor和docker中央仓库的关系就类似于
 	nexus和Maven中央仓库的关系，harbor除了存储和分发镜像外还具有用户管理，项目管理，配置管理和日志查询，高可
 	用部署等主要功能。		
-### 4.4.3.2.搭建docker-compose
+#### 4.4.3.2.搭建docker-compose
 	版本说明
 	本次使用的docker-compose版本为2.6.1   
 
@@ -795,7 +795,7 @@ cp docker-compose-2.6-linux-x86_64 /usr/local/bin/docker-compose
 ```	
 docker-compose --version
 ```
-### 4.4.3.3.安装harbor
+#### 4.4.3.3.安装harbor
 	特别注意
 	注意docker的版本,低版本的docker不能运行harbor2.5
 		
