@@ -16,7 +16,6 @@ pipeline {
     stage('执行下载代码的脚本') {
       steps {
         echo '正在下载博客所引用的代码...'
-        sh 'git fetch https://lingwh1995:${GITEE_TOKEN}@gitee.com/lingwh1995/books.git'
         sh 'chmod +x ./init.sh'
         sh 'bash ./init.sh ${GITEE_TOKEN}'
         sh 'git add .'
