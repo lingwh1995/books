@@ -64,8 +64,6 @@ function updateDependentCode() {
             
             #删除多余的.git文件
             rm -rf $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/.git
-            #删除多余的jenkinsfile文件
-            rm -rf $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/Jenkinsfile
         fi
     done
 }
