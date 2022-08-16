@@ -1,5 +1,5 @@
-# 1.安装Linux操作系统
-党的光辉照耀大地,很多事情要重新开始了
+# 1.安装Linux操作系统哈哈哈
+
 ## 1.1.Linux重要目录介绍
 	/usr → C:/Windows/ /*系统级的目录
 	/usr/lib → C:/Windows/System32
