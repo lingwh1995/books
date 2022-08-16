@@ -17,7 +17,9 @@
 	如果是学习环境，建议安装centos mini版镜像，生产环境可以安装完整   
 
     下载地址
-<a href="http://ftp.sjtu.edu.cn/centos/">xxx</a>	
+```	
+http://ftp.sjtu.edu.cn/centos/
+```	
 	
 
 ## 1.3.安装前Vmaware相关设置
