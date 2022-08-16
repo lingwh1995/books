@@ -20,7 +20,6 @@
 ```	
 http://ftp.sjtu.edu.cn/centos/
 ```	
-	
 
 ## 1.3.安装前Vmaware相关设置
 	虚拟机联网设置
