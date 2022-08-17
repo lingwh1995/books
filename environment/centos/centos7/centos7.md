@@ -1,6 +1,6 @@
 # 1.安装Linux操作系统
 
-## 1.1.Linux重要目录介绍哈哈哈
+## 1.1.Linux重要目录介绍哈哈哈你有没有完成持续集成呐
 	/usr → C:/Windows/ /*系统级的目录
 	/usr/lib → C:/Windows/System32
 	/usr/local → C:/Progrem Files/ /*用户级的程序目录，用户自己编译的软件默认会安装到这个目录下
