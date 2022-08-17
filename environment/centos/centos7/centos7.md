@@ -809,8 +809,7 @@ docker-compose --version
 ```
 https://github.com/goharbor/harbor
 ```
-
-
+>
    创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
 ```
 mkdir -p /opt/software/package &&
@@ -821,7 +820,6 @@ curl -fL -u software-1660737546177:da4715201c1e37859c2473112e90af4d1615abb4 \
 mkdir -p /opt/software/install &&
 tar -zxvf harbor-offline-installer-v2.5.2.tgz -C /opt/software/install
 ```
-
 
 	复制一份harbor.yml.tmpl，重命名为harbor.yml并修改harbor.yml
 ```
