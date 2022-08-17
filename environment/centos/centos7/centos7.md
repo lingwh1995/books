@@ -808,9 +808,9 @@ docker-compose --version
 	官方网址
 ```
 https://github.com/goharbor/harbor
-```   
-
-	创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
+```
+   
+   创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
 ```
 mkdir -p /opt/software/package &&
 cd /opt/software/package &&
