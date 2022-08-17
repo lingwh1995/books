@@ -14,38 +14,38 @@
 	/var 存放临时文件，如各种服务的日志文件。
 
 ## 1.2.Centos镜像下载
-	如果是学习环境，建议安装centos mini版镜像，生产环境可以安装完整   
+	如果是学习环境，建议安装centos mini版镜像，生产环境可以安装完整版本
 
     下载地址
-```	
+```
 http://ftp.sjtu.edu.cn/centos/
-```	
+```
 
 ## 1.3.安装前Vmaware相关设置
 	虚拟机联网设置
 	导航栏->编辑->虚拟网络编辑器->VMnet8NAT模式->更改设置->VMnet8NAT模式
-		->更改底部子网:192.168.0.0，子网掩码:255.255.255.0->NAT设置->网关IP:192.168.0.2   
+		->更改底部子网:192.168.0.0，子网掩码:255.255.255.0->NAT设置->网关IP:192.168.0.2
 
-	Vmware网卡说明  
+	Vmware网卡说明
 	VMnet0：用于虚拟桥接网络下的虚拟交换机
 	VMnet1：用于虚拟Host-Only网络下的虚拟交换机
 	VMnet8：用于虚拟NAT网络下的虚拟交换机
 	VMware NetworkAdepter VMnet1：Host用于与Host-Only虚拟网络进行通信的虚拟网卡
 	VMware NetworkAdepter VMnet8：Host用于与NAT虚拟网络进行通信的虚拟网卡
-	
+
 ## 1.4.安装时分区大小设置
 	/boot	/*存放系统启动引导文件，建议大小：512mb
 	/swap 	/*交换区，建议大小：2g
 	/*主分区，剩下的空间全部分给这个分区
-	
+
 # 2.Linux操作系统初始设置
 
 ## 2.1.配置静态IP地址
 
-	修改网络配置	
+	修改网络配置
 ```
-vi /etc/sysconfig/network-scripts/ifcfg-ens32(最后一个为网卡名称)	
-```	
+vi /etc/sysconfig/network-scripts/ifcfg-ens32(最后一个为网卡名称)
+```
 	修改后内容如下
 	bootproto=static
 	onboot=yes
@@ -55,7 +55,7 @@ vi /etc/sysconfig/network-scripts/ifcfg-ens32(最后一个为网卡名称)
 	#和上面网关IP保持 一致
 	GATEWAY=192.168.0.2
 	DNS1=8.8.8.8
-	DNS2=8.8.4.4   
+	DNS2=8.8.4.4
 
 	重启网络
 ```
@@ -105,10 +105,7 @@ yum makecache && yum update
 
 ## 2.6.安装常用基础系统软件
 ### 2.6.1.手动安装常用软件
-**vim**
-
 	安装vim
-`yum -y install vim*`
 ```		
 yum -y install vim*
 ```	
@@ -118,22 +115,22 @@ yum -y install vim*
 	set ruler      #在右下角显示光标所在的行数等信息
 	set autoindent #设置每次单击Enter键后，光标移动到下一行时与上一行的起始字符对齐
 	syntax on      #即设置语法检测，当编辑C或者Shell脚本时，关键字会用特殊颜色显示		
-**wget**
+
+	wget
 ```
 yum -y install wget
 ```	
-**telnet**
+	telnet
 ```
 yum -y install telnet
 yum -y install telnet-server
 ```	
-**git**
-
+	git
 	卸载旧版本	
 ```
 yum remove git
 ```
-	安装 yum 源的 Git 版本
+	安装git
 ```	
 yum install -y git
 ```
@@ -780,8 +777,11 @@ rm -rf /registry/public/repos/docker/registry/v2/repositories/springcloud-eureka
 	本次使用的docker-compose版本为2.6.1   
 
 	官方网址
-<a href="https://github.com/docker/compose/">&nbsp;&nbsp;docker-compose</a>	
+```
+https://github.com/docker/compose/
+```
 
+	安装docker-compose
 	创建运行文件夹->下载docker-compose->解压并重命名docker-compose->赋予运行权限并复制到/usr/local/bin/docker-compose
 ```	
 mkdir -p /opt/software/package &&
@@ -797,29 +797,32 @@ cp docker-compose-2.6-linux-x86_64 /usr/local/bin/docker-compose
 docker-compose --version
 ```
 #### 4.4.3.3.安装harbor
+	版本说明
+	本次使用的harbor版本为2.5.2
+
 	特别注意
 	注意docker的版本,低版本的docker不能运行harbor2.5
-		
-	版本说明
-		2.5
-		
-	在github下载harbor2.5.2，上传到/opt/software/package
-```	
-cd /opt/software/package
-```	
-	解压到/opt/software/install
+
+	官方网址
 ```
+```
+	创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
+```
+mkdir -p /opt/software/package &&
+cd /opt/software/package &&
+curl -fL -u software-1660737546177:da4715201c1e37859c2473112e90af4d1615abb4 \
+"https://lingwh-generic.pkg.coding.net/coding-drive/software/harbor-offline-installer-v2.5.2.tgz?version=latest" \
+-o harbor-offline-installer-v2.5.2.tgz &&
+mkdir -p /opt/software/install &&
 tar -zxvf harbor-offline-installer-v2.5.2.tgz -C /opt/software/install
-cd /opt/software/install/harbor
-```	
+```
+
 	复制一份harbor.yml.tmpl，重命名为harbor.yml并修改harbor.yml
-```	
-cp harbor.yml.tmpl harbor.yml &&
-vim harbor.yml
-```	
-	修改harbor.yml
-```	
-	具体修改以下内容
+	cd /opt/software/install/harbor &&
+	cp harbor.yml.tmpl harbor.yml &&
+	vim harbor.yml
+
+	修改harbor.yml配置
 	修改hostname
 	hostname: 192.168.0.4
 	修改端口
@@ -833,20 +836,18 @@ vim harbor.yml
 		#private_key: /your/private/key/path
 	修改密码
 		harbor_admin_password: 123456
-	
-	安装docker-compose
+
+	安装harbor
 ```	
 ./install.sh
 ```	
-	执行完成后，使用docker images查看harbor相关镜像
-```
-docker images
-```	
-	启动harbor
+
+	使用docker-compose启动harbor
 	一次性启动所有harbor相关的容器,一般执行完./install.sh就已经启动了相关的容器
 ```	
 docker-compose up -d
 ```	
+
 	让docker信任harbor私服
 ```	
 vim /etc/docker/daemon.json,添加以下内容:
@@ -856,8 +857,10 @@ vim /etc/docker/daemon.json,添加以下内容:
 	
 	重新加载docker daemon配置文件并重启docker
 ```	
-systemctl daemon-reload && systemctl restart docker
+systemctl daemon-reload && 
+systemctl restart docker
 ```	
+
 	登录harbor首页(密码可以去harbor.yml中查看)
 	访问地址：http://192.168.0.4:5001/
 	用户名/密码：admin/123456
