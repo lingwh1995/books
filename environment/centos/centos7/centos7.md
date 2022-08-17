@@ -1286,18 +1286,7 @@ systemctl disable firewalld
 
 ## 7.7.所有节点安装k8s所需组件
 	添加k8s安装源
-```
-cat <<EOF > kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg 
-https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
-```
+
 	使用k8s安装源
 ```	
 mv kubernetes.repo /etc/yum.repos.d/
