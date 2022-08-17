@@ -806,10 +806,10 @@ docker-compose --version
 	注意docker的版本,低版本的docker不能运行harbor2.5
 
 	官方网址
-```
+```  
 https://github.com/goharbor/harbor
 ```
-   
+
    创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
 ```
 mkdir -p /opt/software/package &&
