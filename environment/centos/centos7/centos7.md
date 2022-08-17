@@ -74,7 +74,7 @@ systemctl restart sshd.service
 ```
 
 ## 2.3.设置系统环境变量
-```java
+```
 echo "export LC_ALL=en_US.UTF-8"  >>  /etc/profile &&
 source /etc/profile
 ```
