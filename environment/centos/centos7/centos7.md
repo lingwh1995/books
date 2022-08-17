@@ -792,10 +792,12 @@ curl -fL -u software-1660487881889:0c063752f28333a6e3bfb5e4e0e983835640aa5c \
 sudo chmod +x docker-compose-2.6-linux-x86_64 &&
 cp docker-compose-2.6-linux-x86_64 /usr/local/bin/docker-compose
 ```
+
 	查看是否安装成功
 ```
 docker-compose --version
 ```
+
 #### 4.4.3.3.安装harbor
 	版本说明
 	本次使用的harbor版本为2.5.2
@@ -805,7 +807,9 @@ docker-compose --version
 
 	官方网址
 ```
+https://github.com/goharbor/harbor
 ```
+
 	创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
 ```
 mkdir -p /opt/software/package &&
@@ -818,11 +822,15 @@ tar -zxvf harbor-offline-installer-v2.5.2.tgz -C /opt/software/install
 ```
 
 	复制一份harbor.yml.tmpl，重命名为harbor.yml并修改harbor.yml
+```
 	cd /opt/software/install/harbor &&
-	cp harbor.yml.tmpl harbor.yml &&
-	vim harbor.yml
+	cp harbor.yml.tmpl harbor.yml
+```
 
-	修改harbor.yml配置
+    修改harbor.yml配置
+```
+vim harbor.yml
+```
 	修改hostname
 	hostname: 192.168.0.4
 	修改端口
