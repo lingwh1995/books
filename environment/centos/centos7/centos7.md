@@ -808,7 +808,7 @@ docker-compose --version
 	官方网址
 ```
 https://github.com/goharbor/harbor
-```
+```   
 
 	创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
 ```
@@ -823,27 +823,27 @@ tar -zxvf harbor-offline-installer-v2.5.2.tgz -C /opt/software/install
 
 	复制一份harbor.yml.tmpl，重命名为harbor.yml并修改harbor.yml
 ```
-	cd /opt/software/install/harbor &&
-	cp harbor.yml.tmpl harbor.yml
+cd /opt/software/install/harbor &&
+cp harbor.yml.tmpl harbor.yml
 ```
 
     修改harbor.yml配置
 ```
 vim harbor.yml
 ```
-	修改hostname
+	修改hostname为部署harbor的机器的IP
 	hostname: 192.168.0.4
-	修改端口
+	修改端口为可连通的端口
 	port:5001
 	注释掉https相关部分
 	#https:
-		# https port for harbor, default is 443
-		# port: 443
-		# The path of cert and key files for nginx
-		#certificate: /your/certificate/path
-		#private_key: /your/private/key/path
+	  #https port for harbor, default is 443
+	  #port: 443
+	  #The path of cert and key files for nginx
+	  #certificate: /your/certificate/path
+	  #private_key: /your/private/key/path
 	修改密码
-		harbor_admin_password: 123456
+	  harbor_admin_password: 123456
 
 	安装harbor
 ```
