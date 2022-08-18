@@ -462,6 +462,13 @@ export https_proxy=https://127.0.0.1:38457
 ```
 git config --global http.proxy http://127.0.0.1:38457
 git config --global https.proxy http://127.0.0.1:38457
+
+
+git config --global http.proxy socks5://127.0.0.1:38457
+git config --global https.proxy socks5://127.0.0.1:38457
+
+git config --global http.proxy http://127.0.0.1:38457
+git config --global https.proxy http://127.0.0.1:38457
 ```
 
 	刷新配置文件
