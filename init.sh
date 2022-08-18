@@ -4,7 +4,7 @@ function parseIni() {
     result=`awk -F '=' '/\['$SECTION'\]/{a=1}a==1&&$1~/'$ITEM'/{print $2;exit}' $INIFILE`
     #使用echo返回解析结果
     echo ${result}
-} 
+}
 
 #更新项目需要的代码的方法
 function updateDependentCode() {
@@ -24,9 +24,9 @@ function updateDependentCode() {
             #获取git仓库的地址
             GIT_REPOSITORY_URL=( $( parseIni ./enhance/bootstrap.ini markdown-$a gitRepositoryUrl) )
 
-            #获取项目名称    
+            #获取项目名称
             PROJECT_NAME=( $( parseIni ./enhance/bootstrap.ini markdown-$a projectName) )
-            
+
             #先判断是否存在该文件夹，就是判断项目需要的代码是否被已经被下载了
             if [ ! -d "$MD_FILE_RELATIVE_PATH/$PROJECT_NAME" ]
             then
@@ -46,7 +46,7 @@ function updateDependentCode() {
                 curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$1"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit-new.txt
                 #比较两个commit.txt文件是否相同
                 DIFF_RESULT=`diff $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit-new.txt`  
-                
+
                 echo '比较结果：------------------------------------'
                 echo $DIFF_RESULT
                 echo '比较结果：------------------------------------'
@@ -69,7 +69,7 @@ function updateDependentCode() {
                     echo '当前已是最新版本代码，不用重新下载.....................................'
                 fi
             fi
-            
+
             #删除多余的.git文件
             rm -rf $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/.git
         fi
@@ -79,14 +79,14 @@ function updateDependentCode() {
 #触发blog项目自动构建，将books中最新内容发布到GITHUB/GITEE中博客网站中
 function autoCI() {
     AUTO_CI_STATE=( $( parseIni ./enhance/plugins.ini plugin-001 enable) )
-    
+
     if [ $AUTO_CI_STATE == "true" ]
     then
         curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
         -v -X POST  'https://lingwh.coding.net/api/cci/job/1461498/trigger' \
         -H 'Content-Type: application/json' \
         -d '{"ref": "master","envs": []}'
-    fi    
+    fi
 }
 
 function init() {

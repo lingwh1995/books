@@ -128,7 +128,7 @@ yum -y install telnet-server
 	git
 	卸载旧版本
 ```
-yum remove git
+yum -y remove git
 ```
 	安装git
 ```
@@ -138,6 +138,44 @@ yum install -y git
 ```
 git version
 ```
+	指定版本git
+	下载需要安装的版本号
+```
+wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.29.0.tar.gz
+```
+    安装需要的组件
+```
+yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel
+```
+
+    卸载Centos自带的git
+```
+yum -y remove git
+```
+
+    安装git
+```
+tar -zxf git-2.29.0.tar.gz &&
+cd git-2.29.0 &&
+make prefix=/usr/local/git all &&
+make prefix=/usr/local/git install
+```
+	添加环境变量
+```
+vim /etc/profile
+```
+	export PATH=$PATH:/usr/local/git/bin
+
+	刷新环境变量
+```
+source /etc/profile
+```
+
+	查看版本
+```
+git version
+```
+
 ### 2.6.2.使用脚本安装常用软件
 	脚本介绍
 	这个脚本中包含了centos设置yum源并且安装了一些的常用软件，如vim、git、wget、curl、等，会定时更新
@@ -149,13 +187,13 @@ yum -y install curl
 
 	下载脚本
 ```
-curl https://gitee.com/lingwh1995/config-center/raw/master/centos/centos-init.sh -o centos-init.sh
+curl https://gitee.com/lingwh1995/config-center/raw/master/centos/centos7/centos7-init.sh -o centos7-init.sh
 ```
 
 	赋予可运行权限并运行该脚本
 ```
-chmod +x centos-init.sh &&
-./centos-init.sh
+chmod +x centos7-init.sh &&
+./centos7-init.sh
 ```
 # 3.搭建基础开发环境
 
@@ -179,8 +217,9 @@ version=latest" -o jdk-8u181-linux-x64.tar.gz
 ```
 	解压jdk后赋予权限并放入指定目录
 ```
+cd /opt/software/package &&
 tar -zxvf jdk-8u181-linux-x64.tar.gz &&
-chmod +x jdk1.8.0_181
+chmod +x jdk1.8.0_181 &&
 mv jdk1.8.0_181 /usr/local/bin/jdk1.8.0_181
 ```
 	配置环境变量
@@ -296,7 +335,7 @@ rpm -Uvh mysql80-community-release-el7-3.noarch.rpm
 rpm -ivh mysql80-community-release-el7-3.noarch.rpm
 ```
 	查看刚才下载的mysql安装源，可以看到新增的两个mysql源
-```	
+```
 ls /etc/yum.repos.d
 ```
 	[root@localhost package]# ls /etc/yum.repos.d
@@ -349,6 +388,58 @@ use mysql;
 update user set host='%' where user='root';
 flush privileges;
 ```
+
+## 3.4安装nodejs
+	安装wget
+```
+yum -y install wget
+```
+
+	安装gcc
+```
+yum install gcc gcc-c++
+```
+
+	下载node国内镜像
+```
+wget https://registry.npmmirror.com/-/binary/node/v14.0.0/node-v14.0.0-linux-x64.tar.gz
+```
+
+	解压并重命名文件夹
+```
+tar -xvf node-v14.0.0-linux-x64.tar.gz &&
+mv node-v14.0.0-linux-x64 node
+```
+	配置环境变量
+```
+vi /etc/profile
+```
+在文件最后添加以下配置
+```
+export NODE_HOME=/root/node
+export PATH=$PATH:$NODE_HOME/bin
+```
+	刷新环境变量配置
+```
+source /etc/profile
+```
+	验证结果
+```
+node -v
+```
+```
+npm -v
+```
+
+0人点赞
+环境配置
+
+
+作者：ananRunner
+链接：https://www.jianshu.com/p/385da8d4b2dc
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
 
 # 4.Centos搭建docker
 ## 4.1.安装docker
