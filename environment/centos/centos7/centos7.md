@@ -919,7 +919,7 @@ rm -rf /registry/public/repos/docker/registry/v2/repositories/springcloud-eureka
 	官方网址
 ```
 https://github.com/docker/compose/
-```
+```   
 
 	安装docker-compose
 	创建运行文件夹->下载docker-compose->解压并重命名docker-compose->赋予运行权限并复制到/usr/local/bin/docker-compose
@@ -949,7 +949,7 @@ docker-compose --version
 ```
 https://github.com/goharbor/harbor
 ```
->
+
    创建存放下载文件夹->下载harbor->创建运行文件夹->解压到运行文件夹
 ```
 mkdir -p /opt/software/package &&
