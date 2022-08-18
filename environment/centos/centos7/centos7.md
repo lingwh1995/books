@@ -456,19 +456,18 @@ vim /etc/profile
 ```
 export http_proxy=http://127.0.0.1:38457
 export https_proxy=https://127.0.0.1:38457
+export http_proxy=socks5://127.0.0.1:38457
+export https_proxy=socks5://127.0.0.1:38457
 ```
 
 	如果要使用Jenkins推送博客项目到GITHUB，则要配置代理
 ```
 git config --global http.proxy http://127.0.0.1:38457
 git config --global https.proxy http://127.0.0.1:38457
-
-
 git config --global http.proxy socks5://127.0.0.1:38457
 git config --global https.proxy socks5://127.0.0.1:38457
 
-git config --global http.proxy http://127.0.0.1:38457
-git config --global https.proxy http://127.0.0.1:38457
+
 ```
 
 	刷新配置文件
