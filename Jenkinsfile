@@ -12,7 +12,7 @@ pipeline {
         echo '结束检出...'
       }
     }
-    
+
     stage('执行下载代码的脚本') {
       steps {
         sh 'chmod +x ./init.sh'

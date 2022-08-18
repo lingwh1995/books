@@ -447,27 +447,25 @@ wget -c https://github.com/dotnetcore/FastGithub/releases/download/2.0.4/fastgit
 unzip fastgithub_linux-x64.zip
 ```
 
-	编辑配置文件
+	配置全局代理
 ```
 vim /etc/profile
 ```
 
-	在该配置文件的最后添加代理配置
+	添加代理配置
 ```
 export http_proxy=http://127.0.0.1:38457
 export https_proxy=https://127.0.0.1:38457
 ```
-
-	如果要使用Jenkins推送博客项目到GITHUB，则要配置代理
-```
-git config --global http.proxy http://127.0.0.1:38457
-git config --global https.proxy http://127.0.0.1:38457
-
-```
-
 	刷新配置文件
 ```
 source /etc/profile
+```
+
+	配置git使用全局代理
+```
+git config --global http.proxy http://127.0.0.1:38457
+git config --global https.proxy http://127.0.0.1:38457
 ```
 
 	设置权限
@@ -482,7 +480,7 @@ sudo ./fastgithub_linux-x64/fastgithub start &&
 systemctl enable fastgithub
 ```
 
-	以服务形式停止fastGithub
+	以服务形式停止fastgithub
 ```
 sudo ./fastgithub_linux-x64/fastgithub stop
 ```
@@ -491,6 +489,7 @@ sudo ./fastgithub_linux-x64/fastgithub stop
 ```
 wget -c https://github.com/tanghaibao/goatools/blob/main/data/association.txt
 ```
+
 # 4.Centos搭建docker
 ## 4.1.安装docker
 ### 4.1.1.在线安装docker
