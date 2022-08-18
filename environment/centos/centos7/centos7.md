@@ -431,16 +431,65 @@ node -v
 npm -v
 ```
 
-0人点赞
-环境配置
+## 3.5安装fastgithub
+	下载依赖包
+```
+yum -y install libicu
+```
 
+	下载fastGithub
+```
+wget -c https://github.com/dotnetcore/FastGithub/releases/download/2.0.4/fastgithub_linux-x64.zip
+```
 
-作者：ananRunner
-链接：https://www.jianshu.com/p/385da8d4b2dc
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+    解压
+```
+unzip fastgithub_linux-x64.zip
+```
 
+	编辑配置文件
+```
+vim /etc/profile
+```
 
+	在该配置文件的最后添加代理配置
+```
+export http_proxy=http://127.0.0.1:38457
+export https_proxy=https://127.0.0.1:38457
+```
+
+	如果要使用Jenkins推送博客项目到GITHUB，则要配置代理
+```
+git config --global http.proxy http://127.0.0.1:38457
+git config --global https.proxy http://127.0.0.1:38457
+```
+
+	刷新配置文件
+```
+source /etc/profile
+```
+
+	设置权限
+```
+chmod -r 777 fastgithub_linux-x64/dnscrypt-proxy &&
+chmod +x fastgithub_linux-x64/fastgithub
+```
+
+	以服务形式运行fastGithub
+```
+sudo ./fastgithub_linux-x64/fastgithub start &&
+systemctl enable fastgithub
+```
+
+	以服务形式停止fastGithub
+```
+sudo ./fastgithub_linux-x64/fastgithub stop
+```
+
+	测试运行效果
+```
+wget -c https://github.com/tanghaibao/goatools/blob/main/data/association.txt
+```
 # 4.Centos搭建docker
 ## 4.1.安装docker
 ### 4.1.1.在线安装docker
@@ -453,7 +502,7 @@ yum -y update
 ```
 yum list installed | grep docker
 ```
-	containerd.io.x86_64 	           1.6.6-3.1.el7                  @docker-ce-stable				
+	containerd.io.x86_64 	           1.6.6-3.1.el7                  @docker-ce-stable
 	docker-ce.x86_64                   3:20.10.17-3.el7               @docker-ce-stable
 	docker-ce-cli.x86_64               1:20.10.17-3.el7               @docker-ce-stable
 	docker-ce-rootless-extras.x86_64   20.10.17-3.el7                 @docker-ce-stable
