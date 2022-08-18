@@ -389,7 +389,7 @@ update user set host='%' where user='root';
 flush privileges;
 ```
 
-## 3.4安装nodejs
+## 3.4.安装nodejs
 	安装wget
 ```
 yum -y install wget
@@ -431,7 +431,7 @@ node -v
 npm -v
 ```
 
-## 3.5安装fastgithub
+## 3.5.安装fastgithub
 	下载依赖包
 ```
 yum -y install libicu
