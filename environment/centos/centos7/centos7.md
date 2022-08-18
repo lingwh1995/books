@@ -439,18 +439,14 @@ yum -y install libicu
 
 	下载fastGithub
 ```
-wget -c https://github.com/dotnetcore/FastGithub/releases/download/2.0.4/fastgithub_linux-x64.zip
+curl -fL -u fastgithub-1660864382041:5d8500249a7d3da57c34a3214397f54709cf55dc \
+"https://lingwh-generic.pkg.coding.net/coding-drive/fastgithub/v2.1.4/fastgithub_win-x64.zip?version=2.1.4" \
+-o fastgithub_win-x64.zip
 ```
 
     解压
 ```
 unzip fastgithub_linux-x64.zip
-```
-
-	配置git使用代理（不配置无法提交代码）
-```
-git config --global http.proxy http://127.0.0.1:38457
-git config --global https.proxy http://127.0.0.1:38457
 ```
 
 	设置权限
@@ -473,6 +469,12 @@ sudo ./fastgithub_linux-x64/fastgithub stop
 	测试运行效果
 ```
 wget -c https://github.com/tanghaibao/goatools/blob/main/data/association.txt
+```
+
+	配置git使用代理（不配置无法提交代码）
+```
+git config --global http.proxy http://127.0.0.1:38457
+git config --global https.proxy http://127.0.0.1:38457
 ```
 
 # 4.Centos搭建docker
