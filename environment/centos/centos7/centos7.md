@@ -1042,19 +1042,19 @@ wget https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
 
 	编写Dockerfile(Dockerfile内容如下)
 ```
-	#基于centos基础镜像构建
-	FROM centos
-	#作者
-	MAINTAINER lingwh
-	#将jdk添加到基础镜像中
-	ADD jdk-8u181-linux-x64.tar.gz /usr/local
-	#设置java相关的环境变量
-	ENV JAVA_HOME /usr/local/jdk1.8.0_181
-	ENV JRE_HOME ${JAVA_HOME}/jre
-	ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
-	ENV PATH ${JAVA_HOME}/bin:$PATH
-	#输出Java版本信息
-	CMD ["java","-version"]
+#基于centos基础镜像构建
+FROM centos
+#作者
+MAINTAINER lingwh
+#将jdk添加到基础镜像中
+ADD jdk-8u181-linux-x64.tar.gz /usr/local
+#设置java相关的环境变量
+ENV JAVA_HOME /usr/local/jdk1.8.0_181
+ENV JRE_HOME ${JAVA_HOME}/jre
+ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
+ENV PATH ${JAVA_HOME}/bin:$PATH
+#输出Java版本信息
+CMD ["java","-version"]
 ```
 
 	在当前目录中执行构建镜像的命令
