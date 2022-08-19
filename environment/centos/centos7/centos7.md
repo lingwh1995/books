@@ -1184,7 +1184,7 @@ output{
 	output代表数据输出配置，输出到elasticsearch, hosts是es的地址192.168.0.4:9200
 	
 	退出容器
-``	
+```
 exit
 ```	
 	重启ELK容器
