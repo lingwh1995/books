@@ -477,7 +477,7 @@ git config --global http.proxy http://127.0.0.1:38457
 git config --global https.proxy http://127.0.0.1:38457
 ```
 
-# 4.Centos搭建docker
+# 4.Centos搭建docker技术栈
 ## 4.1.安装docker
 ### 4.1.1.在线安装docker
 
@@ -983,13 +983,19 @@ vim harbor.yml
 docker-compose up -d
 ```
 
-	让docker信任harbor私服
+	配置docker使用harbor私服
 ```
-vim /etc/docker/daemon.json,添加以下内容:
+vim /etc/docker/daemon.json
 ```
-	配置Docker(Register)注册仓库服务器信任192.168.0.4:5001:
-	{"insecure-registries":["192.168.0.4:5001"]}
-
+	配置Docker(Register)注册仓库服务器信任192.168.0.4:5001
+	没有配置任何私服配置
+```
+{"insecure-registries":["192.168.0.4:5001"]}
+```
+	已经配置任何私服配置
+```
+"insecure-registries":["192.168.0.4:5001"]
+```
 	重新加载docker daemon配置文件并重启docker
 ```
 systemctl daemon-reload &&
@@ -1004,7 +1010,7 @@ systemctl restart docker
 	如:springcloud-eureka
 
 ## 4.5.docker官方私服可视化
-### 4.5.1docker-registry-web方案
+### 4.5.1.docker-registry-web方案
 	下载docker pull hyper/docker-registry-web镜像
 ```
 docker pull hyper/docker-registry-web
@@ -1023,13 +1029,19 @@ docker run -d --restart=always \
 ## 4.6.制作docker镜像并上传到私服
 
 ### 4.6.1.制作Dokcer镜像
-	进入/opt/software/package，并在这个目录中下载jdk
+	下载地址
 ```
-cd /opt/software/package &&
+https://repo.huaweicloud.com/java/jdk/
+```
+	创建存放docker镜像的文件夹->在这个目录中下载jdk
+```
+mkdir -p /opt/software/docker/images &&
+cd /opt/software/docker/images &&
 wget https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
 ```
-	编写Dockerfile(Dockerfile内容如下)
 
+	编写Dockerfile(Dockerfile内容如下)
+```
 	#基于centos基础镜像构建
 	FROM centos
 	#作者
@@ -1043,6 +1055,7 @@ wget https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
 	ENV PATH ${JAVA_HOME}/bin:$PATH
 	#输出Java版本信息
 	CMD ["java","-version"]
+```
 
 	在当前目录中执行构建镜像的命令
 ```
