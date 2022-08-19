@@ -1266,8 +1266,7 @@ docker run -di --name=rancher -p9003:8080 rancher/server:latest
 grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
 	开启虚拟化
-	Vmware Workstation ->Centos 64右键菜单 —> 设置
-		-> 处理器 ->勾选 虚拟化IntelVT-x/EPT 或 ADM-V/RVI(V)
+	Vmware Workstation ->Centos 64右键菜单 —> 设置-> 处理器 ->勾选 虚拟化IntelVT-x/EPT 或 ADM-V/RVI(V)
 
 	设置处理器数量设置为大于等于2,内存大于等于2G
 
@@ -1275,10 +1274,21 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 	简介
 	kubectl 是一个用来跟 K8S 集群进行交互的命令行工具
 
-	下载kubectl，上传到/opt/software/package，赋予可运行权限,并放入/usr/local/bin/目录下
+	官方下载地址
 ```
+https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+```
+
+	创建存放kubectl安装包文件夹->进入该文件夹->下载kubectl->赋予可运行权限,并放入/usr/local/bin/目录下
+```
+mkdir -p /opt/software/package &&
+cd /opt/software/package &&
+curl -fL -u software-1660952069446:7cd40c9384cc107052a8e14acc0c01c15bfa5f41 \
+"https://lingwh-generic.pkg.coding.net/coding-drive/software/kubectl?version=latest" \
+-o kubectl &&
 chmod +x ./kubectl && cp ./kubectl /usr/local/bin/kubectl
 ```
+
 	查看kubectl版本
 ```
 kubectl version --client
