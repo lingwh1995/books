@@ -1075,7 +1075,7 @@ docker run -it --name=myjdk8 镜像id /bin/bash
 ### 4.6.2.上传本地jdk镜像到私服
 	给镜像打标签
 ```
-docker tag jdk/jdk1.8.0_181 192.168.0.4:5000/jdk/jdk1.8.0_181:latest #更改镜像的TAG标签
+docker tag jdk/jdk1.8.0_181 192.168.0.4:5000/jdk/jdk1.8.0_181:latest
 ```
 	上传标记的镜像
 ```
@@ -1166,16 +1166,16 @@ firewall-cmd --add-port=9200/tcp --permanent &&
 firewall-cmd --reload &&
 firewall-cmd --add-port=5044/tcp --permanent &&
 firewall-cmd --reload
-```	
+```
 	访问Kibana
 	192.168.0.4:5601
-	
+
 	进入ELK中进行配置
-```	
+```
 docker exec -it elk /bin/bash
 ```
 	修改logstash配置,把下面内容粘贴进去
-```	
+```
 vim /etc/logstash/conf.d/02-beats-input.conf
 ```
 ```
@@ -1193,117 +1193,123 @@ output{
 		index => "%{[appName]}-%{+YYYY.MM.dd}"
 	}
 }
-```	
+```
 	配置说明:
 	input代表数据输入配置 ， logstatsh的开放端口是 5044
 	output代表数据输出配置，输出到elasticsearch, hosts是es的地址192.168.0.4:9200
-	
+
 	退出容器
 ```
 exit
-```	
+```
 	重启ELK容器
-```	
+```
 docker restart elk
-```	
-	注意事项	
+```
+	注意事项
 	当把docker和centos7的冲突解决后,需要让centos放行elk(具体是es)的部署地址
-	
+
 	查看容器详细信息
-```	
+```
 docker inspect 容器id
-```	
+```
 	查找到elk(具体是es)容器的ip,假设为172.17.0.2
-	
+
 	执行放行操作
-```	
+```
 firewall-cmd --zone=trusted --add-source=172.17.0.2/16 --permanent
-```	
+```
 	重新载入防火墙配置
-```	
+```
 firewall-cmd --reload
-```	
+```
 	重启防火墙
 ```
 systemctl restart firewalld
-```	
+```
 	docker启动elk报错/或一直重启故障解决
 	错误日志：
 	max virtual memory areas vm.max_map_count [65530] is too low, increase to at least
 	解决方式，在宿主机执行
-```	
+```
 sudo sysctl -w vm.max_map_count=262144
 ```
 
 # 5.Centos搭建Rancher
 	下载rancher
-```	
+```
 docker pull rancher/server
-```	
+```
 	启动rancher
-```	
+```
 docker run -di --name=rancher -p9003:8080 rancher/server:latest
-```	
+```
 	使用rancher扩容/缩容注意事项
 	如果要使用扩容或者缩容功能,不要配置eureka的如下信息
 	eureka:
 	  instance:
 		#使用rancher扩容不能配置instance-id,否则会出问题
-		#instance-id: ${spring.application.name} 
+		#instance-id: ${spring.application.name}
 		#使用rancher扩容不能配置iip-address,否则会出问题
-		#ip-address: 192.168.0.4				
+		#ip-address: 192.168.0.4
 
 # 6.Centos搭建Minikube
 ## 6.1.minikube介绍
 	Minikube这个工具支持在虚拟机上运行一套单节点的k8s集群
 
 ## 6.2.版本说明
-	minikube:1.2.6 kubectl client:1.18.0
+	minikube:1.2.6 kubectl:1.18.0
 
 ## 6.3.开启Vmware虚拟化
 	查看是否支持虚拟化，开始安装前，先查看本地机器是否支持虚拟化，有输出就支持
 ```
 grep -E --color 'vmx|svm' /proc/cpuinfo
-```	
+```
 	开启虚拟化
-	Vmware Workstation ->Centos 64右键菜单 —> 设置 
+	Vmware Workstation ->Centos 64右键菜单 —> 设置
 		-> 处理器 ->勾选 虚拟化IntelVT-x/EPT 或 ADM-V/RVI(V)
-	
+
 	设置处理器数量设置为大于等于2,内存大于等于2G
 
-## 6.4.安装kubectl	
+## 6.4.安装kubectl
 	简介
 	kubectl 是一个用来跟 K8S 集群进行交互的命令行工具
-		
+
 	下载kubectl，上传到/opt/software/package，赋予可运行权限,并放入/usr/local/bin/目录下
-```	
+```
 chmod +x ./kubectl && cp ./kubectl /usr/local/bin/kubectl
-```	
+```
 	查看kubectl版本
-```	
+```
 kubectl version --client
 ```
 
 ## 6.5.安装minikube
-	下载minikube
-	到 https://github.com/kubernetes/minikube/releases 找到minikube-linux-amd64并下载
-	
-	上传到/opt/software/package
-	
-	赋予运行权限并复制到/usr/local/bin/minikube
+	官方网址(找到minikube-linux-amd64并下载)
 ```
+https://github.com/kubernetes/minikube/releases
+```
+	创建存放minikube安装包文件夹->进入该文件夹->下载minikube->赋予运行权限并复制到/usr/local/bin/minikube
+```
+mkdir -p /opt/software/package &&
+cd /opt/software/package &&
+curl -fL -u software-1660950689210:1711c0580b6468ff8099f7987884c6f0c9ca2650 \
+"https://lingwh-generic.pkg.coding.net/coding-drive/software/minikube-linux-amd64?version=latest" \
+-o minikube-linux-amd64 &&
 chmod +x ./minikube-linux-amd64 && cp ./minikube-linux-amd64 /usr/local/bin/minikube
 ```
 
 ## 6.6.使用阿里云加速docker hub
 	登录阿里云docker相关页面
-	访问：https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
+```
+https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
+```
 	登陆->左侧菜单选中镜像加速器->查看加速镜像地址 https://ngviu28h.mirror.aliyuncs.com
 
 ## 6.7.启动minikube
 	注意事项
 	启动minikube之前需要先启动docker，如无法启动加上--kubernetes-version=v具体版本号
-	
+
 	使用docker作为虚拟化引擎(需要先安装Docker)
 ```
 minikube start --driver=docker --force \
@@ -1311,37 +1317,41 @@ minikube start --driver=docker --force \
 	--image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' \
 	--registry-mirror='https://ngviu28h.mirror.aliyuncs.com' \
 	--kubernetes-version=v1.23.8
-```		
+```
 	使用virtualbox作为虚拟化引擎(需要先安装Virtualbox)
-	
+
+	官方网站
+```
+https://www.virtualbox.org/wiki/Downloads
+```
+
 	下载Centos7版VirtualBox
-	访问：https://www.virtualbox.org/wiki/Downloads，选择AMD64版本下载
-	上传到/opt/software/package中
-```	
-VirtualBox-6.1-6.1.34_150636_el7-2.x86_64.rpm
-```	
+```
+cd /opt/software/package &&
+wget https://download.virtualbox.org/virtualbox/6.1.36/VirtualBox-6.1-6.1.36_152435_el7-1.x86_64.rpm
+```
+
 	安装问题解决(virtualbox内核无法编译)
 ```
 sudo yum install gcc kernel kernel-devel -y
-```	
+```
 	重启机器
-```	
+```
 systemctl reboot
 ```
 	安装VirtualBox
-```	
+```
 yum install VirtualBox-6.1-6.1.34_150636_el7-2.x86_64.rpm -y
-```		
-	补充内容：Centos版VirtualBox操作命令						
+```
+	补充内容：Centos版VirtualBox操作命令
 	VBoxManage list runningvms //查看机器列表
 	VBoxHeadless -startvm "虚拟机名" //启动虚拟机
 	测试VirtualBox是否安装成功
-```	
+```
 virtualbox
-rcvboxdrv setup
-```							
+```
 	使用virtualbox作为虚拟化引擎
-```	
+```
 minikube start --driver=virtualbox --force \
 	--image-mirror-country='cn' \
 	--image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' \
@@ -1349,7 +1359,7 @@ minikube start --driver=virtualbox --force \
 	--kubernetes-version=v1.23.8
 ```
 
-## 6.8.minikube常用命令	
+## 6.8.minikube常用命令
 	查看minikube日志
 ```	
 minikube logs
