@@ -536,7 +536,7 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     ]
 }
 EOF
-````
+```
 	daemon.json配置说明
 	registry-mirrors：docker国内镜像源地址
 
