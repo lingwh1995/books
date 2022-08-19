@@ -1042,6 +1042,7 @@ wget https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
 
 	编写Dockerfile(Dockerfile内容如下)
 ```
+cat <<EOF > Dockerfile
 #基于centos基础镜像构建
 FROM centos
 #作者
@@ -1055,6 +1056,7 @@ ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
 ENV PATH ${JAVA_HOME}/bin:$PATH
 #输出Java版本信息
 CMD ["java","-version"]
+EOF
 ```
 
 	在当前目录中执行构建镜像的命令
@@ -1680,7 +1682,10 @@ rm -rf /usr/share/kuboard
 ```
 
 # 8.二进制包搭建Kubernetes
-
+<!--
+	参考网站
+	https://blog.csdn.net/qq_44078641/article/details/120049473
+-->
 ## 8.1.环境配置清单
 	操作系统									centos7
 	内核版本									3.10.0-1160.71.1.el7.x86_64
@@ -3418,6 +3423,10 @@ $(kubectl -n kube-system get secret | awk '/dashboard-admin/{print $1}')
 	https://192.168.0.11:30441/
 
 ### 8.12.8.在Master1上部署CoreDNS
+<!--
+	参考网站
+	https://blog.csdn.net/weixin_47402482/article/details/115057159
+-->
 	介绍
 	CoreDNS主要用于集群内部Service名称解析。
 
