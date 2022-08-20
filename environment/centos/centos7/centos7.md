@@ -1239,7 +1239,7 @@ systemctl restart firewalld
 sudo sysctl -w vm.max_map_count=262144
 ```
 
-# 5.Centos搭建Rancher
+# 5.搭建Rancher技术栈
 	下载rancher
 ```
 docker pull rancher/server
@@ -4475,3 +4475,342 @@ https://lingwh.coding.net/p/java/ci/agent/136295/list
 	DASHBOARD->系统管理->系统配置->Publish over SSH
 	配置Jenkins所在服务器到docker所在服务器的免密登录
 	需要百度查询确定
+
+
+# 10.搭建Mycat技术栈
+
+## 10.1.安装myact1.6
+### 10.1.1.服务器环境说明
+	192.168.0.6 mycat1.6
+	192.168.0.7 mysql
+	192.168.0.8 mysql
+### 10.1.2.搭建JDK
+	详细参考 3.搭建基础开发环境->3.3.安装jdk
+### 10.1.3.搭建myact1.6
+	官方网址	
+	http://www.mycat.org.cn/
+
+	下载mycat1.6
+```
+wget http://dl.mycat.org.cn/1.6.7.3/20190828135747/Mycat-server-1.6.7.3-release-20190828135747-linux.tar.gz
+```
+	上传到 /opt/software/package
+	
+	解压到/user/local/bin
+```
+tar -zxvf Mycat-server-1.6.7.3-release-20190828135747-linux.tar.gz -C /usr/local/bin	
+```
+
+	删除mycat中低版本的mysql连接包（如使用低版本数据可以不删除）
+```
+rm -rf /usr/local/bin/mycat/lib/mysql-connector-java-5.1.35.jar
+```	
+	
+	替换低版本的mysql连接包为高版本的mysql连接包
+	上传适用于mysql8.0.29的连接包到/opt/software/package，并复制一份到mycat的指定文件夹中				
+```	
+chomd 777 mysql-connector-java-8.0.29.jar &&
+cp mysql-connector-java-8.0.29.jar /usr/local/bin/mycat/lib/	
+```
+		
+### 10.1.4.在各个节点上安装mysql
+	在节点1安装mysql8.0.29(192.168.0.7)
+	详细参考 3.搭建基础开发环境->3.5.安装mysql
+
+	在节点2安装mysql8.0.29(192.168.0.8)	
+	详细参考 3.搭建基础开发环境->3.5.安装mysql
+
+### 10.1.5.配置mycat
+	notepad++安装插件
+	notepad++安装nppftp这个插件，连接到远程服务器之后自动可以编辑远程服务器的文本文件
+	
+### 10.1.6.启动和关闭mycat，默认端口8066
+	进入mycat安装目录
+```	
+cd /usr/local/bin/mycat
+```	
+	
+	启动mycat
+```
+/bin/mycat start
+```	
+	
+	关闭mycat
+```
+/bin/mycat stop
+```
+	
+	查看mycat日志
+```
+tail -f logs/wrapper.log 
+```	
+	
+	查看mycat状态
+```	
+bin/mycat status
+```
+	
+	前台启动mycat	
+```
+bin/mycat console #前台启动
+```
+
+## 10.2.搭建mycat2
+### 10.2.1.服务器环境说明
+	注意事项
+	mycat2需要一个数据库来存放默认mycat2自身运行所需的数据
+
+	192.168.0.6 mycat2:jdk+mycat+mysql(需要在192.168.0.6上多安装一个mysql)
+	192.168.0.7 mysql
+	192.168.0.8 mysql
+
+### 10.2.2.搭建JDK
+	详细参考 3.搭建基础开发环境->3.5.安装jdk
+
+### 10.2.3.安装mycat2自身运行需要的mysql8(192.168.0.6)
+	创建用户mycat（注意：不能使用root用户，必须创建mycat这个用户）
+```
+CREATE USER 'mycat'@'%' IDENTIFIED BY 'Mysql123456_';
+```
+	
+	赋予权限
+```	
+GRANT XA_RECOVER_ADMIN ON *.* TO 'root'@'%';
+```	
+	
+	赋予权限
+```	
+GRANT ALL PRIVILEGES ON *.* TO 'mycat'@'%' ;
+```	
+	
+	刷新配置
+```
+flush privileges;
+```
+
+### 10.2.3.组装mycat2完整程序包
+	
+	下载mycat2外壳
+```
+wget http://dl.mycat.org.cn/2.0/install-template/mycat2-install-template-1.20.zip		 
+```
+	
+	下载mycat2核心jar
+```
+wget http://dl.mycat.org.cn/2.0/1.22-release/mycat2-1.20-jar-with-dependencies.jar
+```	
+	
+	组装mycat2并上传一份到/opt/software/package中	
+	解压zip包，把jar包放入mycat2-install-template-1.20.zip/mycat/lib中
+	
+	修改/opt/software/package/mycat2-install-template-1.20/mycat/lib中下面文件的权限	
+```	
+cd /opt/software/install/mycat/lib &&
+chmod 777 libwrapper-linux-ppc-64.so &&
+chmod 777 libwrapper-linux-x86-32.so &&
+chmod 777 libwrapper-linux-x86-64.so &&
+chmod 777 wrapper.jar
+```
+
+	修改/opt/software/package/mycat2-install-template-1.20/mycat/bin中下面文件的权限
+```	
+cd /opt/software/install/mycat/bin &&
+chmod +x wrapper-linux-x86-64 &&
+chmod +x wrapper-linux-x86-32 &&
+chmod +x wrapper &&
+chmod +x mycat
+```
+
+	替换低版本的mysql连接包为高版本的mysql连接包
+	上传适用于mysql8.0.29的连接包到/opt/software/package，修改权限并复制一份到mycat的指定文件夹中	
+	
+	修改默认原型库的数据库连接信息
+```
+cd /opt/software/package/mycat2-install-template-1.20/mycat/conf/datasource
+```
+```
+vim prototypeDs.datasource.json
+```
+	修改下面三个字段的值
+	"password":"Mysql123456_",
+	"url":"jdbc:mysql://192.168.0.6:3306/mycat_prototy?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8",
+	"user":"root"
+
+### 10.2.4.在各个节点上安装mysql
+	在节点1安装mysql8.0.29(192.168.0.7)
+	详细参考 3.搭建基础开发环境->3.5.安装mysql
+
+	在节点2安装mysql8.0.29(192.168.0.8)	
+	详细参考 3.搭建基础开发环境->3.5.安装mysql
+
+### 10.2.5.配置mycat
+	notepad++安装插件
+	notepad++安装nppftp这个插件，连接到远程服务器之后自动可以编辑远程服务器的文本文件
+	
+### 10.2.6.启动和关闭mycat，默认端口8066
+	进入mycat安装目录
+```	
+cd /usr/local/bin/mycat
+```	
+	
+	启动mycat
+```
+/bin/mycat start
+```	
+	
+	关闭mycat
+```
+/bin/mycat stop
+```
+
+	查看mycat日志
+```
+tail -f logs/wrapper.log 
+```	
+	
+	查看mycat状态
+```
+bin/mycat status
+```
+	
+	前台启动mycat	
+```
+bin/mycat console #前台启动
+```
+
+# 11.搭建常用私服环境
+## 11.1.搭建yum私服
+## 11.1.1.安装httpd
+	配置阿里云源
+	详细参考 2.Linux操作系统初始设置->2.7.配置yml源
+	
+	安装nginx或apache，此处以apache为例
+```	
+yum install httpd
+```
+
+	检测是否安装成功
+```	
+rpm -ql httpd
+```
+	或
+```
+curl http://127.0.0.1	
+```	
+	
+	启动apache
+```
+/bin/systemctl start httpd.service
+```	
+	配置服务自启动 
+```	
+chkconfig httpd on
+```	
+	访问apache
+```	
+http://192.168.0.9
+```	
+	
+	访问失败解决	
+	如无法访问成功，可开放端口或关闭防火墙
+	查询服务器的配置文件
+```
+find / -name httpd.conf
+```		
+	
+	卸载httpd
+```
+yum -y remove httpd
+```
+
+## 11.1.2.安装yum相关工具
+	安装createrepo 和 reposync
+```		
+yum -y install createrepo reposync
+```
+
+	安装 yum-utils
+```
+yum install yum-utils
+```
+	
+	下载rpm包
+```
+reposync --repoid=base &&
+reposync --repoid=updates &&
+reposync --repoid=extras &&
+reposync --repoid=epel
+```
+
+	创建存放包的目录
+```
+mkdir -p /var/www/html/base/ &&
+mkdir -p /var/www/html/updates/ &&
+mkdir -p /var/www/html/extras/ &&
+mkdir -p /var/www/html/epel/
+```
+
+	生成包对应的源数据，对下载的各个目录，需要生成包的源数据，比如 base 目录源数据生成命令如下
+```
+createrepo --update /var/www/html/base/ &&
+createrepo --update /var/www/html/updates/ &&
+createrepo --update /var/www/html/extras/ &&
+createrepo --update /var/www/html/epel/
+```
+
+## 11.1.3.配置切换使用的源为私服的源
+
+```
+cd /etc/yum.repos.d/ &&
+cp CentOS-Base.repo CentOS-Base.bak.2022
+```
+
+修改阿里源为本地源
+```
+vi CentOS-Base.repo
+```
+
+	注释掉原有的配置，添加私服配置，参考如下：
+
+	[base]
+	name=CentOS-$releasever - Base - mirrors.aliyun.com
+	failovermethod=priority
+	baseurl=http://192.168.220.100/base/
+	#baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+	#        http://mirrors.aliyuncs.com/centos/$releasever/os/$basearch/
+	#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
+	gpgcheck=1
+	gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-6
+	
+	#released updates 
+	[updates]
+	name=CentOS-$releasever - Updates - mirrors.aliyun.com
+	failovermethod=priority
+	baseurl=http://192.168.220.100/updates/
+	#baseurl=http://mirrors.aliyun.com/centos/$releasever/updates/$basearch/
+	#        http://mirrors.aliyuncs.com/centos/$releasever/updates/$basearch/
+	#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
+	gpgcheck=1
+	gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-6
+	
+	#additional packages that may be useful
+	[extras]
+	name=CentOS-$releasever - Extras - mirrors.aliyun.com
+	failovermethod=priority
+	baseurl=http://192.168.220.100/extras/
+	#baseurl=http://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
+	#        http://mirrors.aliyuncs.com/centos/$releasever/extras/$basearch/
+	#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
+	gpgcheck=1
+	gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-6
+
+## 11.1.4.重新生成测试机yum缓存配置
+
+	在测试机器上，先清理已有缓存，再重新生成 yum 源缓存配置，将软件包信息缓存本机，提高搜索安装效率。
+```
+yum clean all &&
+yum makecache
+```
+
+## 11.1.5.使用yum私服来下载软件
+	在测试机上使用yum install xxx来安装包
