@@ -4353,10 +4353,10 @@ kubectl get service guestbook
 	如项目已经启动修改完字符配置后要重启tomcat
 
 ### 9.1.3.安装jdk
-	详细参考 3.搭建基础开发环境->3.3.安装jdk
+	详细参考 3.搭建基础开发环境->3.1.安装jdk
 
 ### 9.1.4.安装maven
-	详细参考 3.搭建基础开发环境->3.4.安装maven
+	详细参考 3.搭建基础开发环境->3.1.安装maven
 
 	注意事项
 	如果在jekins启动的情况下在settings.xml中新增了源的配置，想要jenkins构建的时候使用新配置的阿里云的源，必须重启tomcat，使用 http://192.168.0.4/jenkins/reload 热重启是无法识别阿里云源的
@@ -4427,10 +4427,10 @@ kubectl get service guestbook
 	git、maven、Coding.net
 
 ### 9.2.2.安装jdk
-	详细参考 3.搭建基础开发环境->3.3.安装jdk
+	详细参考 3.搭建基础开发环境->3.1.安装jdk
 
 ### 9.2.3.安装maven
-	详细参考 3.搭建基础开发环境->3.4.安装maven
+	详细参考 3.搭建基础开发环境->3.2.安装maven
 
 	注意事项
 	如果在jekins启动的情况下在settings.xml中新增了源的配置，想要jenkins构建的时候使用新配置的阿里云的源，必须重启tomcat，使用 http://192.168.0.4/jenkins/reload 热重启是无法识别阿里云源的
@@ -4485,7 +4485,7 @@ https://lingwh.coding.net/p/java/ci/agent/136295/list
 	192.168.0.7 mysql
 	192.168.0.8 mysql
 ### 10.1.2.搭建JDK
-	详细参考 3.搭建基础开发环境->3.3.安装jdk
+	详细参考 3.搭建基础开发环境->3.1.安装jdk
 ### 10.1.3.搭建myact1.6
 	官方网址	
 	http://www.mycat.org.cn/
@@ -4515,10 +4515,10 @@ cp mysql-connector-java-8.0.29.jar /usr/local/bin/mycat/lib/
 		
 ### 10.1.4.在各个节点上安装mysql
 	在节点1安装mysql8.0.29(192.168.0.7)
-	详细参考 3.搭建基础开发环境->3.5.安装mysql
+	详细参考 3.搭建基础开发环境->3.3.安装mysql
 
 	在节点2安装mysql8.0.29(192.168.0.8)	
-	详细参考 3.搭建基础开发环境->3.5.安装mysql
+	详细参考 3.搭建基础开发环境->3.3.安装mysql
 
 ### 10.1.5.配置mycat
 	notepad++安装插件
@@ -4565,7 +4565,7 @@ bin/mycat console #前台启动
 	192.168.0.8 mysql
 
 ### 10.2.2.搭建JDK
-	详细参考 3.搭建基础开发环境->3.5.安装jdk
+	详细参考 3.搭建基础开发环境->3.1.安装jdk
 
 ### 10.2.3.安装mycat2自身运行需要的mysql8(192.168.0.6)
 	创建用户mycat（注意：不能使用root用户，必须创建mycat这个用户）
@@ -4638,10 +4638,10 @@ vim prototypeDs.datasource.json
 
 ### 10.2.4.在各个节点上安装mysql
 	在节点1安装mysql8.0.29(192.168.0.7)
-	详细参考 3.搭建基础开发环境->3.5.安装mysql
+	详细参考 3.搭建基础开发环境->3.3.安装mysql
 
 	在节点2安装mysql8.0.29(192.168.0.8)	
-	详细参考 3.搭建基础开发环境->3.5.安装mysql
+	详细参考 3.搭建基础开发环境->3.3.安装mysql
 
 ### 10.2.5.配置mycat
 	notepad++安装插件
@@ -4682,7 +4682,7 @@ bin/mycat console #前台启动
 ## 11.1.搭建yum私服
 ## 11.1.1.安装httpd
 	配置阿里云源
-	详细参考 2.Linux操作系统初始设置->2.7.配置yml源
+	详细参考 2.Linux操作系统初始设置->2.5.配置yml源
 	
 	安装nginx或apache，此处以apache为例
 ```	
