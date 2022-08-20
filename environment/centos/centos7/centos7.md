@@ -1393,8 +1393,34 @@ kubectl proxy --port=8001 --address='192.168.0.4' --accept-hosts='^.*' &
 firewall-cmd --zone=public --add-port=8001/tcp --permanent &&
 firewall-cmd --reload
 ```
+	访问kubectl dashboard
+```
+http://192.168.0.4:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/
+```
 
-## 6.9.minikube常用命令
+## 6.10.部署测试程序
+	开始运行 guestbook
+```
+kubectl create deployment guestbook --image=ibmcom/guestbook:v1
+```
+	查询pod运行状态，状态应该显示为Running表示pod运行成功
+```
+kubectl get pods
+```
+	对外暴露端口
+```
+kubectl port-forward --address 0.0.0.0 pod/guestbook-5bccb95cd6-dk6zh 7080:3000
+```
+	开放访问端口
+```
+firewall-cmd --zone=public --add-port=7080/tcp --permanent &&
+firewall-cmd --reload
+```
+	访问服务（主节点和两个工作节点都可访问到这个服务）
+	http://192.168.0.4:7080
+
+
+## 6.10.minikube常用命令
 	查看minikube日志
 ```
 minikube logs
@@ -1657,7 +1683,7 @@ kubectl get pods -o wide --all-namespaces
 kubectl describe pod
 ```
 
-## 7.17.部署第一个程序到k8s中
+## 7.17.部署测试程序
 	开始运行 guestbook
 ```
 kubectl create deployment guestbook --image=ibmcom/guestbook:v1
@@ -1723,7 +1749,7 @@ watch kubectl get pods -n kuboard
 	卸载kuboard-v3
 	执行卸载命令
 ```
-	kubectl delete -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml
+kubectl delete -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml
 ```
 	清理遗留数据
 ```
