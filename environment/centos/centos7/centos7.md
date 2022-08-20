@@ -1512,7 +1512,7 @@ systemctl disable firewalld
 ## 7.7.所有节点安装k8s所需组件
 	添加k8s安装源
 ```
-<!-- cat <<EOF > kubernetes.repo -->
+cat <<EOF > kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
@@ -1544,7 +1544,7 @@ kubeadm --version
 
 ## 7.8.所有节点启动kubelet和docker
 ```
-systemctl enable kubelet && 
+systemctl enable kubelet &&
 systemctl start kubelet &&
 systemctl enable docker &&
 systemctl start docker
