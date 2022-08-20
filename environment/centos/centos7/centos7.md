@@ -477,7 +477,7 @@ git config --global http.proxy http://127.0.0.1:38457
 git config --global https.proxy http://127.0.0.1:38457
 ```
 
-# 4.Centos搭建docker技术栈
+# 4.搭建docker技术栈
 ## 4.1.安装docker
 ### 4.1.1.在线安装docker
 
@@ -1253,7 +1253,7 @@ docker run -di --name=rancher -p9003:8080 rancher/server:latest
 		#使用rancher扩容不能配置iip-address,否则会出问题
 		#ip-address: 192.168.0.4
 
-# 6.Centos搭建Minikube
+# 6.搭建Minikube
 ## 6.1.minikube介绍
 	Minikube这个工具支持在虚拟机上运行一套单节点的k8s集群
 
@@ -1268,6 +1268,7 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 	开启虚拟化
 	Vmware Workstation ->Centos 64右键菜单 —> 设置-> 处理器 ->勾选 虚拟化IntelVT-x/EPT 或 ADM-V/RVI(V)
 
+	设置处理器和内存
 	设置处理器数量设置为大于等于2,内存大于等于2G
 
 ## 6.4.安装kubectl
@@ -1295,7 +1296,7 @@ kubectl version --client
 ```
 
 ## 6.5.安装minikube
-	官方网址(找到minikube-linux-amd64并下载)
+	官方网址
 ```
 https://github.com/kubernetes/minikube/releases
 ```
@@ -1309,18 +1310,26 @@ curl -fL -u software-1660950689210:1711c0580b6468ff8099f7987884c6f0c9ca2650 \
 chmod +x ./minikube-linux-amd64 && cp ./minikube-linux-amd64 /usr/local/bin/minikube
 ```
 
+	查看minikube版本
+```
+minikube version
+```
+
 ## 6.6.使用阿里云加速docker hub
 	登录阿里云docker相关页面
 ```
 https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
 ```
-	登陆->左侧菜单选中镜像加速器->查看加速镜像地址 https://ngviu28h.mirror.aliyuncs.com
+	登陆->左侧菜单选中镜像加速器->查看加速镜像地址
+	我的加速地址是：https://ngviu28h.mirror.aliyuncs.com
 
-## 6.7.启动minikube
+## 6.7.启动minikube(下面两种启动方式任选一种)
+
+### 6.7.1.使用docker作为虚拟化引擎(需要先安装Docker)
 	注意事项
 	启动minikube之前需要先启动docker，如无法启动加上--kubernetes-version=v具体版本号
 
-	使用docker作为虚拟化引擎(需要先安装Docker)
+	启动minikube
 ```
 minikube start --driver=docker --force \
 	--image-mirror-country='cn' \
@@ -1328,7 +1337,8 @@ minikube start --driver=docker --force \
 	--registry-mirror='https://ngviu28h.mirror.aliyuncs.com' \
 	--kubernetes-version=v1.23.8
 ```
-	使用virtualbox作为虚拟化引擎(需要先安装Virtualbox)
+
+### 6.7.2.使用virtualbox作为虚拟化引擎(需要先安装Virtualbox)
 
 	官方网站
 ```
@@ -1369,43 +1379,62 @@ minikube start --driver=virtualbox --force \
 	--kubernetes-version=v1.23.8
 ```
 
-## 6.8.minikube常用命令
-	查看minikube日志
-```	
-minikube logs
-```	
-	查看minikube状态
-```	
-minikube status								
-```	
-	查看节点				
-```	
-minikube kubectl -- get po -A
-```	
-	停止集群
-```	
-minikube stop
-```	
-	清空集群
-```	
-minikube delete --all
-```	
-	安装集群可视化 Web UI 控制台
-```	
+## 6.8.安装dashboard
+	安装dashboard
+```
 minikube dashboard
-```	
+```
+	设置其他机器也可以访问dashboard
+```
+kubectl proxy --port=8001 --address='192.168.0.4' --accept-hosts='^.*' &
+```
+	开放访问端口
+```
+firewall-cmd --zone=public --add-port=8001/tcp --permanent &&
+firewall-cmd --reload
+```
+
+## 6.9.minikube常用命令
+	查看minikube日志
+```
+minikube logs
+```
+	查看minikube状态
+```
+minikube status
+```
+	查看node
+```
+kubectl get nodes
+```
+	查看所有命名空间的pod
+```
+minikube kubectl -- get po -A
+```
+	查看所有命名空间的pod
+```
+kubectl get pods --all-namespaces
+```
+	停止集群
+```
+minikube stop
+```
+	清空集群
+```
+minikube delete --all
+```
 	卸载minikube
 	停止运行
-```	
+```
 minikube stop
 ```
 	执行卸载命令
-```	
+```
 minikube delete
 ```
 	删除 ~/.minikube 目录缓存的文件
-```	
-rm -rf ~/.minikube	
+```
+rm -rf ~/.minikube
 ```
 
 # 7.kubeadm搭建Kubernetes
