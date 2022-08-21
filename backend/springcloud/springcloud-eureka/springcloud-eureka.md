@@ -11,7 +11,7 @@ https://spring.io/projects/spring-cloud-netflix
 ```
 
 	架构图
-<img src="https://cdn.jsdelivr.net/gh/lingwh1995/ImageDriver@latest/blog/backend/springcloud/springcloud-eureka/eureka.png"  width="80%" height="400rem" />
+<img src="https://cdn.jsdelivr.net/gh/lingwh1995/ImageDriver@latest/blog/backend/springcloud/springcloud-eureka/eureka_architecture.png"  width="80%" height="400rem" />
 
 ## 1.1.Linux重要目录介绍
 	/usr → C:/Windows/ /*系统级的目录
