@@ -1,4 +1,17 @@
-# 1.安装Linux操作系统
+# 1.使用Eureka作为注册中心
+## 1.1.Eureka注册中心简介
+	Eureka是Netflix公司开发的服务发现框架,Spring Cloud对它提供了支持,将它集成在了自己spring-cloud-netflix子项目中,用来实现Spring Cloud的服务发现功能,
+	核心
+	官方网站
+```
+https://github.com/Netflix/eureka
+```
+```
+https://spring.io/projects/spring-cloud-netflix
+```
+
+	架构图
+<img src="https://cdn.jsdelivr.net/gh/lingwh1995/ImageDriver@latest/blog/backend/springcloud/springcloud-eureka/eureka.png"  width="80%" height="400rem" />
 
 ## 1.1.Linux重要目录介绍
 	/usr → C:/Windows/ /*系统级的目录
