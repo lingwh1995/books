@@ -9,7 +9,7 @@ function parseIni() {
 #更新项目需要的代码的方法
 function updateDependentCode() {
     #获取./config中以config-xxx.ini格式的文件总共有多少个，每个配置文件对应一个md文件
-    TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./enhance/bootstrap.ini | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
+    TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./enhance/bootstrap.ini | tail -1 | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
     echo '可以处理的md文件最大个数：'$TOTAL_MD_COUNTS
     #解析config.ini中配置要操作的md文件的名称，并根据配置对md文件进行增强
     for((a=1;a<=$TOTAL_MD_COUNTS;a++))
