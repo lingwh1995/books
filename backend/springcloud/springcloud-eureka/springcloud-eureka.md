@@ -9,10 +9,10 @@ https://martinfowler.com/articles/microservices.html
 ## 1.3.微服务架构图
 <img src="./images/microservice_architecture.png"  width="80%" height="400rem" />
 
-## 1.3.微服务架构落地实现方案
+## 1.4.微服务架构落地实现方案
 
-# 1.使用Eureka作为注册中心
-## 1.1.Eureka注册中心简介
+# 2.使用Eureka作为注册中心
+## 2.1.Eureka注册中心简介
 	Eureka是Netflix公司开发的服务发现框架,Spring Cloud对它提供了支持,将它集成在了自己spring-cloud-netflix子项目中,用来实现Spring Cloud的服务发现功能,
 	核心
 	官方网站(GITHUB)
@@ -27,7 +27,7 @@ https://spring.io/projects/spring-cloud-netflix
 	架构图
 <img src="./images/eureka_architecture.png"  width="80%" height="400rem" />
 
-## 1.1.Linux重要目录介绍
+## 2.1.Linux重要目录介绍
 	/usr → C:/Windows/ /*系统级的目录
 	/usr/lib → C:/Windows/System32
 	/usr/local → C:/Progrem Files/ /*用户级的程序目录，用户自己编译的软件默认会安装到这个目录下
@@ -40,7 +40,7 @@ https://spring.io/projects/spring-cloud-netflix
 	/tmp 用于存放各种临时文件，是公用的临时文件存储点。
 	/var 存放临时文件，如各种服务的日志文件。
 
-## 1.2.Centos镜像下载
+## 2.2.Centos镜像下载
 	如果是学习环境，建议安装centos mini版镜像，生产环境可以安装完整版本
 
 @import "springcloud-eureka/pom.xml"
