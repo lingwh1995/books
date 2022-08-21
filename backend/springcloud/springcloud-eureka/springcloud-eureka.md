@@ -8,17 +8,18 @@ https://martinfowler.com/articles/microservices.html
 
 ## 1.3.微服务架构图
 <img src="./images/microservice_architecture.png"  width="80%" height="400rem" />
-https://cdn.jsdelivr.net/gh/lingwh1995/blog@latest/docs/blogs/environment/centos/centos7/shardings/centos7-chapter-0.%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E4%BB%8B%E7%BB%8D.md
+
 ## 1.3.微服务架构落地实现方案
 
 # 1.使用Eureka作为注册中心
 ## 1.1.Eureka注册中心简介
 	Eureka是Netflix公司开发的服务发现框架,Spring Cloud对它提供了支持,将它集成在了自己spring-cloud-netflix子项目中,用来实现Spring Cloud的服务发现功能,
 	核心
-	官方网站
+	官方网站(GITHUB)
 ```
 https://github.com/Netflix/eureka
 ```
+	官方网站(SPRING.IO)
 ```
 https://spring.io/projects/spring-cloud-netflix
 ```
