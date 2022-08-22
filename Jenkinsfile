@@ -17,6 +17,8 @@ pipeline {
       steps {
         sh 'chmod +x ./init.sh'
         sh 'bash ./init.sh ${GITEE_TOKEN}'
+        sh 'git add .'
+        sh "git commit -m '更新项目依赖的代码'"
       }
     }
 

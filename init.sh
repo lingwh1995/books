@@ -31,13 +31,11 @@ function updateDependentCode() {
             if [ ! -d "$MD_FILE_RELATIVE_PATH/$PROJECT_NAME" ]
             then
                 echo '代码还没有被下载过.....................................'
+                echo '正在下载博客所引用的代码...'
                 #如果代码还没有被下载过，执行执行下载代码的操作
                 git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
                 #写入commit-message
                 curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$1"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
-                echo '正在下载博客所引用的代码...'
-                sh 'git add .'
-                sh "git commit -m '更新项目依赖的代码'"
                 echo '完成下载博客所引用的代码...'
             else
                 #如果存在该文件夹，则说明代码已经被下载过了，则对比最新的提交信息和当前项目中已经有的提交信息，看是否一致，不一致说明项目有新提交，需要重新下载
@@ -57,12 +55,10 @@ function updateDependentCode() {
                     #重新下载代码前先删除上一次下载的代码
                     rm -rf $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
                     #重新下载代码
+                    echo '正在更新博客所引用的代码...'
                     git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
                     #重新生成commit.txt信息
                     curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$1"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
-                    echo '正在更新博客所引用的代码...'
-                    sh 'git add .'
-                    sh "git commit -m '更新项目依赖的代码'"
                     echo '完成更新博客所引用的代码...'
                 else
                     #diff执行结果为空，说明没有新提交，不做任何处理
