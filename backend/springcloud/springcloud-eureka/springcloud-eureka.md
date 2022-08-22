@@ -53,9 +53,9 @@ https://spring.io/projects/spring-cloud-netflix
 
 ## 2.2.单节点版EUREKA注册中心搭建
 ### 2.2.1.项目目录结构
-	@import "springcloud-eureka/tree.md"
+@import "./springcloud-eureka/tree.md"
 
 	为了初步感受EUREKA,首先来搭建一个单节点版EUREKA注册中心
 ### 2.2.2.集群版EUREKA注册中心搭建
 
-@import "springcloud-eureka/pom.xml"
+@import "./springcloud-eureka/pom.xml"
