@@ -307,6 +307,7 @@ https://spring.io/projects/spring-cloud-netflix
 	在springcloud-eureka中创建一个名为springcloud-api-commons的maven模块
 ## 2.2.2.1.编辑公共模块pom.xml
 @import "./springcloud-eureka/springcloud-api-commons/pom.xml"
+
 ## 2.3.单节点版EUREKA注册中心搭建
 ### 2.3.1.项目目录结构
 
