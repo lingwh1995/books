@@ -51,7 +51,8 @@ https://spring.io/projects/spring-cloud-netflix
 	服务剔除(Service Eviction)
 	在默认的情况下,当Eureka客户端连续90秒(3个续约周期)没有向Eureka服务器发送服务续约,即心跳,Eureka 服务器会将该服务实例从服务注册列表删除,即服务剔除。
 
-## 2.2.创建工程
+## 2.2.创建springcloud-eureka工程
+## 2.2.1.创建项目父工程
 	在idea中创建一个名为springcloud-eureka的maven工程,创建完成后打开该工程,删除src文件夹,编译pom.xml文件,添加如下内容,pom.xml中配置主要包括两部分内容,第一是对子模块依赖的jar包和使用到的插件的版本的统一规定,第二是规定了四种不同的开发+部署环境,分别是: 1.开发环境(dev) 2.测试环境(test) 3.生产环境(prod) 4.rancher测试专用环境(rancher),关于这四种环境的详细内容会在本博客的最后一部分进行详细解析说明
 
 ```
@@ -299,14 +300,14 @@ https://spring.io/projects/spring-cloud-netflix
     <!--统一定义插件版本：结束-->
 </project>
 ```
+## 2.2.2.创建项目依赖的公共工程
 
-
-## 2.2.单节点版EUREKA注册中心搭建
-### 2.2.1.项目目录结构
+## 2.3.单节点版EUREKA注册中心搭建
+### 2.3.1.项目目录结构
 你好
 @import "./springcloud-eureka/tree.md"
 
 	为了初步感受EUREKA,首先来搭建一个单节点版EUREKA注册中心
-### 2.2.2.集群版EUREKA注册中心搭建
+### 2.3.2.集群版EUREKA注册中心搭建
 
 @import "./springcloud-eureka/pom.xml"
