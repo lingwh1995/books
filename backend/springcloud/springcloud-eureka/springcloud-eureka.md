@@ -9,15 +9,23 @@ https://martinfowler.com/articles/microservices.html
 ## 1.3.微服务架构图
 <img src="./images/microservice_architecture.png"  width="100%" height="800rem" />
 
-## 1.4.微服务架构落地实现方案
+## 1.4.CAP中占据情况
+	Eureka在CAP中占据AP
+<img src="./images/cap.png"  width="100%" height="800rem" />
+
+## 1.5.微服务架构落地实现方案
+	微服务架构落地实现有很多种方案,本次介绍的方案技术栈如下:
+	注册中心: EUREKA
 
 # 2.使用Eureka作为注册中心
 ## 2.1.Eureka注册中心简介
 	Eureka是Netflix公司开发的服务发现框架,Spring Cloud对它提供了支持,将它集成在了自己spring-cloud-netflix子项目中,用来实现Spring Cloud的服务发现功能,核心功能是为实现服务发现提供了基础支持。
+
 	官方网站(GITHUB)
 ```
 https://github.com/Netflix/eureka
 ```
+
 	官方网站(SPRING.IO)
 ```
 https://spring.io/projects/spring-cloud-netflix
@@ -43,10 +51,10 @@ https://spring.io/projects/spring-cloud-netflix
 	服务剔除(Service Eviction)
 	在默认的情况下,当Eureka客户端连续90秒(3个续约周期)没有向Eureka服务器发送服务续约,即心跳,Eureka 服务器会将该服务实例从服务注册列表删除,即服务剔除。
 
-## 2.1.Linux重要目录介绍
-
-
-## 2.2.Centos镜像下载
-	如果是学习环境，建议安装centos mini版镜像，生产环境可以安装完整版本
+## 2.2.单节点版EUREKA注册中心搭建
+### 2.2.1.项目目录结构
+	@import "springcloud-eureka/tree.md"
+	为了初步感受EUREKA,首先来搭建一个单节点版EUREKA注册中心
+### 2.2.2.集群版EUREKA注册中心搭建
 
 @import "springcloud-eureka/pom.xml"
