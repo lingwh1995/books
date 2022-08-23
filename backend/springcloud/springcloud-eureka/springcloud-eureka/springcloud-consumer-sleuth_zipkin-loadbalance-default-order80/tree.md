@@ -1,16 +1,15 @@
 springcloud-consumer-sleuth_zipkin-loadbalance-default-order80
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- org
 |       |       `-- openatom
 |       |           `-- springcloud
-|       |               |-- OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java
 |       |               |-- config
 |       |               |   `-- ApplicationContextConfig.java
-|       |               `-- controller
-|       |                   |-- OrderConsumerController.java
-|       |                   `-- SpringCloudServiceDiscoveryController.java
+|       |               |-- controller
+|       |               |   |-- OrderConsumerController.java
+|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               `-- OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java
 |       `-- resources
 |           `-- application.yml

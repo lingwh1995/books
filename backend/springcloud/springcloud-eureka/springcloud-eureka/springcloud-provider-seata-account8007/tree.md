@@ -1,12 +1,10 @@
 springcloud-provider-seata-account8007
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- org
 |       |       `-- openatom
 |       |           `-- springcloud
-|       |               |-- AccountServiceProviderSeatal8007.java
 |       |               |-- config
 |       |               |   `-- DataSourceProxyConfig.java
 |       |               |-- controller
@@ -16,12 +14,13 @@ springcloud-provider-seata-account8007
 |       |               |-- listener
 |       |               |   |-- ApolloPropertiesChangedListener.java
 |       |               |   `-- AutomaticApolloWatcher.java
-|       |               `-- service
-|       |                   |-- AccountService.java
-|       |                   `-- impl
-|       |                       `-- AccountServiceImpl.java
+|       |               |-- service
+|       |               |   |-- impl
+|       |               |   |   `-- AccountServiceImpl.java
+|       |               |   `-- AccountService.java
+|       |               `-- AccountServiceProviderSeatal8007.java
 |       `-- resources
+|           |-- mapper
+|           |   `-- AccountMapper.xml
 |           |-- apollo-env.properties
-|           |-- application.yml
-|           `-- mapper
-|               `-- AccountMapper.xml
+|           `-- application.yml

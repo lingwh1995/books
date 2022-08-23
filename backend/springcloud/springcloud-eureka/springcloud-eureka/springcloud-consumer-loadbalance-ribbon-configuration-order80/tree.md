@@ -1,16 +1,15 @@
 springcloud-consumer-loadbalance-ribbon-configuration-order80
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- org
 |       |       `-- openatom
 |       |           `-- springcloud
-|       |               |-- OrderServiceConsumerLoadBalanceRibbonConfiguration80.java
 |       |               |-- config
 |       |               |   `-- ApplicationContextConfig.java
-|       |               `-- controller
-|       |                   |-- OrderConsumerController.java
-|       |                   `-- SpringCloudServiceDiscoveryController.java
+|       |               |-- controller
+|       |               |   |-- OrderConsumerController.java
+|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               `-- OrderServiceConsumerLoadBalanceRibbonConfiguration80.java
 |       `-- resources
 |           `-- application.yml

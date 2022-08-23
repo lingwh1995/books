@@ -1,5 +1,4 @@
 springcloud-api-commons
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java

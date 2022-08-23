@@ -1,16 +1,15 @@
 springcloud-basic-sample-register-center-single-node7005
 |-- docker
 |   `-- Dockerfile
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- org
 |       |       `-- openatom
 |       |           `-- springcloud
-|       |               |-- RegisterCcenterSingleNode7005.java
-|       |               `-- config
-|       |                   `-- VirtualIpConfig.java
+|       |               |-- config
+|       |               |   `-- VirtualIpConfig.java
+|       |               `-- RegisterCcenterSingleNode7005.java
 |       `-- resources
 |           |-- dev
 |           |   |-- application-dev.yml

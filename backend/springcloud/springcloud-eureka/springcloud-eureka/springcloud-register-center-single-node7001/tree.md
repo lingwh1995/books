@@ -1,5 +1,4 @@
 springcloud-register-center-single-node7001
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java

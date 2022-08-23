@@ -1,5 +1,4 @@
 springcloud-mointor-hystrix-dashboard-turbine9002
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java

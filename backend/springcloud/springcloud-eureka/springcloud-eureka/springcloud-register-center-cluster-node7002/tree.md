@@ -1,5 +1,4 @@
 springcloud-register-center-cluster-node7002
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java

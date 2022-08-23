@@ -1,12 +1,11 @@
 springcloud-mointor-springboot-admin-server9003
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- org
 |       |       `-- openatom
-|       |           |-- MointorSpringBootAdmin9003.java
-|       |           `-- endpoint
-|       |               `-- CoustomEndpoint.java
+|       |           |-- endpoint
+|       |           |   `-- CoustomEndpoint.java
+|       |           `-- MointorSpringBootAdmin9003.java
 |       `-- resources
 |           `-- application.yml

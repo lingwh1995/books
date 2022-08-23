@@ -1,13 +1,12 @@
 springcloud-router-connect-direct-configuration-gateway9527
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- com
 |       |       `-- atguigu
 |       |           `-- springcloud
-|       |               |-- RouterConnectDirectConfigurationGateWay9527.java
-|       |               `-- filter
-|       |                   `-- LoginFilter.java
+|       |               |-- filter
+|       |               |   `-- LoginFilter.java
+|       |               `-- RouterConnectDirectConfigurationGateWay9527.java
 |       `-- resources
 |           `-- application.yml

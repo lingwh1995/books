@@ -1,14 +1,12 @@
 springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80
 |-- docker
 |   `-- Dockerfile
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- org
 |       |       `-- openatom
 |       |           `-- springcloud
-|       |               |-- OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java
 |       |               |-- config
 |       |               |   |-- DynamicFeignClientFactory.java
 |       |               |   |-- FeignClientRequestInterceptor.java
@@ -18,9 +16,10 @@ springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-orde
 |       |               |   |-- OrderConsumerController.java
 |       |               |   |-- OrderConsumerControllerDynamicFeignClientFactory.java
 |       |               |   `-- SpringCloudServiceDiscoveryController.java
-|       |               `-- services
-|       |                   |-- PaymentServiceOpenFeign.java
-|       |                   `-- PaymentServiceOpenFeignDynamicFeignClientFactory.java
+|       |               |-- services
+|       |               |   |-- PaymentServiceOpenFeign.java
+|       |               |   `-- PaymentServiceOpenFeignDynamicFeignClientFactory.java
+|       |               `-- OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java
 |       `-- resources
 |           |-- dev
 |           |   |-- application-dev.yml

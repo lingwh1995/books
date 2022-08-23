@@ -1,22 +1,21 @@
 springcloud-provider-hystrix-cluster-node-payment8004
-|-- pom.xml
 |-- src
 |   `-- main
 |       |-- java
 |       |   `-- org
 |       |       `-- openatom
 |       |           `-- springcloud
-|       |               |-- PaymentServiceProviderHystrixClusterNode8004.java
 |       |               |-- controller
 |       |               |   |-- PaymentHystrixController.java
 |       |               |   `-- SpringCloudServiceDiscoveryController.java
 |       |               |-- dao
 |       |               |   `-- PaymentHystrixDao.java
-|       |               `-- service
-|       |                   |-- PaymentHystrixService.java
-|       |                   `-- impl
-|       |                       `-- PaymentHystrixServiceImpl.java
+|       |               |-- service
+|       |               |   |-- impl
+|       |               |   |   `-- PaymentHystrixServiceImpl.java
+|       |               |   `-- PaymentHystrixService.java
+|       |               `-- PaymentServiceProviderHystrixClusterNode8004.java
 |       `-- resources
-|           |-- application.yml
-|           `-- mapper
-|               `-- PaymentMapper.xml
+|           |-- mapper
+|           |   `-- PaymentMapper.xml
+|           `-- application.yml
