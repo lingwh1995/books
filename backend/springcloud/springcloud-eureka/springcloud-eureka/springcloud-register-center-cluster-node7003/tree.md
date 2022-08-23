@@ -9,3 +9,5 @@ springcloud-register-center-cluster-node7003
 |       •-- resources
 |           •-- application.yml
 •-- pom.xml
+
+7 directories, 3 files

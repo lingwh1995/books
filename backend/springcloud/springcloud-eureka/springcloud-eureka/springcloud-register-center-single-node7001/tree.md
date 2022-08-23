@@ -7,3 +7,5 @@ springcloud-register-center-single-node7001
 |       •-- resources
 |           •-- application.yml
 •-- pom.xml
+
+5 directories, 3 files

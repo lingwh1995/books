@@ -13,3 +13,5 @@ springcloud-router-connect-direct-hardcode-gateway9527
 |       •-- resources
 |           •-- application.yml
 •-- pom.xml
+
+9 directories, 5 files

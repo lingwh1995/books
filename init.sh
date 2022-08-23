@@ -78,10 +78,24 @@ function autoCI() {
 
     if [ $AUTO_CI_STATE == "true" ]
     then
-        curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
-        -v -X POST  'https://lingwh.coding.net/api/cci/job/1461498/trigger' \
-        -H 'Content-Type: application/json' \
-        -d '{"ref": "master","envs": []}'
+        #判断系统类型
+        uNames=`uname -s`
+        osName=${uNames: 0: 4}
+        if [ "$osName" == "Linu" ] # Linux
+        then
+            #代表持续集成环境
+            echo "GNU/Linux"
+            curl -u ptv14olf3rna:8191f89675310e5072257ce11572ef295ba14a66 \
+            -v -X POST  'https://lingwh.coding.net/api/cci/job/1461498/trigger' \
+            -H 'Content-Type: application/json' \
+            -d '{"ref": "master","envs": []}'
+        elif [ "$osName" == "MING" ] # MINGW, windows, git-bash
+        then
+            #代表本地环境，不触发博客自动持续集成
+            echo "Windows, git-bash"
+        else
+            echo "unknown os"
+        fi
     fi
 }
 

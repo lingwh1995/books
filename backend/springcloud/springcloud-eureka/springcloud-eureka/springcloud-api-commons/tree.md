@@ -14,3 +14,5 @@ springcloud-api-commons
 |       •-- resources
 |           •-- application.yml
 •-- pom.xml
+
+8 directories, 7 files

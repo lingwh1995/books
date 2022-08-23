@@ -16,3 +16,5 @@ springcloud-consumer-loadbalance-openfeign-hardcode-order80
 |       •-- resources
 |           •-- application.yml
 •-- pom.xml
+
+10 directories, 7 files
