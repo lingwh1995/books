@@ -45,5 +45,4 @@ note
 |-- note-SpringCloud-9.Seata-1.Seata\ Server\346\220\255\345\273\272.txt
 |-- note-SpringCloud-9.Seata-2.SpringCloud\346\225\264\345\220\210Seata\346\265\213\350\257\225\344\270\232\345\212\241\344\273\243\347\240\201sql.txt
 |-- note-SpringCloud-9.Seata-3.SpringCloud\346\225\264\345\220\210Seata\343\200\201apollo.txt
-49
 •-- \345\255\246\344\271\240\346\226\271\346\263\225.txt

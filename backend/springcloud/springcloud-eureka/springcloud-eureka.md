@@ -269,7 +269,7 @@ https://martinfowler.com/articles/microservices.html
 
 ## 2.2.创建项目依赖的公共模块
 ### 2.2.1.模块目录结构
-@import "./springcloud-eureka/springcloud-api-commons/tree.md"
+@import "./springcloud-eureka/springcloud-api-commons/tree.md"     {line_end=16}
 
 ### 2.2.2.创建公共模块
 	在springcloud-eureka中创建一个名为springcloud-api-commons的maven模块

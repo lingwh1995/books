@@ -13,5 +13,4 @@ springcloud-api-commons
 |       |                   •-- Storage.java
 |       •-- resources
 |           •-- application.yml
-17
 •-- pom.xml

@@ -15,5 +15,4 @@ springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80
 |       |               •-- OrderServiceConsumerLoadBalanceRibbonCustomerStrategyConfiguration80.java
 |       •-- resources
 |           •-- application.yml
-19
 •-- pom.xml

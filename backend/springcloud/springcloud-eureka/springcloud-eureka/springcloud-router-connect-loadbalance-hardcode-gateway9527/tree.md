@@ -12,5 +12,4 @@ springcloud-router-connect-loadbalance-hardcode-gateway9527
 |       |               •-- RouterConnectLoadbalanceHardcodeGateWay9527.java
 |       •-- resources
 |           •-- application.yml
-16
 •-- pom.xml

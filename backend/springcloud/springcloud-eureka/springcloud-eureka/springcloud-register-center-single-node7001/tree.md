@@ -6,5 +6,4 @@ springcloud-register-center-single-node7001
 |       |       •-- RegisterCcenterSingleNode7001.java
 |       •-- resources
 |           •-- application.yml
-10
 •-- pom.xml

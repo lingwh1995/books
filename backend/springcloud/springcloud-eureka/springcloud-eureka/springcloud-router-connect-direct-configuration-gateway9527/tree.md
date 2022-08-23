@@ -10,5 +10,4 @@ springcloud-router-connect-direct-configuration-gateway9527
 |       |               •-- RouterConnectDirectConfigurationGateWay9527.java
 |       •-- resources
 |           •-- application.yml
-14
 •-- pom.xml

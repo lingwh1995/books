@@ -9,5 +9,4 @@ springcloud-mointor-springboot-admin-server9003
 |       |           •-- MointorSpringBootAdmin9003.java
 |       •-- resources
 |           •-- application.yml
-13
 •-- pom.xml

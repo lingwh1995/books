@@ -24,5 +24,4 @@ springcloud-provider-seata-account8007
 |           |   •-- AccountMapper.xml
 |           |-- apollo-env.properties
 |           •-- application.yml
-28
 •-- pom.xml

@@ -13,5 +13,4 @@ springcloud-consumer-loadbalance-default-order80
 |       |               •-- OrderServiceConsumerLoadBalanceDefault80.java
 |       •-- resources
 |           •-- application.yml
-17
 •-- pom.xml

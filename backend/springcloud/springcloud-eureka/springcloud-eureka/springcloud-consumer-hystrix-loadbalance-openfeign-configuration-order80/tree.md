@@ -17,5 +17,4 @@ springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80
 |       |               •-- OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java
 |       •-- resources
 |           •-- application.yml
-21
 •-- pom.xml

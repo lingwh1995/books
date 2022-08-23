@@ -37,5 +37,4 @@ springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-orde
 |               |-- application-test.yml
 |               |-- application.yml
 |               •-- logback-custom.xml
-41
 •-- pom.xml

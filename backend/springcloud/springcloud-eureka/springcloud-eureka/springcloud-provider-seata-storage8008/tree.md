@@ -24,5 +24,4 @@ springcloud-provider-seata-storage8008
 |           |   •-- StorageMapper.xml
 |           |-- apollo-env.properties
 |           •-- application.yml
-28
 •-- pom.xml

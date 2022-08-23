@@ -19,5 +19,4 @@ springcloud-provider-cluster-node-payment8001
 |           |-- mapper
 |           |   •-- PaymentMapper.xml
 |           •-- application.yml
-23
 •-- pom.xml
