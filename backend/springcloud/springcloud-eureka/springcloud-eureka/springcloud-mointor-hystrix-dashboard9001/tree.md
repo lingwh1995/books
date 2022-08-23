@@ -8,6 +8,5 @@ springcloud-mointor-hystrix-dashboard9001
 |       |               •-- MointorHystrixDashboard9001.java
 |       •-- resources
 |           •-- application.yml
+12
 •-- pom.xml
-
-7 directories, 3 files

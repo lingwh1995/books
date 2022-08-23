@@ -44,6 +44,5 @@ springcloud-basic-sample-provider-cluster-node-payment8010
 |               |-- application-test.yml
 |               |-- application.yml
 |               •-- logback-custom.xml
+48
 •-- pom.xml
-
-21 directories, 25 files

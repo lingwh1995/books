@@ -37,6 +37,5 @@ springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-orde
 |               |-- application-test.yml
 |               |-- application.yml
 |               •-- logback-custom.xml
+41
 •-- pom.xml
-
-15 directories, 24 files

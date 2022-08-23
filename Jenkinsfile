@@ -16,7 +16,7 @@ pipeline {
     stage('执行下载代码的脚本') {
       steps {
         sh 'chmod +x ./init.sh'
-        sh 'bash ./init.sh ${GITEE_TOKEN}'
+        sh 'bash ./init.sh'
         sh 'git add .'
         sh "git commit -m '更新项目依赖的代码'"
       }

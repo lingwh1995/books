@@ -15,6 +15,5 @@ springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80
 |       |               •-- OrderServiceConsumerLoadBalanceRibbonCustomerStrategyHardcode80.java
 |       •-- resources
 |           •-- application.yml
+19
 •-- pom.xml
-
-10 directories, 7 files
