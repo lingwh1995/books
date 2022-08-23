@@ -8,3 +8,4 @@ springcloud-register-center-cluster-node7002
 |       |               `-- RegisterCcenterClusterNode7002.java
 |       `-- resources
 |           `-- application.yml
+`-- pom.xml

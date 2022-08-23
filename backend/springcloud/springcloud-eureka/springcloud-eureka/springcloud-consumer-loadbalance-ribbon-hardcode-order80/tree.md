@@ -15,3 +15,4 @@ springcloud-consumer-loadbalance-ribbon-hardcode-order80
 |       |               `-- OrderServiceConsumerLoadBalanceRibbonHardcode80.java
 |       `-- resources
 |           `-- application.yml
+`-- pom.xml

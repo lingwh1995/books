@@ -44,3 +44,4 @@ springcloud-basic-sample-provider-cluster-node-payment8010
 |               |-- application-test.yml
 |               |-- application.yml
 |               `-- logback-custom.xml
+`-- pom.xml

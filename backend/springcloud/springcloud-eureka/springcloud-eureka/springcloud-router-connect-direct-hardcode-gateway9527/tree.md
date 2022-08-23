@@ -12,3 +12,4 @@ springcloud-router-connect-direct-hardcode-gateway9527
 |       |               `-- RouterConnectDirectHardcodeGateWay9527.java
 |       `-- resources
 |           `-- application.yml
+`-- pom.xml

@@ -13,3 +13,4 @@ springcloud-consumer-sleuth_zipkin-loadbalance-default-order80
 |       |               `-- OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java
 |       `-- resources
 |           `-- application.yml
+`-- pom.xml

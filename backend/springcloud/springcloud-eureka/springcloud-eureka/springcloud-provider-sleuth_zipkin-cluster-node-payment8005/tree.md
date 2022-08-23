@@ -19,3 +19,4 @@ springcloud-provider-sleuth_zipkin-cluster-node-payment8005
 |           |-- mapper
 |           |   `-- PaymentMapper.xml
 |           `-- application.yml
+`-- pom.xml

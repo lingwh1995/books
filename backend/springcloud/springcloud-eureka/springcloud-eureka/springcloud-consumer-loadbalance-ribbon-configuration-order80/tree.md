@@ -13,3 +13,4 @@ springcloud-consumer-loadbalance-ribbon-configuration-order80
 |       |               `-- OrderServiceConsumerLoadBalanceRibbonConfiguration80.java
 |       `-- resources
 |           `-- application.yml
+`-- pom.xml
