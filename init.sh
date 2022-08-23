@@ -7,7 +7,7 @@ function parseIni() {
 }
 
 #更新项目需要的代码的方法
-function updateDependentCode() {
+function downloadDependentCode() {
     #获取./config中以config-xxx.ini格式的文件总共有多少个，每个配置文件对应一个md文件
     TOTAL_MD_COUNTS=`grep -n '^\[markdown-[1-9][0-9]\?\]' ./enhance/bootstrap.ini | tail -1 | cut -d':' -f2 | cut -d'-' -f2 | sed 's/\]//g'`
     echo '可以处理的md文件最大个数：'$TOTAL_MD_COUNTS
@@ -27,44 +27,12 @@ function updateDependentCode() {
             #获取项目名称
             PROJECT_NAME=( $( parseIni ./enhance/bootstrap.ini markdown-$a projectName) )
 
-            #先判断是否存在该文件夹，就是判断项目需要的代码是否被已经被下载了
-            if [ ! -d "$MD_FILE_RELATIVE_PATH/$PROJECT_NAME" ]
-            then
-                echo '代码还没有被下载过.....................................'
-                echo '正在下载博客所引用的代码...'
-                #如果代码还没有被下载过，执行执行下载代码的操作
-                git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
-                #写入commit-message
-                curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$1"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
-                echo '完成下载博客所引用的代码...'
-            else
-                #如果存在该文件夹，则说明代码已经被下载过了，则对比最新的提交信息和当前项目中已经有的提交信息，看是否一致，不一致说明项目有新提交，需要重新下载
-                echo '代码已经下载过了.....................................'
-                #写入最新的commit信息
-                curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$1"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit-new.txt
-                #比较两个commit.txt文件是否相同
-                DIFF_RESULT=`diff $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit-new.txt`  
-
-                echo '比较结果：------------------------------------'
-                echo $DIFF_RESULT
-                echo '比较结果：------------------------------------'
-                #diff执行结果不为空，说明有新提交，需要重新下载代码
-                if [ ! -z "$DIFF_RESULT" ]
-                then
-                    echo '代码有更新，需要重新下载.....................................'
-                    #重新下载代码前先删除上一次下载的代码
-                    rm -rf $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
-                    #重新下载代码
-                    echo '正在更新博客所引用的代码...'
-                    git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
-                    #重新生成commit.txt信息
-                    curl -X GET --header 'Content-Type: application/json;charset=UTF-8' 'https://gitee.com/api/v5/repos/lingwh1995/'"$PROJECT_NAME"'/commits/master?access_token='"$1"'' > $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/commit.txt
-                    echo '完成更新博客所引用的代码...'
-                else
-                    #diff执行结果为空，说明没有新提交，不做任何处理
-                    echo '当前已是最新版本代码，不用重新下载.....................................'
-                fi
-            fi
+            #删除旧的代码
+            rm -rf $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
+            echo '正在下载博客所引用的代码...'
+            #如果代码还没有被下载过，执行执行下载代码的操作
+            git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
+            echo '完成下载博客所引用的代码...'
 
             #删除多余的.git文件
             rm -rf $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/.git
@@ -100,9 +68,16 @@ function autoCI() {
 }
 
 function init() {
-    updateDependentCode $1
+    downloadDependentCode
     autoCI
 }
 
-#$1是jenkins执行这个脚本的时候传过来的$GITEE_TOKEN
-init $1
+init
+
+#使用前需要安装Markdown Preview Enhanced这个插件
+#中文官网：https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/
+:<< EOF
+这个脚本的用途：
+    1.在本地编辑xxx.md文件时如果要引用到代码文件，执行一下这个脚本，可以从远程仓库拉取xxx.md需要的代码
+    2.执行这个脚本时候,如果是在远程持续集成机器上执行,则会触发博客项目自动持续集成
+EOF
