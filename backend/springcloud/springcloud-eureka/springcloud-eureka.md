@@ -309,10 +309,10 @@ https://spring.io/projects/spring-cloud-netflix
 	Eureka 客户端在程序关闭时向 Eureka 服务器发送取消请求。发送请求后,该客户端实例信息将从服务器的实例注册表中删除。该下线请求不会自动完成,它需要调用以下内容:DiscoveryManager.getInstance().shutdownComponent();
 	服务剔除(Service Eviction)
 	在默认的情况下,当Eureka客户端连续90秒(3个续约周期)没有向Eureka服务器发送服务续约,即心跳,Eureka 服务器会将该服务实例从服务注册列表删除,即服务剔除。
-    
+
 ## 3.2.单节点版EUREKA注册中心搭建
 ### 3.2.1.项目目录结构
-hello
+hello1
 你好
 
 	为了初步感受EUREKA,首先来搭建一个单节点版EUREKA注册中心
