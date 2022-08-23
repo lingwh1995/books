@@ -1,30 +1,30 @@
 springcloud-consumer-seata-loadbalance-openfeign-configuration-order80
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
 |       |               |   |-- DataSourceProxyConfig.java
-|       |               |   `-- FeignConfig.java
+|       |               |   •-- FeignConfig.java
 |       |               |-- controller
-|       |               |   `-- OrderController.java
+|       |               |   •-- OrderController.java
 |       |               |-- dao
-|       |               |   `-- OrderDao.java
+|       |               |   •-- OrderDao.java
 |       |               |-- listener
 |       |               |   |-- ApolloPropertiesChangedListener.java
-|       |               |   `-- AutomaticApolloWatcher.java
+|       |               |   •-- AutomaticApolloWatcher.java
 |       |               |-- service
 |       |               |   |-- impl
-|       |               |   |   `-- OrderServiceImpl.java
+|       |               |   |   •-- OrderServiceImpl.java
 |       |               |   |-- AccountService.java
 |       |               |   |-- OrderService.java
-|       |               |   `-- StorageService.java
-|       |               `-- OrderServiceConsumerSeatalLoadBalanceOpenFeignConfiguration80.java
-|       `-- resources
+|       |               |   •-- StorageService.java
+|       |               •-- OrderServiceConsumerSeatalLoadBalanceOpenFeignConfiguration80.java
+|       •-- resources
 |           |-- mapper
-|           |   `-- OrderMapper.xml
+|           |   •-- OrderMapper.xml
 |           |-- apollo-env.properties
-|           `-- application.yml
-`-- pom.xml
+|           •-- application.yml
+•-- pom.xml

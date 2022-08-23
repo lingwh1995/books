@@ -1,30 +1,30 @@
 springcloud-basic-sample-register-center-single-node7005
 |-- docker
-|   `-- Dockerfile
+|   •-- Dockerfile
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- VirtualIpConfig.java
-|       |               `-- RegisterCcenterSingleNode7005.java
-|       `-- resources
+|       |               |   •-- VirtualIpConfig.java
+|       |               •-- RegisterCcenterSingleNode7005.java
+|       •-- resources
 |           |-- dev
 |           |   |-- application-dev.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
+|           |   •-- logback-custom.xml
 |           |-- prod
 |           |   |-- application-prod.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
+|           |   •-- logback-custom.xml
 |           |-- rancher
 |           |   |-- application-rancher.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
-|           `-- test
+|           |   •-- logback-custom.xml
+|           •-- test
 |               |-- application-test.yml
 |               |-- application.yml
-|               `-- logback-custom.xml
-`-- pom.xml
+|               •-- logback-custom.xml
+•-- pom.xml

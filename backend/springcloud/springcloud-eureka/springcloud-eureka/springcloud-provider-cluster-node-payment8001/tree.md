@@ -1,22 +1,22 @@
 springcloud-provider-cluster-node-payment8001
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- controller
 |       |               |   |-- PaymentController.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
 |       |               |-- dao
-|       |               |   `-- PaymentDao.java
+|       |               |   •-- PaymentDao.java
 |       |               |-- service
 |       |               |   |-- impl
-|       |               |   |   `-- PaymentServiceImpl.java
-|       |               |   `-- PaymentService.java
-|       |               `-- PaymentServiceProviderClusterNode8001.java
-|       `-- resources
+|       |               |   |   •-- PaymentServiceImpl.java
+|       |               |   •-- PaymentService.java
+|       |               •-- PaymentServiceProviderClusterNode8001.java
+|       •-- resources
 |           |-- mapper
-|           |   `-- PaymentMapper.xml
-|           `-- application.yml
-`-- pom.xml
+|           |   •-- PaymentMapper.xml
+|           •-- application.yml
+•-- pom.xml

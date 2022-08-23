@@ -1,40 +1,40 @@
 springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80
 |-- docker
-|   `-- Dockerfile
+|   •-- Dockerfile
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
 |       |               |   |-- DynamicFeignClientFactory.java
 |       |               |   |-- FeignClientRequestInterceptor.java
 |       |               |   |-- OpenFeignConfig.java
-|       |               |   `-- VirtualIpConfig.java
+|       |               |   •-- VirtualIpConfig.java
 |       |               |-- controller
 |       |               |   |-- OrderConsumerController.java
 |       |               |   |-- OrderConsumerControllerDynamicFeignClientFactory.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
 |       |               |-- services
 |       |               |   |-- PaymentServiceOpenFeign.java
-|       |               |   `-- PaymentServiceOpenFeignDynamicFeignClientFactory.java
-|       |               `-- OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java
-|       `-- resources
+|       |               |   •-- PaymentServiceOpenFeignDynamicFeignClientFactory.java
+|       |               •-- OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java
+|       •-- resources
 |           |-- dev
 |           |   |-- application-dev.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
+|           |   •-- logback-custom.xml
 |           |-- prod
 |           |   |-- application-prod.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
+|           |   •-- logback-custom.xml
 |           |-- rancher
 |           |   |-- application-rancher.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
-|           `-- test
+|           |   •-- logback-custom.xml
+|           •-- test
 |               |-- application-test.yml
 |               |-- application.yml
-|               `-- logback-custom.xml
-`-- pom.xml
+|               •-- logback-custom.xml
+•-- pom.xml

@@ -1,11 +1,11 @@
 springcloud-register-center-cluster-node7003
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
-|       |               `-- RegisterCcenterClusterNode7003.java
-|       `-- resources
-|           `-- application.yml
-`-- pom.xml
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
+|       |               •-- RegisterCcenterClusterNode7003.java
+|       •-- resources
+|           •-- application.yml
+•-- pom.xml

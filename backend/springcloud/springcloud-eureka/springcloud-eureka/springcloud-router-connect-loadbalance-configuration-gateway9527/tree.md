@@ -1,15 +1,15 @@
 springcloud-router-connect-loadbalance-configuration-gateway9527
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- com
-|       |       `-- atguigu
-|       |           `-- springcloud
+|       |   •-- com
+|       |       •-- atguigu
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- GateWayConfig.java
+|       |               |   •-- GateWayConfig.java
 |       |               |-- filter
-|       |               |   `-- LoginFilter.java
-|       |               `-- RouterConnectLoadbalanceConfigurationGateWay9527.java
-|       `-- resources
-|           `-- application.yml
-`-- pom.xml
+|       |               |   •-- LoginFilter.java
+|       |               •-- RouterConnectLoadbalanceConfigurationGateWay9527.java
+|       •-- resources
+|           •-- application.yml
+•-- pom.xml

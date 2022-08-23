@@ -1,27 +1,27 @@
 springcloud-provider-seata-storage8008
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- DataSourceProxyConfig.java
+|       |               |   •-- DataSourceProxyConfig.java
 |       |               |-- controller
-|       |               |   `-- StorageController.java
+|       |               |   •-- StorageController.java
 |       |               |-- dao
-|       |               |   `-- StorageDao.java
+|       |               |   •-- StorageDao.java
 |       |               |-- listener
 |       |               |   |-- ApolloPropertiesChangedListener.java
-|       |               |   `-- AutomaticApolloWatcher.java
+|       |               |   •-- AutomaticApolloWatcher.java
 |       |               |-- service
 |       |               |   |-- impl
-|       |               |   |   `-- StorageServiceImpl.java
-|       |               |   `-- StorageService.java
-|       |               `-- StorageServiceProviderSeatal8008.java
-|       `-- resources
+|       |               |   |   •-- StorageServiceImpl.java
+|       |               |   •-- StorageService.java
+|       |               •-- StorageServiceProviderSeatal8008.java
+|       •-- resources
 |           |-- mapper
-|           |   `-- StorageMapper.xml
+|           |   •-- StorageMapper.xml
 |           |-- apollo-env.properties
-|           `-- application.yml
-`-- pom.xml
+|           •-- application.yml
+•-- pom.xml

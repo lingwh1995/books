@@ -17,42 +17,8 @@ https://martinfowler.com/articles/microservices.html
 	微服务架构落地实现有很多种方案,本次介绍的方案技术栈如下:
 	注册中心: EUREKA 
 
-# 2.使用Eureka作为注册中心
-## 2.1.Eureka注册中心简介
-	Eureka是Netflix公司开发的服务发现框架,Spring Cloud对它提供了支持,将它集成在了自己spring-cloud-netflix子项目中,用来实现Spring Cloud的服务发现功能,核心功能是为实现服务发现提供了基础支持。
-
-	官方网站(GITHUB)
-```
-https://github.com/Netflix/eureka
-```
-
-	官方网站(SPRING.IO)
-```
-https://spring.io/projects/spring-cloud-netflix
-```
-
-	EUREKA架构图
-<img src="./images/eureka_architecture.png"  width="80%" height="400rem" />
-
-	Eureka的基础组件
-	服务提供者(Service Provide): 服务提供方将自身服务注册到Eureka,从而使服务消费方能够找到
-	服务消费者(Service Consumer): 服务消费方从Eureka获取注册服务列表,从而能够消费服务
-	服务中介(Eureka Server): 是服务提供者和服务消费者之间的桥梁，服务提供者可以把自己注册到服务中介那里，而服务消费者如需要消费一些服务(使用一些功能)就可以在服务中介中寻找注册在服务中介的服务提供者。
-
-	Eureka的提供了哪些功能?
-	服务注册(Service Register)
-	当Eureka客户端向Eureka Server注册时,它提供自身的元数据,比如IP地址、端口,运行状况指示符URL等
-	服务续约(Service Renew)
-	Eureka客户会每隔30秒(默认情况下)发送一次心跳来续约。通过续约来告知 Eureka Server该Eureka客户仍然存在,没有出现问题。正常情况下,如果 Eureka Server在90秒没有收到Eureka客户的续约,它会将实例从其注册表中删除
-	获取注册列表信息(Service Fetch Registries)
-	Eureka 客户端从服务器获取注册表信息,并将其缓存在本地。客户端会使用该信息查找其他服务,从而进行远程调用。该注册列表信息定期(每30 秒钟)更新一次。每次返回注册列表信息可能与Eureka客户端的缓存信息不同,Eureka客户端自动处理。如果由于某种原因导致注册列表信息不能及时匹配,Eureka 客户端则会重新获取整个注册表信息。Eureka 服务器缓存注册列表信息,整个注册表以及每个应用程序的信息进行了压缩,压缩内容和没有压缩的内容完全相同。Eureka客户端和Eureka服务器可以使用JSON/XML格式进行通讯。在默认的情况下 Eureka客户端使用压缩JSON 格式来获取注册列表的信息。
-	服务下线(Service Cancel)
-	Eureka 客户端在程序关闭时向 Eureka 服务器发送取消请求。发送请求后,该客户端实例信息将从服务器的实例注册表中删除。该下线请求不会自动完成,它需要调用以下内容:DiscoveryManager.getInstance().shutdownComponent();
-	服务剔除(Service Eviction)
-	在默认的情况下,当Eureka客户端连续90秒(3个续约周期)没有向Eureka服务器发送服务续约,即心跳,Eureka 服务器会将该服务实例从服务注册列表删除,即服务剔除。
-
-## 2.2.创建springcloud-eureka工程
-## 2.2.1.创建项目父工程
+# 2.创建项目
+## 2.1.创建项目父工程
 	在idea中创建一个名为springcloud-eureka的maven工程,创建完成后打开该工程,删除src文件夹,编辑pom.xml文件,添加如下内容,pom.xml中配置主要包括两部分内容,第一是对子模块依赖的jar包和使用到的插件的版本的统一规定,第二是规定了四种不同的环境,分别是: 1.开发环境(dev) 2.测试环境(test) 3.生产环境(prod) 4.rancher测试专用环境(rancher),关于这四种环境的详细内容会在本博客的最后一部分进行详细解析说明,pom.xml内容如下:
 
 ```
@@ -300,20 +266,55 @@ https://spring.io/projects/spring-cloud-netflix
     <!--统一定义插件版本：结束-->
 </project>
 ```
-## 2.2.2.创建项目依赖的公共模块
-## 2.2.2.1.模块目录结构
+
+## 2.2.创建项目依赖的公共模块
+### 2.2.1.模块目录结构
 @import "./springcloud-eureka/springcloud-api-commons/tree.md"
-## 2.2.2.1.创建公共模块
+
+### 2.2.2.创建公共模块
 	在springcloud-eureka中创建一个名为springcloud-api-commons的maven模块
-## 2.2.2.1.编辑公共模块pom.xml
+### 2.2.3.编辑公共模块pom.xml
 @import "./springcloud-eureka/springcloud-api-commons/pom.xml"
 
-## 2.3.单节点版EUREKA注册中心搭建
-### 2.3.1.项目目录结构
+# 3.使用Eureka作为注册中心
+## 3.1.Eureka注册中心简介
+	Eureka是Netflix公司开发的服务发现框架,Spring Cloud对它提供了支持,将它集成在了自己spring-cloud-netflix子项目中,用来实现Spring Cloud的服务发现功能,核心功能是为实现服务发现提供了基础支持。
 
+	官方网站(GITHUB)
+```
+https://github.com/Netflix/eureka
+```
+
+	官方网站(SPRING.IO)
+```
+https://spring.io/projects/spring-cloud-netflix
+```
+
+	EUREKA架构图
+<img src="./images/eureka_architecture.png"  width="80%" height="400rem" />
+
+	Eureka的基础组件
+	服务提供者(Service Provide): 服务提供方将自身服务注册到Eureka,从而使服务消费方能够找到
+	服务消费者(Service Consumer): 服务消费方从Eureka获取注册服务列表,从而能够消费服务
+	服务中介(Eureka Server): 是服务提供者和服务消费者之间的桥梁，服务提供者可以把自己注册到服务中介那里，而服务消费者如需要消费一些服务(使用一些功能)就可以在服务中介中寻找注册在服务中介的服务提供者。
+
+	Eureka的提供了哪些功能?
+	服务注册(Service Register)
+	当Eureka客户端向Eureka Server注册时,它提供自身的元数据,比如IP地址、端口,运行状况指示符URL等
+	服务续约(Service Renew)
+	Eureka客户会每隔30秒(默认情况下)发送一次心跳来续约。通过续约来告知 Eureka Server该Eureka客户仍然存在,没有出现问题。正常情况下,如果 Eureka Server在90秒没有收到Eureka客户的续约,它会将实例从其注册表中删除
+	获取注册列表信息(Service Fetch Registries)
+	Eureka 客户端从服务器获取注册表信息,并将其缓存在本地。客户端会使用该信息查找其他服务,从而进行远程调用。该注册列表信息定期(每30 秒钟)更新一次。每次返回注册列表信息可能与Eureka客户端的缓存信息不同,Eureka客户端自动处理。如果由于某种原因导致注册列表信息不能及时匹配,Eureka 客户端则会重新获取整个注册表信息。Eureka 服务器缓存注册列表信息,整个注册表以及每个应用程序的信息进行了压缩,压缩内容和没有压缩的内容完全相同。Eureka客户端和Eureka服务器可以使用JSON/XML格式进行通讯。在默认的情况下 Eureka客户端使用压缩JSON 格式来获取注册列表的信息。
+	服务下线(Service Cancel)
+	Eureka 客户端在程序关闭时向 Eureka 服务器发送取消请求。发送请求后,该客户端实例信息将从服务器的实例注册表中删除。该下线请求不会自动完成,它需要调用以下内容:DiscoveryManager.getInstance().shutdownComponent();
+	服务剔除(Service Eviction)
+	在默认的情况下,当Eureka客户端连续90秒(3个续约周期)没有向Eureka服务器发送服务续约,即心跳,Eureka 服务器会将该服务实例从服务注册列表删除,即服务剔除。
+    
+## 3.2.单节点版EUREKA注册中心搭建
+### 3.2.1.项目目录结构
+hello
 你好
 
 	为了初步感受EUREKA,首先来搭建一个单节点版EUREKA注册中心
-### 2.3.2.集群版EUREKA注册中心搭建
-
-@import "./springcloud-eureka/pom.xml"
+## 3.3.集群版EUREKA注册中心搭建
+    xxxx

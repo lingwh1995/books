@@ -1,22 +1,22 @@
 springcloud-provider-sleuth_zipkin-cluster-node-payment8005
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- controller
 |       |               |   |-- PaymentController.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
 |       |               |-- dao
-|       |               |   `-- PaymentDao.java
+|       |               |   •-- PaymentDao.java
 |       |               |-- service
 |       |               |   |-- impl
-|       |               |   |   `-- PaymentServiceImpl.java
-|       |               |   `-- PaymentService.java
-|       |               `-- PaymentServiceProviderSleuthAndZipkinClusterNode8005.java
-|       `-- resources
+|       |               |   |   •-- PaymentServiceImpl.java
+|       |               |   •-- PaymentService.java
+|       |               •-- PaymentServiceProviderSleuthAndZipkinClusterNode8005.java
+|       •-- resources
 |           |-- mapper
-|           |   `-- PaymentMapper.xml
-|           `-- application.yml
-`-- pom.xml
+|           |   •-- PaymentMapper.xml
+|           •-- application.yml
+•-- pom.xml

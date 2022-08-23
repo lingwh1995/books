@@ -1,47 +1,47 @@
 springcloud-basic-sample-provider-cluster-node-payment8009
 |-- docker
-|   `-- Dockerfile
+|   •-- Dockerfile
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- VirtualIpConfig.java
+|       |               |   •-- VirtualIpConfig.java
 |       |               |-- controller
 |       |               |   |-- PaymentController.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
 |       |               |-- dao
-|       |               |   `-- PaymentDao.java
+|       |               |   •-- PaymentDao.java
 |       |               |-- service
 |       |               |   |-- impl
-|       |               |   |   `-- PaymentServiceImpl.java
-|       |               |   `-- PaymentService.java
-|       |               `-- PaymentServiceProviderClusterNode8009.java
-|       `-- resources
+|       |               |   |   •-- PaymentServiceImpl.java
+|       |               |   •-- PaymentService.java
+|       |               •-- PaymentServiceProviderClusterNode8009.java
+|       •-- resources
 |           |-- dev
 |           |   |-- mapper
-|           |   |   `-- PaymentMapper.xml
+|           |   |   •-- PaymentMapper.xml
 |           |   |-- application-dev.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
+|           |   •-- logback-custom.xml
 |           |-- prod
 |           |   |-- mapper
-|           |   |   `-- PaymentMapper.xml
+|           |   |   •-- PaymentMapper.xml
 |           |   |-- application-prod.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
+|           |   •-- logback-custom.xml
 |           |-- rancher
 |           |   |-- mapper
-|           |   |   `-- PaymentMapper.xml
+|           |   |   •-- PaymentMapper.xml
 |           |   |-- application-rancher.yml
 |           |   |-- application.yml
-|           |   `-- logback-custom.xml
-|           `-- test
+|           |   •-- logback-custom.xml
+|           •-- test
 |               |-- mapper
-|               |   `-- PaymentMapper.xml
+|               |   •-- PaymentMapper.xml
 |               |-- application-test.yml
 |               |-- application.yml
-|               `-- logback-custom.xml
-`-- pom.xml
+|               •-- logback-custom.xml
+•-- pom.xml

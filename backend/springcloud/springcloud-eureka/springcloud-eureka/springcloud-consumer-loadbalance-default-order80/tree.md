@@ -1,16 +1,16 @@
 springcloud-consumer-loadbalance-default-order80
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- ApplicationContextConfig.java
+|       |               |   •-- ApplicationContextConfig.java
 |       |               |-- controller
 |       |               |   |-- OrderConsumerController.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
-|       |               `-- OrderServiceConsumerLoadBalanceDefault80.java
-|       `-- resources
-|           `-- application.yml
-`-- pom.xml
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
+|       |               •-- OrderServiceConsumerLoadBalanceDefault80.java
+|       •-- resources
+|           •-- application.yml
+•-- pom.xml

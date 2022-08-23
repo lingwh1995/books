@@ -1,24 +1,24 @@
 springcloud-config-apollo-loadbalance-openfeign-configuration-order80
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- OpenFeignConfig.java
+|       |               |   •-- OpenFeignConfig.java
 |       |               |-- controller
 |       |               |   |-- ApolloConfigController.java
 |       |               |   |-- OrderConsumerController.java
 |       |               |   |-- RestartApplicationController.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
 |       |               |-- listener
 |       |               |   |-- ApolloPropertiesChangedListener.java
-|       |               |   `-- AutomaticApolloWatcher.java
+|       |               |   •-- AutomaticApolloWatcher.java
 |       |               |-- services
-|       |               |   `-- PaymentServiceOpenFeign.java
-|       |               `-- OrderServiceConsumerApolloLoadBalanceOpenFeignConfiguration80.java
-|       `-- resources
+|       |               |   •-- PaymentServiceOpenFeign.java
+|       |               •-- OrderServiceConsumerApolloLoadBalanceOpenFeignConfiguration80.java
+|       •-- resources
 |           |-- apollo-env.properties
-|           `-- application.yml
-`-- pom.xml
+|           •-- application.yml
+•-- pom.xml

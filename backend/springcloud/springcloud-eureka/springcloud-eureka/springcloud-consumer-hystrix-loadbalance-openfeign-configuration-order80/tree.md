@@ -1,20 +1,20 @@
 springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- FeignConfig.java
+|       |               |   •-- FeignConfig.java
 |       |               |-- controller
 |       |               |   |-- OrderConsumerHystrixController.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
 |       |               |-- services
 |       |               |   |-- impl
-|       |               |   |   `-- PaymentServiceHystrixOpenFeignImpl.java
-|       |               |   `-- PaymentServiceHystrixOpenFeign.java
-|       |               `-- OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java
-|       `-- resources
-|           `-- application.yml
-`-- pom.xml
+|       |               |   |   •-- PaymentServiceHystrixOpenFeignImpl.java
+|       |               |   •-- PaymentServiceHystrixOpenFeign.java
+|       |               •-- OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java
+|       •-- resources
+|           •-- application.yml
+•-- pom.xml

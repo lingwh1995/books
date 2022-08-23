@@ -1,18 +1,18 @@
 springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
 |       |               |-- config
-|       |               |   `-- ApplicationContextConfig.java
+|       |               |   •-- ApplicationContextConfig.java
 |       |               |-- controller
 |       |               |   |-- OrderConsumerController.java
-|       |               |   `-- SpringCloudServiceDiscoveryController.java
+|       |               |   •-- SpringCloudServiceDiscoveryController.java
 |       |               |-- loadbalance
-|       |               |   `-- MyRoundRobinRule.java
-|       |               `-- OrderServiceConsumerLoadBalanceRibbonCustomerStrategyHardcode80.java
-|       `-- resources
-|           `-- application.yml
-`-- pom.xml
+|       |               |   •-- MyRoundRobinRule.java
+|       |               •-- OrderServiceConsumerLoadBalanceRibbonCustomerStrategyHardcode80.java
+|       •-- resources
+|           •-- application.yml
+•-- pom.xml
