@@ -15,4 +15,3 @@ springcloud-router-connect-direct-hardcode-gateway9527
 |           `-- application.yml
 `-- tree.md
 
-9 directories, 6 files

@@ -30,4 +30,3 @@ springcloud-basic-sample-register-center-single-node7005
 |               `-- logback-custom.xml
 `-- tree.md
 
-13 directories, 17 files

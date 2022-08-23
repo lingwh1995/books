@@ -40,4 +40,3 @@ springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-orde
 |               `-- logback-custom.xml
 `-- tree.md
 
-15 directories, 25 files

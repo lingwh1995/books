@@ -47,4 +47,3 @@ springcloud-basic-sample-provider-cluster-node-payment8009
 |                   `-- PaymentMapper.xml
 `-- tree.md
 
-21 directories, 26 files

@@ -20,4 +20,3 @@ springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80
 |           `-- application.yml
 `-- tree.md
 
-11 directories, 9 files

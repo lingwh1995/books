@@ -16,4 +16,3 @@ springcloud-consumer-loadbalance-ribbon-configuration-order80
 |           `-- application.yml
 `-- tree.md
 
-9 directories, 7 files

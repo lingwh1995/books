@@ -22,4 +22,3 @@ springcloud-provider-hystrix-cluster-node-payment8004
 |               `-- PaymentMapper.xml
 `-- tree.md
 
-12 directories, 10 files

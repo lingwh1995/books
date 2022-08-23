@@ -13,4 +13,3 @@ springcloud-router-connect-direct-configuration-gateway9527
 |           `-- application.yml
 `-- tree.md
 
-8 directories, 5 files

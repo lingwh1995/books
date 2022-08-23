@@ -8,43 +8,55 @@ function beforeCreateTreeMD() {
     yum -y install tree
 }
 
+
+#为当前目录中的所有子模块创建tree.md文件
+function createTreeMDForChildDir() {
+    for item in `ls`
+    do
+    fileName=$item
+    if [ -d $fileName ]
+    then
+        #创建新的tree.md文件
+        tree $fileName > $fileName/tree.md
+        #删除最后一行
+        sed -i '$d' $fileName/tree.md
+    fi
+    done
+}
+
+
+#为当前目录创建tree.md文件
+function createTreeMDForCurrentDir(){
+    #创建新的tree.md文件
+    tree -I 'note|tree.md|createTreeMD.sh' > tree.md
+}
+
+
+#替换当前目录下tree.md第一行.为当为文件夹名称
+function formatTreeMD(){
+    #替换当前文件夹下tree.md文件的第一行的.为当前文件夹名称
+    sed -i '1,/./c\'"$1"'' tree.md
+    #删除最后一行
+    sed -i '$d' tree.md
+}
+
+
 #提交自动生成的tree.md
 function afterCreateTreeMD() {
     git add .
     git commit -m '自动生成tree.md'
 }
-#为当前目录中的所有子模块创建tree.md文件
-function createTreeMDForChildDir() {
-    for item in `ls $1`
-    do
-    fileName=$item
-    if [ -d $fileName ]
-    then
-	#删除旧的tree.md文件
-	rm -rf $fileName/tree.md
-	#创建新的tree.md文件
-	tree $fileName > $fileName/tree.md
-    fi
-    done
-}
-#为当前目录创建tree.md文件
-function createTreeMDForCurrentDir(){
-    #删除旧的tree.md文件
-    rm -rf tree.md
-    #创建新的tree.md文件
-    tree > tree.md
-}
-#替换当前目录下tree.md第一行.为当为文件夹名称
-function replaceDotToBaseDirName(){
-     #替换当前文件夹下tree.md文件的第一行的.为当前文件夹名称	
-     sed -i "1,/./c\springcloud-eureka" tree.md
-}
+
+
+#门面模式,封装所有操作
 function createTreeMD(){
     beforeCreateTreeMD
     createTreeMDForChildDir
     createTreeMDForCurrentDir
-    replaceDotToBaseDirName
+    formatTreeMD $1
     afterCreateTreeMD
 }
 
-createTreeMD
+#当前shell所在文件夹名称
+PROJECT_DIR_NAME=springcloud-eureka
+createTreeMD $PROJECT_DIR_NAME

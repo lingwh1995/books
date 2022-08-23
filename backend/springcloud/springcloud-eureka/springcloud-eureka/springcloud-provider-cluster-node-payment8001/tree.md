@@ -22,4 +22,3 @@ springcloud-provider-cluster-node-payment8001
 |               `-- PaymentMapper.xml
 `-- tree.md
 
-12 directories, 10 files
