@@ -13,5 +13,3 @@ springcloud-router-connect-loadbalance-configuration-gateway9527
 |       |                   `-- LoginFilter.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

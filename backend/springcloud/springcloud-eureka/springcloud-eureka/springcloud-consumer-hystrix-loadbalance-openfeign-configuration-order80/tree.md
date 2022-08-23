@@ -18,5 +18,3 @@ springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80
 |       |                       `-- PaymentServiceHystrixOpenFeignImpl.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

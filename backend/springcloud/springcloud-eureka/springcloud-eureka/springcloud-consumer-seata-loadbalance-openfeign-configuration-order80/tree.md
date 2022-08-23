@@ -28,5 +28,3 @@ springcloud-consumer-seata-loadbalance-openfeign-configuration-order80
 |           |-- application.yml
 |           `-- mapper
 |               `-- OrderMapper.xml
-`-- tree.md
-

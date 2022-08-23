@@ -16,5 +16,3 @@ springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80
 |       |                   `-- MyRoundRobinRule.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

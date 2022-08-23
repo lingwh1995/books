@@ -9,5 +9,3 @@ springcloud-mointor-hystrix-dashboard9001
 |       |               `-- MointorHystrixDashboard9001.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

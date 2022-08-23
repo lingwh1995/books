@@ -10,5 +10,3 @@ springcloud-mointor-springboot-admin-server9003
 |       |               `-- CoustomEndpoint.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

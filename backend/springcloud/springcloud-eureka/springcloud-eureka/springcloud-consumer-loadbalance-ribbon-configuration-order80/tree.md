@@ -14,5 +14,3 @@ springcloud-consumer-loadbalance-ribbon-configuration-order80
 |       |                   `-- SpringCloudServiceDiscoveryController.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

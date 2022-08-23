@@ -25,5 +25,3 @@ springcloud-provider-seata-storage8008
 |           |-- application.yml
 |           `-- mapper
 |               `-- StorageMapper.xml
-`-- tree.md
-

@@ -45,5 +45,3 @@ springcloud-basic-sample-provider-cluster-node-payment8009
 |               |-- logback-custom.xml
 |               `-- mapper
 |                   `-- PaymentMapper.xml
-`-- tree.md
-

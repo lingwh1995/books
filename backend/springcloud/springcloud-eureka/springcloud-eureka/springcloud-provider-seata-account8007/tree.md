@@ -25,5 +25,3 @@ springcloud-provider-seata-account8007
 |           |-- application.yml
 |           `-- mapper
 |               `-- AccountMapper.xml
-`-- tree.md
-

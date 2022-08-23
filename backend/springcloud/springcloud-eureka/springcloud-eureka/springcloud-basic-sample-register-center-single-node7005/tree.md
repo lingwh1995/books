@@ -28,5 +28,3 @@ springcloud-basic-sample-register-center-single-node7005
 |               |-- application-test.yml
 |               |-- application.yml
 |               `-- logback-custom.xml
-`-- tree.md
-

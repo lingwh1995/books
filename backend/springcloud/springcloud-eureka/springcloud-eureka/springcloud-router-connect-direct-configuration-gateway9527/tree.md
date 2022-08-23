@@ -11,5 +11,3 @@ springcloud-router-connect-direct-configuration-gateway9527
 |       |                   `-- LoginFilter.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

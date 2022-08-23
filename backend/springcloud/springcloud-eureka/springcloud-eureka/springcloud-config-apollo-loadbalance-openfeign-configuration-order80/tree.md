@@ -22,5 +22,3 @@ springcloud-config-apollo-loadbalance-openfeign-configuration-order80
 |       `-- resources
 |           |-- apollo-env.properties
 |           `-- application.yml
-`-- tree.md
-

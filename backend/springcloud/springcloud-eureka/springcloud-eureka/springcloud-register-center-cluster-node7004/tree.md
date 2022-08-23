@@ -9,5 +9,3 @@ springcloud-register-center-cluster-node7004
 |       |               `-- RegisterCcenterClusterNode7004.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

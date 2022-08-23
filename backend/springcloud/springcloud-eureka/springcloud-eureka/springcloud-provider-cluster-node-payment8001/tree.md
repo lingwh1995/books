@@ -20,5 +20,3 @@ springcloud-provider-cluster-node-payment8001
 |           |-- application.yml
 |           `-- mapper
 |               `-- PaymentMapper.xml
-`-- tree.md
-

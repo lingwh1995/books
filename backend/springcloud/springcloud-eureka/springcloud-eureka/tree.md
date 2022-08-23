@@ -714,5 +714,3 @@ springcloud-eureka
             |               `-- filter
             |                   `-- LoginFilter.java
             `-- resources
-                `-- application.yml
-

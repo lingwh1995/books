@@ -20,5 +20,3 @@ springcloud-provider-hystrix-cluster-node-payment8004
 |           |-- application.yml
 |           `-- mapper
 |               `-- PaymentMapper.xml
-`-- tree.md
-

@@ -1,4 +1,2 @@
 script
 |-- Jenkinsfile
-`-- tree.md
-

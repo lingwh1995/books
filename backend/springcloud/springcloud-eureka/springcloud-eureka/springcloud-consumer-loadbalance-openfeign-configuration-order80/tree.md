@@ -16,5 +16,3 @@ springcloud-consumer-loadbalance-openfeign-configuration-order80
 |       |                   `-- PaymentServiceOpenFeign.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-

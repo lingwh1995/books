@@ -14,5 +14,3 @@ springcloud-consumer-loadbalance-default-order80
 |       |                   `-- SpringCloudServiceDiscoveryController.java
 |       `-- resources
 |           `-- application.yml
-`-- tree.md
-
