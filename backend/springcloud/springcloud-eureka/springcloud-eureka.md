@@ -310,7 +310,7 @@ https://spring.io/projects/spring-cloud-netflix
 
 ## 2.3.单节点版EUREKA注册中心搭建
 ### 2.3.1.项目目录结构
-
+你好
 
 	为了初步感受EUREKA,首先来搭建一个单节点版EUREKA注册中心
 ### 2.3.2.集群版EUREKA注册中心搭建
