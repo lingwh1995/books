@@ -324,7 +324,7 @@ https://spring.io/projects/spring-cloud-netflix
 ### 3.2.6.编写模块application.yml
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/resources/application.yml"
 ### 3.2.7.编写模块主启动类
-@import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/java/org.openatom.springcloud/RegisterCcenterSingleNode7001.java"
+@import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/java/org/openatom/springcloud/RegisterCcenterSingleNode7001.java"
 ### 3.2.8.测试模块
     编写完成后,等maven依赖导入成功,运行主启动类,在浏览器中访问
 ```
@@ -350,7 +350,7 @@ http://localhost:7001/
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/src/main/resources/application.yml"
 
     编写模块主启动类
-@import "./springcloud-eureka/springcloud-register-center-cluster-node7002/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7002.java"
+@import "./springcloud-eureka/springcloud-register-center-cluster-node7002/src/main/java/org/openatom/springcloud/RegisterCcenterClusterNode7002.java"
 
 ### 3.3.3.搭建Eureka集群中第二个节点
     模块目录结构
@@ -366,7 +366,7 @@ http://localhost:7001/
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/src/main/resources/application.yml"
 
     编写模块主启动类
-@import "./springcloud-eureka/springcloud-register-center-cluster-node7003/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7003.java"
+@import "./springcloud-eureka/springcloud-register-center-cluster-node7003/src/main/java/org/openatom/springcloud/RegisterCcenterClusterNode7003.java"
 
 ### 3.3.4.搭建Eureka集群中第三个节点
     模块目录结构
@@ -382,7 +382,7 @@ http://localhost:7001/
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/src/main/resources/application.yml"
 
     编写模块主启动类
-@import "./springcloud-eureka/springcloud-register-center-cluster-node7004/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7004.java"
+@import "./springcloud-eureka/springcloud-register-center-cluster-node7004/src/main/java/org/openatom/springcloud/RegisterCcenterClusterNode7004.java"
 
 ### 3.3.5.配置host
     修改host文件,C:\Windows\System32\drivers\etc\host
@@ -391,7 +391,7 @@ http://localhost:7001/
     127.0.0.1		eureka7003
     127.0.0.1		eureka7004
     
-### 3.3.6.测试模块
+### 3.3.6.测试集群模块
     测试集群中的第一个节点(7002),浏览器访问
 ```
 http://eureka7002:7002/
@@ -412,5 +412,4 @@ http://eureka7004:7004/
 
     可以看到,在每个节点和都和其他两个节点相互注册,这代表集群搭建成功
 
-### 3.3.7.测试Eureka集群
-    编写完成后,等maven依赖导入成功,运行主启动类,在浏览器中访问
+# 4.使用Eureka作为注册中心
