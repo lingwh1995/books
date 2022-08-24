@@ -339,48 +339,63 @@ http://localhost:7001/
 ### 3.3.1.章节内容简介
     本章节会展示如何搭建一个集群(高可用)版的Eureka注册中心,共有三个节点,Eureka注册中心集群的原理是多个Eureka Server之间相互注册,从而组成一个集群。
 ### 3.3.2.搭建Eureka集群中第一个节点
-#### 3.3.2.1.模块简介
+    模块简介
     Eureka集群中的第一个节点
-#### 3.3.2.2.模块目录结构
+    
+    模块目录结构
     在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/tree.md"
-#### 3.3.2.3.创建模块
+    
+    创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7002的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-register-center-cluster-node7002</module>)
-#### 3.3.2.4.编写模块pom.xml
+
+    编写模块pom.xml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/pom.xml"
-#### 3.3.2.5.编写模块application.yml
+
+    编写模块application.yml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/src/main/resources/application.yml"
-#### 3.3.2.6.编写模块主启动类
+
+    编写模块主启动类
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7002.java"
 
 ### 3.3.3.搭建Eureka集群中第二个节点
-#### 3.3.3.1.模块简介
+    模块简介
     Eureka集群中的第二个节点
-#### 3.3.3.2.模块目录结构
+    
+    模块目录结构
     在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/tree.md"
-#### 3.3.3.3.创建模块
+
+    创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7003的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-register-center-cluster-node7003</module>)
-#### 3.3.3.4.编写模块pom.xml
+
+    编写模块pom.xml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/pom.xml"
-#### 3.3.3.5.编写模块application.yml
+    
+    编写模块application.yml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/src/main/resources/application.yml"
-#### 3.3.3.6.编写模块主启动类
+
+    编写模块主启动类
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7003.java"
 
 ### 3.3.4.搭建Eureka集群中第二个节点
-#### 3.3.4.1.模块简介
+    模块简介
     Eureka集群中的第二个节点
-#### 3.3.4.2.模块目录结构
+
+    模块目录结构
     在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/tree.md"
-#### 3.3.4.3.创建模块
+
+    创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7004的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-register-center-cluster-node7004</module>)
-#### 3.3.4.4.编写模块pom.xml
+
+    编写模块pom.xml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/pom.xml"
-#### 3.3.4.5.编写模块application.yml
+
+    编写模块application.yml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/src/main/resources/application.yml"
-#### 3.3.4.6.编写模块主启动类
+
+    编写模块主启动类
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7004.java"
 
 ### 3.3.5.配置host
@@ -393,24 +408,21 @@ http://localhost:7001/
 ### 3.3.6.测试模块
     编写完成后,等maven依赖导入成功,运行主启动类,在浏览器中访问集群中的三个节点
 
-### 3.3.6.1.测试集群中的第一个节点
-    Eureka集群中的第一个节点(7002)
+    测试集群中的第一个节点(7002)
 ```
 http://eureka7002:7002/
 ```
     看到如下界面代表搭建成功
 <img src="./images/eureka7002.png"  width="100%"/>
 
-### 3.3.6.2.测试集群中的第二个节点
-    Eureka集群中的第二个节点(7003)
+    测试集群中的第二个节点(7003)
 ```
 http://eureka7003:7003/
 ```
     看到如下界面代表搭建成功
 <img src="./images/eureka7003.png"  width="100%"/>
 
-### 3.3.6.3.测试集群中的第三个节点
-    Eureka集群中的第三个节点(7004)
+    测试集群中的第三个节点(7004)
 ```
 http://eureka7004:7004/
 ```
