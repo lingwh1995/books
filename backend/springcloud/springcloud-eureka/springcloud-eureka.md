@@ -325,7 +325,7 @@ https://spring.io/projects/spring-cloud-netflix
 ### 3.2.1.章节内容简介
     本章节会展示如何搭建一个单节点版的Eureka注册中心
 ### 3.2.2.模块简介
-    单机版Eureka注册中心    
+    单机版Eureka注册中心,启动端口: 7001
 ### 3.2.3.模块目录结构
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/tree.md"
 ### 3.2.4.创建模块
@@ -335,7 +335,7 @@ https://spring.io/projects/spring-cloud-netflix
 ### 3.2.6.编写模块application.yml
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/resources/application.yml"
 ### 3.2.7.编写模块主启动类
-@import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/java/org.openatom.springcloud/RegisterCcenterSingleNode7001.java"
+@import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/java/org/openatom/springcloud/RegisterCcenterSingleNode7001.java"
 ### 3.2.8.测试模块
     编写完成后,等maven依赖导入成功,运行主启动类,在浏览器中访问
 ```
@@ -348,6 +348,9 @@ http://localhost:7001/
 ### 3.3.1.章节内容简介
     本章节会展示如何搭建一个集群(高可用)版的Eureka注册中心,共有三个节点,Eureka注册中心集群的原理是多个Eureka Server之间相互注册,从而组成一个集群。
 ### 3.3.2.搭建Eureka集群中第一个节点
+    模块简介
+    集群(高可用)版Eureka注册中心中第一个节点,启动端口: 7002
+    
     模块目录结构
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/tree.md"
     
@@ -364,6 +367,9 @@ http://localhost:7001/
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/src/main/java/org/openatom/springcloud/RegisterCcenterClusterNode7002.java"
 
 ### 3.3.3.搭建Eureka集群中第二个节点
+    模块简介
+    集群(高可用)版Eureka注册中心中第二个节点,启动端口: 7003
+
     模块目录结构
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/tree.md"
 
@@ -380,6 +386,9 @@ http://localhost:7001/
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/src/main/java/org/openatom/springcloud/RegisterCcenterClusterNode7003.java"
 
 ### 3.3.4.搭建Eureka集群中第三个节点
+    模块简介
+    集群(高可用)版Eureka注册中心中第三个节点,启动端口: 7004
+
     模块目录结构
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/tree.md"
 
@@ -424,4 +433,73 @@ http://eureka7004:7004/
 
     可以看到,在每个节点和都和其他两个节点相互注册,这代表集群搭建成功
 
-# 4.搭建第一个微服务
+# 4.搭建第一个微服务应用
+## 4.1.第一个微服务应用简介
+    第一个微服务应用由四部分组成,分别是注册中心(单节点)、服务消费者(单节点)、服务提供者(两个节点)、运行所需要的数据库环境,这里的注册中心使用单节点版注册中心,如果需要使用集群版注册中心,只需要在application.yml将defaultZone的配置切换为集群版配置即可,服务提供者第一个节点和第二个节点是除了端口和模块名称之外其他所有代码均是相同的,之所以要创建两个相同的模块是为了模拟生产环境中一个服务部署在多个节点的情况,这里为了查看日志方便,直接创建了两个相同的服务提供者模块。
+## 4.2.搭建服务提供者第一个节点
+### 4.2.1.模块简介
+    服务提供者第一个节点,启动端口: 8001
+### 4.2.2.模块目录结构
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/tree.md"
+### 4.2.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-cluster-node-payment8001的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 4.2.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/pom.xml"
+### 4.2.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/resources/application.yml"
+### 4.2.6.编写模块Mybatis配置文件
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/resources/mapper/PaymentMapper.xml"
+### 4.2.7.编写模块dao
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/dao/PaymentDao.java"
+### 4.2.8.编写模块service
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/service/PaymentService.java"
+### 4.2.9.编写模块service实现类
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
+### 4.2.10.编写模块controller
+PaymentController.java
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/controller/PaymentController.java"
+SpringCloudServiceDiscoveryController.java
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/controller/SpringCloudServiceDiscoveryController.java"
+### 4.2.11.编写模块主启动类
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/PaymentServiceProviderClusterNode8001.java"
+
+## 4.3.搭建服务提供者第二个节点
+### 4.3.1.模块简介
+    服务提供者第二个节点,启动端口: 8002
+### 4.3.2.模块目录结构
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/tree.md"
+### 4.3.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-cluster-node-payment8002的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 4.3.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/pom.xml"
+### 4.3.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/resources/application.yml"
+### 4.3.6.编写模块Mybatis配置文件
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/resources/mapper/PaymentMapper.xml"
+### 4.3.7.编写模块dao
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/dao/PaymentDao.java"
+### 4.3.8.编写模块service
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/service/PaymentService.java"
+### 4.3.9.编写模块service实现类
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
+### 4.3.10.编写模块controller
+PaymentController.java
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/controller/PaymentController.java"
+SpringCloudServiceDiscoveryController.java
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/controller/SpringCloudServiceDiscoveryController.java"
+### 4.3.11.编写模块主启动类
+@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/PaymentServiceProviderClusterNode8002.java"
+
+## 4.4.搭建服务消费者
+### 4.4.1.模块简介
+    服务消费者,启动端口: 80
+### 4.4.2.模块目录结构
+### 4.4.3.创建模块
+### 4.4.4.编写模块pom.xml
+### 4.4.5.编写模块application.yml
+### 4.4.6.编写模块Mybatis配置文件
+### 4.4.7.编写模块dao
+### 4.4.8.编写模块service
+### 4.4.9.编写模块service实现类
+### 4.4.10.编写模块controller
+### 4.4.11.编写模块主启动类
