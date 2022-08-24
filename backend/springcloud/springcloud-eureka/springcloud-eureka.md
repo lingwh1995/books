@@ -269,10 +269,9 @@ https://martinfowler.com/articles/microservices.html
 
 ## 2.2.创建项目依赖的公共模块
 ### 2.2.1.模块目录结构
-    在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-api-commons/tree.md"
 ### 2.2.2.创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-api-commons的maven模块,这个模块中包含了一些公共的Java实体和一些公共的插件,后面的每个模块都要引入这个公共模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-api-commons</module>)
+	在父工程(springcloud-eureka)中创建一个名为springcloud-api-commons的maven模块,这个模块中包含了一些公共的Java实体和一些公共的插件,后面的每个模块都要引入这个公共模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 2.2.3.编写模块pom.xml
 @import "./springcloud-eureka/springcloud-api-commons/pom.xml"
 ### 2.2.3.编写实体类
@@ -317,10 +316,9 @@ https://spring.io/projects/spring-cloud-netflix
 ### 3.2.2.模块简介
     单机版Eureka注册中心    
 ### 3.2.3.模块目录结构
-    在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/tree.md"
 ### 3.2.4.创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-single-node7001的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-register-center-single-node7001</module>)
+	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-single-node7001的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 3.2.5.编写模块pom.xml
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/pom.xml"
 ### 3.2.6.编写模块application.yml
@@ -339,15 +337,11 @@ http://localhost:7001/
 ### 3.3.1.章节内容简介
     本章节会展示如何搭建一个集群(高可用)版的Eureka注册中心,共有三个节点,Eureka注册中心集群的原理是多个Eureka Server之间相互注册,从而组成一个集群。
 ### 3.3.2.搭建Eureka集群中第一个节点
-    模块简介
-    Eureka集群中的第一个节点
-    
     模块目录结构
-    在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/tree.md"
     
     创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7002的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-register-center-cluster-node7002</module>)
+	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7002的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 
     编写模块pom.xml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/pom.xml"
@@ -359,15 +353,11 @@ http://localhost:7001/
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7002/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7002.java"
 
 ### 3.3.3.搭建Eureka集群中第二个节点
-    模块简介
-    Eureka集群中的第二个节点
-    
     模块目录结构
-    在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/tree.md"
 
     创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7003的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-register-center-cluster-node7003</module>)
+	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7003的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 
     编写模块pom.xml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/pom.xml"
@@ -378,16 +368,12 @@ http://localhost:7001/
     编写模块主启动类
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7003/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7003.java"
 
-### 3.3.4.搭建Eureka集群中第二个节点
-    模块简介
-    Eureka集群中的第二个节点
-
+### 3.3.4.搭建Eureka集群中第三个节点
     模块目录结构
-    在下面的内容中,涉及到具体的文件(包括.java文件、.xml文件、.yml文件等)不会告知具体的路径,具体的路径请根据模块目录结构自行创建,
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/tree.md"
 
     创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7004的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息(<module>springcloud-register-center-cluster-node7004</module>)
+	在父工程(springcloud-eureka)中创建一个名为springcloud-register-center-cluster-node7004的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 
     编写模块pom.xml
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/pom.xml"
