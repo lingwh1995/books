@@ -274,7 +274,7 @@ https://martinfowler.com/articles/microservices.html
 	在父工程(springcloud-eureka)中创建一个名为springcloud-api-commons的maven模块,这个模块中包含了一些公共的Java实体和一些公共的插件,后面的每个模块都要引入这个公共模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 2.2.3.编写模块pom.xml
 @import "./springcloud-eureka/springcloud-api-commons/pom.xml"
-### 2.2.3.
+### 2.2.3.编写模块中实体类
     Payment.java
 @import "./springcloud-eureka/springcloud-api-commons//src/main/java/org/openatom/springcloud/entities/Payment.java"
 
@@ -334,7 +334,7 @@ https://spring.io/projects/spring-cloud-netflix
 ### 3.2.6.编写模块application.yml
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/resources/application.yml"
 ### 3.2.7.编写模块主启动类
-@import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/java/org/openatom/springcloud/RegisterCcenterSingleNode7001.java"
+@import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/java/org.openatom.springcloud/RegisterCcenterSingleNode7001.java"
 ### 3.2.8.测试模块
     编写完成后,等maven依赖导入成功,运行主启动类,在浏览器中访问
 ```
