@@ -14,3 +14,4 @@ springcloud-api-commons
 |       •-- resources
 |           •-- application.yml
 •-- pom.xml
+
