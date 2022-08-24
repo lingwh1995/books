@@ -383,5 +383,11 @@ http://localhost:7001/
 #### 3.3.4.6.编写模块主启动类
 @import "./springcloud-eureka/springcloud-register-center-cluster-node7004/src/main/java/org.openatom.springcloud/RegisterCcenterClusterNode7004.java"
 
-### 3.2.7.测试模块
+### 3.3.5.配置host
+    修改host文件,C:\Windows\System32\drivers\etc\host
+    添加如下内容:
+    127.0.0.1		eureka7002
+    127.0.0.1		eureka7003
+    127.0.0.1		eureka7004
+### 3.3.6.测试Eureka集群
     编写完成后,等maven依赖导入成功,运行主启动类,在浏览器中访问
