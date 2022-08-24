@@ -456,10 +456,7 @@ http://eureka7004:7004/
 ### 4.2.9.编写模块service实现类
 @import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
 ### 4.2.10.编写模块controller
-PaymentController.java
 @import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/controller/PaymentController.java"
-SpringCloudServiceDiscoveryController.java
-@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/controller/SpringCloudServiceDiscoveryController.java"
 ### 4.2.11.编写模块主启动类
 @import "./springcloud-eureka/springcloud-provider-cluster-node-payment8001/src/main/java//org/openatom/springcloud/PaymentServiceProviderClusterNode8001.java"
 
@@ -483,10 +480,7 @@ SpringCloudServiceDiscoveryController.java
 ### 4.3.9.编写模块service实现类
 @import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
 ### 4.3.10.编写模块controller
-PaymentController.java
 @import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/controller/PaymentController.java"
-SpringCloudServiceDiscoveryController.java
-@import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/controller/SpringCloudServiceDiscoveryController.java"
 ### 4.3.11.编写模块主启动类
 @import "./springcloud-eureka/springcloud-provider-cluster-node-payment8002/src/main/java//org/openatom/springcloud/PaymentServiceProviderClusterNode8002.java"
 
@@ -495,11 +489,14 @@ SpringCloudServiceDiscoveryController.java
     服务消费者,启动端口: 80
 ### 4.4.2.模块目录结构
 ### 4.4.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-default-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 4.4.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/pom.xml"
 ### 4.4.5.编写模块application.yml
-### 4.4.6.编写模块Mybatis配置文件
-### 4.4.7.编写模块dao
-### 4.4.8.编写模块service
-### 4.4.9.编写模块service实现类
-### 4.4.10.编写模块controller
-### 4.4.11.编写模块主启动类
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/resources/application.yml"
+### 4.4.6.编写模块config
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/java/org/openatom/springcloud/config/ApplicationContextConfig.java"
+### 4.4.7.编写模块controller
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+### 4.4.8.编写模块主启动类
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceDefault80.java"
