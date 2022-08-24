@@ -274,13 +274,18 @@ https://martinfowler.com/articles/microservices.html
 	在父工程(springcloud-eureka)中创建一个名为springcloud-api-commons的maven模块,这个模块中包含了一些公共的Java实体和一些公共的插件,后面的每个模块都要引入这个公共模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 2.2.3.编写模块pom.xml
 @import "./springcloud-eureka/springcloud-api-commons/pom.xml"
-### 2.2.3.编写实体类
+### 2.2.3.
+    Payment.java
+@import "./springcloud-eureka/springcloud-api-commons//src/main/java/org/openatom/springcloud/entities/Payment.java"
 
 ## 2.3.准备项目需要的数据库
 ### 2.3.1.安装mysql数据库
     详细参考
-<a href="http://localhost:8080/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql">安装mysql</>
-<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql">安装mysql</>
+    环境搭建->centos->在Centos7上搭建开发环境->按照章节阅读/章节内容合集->3.搭建基础开发环境->3.5.安装mysql
+### 2.3.2.创建项目需要的数据库
+    导入数据库脚本
+@import "./springcloud-eureka/script/payment.sql"
+
 # 3.使用Eureka作为注册中心
 ## 3.1.Eureka注册中心简介
 	Eureka是Netflix公司开发的服务发现框架,Spring Cloud对它提供了支持,将它集成在了自己spring-cloud-netflix子项目中,用来实现Spring Cloud的服务发现功能,核心功能是为实现服务发现提供了基础支持。本次我们将搭建一个单节点版的Eureka注册中心和一个集群(高可用)版的Eureka注册中心,用来实现服务发现功能。
