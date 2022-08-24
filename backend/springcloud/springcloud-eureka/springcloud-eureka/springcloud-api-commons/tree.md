@@ -1,16 +1,16 @@
-.
-|-- pom.xml
+springcloud-api-commons
 |-- src
-|   `-- main
+|   •-- main
 |       |-- java
-|       |   `-- org
-|       |       `-- openatom
-|       |           `-- springcloud
-|       |               `-- entities
+|       |   •-- org
+|       |       •-- openatom
+|       |           •-- springcloud
+|       |               •-- entities
 |       |                   |-- Account.java
 |       |                   |-- CommonResult.java
 |       |                   |-- Order.java
 |       |                   |-- Payment.java
-|       |                   `-- Storage.java
-|       `-- resources
-|           `-- application.yml
+|       |                   •-- Storage.java
+|       •-- resources
+|           •-- application.yml
+•-- pom.xml

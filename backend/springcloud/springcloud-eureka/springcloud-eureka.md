@@ -406,6 +406,7 @@ http://localhost:7001/
 ```
 http://eureka7002:7002/
 ```
+
 <img src="./images/eureka7002.png"  width="100%"/>
 
     测试集群中的第二个节点(7003),浏览器访问
