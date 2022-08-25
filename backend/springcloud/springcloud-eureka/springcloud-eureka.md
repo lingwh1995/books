@@ -505,13 +505,17 @@ http://eureka7004:7004/
 ### 4.4.8.编写模块主启动类
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceDefault80.java"
 
-## 4.5.测试第一个微服务应用
-### 4.5.1.启动应用
-    启动单节点版Eureka注册中心
+## 4.5.运行第一个微服务应用
+### 4.5.1.启动第一个微服务应用
 ```mermaid
 flowchart LR
     准备好数据库环境-->启动Eureka注册中心
     启动Eureka注册中心-->启动服务提供者第一个节点
     启动服务提供者第一个节点-->启动服务提供者第二个节点
     启动服务提供者第二个节点-->启动服务消费者
+```
+### 4.5.1.测试第一个微服务应用
+在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
 ```
