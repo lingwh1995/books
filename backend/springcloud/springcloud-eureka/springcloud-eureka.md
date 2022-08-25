@@ -329,7 +329,7 @@ https://spring.io/projects/spring-cloud-netflix
 ### 3.2.1.章节内容简介
     本章节会展示如何搭建一个单节点版的Eureka注册中心
 ### 3.2.2.模块简介
-    单机版Eureka注册中心,启动端口: 7001
+    单节点版Eureka注册中心,启动端口: 7001
 ### 3.2.3.模块目录结构
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/tree.md"
 ### 3.2.4.创建模块
@@ -504,3 +504,18 @@ http://eureka7004:7004/
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
 ### 4.4.8.编写模块主启动类
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceDefault80.java"
+
+## 4.5.测试第一个微服务应用
+### 4.5.1.启动应用
+    启动单节点版Eureka注册中心
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者第一个节点
+    启动服务提供者第一个节点-->启动服务提供者第二个节点
+    启动服务提供者第二个节点-->启动服务消费者
+    click 准备好数据库环境 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_2-5-准备项目需要的数据库"
+    click 启动Eureka注册中心 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_3-4-单节点版eureka注册中心搭建"
+    click 启动服务提供者第一个节点 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_3-5-2-搭建eureka集群中第一个节点"
+    click 启动服务提供者第二个节点 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_3-5-3-搭建eureka集群中第二个节点"
+```
