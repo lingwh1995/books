@@ -514,8 +514,4 @@ flowchart LR
     启动Eureka注册中心-->启动服务提供者第一个节点
     启动服务提供者第一个节点-->启动服务提供者第二个节点
     启动服务提供者第二个节点-->启动服务消费者
-    click 准备好数据库环境 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_2-5-准备项目需要的数据库"
-    click 启动Eureka注册中心 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_3-4-单节点版eureka注册中心搭建"
-    click 启动服务提供者第一个节点 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_3-5-2-搭建eureka集群中第一个节点"
-    click 启动服务提供者第二个节点 "/blogs/backend/springcloud/springcloud-eureka/springcloud-eureka.html#_3-5-3-搭建eureka集群中第二个节点"
 ```
