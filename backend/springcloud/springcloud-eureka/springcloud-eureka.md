@@ -593,7 +593,7 @@ https://github.com/Netflix/ribbon
 ### 5.3.1.模块简介
     基于Ribbon官方组件以硬编码配置方式实现的服务消费者,启动端口: 80
 ### 5.3.2.模块目录结构
-    @import "./springcloud-consumer-loadbalance-ribbon-hardcode-order80/tree.md"
+@import "./springcloud-consumer-loadbalance-ribbon-hardcode-order80/tree.md"
 ### 5.3.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-ribbon-hardcode-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 5.3.4.编写模块pom.xml
@@ -611,6 +611,7 @@ https://github.com/Netflix/ribbon
 - [x] RoundRobinRule(轮询策略,轮询是Ribbon默认使用的负载均衡算法)
     第一次到A,第二次就到B,第三次又到A,第四次又到B......
     具体实现是一个负载均衡算法: 第N次请求 % 服务器集群的总数 = 实际调用服务器位置的下标
+
 - [x] RandomRule(随机策略)
     从服务提供者的列表中随机选择一个服务实例进行调用
 - [x] RetryRule(轮询重试策略)
@@ -631,7 +632,7 @@ https://github.com/Netflix/ribbon
 ### 5.4.1.模块简介
     基于Ribbon官方组件以声明式配置方式实现的服务消费者,启动端口: 80
 ### 5.4.2.模块目录结构
-    @import "./springcloud-consumer-loadbalance-ribbon-configuration-order80/tree.md"
+@import "./springcloud-consumer-loadbalance-ribbon-configuration-order80/tree.md"
 ### 5.4.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-ribbon-configuration-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 5.4.4.编写模块pom.xml
@@ -648,6 +649,7 @@ https://github.com/Netflix/ribbon
 - [x] RoundRobinRule(轮询策略,轮询是Ribbon默认使用的负载均衡算法)
     第一次到A,第二次就到B,第三次又到A,第四次又到B......
     具体实现是一个负载均衡算法: 第N次请求 % 服务器集群的总数 = 实际调用服务器位置的下标
+
 - [x] RandomRule(随机策略)
     从服务提供者的列表中随机选择一个服务实例进行调用
 - [x] RetryRule(轮询重试策略)
@@ -660,6 +662,7 @@ https://github.com/Netflix/ribbon
     先过滤掉非健康的服务实例，然后再选择连接数较小的服务实例。
 - [x] ZoneAvoidanceRule(区域内可用性能最优策略)
     基于AvailabilityFilteringRule基础上做的,首先判断一个zone的运行性能是否可用.剔除不可用的区域zone的所有server,然后再利用AvailabilityPredicate过滤并发连接过多的server。
+
 ### 5.4.6.编写模块config
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-configuration-order80/src/main/java/org/openatom/springcloud/config/ApplicationContextConfig.java"
 ### 5.4.7.编写模块controller
