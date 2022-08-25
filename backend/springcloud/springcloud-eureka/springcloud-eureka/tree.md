@@ -1,5 +1,6 @@
 springcloud-eureka
-|   •-- Jenkinsfile
+|   |-- Jenkinsfile
+|   •-- payment.sql
 |-- springcloud-api-commons
 |   |-- src
 |   |   •-- main
@@ -649,8 +650,10 @@ springcloud-eureka
 |   |-- src
 |   |   •-- main
 |   |       |-- java
-|   |       |   •-- org.openatom.springcloud
-|   |       |       •-- RegisterCcenterSingleNode7001.java
+|   |       |   •-- org
+|   |       |       •-- openatom
+|   |       |           •-- springcloud
+|   |       |               •-- RegisterCcenterSingleNode7001.java
 |   |       •-- resources
 |   |           •-- application.yml
 |   •-- pom.xml
