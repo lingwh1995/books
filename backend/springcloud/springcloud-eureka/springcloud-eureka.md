@@ -278,15 +278,15 @@ https://martinfowler.com/articles/microservices.html
 	在父工程(springcloud-eureka)中创建一个名为springcloud-api-commons的maven模块,这个模块中包含了一些公共的Java实体和一些公共的插件,后面的每个模块都要引入这个公共模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 2.2.3.编写模块pom.xml
 @import "./springcloud-eureka/springcloud-api-commons/pom.xml"
-### 2.2.3.编写模块中实体类
+### 2.2.4.编写模块中实体类
     Payment.java
 @import "./springcloud-eureka/springcloud-api-commons//src/main/java/org/openatom/springcloud/entities/Payment.java"
 
 ## 2.3.准备项目需要的数据库
 ### 2.3.1.安装mysql数据库
     详细参考
-<a href="https://lingwh1995.github.io/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql">安装mysql</a>
-<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql">安装mysql1</a>
+<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql" target="_blank">安装mysql</a>
+<a href="/pure/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql" target="_blank">安装mysql-pure</a>
 
 ### 2.3.2.创建项目需要的数据库
     导入数据库脚本
