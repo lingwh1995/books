@@ -554,7 +554,7 @@ flowchart LR
     准备好数据库环境-->启动Eureka注册中心
     启动Eureka注册中心-->启动服务提供者第一个节点
     启动服务提供者第一个节点-->启动服务提供者第二个节点
-    启动服务提供者第二个节点-->启动服务消费者
+    启动服务提供者第二个节点-->启动当前模块服务消费者
 ```
 ### 4.5.2.测试第一个微服务应用
     在浏览器中访问
@@ -591,7 +591,7 @@ https://github.com/Netflix/ribbon
 
 ## 5.3.硬编码配置方式使用Ribbon实现负载均衡(使用Ribbon自带的负载均衡策略)
 ### 5.3.1.模块简介
-    基于Ribbon官方组件以硬编码配置方式实现的服务消费者,启动端口: 80
+    基于Ribbon以硬编码配置方式实现的服务消费者,使用Ribbon自带的负载均衡策略,启动端口: 80
 ### 5.3.2.模块目录结构
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-hardcode-order80/tree.md"
 ### 5.3.3.创建模块
@@ -632,10 +632,41 @@ https://github.com/Netflix/ribbon
 
 ### 5.3.9.编写模块主启动类
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-hardcode-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceRibbonHardcode80.java"
+### 5.3.10.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8001节点
+    启动服务提供者8001节点-->启动服务提供者8002节点
+    启动服务提供者8002节点-->启动当前模块服务消费者
+```
+    测试硬编码配置方式使用Ribbon实现负载均衡(使用Ribbon自带的负载均衡策略)
+    在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
+```
+    第一次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的RandomRule(随机策略)
 
 ## 5.4.声明式配置方式使用Ribbon实现负载均衡(使用Ribbon自带的负载均衡策略)
 ### 5.4.1.模块简介
-    基于Ribbon官方组件以声明式配置方式实现的服务消费者,启动端口: 80
+    基于Ribbon以声明式配置方式实现的服务消费者,使用Ribbon自带的负载均衡策略,启动端口: 80
 ### 5.4.2.模块目录结构
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-configuration-order80/tree.md"
 ### 5.4.3.创建模块
@@ -679,6 +710,136 @@ https://github.com/Netflix/ribbon
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
 ### 5.4.8.编写模块主启动类
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceRibbonConfiguration80.java"
+### 5.4.9.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8001节点
+    启动服务提供者8001节点-->启动服务提供者8002节点
+    启动服务提供者8002节点-->启动当前模块服务消费者
+```
+    测试硬编码配置方式使用Ribbon实现负载均衡(使用Ribbon自带的负载均衡策略)
+    在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
+```
+    第一次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的RandomRule(随机策略)
 
 ## 5.5.硬编码配置方式使用Ribbon实现负载均衡(使用自定义的Ribbon负载均衡策略)
+### 5.5.1.模块简介
+    基于Ribbon以硬编码式配置方式实现的服务消费者,使用自定义的Ribbon负载均衡策略,启动端口: 80
+### 5.5.2.模块目录结构
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80/tree.md"
+### 5.5.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 5.5.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80/pom.xml"
+### 5.5.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80/src/main/resources/application.yml"
+### 5.5.6.编写模块config
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80/src/main/java/org/openatom/springcloud/config/ApplicationContextConfig.java"
+### 5.5.7.编写模块controller
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+### 5.5.8.编写自定义的负载均衡算法策略
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80/src/main/java/org/openatom/springcloud/loadbalance/MyRoundRobinRule.java"
+### 5.5.9.编写模块主启动类
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-hardcode-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceRibbonCustomerStrategyHardcode80.java"
+### 5.5.10.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8001节点
+    启动服务提供者8001节点-->启动服务提供者8002节点
+    启动服务提供者8002节点-->启动当前模块服务消费者
+```
+    测试硬编码配置方式使用Ribbon实现负载均衡(使用Ribbon自带的负载均衡策略)
+    在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
+```
+    第一次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用)
+
 ## 5.6.声明式配置方式使用Ribbon实现负载均衡(使用自定义的Ribbon负载均衡策略)
+### 5.6.1.模块简介
+    基于Ribbon以声明式配置方式实现的服务消费者,使用自定义的Ribbon负载均衡策略,启动端口: 80
+### 5.6.2.模块目录结构
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80/tree.md"
+### 5.6.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 5.6.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80/pom.xml"
+### 5.6.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80/src/main/resources/application.yml"
+### 5.6.6.编写模块config
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80/src/main/java/org/openatom/springcloud/config/ApplicationContextConfig.java"
+### 5.6.7.编写模块controller
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+### 5.6.8.编写自定义的负载均衡算法策略
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80/src/main/java/org/openatom/springcloud/loadbalance/MyRoundRobinRule.java"
+### 5.6.9.编写模块主启动类
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-custom-strategy-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceRibbonCustomerStrategyConfiguration80.java"
+### 5.6.10.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8001节点
+    启动服务提供者8001节点-->启动服务提供者8002节点
+    启动服务提供者8002节点-->启动当前模块服务消费者
+```
+    测试硬编码配置方式使用Ribbon实现负载均衡(使用Ribbon自带的负载均衡策略)
+    在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
+```
+    第一次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用)
