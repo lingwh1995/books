@@ -1,9 +1,9 @@
 # 1.微服务简介
-## <a href="https://martinfowler.com/articles/microservices.html">1.1.Martin Fowler微服务论文英文原版</a>
+## <a href="https://martinfowler.com/articles/microservices.html" target="_blank">1.1.Martin Fowler微服务论文英文原版</a>
 ```
 https://martinfowler.com/articles/microservices.html
 ```
-## <a href="https://martinfowler.com/articles/microservices.html">1.2.Martin Fowler微服务论文国内译版</a>
+## <a href="https://martinfowler.com/articles/microservices.html" target="_blank">1.2.Martin Fowler微服务论文国内译版</a>
 	如需国内译版,请使用谷歌翻译插件翻译自行翻译
 
 ## 1.3.微服务架构图
