@@ -593,7 +593,7 @@ https://github.com/Netflix/ribbon
 ### 5.3.1.模块简介
     基于Ribbon官方组件以硬编码配置方式实现的服务消费者,启动端口: 80
 ### 5.3.2.模块目录结构
-@import "./springcloud-consumer-loadbalance-ribbon-hardcode-order80/tree.md"
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-hardcode-order80/tree.md"
 ### 5.3.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-ribbon-hardcode-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 5.3.4.编写模块pom.xml
@@ -632,7 +632,7 @@ https://github.com/Netflix/ribbon
 ### 5.4.1.模块简介
     基于Ribbon官方组件以声明式配置方式实现的服务消费者,启动端口: 80
 ### 5.4.2.模块目录结构
-@import "./springcloud-consumer-loadbalance-ribbon-configuration-order80/tree.md"
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-configuration-order80/tree.md"
 ### 5.4.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-ribbon-configuration-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 5.4.4.编写模块pom.xml
