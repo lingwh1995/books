@@ -608,21 +608,26 @@ https://github.com/Netflix/ribbon
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-ribbon-hardcode-order80/src/main/java/org/openatom/myrule/MySelfRule.java"
     这里使用return new RandomRule();,这代表使用的负载均衡算法是RandomRule,Ribbon默认提供了七种负载均衡的算法策略,具体使用哪一种,请根据实际需求灵活选择,这里提供关于七种负载均衡算法的介绍
 
-- [x] RoundRobinRule(轮询策略,轮询是Ribbon默认使用的负载均衡算法)
+    RoundRobinRule(轮询策略,轮询是Ribbon默认使用的负载均衡算法)
     第一次到A,第二次就到B,第三次又到A,第四次又到B......
     具体实现是一个负载均衡算法: 第N次请求 % 服务器集群的总数 = 实际调用服务器位置的下标
 
-- [x] RandomRule(随机策略)
+    RandomRule(随机策略)
     从服务提供者的列表中随机选择一个服务实例进行调用
-- [x] RetryRule(轮询重试策略)
+
+    RetryRule(轮询重试策略)
     按照轮询策略来获取服务,如果获取的服务实例为null或已经失效,则在指定的时间之内不断地进行重试来获取服务,如果超过指定时间依然没获取到服务实例则返回null。
-- [x] WeightedResponseTimeRule(响应速度决定权重策略)
+
+    WeightedResponseTimeRule(响应速度决定权重策略)
     根据每个服务提供者的响应时间分配一个权重,响应时间越长,权重越小,被选中的可能性也就越低。它的实现原理是,刚开始使用轮询策略并开启一个计时器,每一段时间收集一次所有服务提供者的平均响应时间,然后再给每个服务提供者附上一个权重,权重越高被选中的概率也越大。
-- [x] BestAvailableRule(最优可用策略)
+
+    BestAvailableRule(最优可用策略)
     判断最优其实用的是并发连接数。选择并发连接数较小的server发送请求。
-- [x] AvailabilityFilteringRule(可用性敏感策略)
+
+    AvailabilityFilteringRule(可用性敏感策略)
     先过滤掉非健康的服务实例，然后再选择连接数较小的服务实例。
-- [x] ZoneAvoidanceRule(区域内可用性能最优策略)
+
+    ZoneAvoidanceRule(区域内可用性能最优策略)
     基于AvailabilityFilteringRule基础上做的,首先判断一个zone的运行性能是否可用.剔除不可用的区域zone的所有server,然后再利用AvailabilityPredicate过滤并发连接过多的server。
 
 ### 5.3.9.编写模块主启动类
@@ -646,21 +651,26 @@ https://github.com/Netflix/ribbon
         NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule 
     这里使用com.netflix.loadbalancer.RandomRule ,这代表使用的负载均衡算法是RandomRule,Ribbon默认提供了七种负载均衡的算法策略,具体使用哪一种,请根据实际需求灵活选择,这里提供关于七种负载均衡算法的介绍
 
-- [x] RoundRobinRule(轮询策略,轮询是Ribbon默认使用的负载均衡算法)
+    RoundRobinRule(轮询策略,轮询是Ribbon默认使用的负载均衡算法)
     第一次到A,第二次就到B,第三次又到A,第四次又到B......
     具体实现是一个负载均衡算法: 第N次请求 % 服务器集群的总数 = 实际调用服务器位置的下标
 
-- [x] RandomRule(随机策略)
+    RandomRule(随机策略)
     从服务提供者的列表中随机选择一个服务实例进行调用
-- [x] RetryRule(轮询重试策略)
+
+    RetryRule(轮询重试策略)
     按照轮询策略来获取服务,如果获取的服务实例为null或已经失效,则在指定的时间之内不断地进行重试来获取服务,如果超过指定时间依然没获取到服务实例则返回null。
-- [x] WeightedResponseTimeRule(响应速度决定权重策略)
+
+    WeightedResponseTimeRule(响应速度决定权重策略)
     根据每个服务提供者的响应时间分配一个权重,响应时间越长,权重越小,被选中的可能性也就越低。它的实现原理是,刚开始使用轮询策略并开启一个计时器,每一段时间收集一次所有服务提供者的平均响应时间,然后再给每个服务提供者附上一个权重,权重越高被选中的概率也越大。
-- [x] BestAvailableRule(最优可用策略)
+
+    BestAvailableRule(最优可用策略)
     判断最优其实用的是并发连接数。选择并发连接数较小的server发送请求。
-- [x] AvailabilityFilteringRule(可用性敏感策略)
+
+    AvailabilityFilteringRule(可用性敏感策略)
     先过滤掉非健康的服务实例，然后再选择连接数较小的服务实例。
-- [x] ZoneAvoidanceRule(区域内可用性能最优策略)
+    
+    ZoneAvoidanceRule(区域内可用性能最优策略)
     基于AvailabilityFilteringRule基础上做的,首先判断一个zone的运行性能是否可用.剔除不可用的区域zone的所有server,然后再利用AvailabilityPredicate过滤并发连接过多的server。
 
 ### 5.4.6.编写模块config
