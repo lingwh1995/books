@@ -16,6 +16,10 @@ https://martinfowler.com/articles/microservices.html
 ## 1.5.微服务架构落地实现方案
 	微服务架构落地实现有很多种方案,本次介绍的方案技术栈如下:
 	注册中心: EUREKA 
+## <a href="https://gitee.com/lingwh1995/springcloud-eureka.git">1.6.项目源代码</a>
+```
+https://gitee.com/lingwh1995/springcloud-eureka.git
+```
 
 # 2.搭建项目基础设施
 ## 2.1.创建项目父工程
@@ -288,7 +292,7 @@ https://martinfowler.com/articles/microservices.html
 <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql" target="_blank">安装mysql</a>
 
 ### 2.3.2.创建项目需要的数据库
-    导入数据库脚本
+    导入数据库脚本(application.yml中数据库配置和mysql部署机器信息保持一致)
 @import "./springcloud-eureka/script/payment.sql"
 
 # 3.使用Eureka作为注册中心
@@ -514,7 +518,7 @@ flowchart LR
     启动服务提供者第一个节点-->启动服务提供者第二个节点
     启动服务提供者第二个节点-->启动服务消费者
 ```
-### 4.5.1.测试第一个微服务应用
+### 4.5.2.测试第一个微服务应用
 在浏览器中访问
 ```
 http://localhost/consumer/payment/get/1
