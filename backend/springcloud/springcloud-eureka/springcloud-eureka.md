@@ -1342,7 +1342,7 @@ http://localhost:9001/hystrix
     监控服务消费端
 ```mermaid
 flowchart LR
-    访问Hystrix DashBoard-->填写http://localhost/hystrix.stream
+    访问Hystrix_DashBoard-->填写http://localhost/hystrix.stream
     填写http://localhost/hystrix.stream-->点击Monitor Stream
     点击Monitor Stream-->访问服务消费端任何一个服务
 ```
@@ -1360,7 +1360,7 @@ http://localhost/consumer/payment/circuitbreaker/get/1
     监控服务提供端8003
 ```mermaid
 flowchart LR
-    访问Hystrix DashBoard-->填写http://localhost:8003/hystrix.stream
+    访问Hystrix_DashBoard-->填写http://localhost:8003/hystrix.stream
     填写http://localhost:8003/hystrix.stream-->点击Monitor Stream
     点击Monitor Stream-->访问服务提供端8003任何一个服务
 ```
