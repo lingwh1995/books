@@ -1317,7 +1317,7 @@ public ServletRegistrationBean getServlet() {
 ```
 
     修改后的主启动类如下
-@import ".springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java"
+@import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java"
 ### 8.1.11.测试模块
     启动相关服务
 ```mermaid
