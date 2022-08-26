@@ -1318,6 +1318,7 @@ public ServletRegistrationBean getServlet() {
 
     修改后的主启动类如下
 @import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java"
+
 ### 8.1.11.测试模块
     启动相关服务
 ```mermaid
@@ -1376,10 +1377,10 @@ http://localhost/consumer/payment/circuitbreaker/get/1
 
     监控服务提供端8004
 ```mermaid
-flowchart LR󠀠󠀠
-    访问Hystrix_󠀠󠀠DashBoard-->填写http://localhost:8004/hystrix.stream
+flowchart LR
+    访问Hystrix_DashBoard-->填写http://localhost:8004/hystrix.stream
     填写http://localhost:8004/hystrix.stream-->点击Monitor_Stream
-    点击Monitor_Stream-->访问服务提供端8004任何一个服务
+    点击Monitor_Stream-->访问服务提供端8003任何一个服务
 ```
     Hystrix DashBoard参数
 ```
