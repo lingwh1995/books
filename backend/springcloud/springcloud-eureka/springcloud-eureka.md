@@ -579,7 +579,7 @@ http://localhost/consumer/payment/get/1
 ```
     可以看到四次访问返回的结果中,第一次和第三次是相同的,第二次和第四次是相同的,之所以会出现这样的结果,是因为上面编写RestTemplate时使用了默认的配置,默认的配置使用负载均衡策略是轮询策略,所以接连访问该服务四次会出现上面的情况。
 
-# 5.使用Ribbon实现负载均衡
+# 5.使用Ribbon实现客户端负载均衡
 
 ## 5.1.Ribbon简介
     Ribbon是Netflix发布的开源项目，主要功能是提供客户端的软件负载均衡算法，将Netflix的中间层服务连接在一起。Ribbon客户端组件提供一系列完善的配置项如连接超时，重试等。简单的说，就是在配置文件中列出Load Balancer（简称LB）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随即连接等）去连接这些机器,也可以使用Ribbon实现自定义的负载均衡算法。
@@ -822,6 +822,118 @@ flowchart LR
     启动服务提供者8002节点-->启动当前模块服务消费者
 ```
     测试硬编码配置方式使用Ribbon实现负载均衡(使用Ribbon自带的负载均衡策略)
+    在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
+```
+    第一次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
+
+# 6.使用OpenFeign实现客户端负载均衡
+## 6.1.OpenFeign简介
+    Feign是SpringCloud组件中一个轻量级RESTful的HTTP服务客户端,Feign内置了Ribbon,用来做客户端负载均衡,去调用服务注册中心的服务。Feign的使用方式是: 使用Feign的注解定义接口,调用这个接口,就可以调用服务注册中心的服务。OpenFeign是SpringCloud在Feign的基础上支持了SpringMVC的注解,如@RequestMapping等。OpenFeign的@FeignClient可以解析SpringMVC的@RequestMapping注解下的接口,并通过动态代理的方式产生实现类,实现类中做负载均衡并调用其他服务。
+
+<a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/">官方网址(Spring.IO)<a/>
+```
+https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/
+```
+
+## 6.2.通过配置Ribbon实现对OpenFeign的配置来实现负载均衡
+### 6.2.1.模块简介
+    通过配置Ribbon实现对OpenFeign的配置来实现的服务消费者,在YML中编写相关配置,之所以可以这样,是因为OpenFeign的底层实现就是Ribbon,启动端口: 80
+### 6.2.2.模块目录结构
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80/tree.md"
+### 6.2.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 6.2.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80/pom.xml"
+### 6.2.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80/src/main/resources/application.yml"
+### 6.2.6.编写模块config
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
+### 6.2.7.编写模块service
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
+### 6.2.8.编写模块controller
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+### 6.2.9.编写模块主启动类
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignConfigurationRibbon80.java"
+### 6.2.10.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8001节点
+    启动服务提供者8001节点-->启动服务提供者8002节点
+    启动服务提供者8002节点-->启动当前模块服务消费者
+```
+    测试通过配置Ribbon实现对OpenFeign的配置来实现负载均衡
+    在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
+```
+    第一次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
+
+
+## 6.3.通过直接配置OpenFeign实现对OpenFeign的配置来实现负载均衡
+### 6.3.1.模块简介
+    通过直接配置OpenFeign实现对OpenFeign的配置来实现的服务消费者,在YML中编写相关配置,之前在YML配置的Ribbon的相关配置现在直接配置在了YML中OpenFeign部分,启动端口: 80
+### 6.3.2.模块目录结构
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80/tree.md"
+### 6.3.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 6.3.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80/pom.xml"
+### 6.3.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80/src/main/resources/application.yml"
+### 6.3.6.编写模块config
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
+### 6.3.7.编写模块service
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
+### 6.3.8.编写模块controller
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+### 6.3.9.编写模块主启动类
+@import "./springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignConfigurationOpenfeign80.java"
+### 6.3.10.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8001节点
+    启动服务提供者8001节点-->启动服务提供者8002节点
+    启动服务提供者8002节点-->启动当前模块服务消费者
+```
+    测试通过直接配置OpenFeign实现对OpenFeign的配置来实现负载均衡
     在浏览器中访问
 ```
 http://localhost/consumer/payment/get/1
