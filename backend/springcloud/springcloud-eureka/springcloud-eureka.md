@@ -904,6 +904,16 @@ http://localhost/consumer/payment/get/1
 ```
     可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
 
+### 6.2.11.注意事项
+    OpenFeign和RestTemplate
+    容器中注入不用注入RestTemplate,OpenFeign已经在底层对RestTemplate做了封装
+
+    在application.yml中配置开启OpenFeign增强日志
+```
+logging: #OpenFeign增强日志配置
+    level:
+    org.openatom.springcloud.services.PaymentServiceOpenFeign: debug  #OpenFeign日志以什么级别监控哪个接口
+```
 
 ## 6.3.通过直接配置OpenFeign实现对OpenFeign的配置来实现负载均衡
 ### 6.3.1.模块简介
@@ -955,3 +965,13 @@ http://localhost/consumer/payment/get/1
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
     可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
+### 6.3.11.注意事项
+    OpenFeign和RestTemplate
+    容器中注入不用注入RestTemplate,OpenFeign已经在底层对RestTemplate做了封装
+
+    在application.yml中配置开启OpenFeign增强日志
+```
+logging: #OpenFeign增强日志配置
+    level:
+    org.openatom.springcloud.services.PaymentServiceOpenFeign: debug  #OpenFeign日志以什么级别监控哪个接口
+```
