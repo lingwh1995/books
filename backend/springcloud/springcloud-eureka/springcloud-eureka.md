@@ -983,8 +983,8 @@ logging: #OpenFeign增强日志配置
     当服务调用发生异常时，快速返回一个事先设置好的值,针对系统全局稳定性考虑,消费端和服务端都可以做
 
     服务熔断
-    当调用服务发生多次异常时服务会会熔断,如数据库连接故障,当故障修复时服务又会恢复到正常状态,针对服务提供方稳定性考虑 
-​    
+    当调用服务发生多次异常时服务会会熔断,如数据库连接故障,当故障修复时服务又会恢复到正常状态,针对服务提供方稳定性考虑
+    
     服务限流
     对访问的流量进行限制
     
@@ -997,7 +997,7 @@ https://github.com/Netflix/Hystrix
 ### 7.2.1.模块简介
     具有服务熔断和服务降级功能的服务提供者的第一个节点,启动端口: 8003
 ### 7.2.2.模块目录结构
-@import "./springcloud-provider-hystrix-cluster-node-payment8003/tree.md"
+@import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8003/tree.md"
 ### 7.2.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-hystrix-cluster-node-payment8003的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 7.2.4.编写模块pom.xml
