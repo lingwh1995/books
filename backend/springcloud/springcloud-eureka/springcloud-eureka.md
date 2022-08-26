@@ -1330,11 +1330,53 @@ flowchart LR
     启动使用了Hystrix功能的服务消费者-->启动Hystrix Dashboard
 ```
 
-    测试使用Hystrix DashBoard和Turbine对服务进行监控
+    测试使用Hystrix DashBoard对单个服务进行监控
 访问Hystrix DashBoard
 ```
 http://localhost:9001/hystrix
 ```
+<img src="./images/hystrix_dashboard.png"  width="100%"/>
+    监控服务消费端
+```mermaid
+flowchart LR
+    访问Hystrix DashBoard-->填写http://localhost/hystrix.stream
+    填写http://localhost/hystrix.stream-->点击Monitor Stream
+    点击Monitor Stream-->访问服务消费端任何一个服务
+```
+    示例服务URL
+```
+http://localhost/consumer/payment/circuitbreaker/get/1
+```
+    可以看到界面自动统计出了消费端某个服务的访问情况
+<img src="./images/hystrix_dashboard_mointor_consumer.png"  width="100%"/>
 
-# 8.使用Turbine对单个服务进行监控
-## 9.1.Turbine简介
+    监控服务提供端8003
+```mermaid
+flowchart LR
+    访问Hystrix DashBoard-->填写http://localhost:8003/hystrix.stream
+    填写http://localhost:8003/hystrix.stream-->点击Monitor Stream
+    点击Monitor Stream-->访问服务提供端8003任何一个服务
+```
+    示例服务URL(访问这个服务消费端的服务,会自动调用服务提供端8003的服务,不是每次都调用,每次在8003和8004随机选择一个节点进行调用)
+```
+http://localhost/consumer/payment/circuitbreaker/get/1
+```
+    可以看到界面自动统计出了提供端8003某个服务的访问情况
+<img src="./images/hystrix_dashboard_mointor_provider8003.png"  width="100%"/>
+
+    监控服务提供端8004
+```mermaid
+flowchart LR
+    访问Hystrix DashBoard-->填写http://localhost:8004/hystrix.stream
+    填写http://localhost:8004/hystrix.stream-->点击Monitor Stream
+    点击Monitor Stream-->访问服务提供端8004任何一个服务
+```
+    示例服务URL(访问这个服务消费端的服务,会自动调用服务提供端8003的服务,不是每次都调用,每次在8003和8004随机选择一个节点进行调用)
+```
+http://localhost/consumer/payment/circuitbreaker/get/1
+```
+    可以看到界面自动统计出了提供端8004某个服务的访问情况
+<img src="./images/hystrix_dashboard_mointor_provider8004.png"  width="100%"/>
+````
+
+## 8.2.使用Turbine对多个服务进行监控
