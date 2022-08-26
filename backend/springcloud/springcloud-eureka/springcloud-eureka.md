@@ -1021,7 +1021,7 @@ https://github.com/Netflix/Hystrix
 ### 7.3.1.模块简介
     具有服务熔断和服务降级功能的服务提供者的第二个节点,启动端口: 8004
 ### 7.3.2.模块目录结构
-@import "./springcloud-provider-hystrix-cluster-node-payment8004/tree.md"
+@import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8004/tree.md"
 ### 7.3.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-hystrix-cluster-node-payment8004的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 7.3.4.编写模块pom.xml
@@ -1045,7 +1045,7 @@ https://github.com/Netflix/Hystrix
 ### 7.4.1.模块简介
     具有服务熔断和服务降级功能的服务消费者,启动端口: 80
 ### 7.4.2.模块目录结构
-@import "./springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/tree.md"
+@import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/tree.md"
 ### 7.4.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 7.4.4.编写模块pom.xml
