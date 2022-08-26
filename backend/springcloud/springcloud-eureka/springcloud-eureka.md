@@ -1216,7 +1216,7 @@ http://localhost/consumer/payment/circuitbreaker/get/1
 
     服务熔断(下游服务发生了异常)->断路器半开(放开一定的访问流量,探测一下服务是否恢复正常)->断路器全开(放开全部访问流量)->服务恢复正常
 
-# 8.使用Hystrix_DashBoard和Turbine对服务进行监控
+# 8.使用Hystrix DashBoard和Turbine对服务进行监控
 ## 8.1.使用Hystrix DashBoard对服务单个节点进行监控
 ### 8.1.1.Hystrix DashBoard简介
     Hystrix Dashboard是Spring Cloud的仪表盘组件,可以查看Hystrix实例的执行情况,支持查看单个实例和查看集群实例,但是需要结合spring-boot-actuator一起使用。Hystrix Dashboard主要用来实时监控Hystrix的各项指标信息。Hystrix Dashboard可以有效地反映出每个Hystrix实例的运行情况，帮助我们快速发现系统中的问题，从而采取对应措施。
