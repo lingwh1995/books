@@ -547,7 +547,7 @@ http://eureka7004:7004/
 ### 4.4.8.编写模块主启动类
 @import "./springcloud-eureka/springcloud-consumer-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceDefault80.java"
 
-## 4.5.运行第一个微服务应用
+## 4.5.启动并测试第一个微服务应用
 ### 4.5.1.启动第一个微服务应用
 ```mermaid
 flowchart LR
@@ -1126,7 +1126,7 @@ public class OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80 {
     
 }
 ```
-### 7.4.11.测试模块
+## 7.5.测试服务降级和服务熔断
     启动相关服务
 ```mermaid
 flowchart LR
@@ -1217,7 +1217,7 @@ http://localhost/consumer/payment/circuitbreaker/get/1
     服务熔断(下游服务发生了异常)->断路器半开(放开一定的访问流量,探测一下服务是否恢复正常)->断路器全开(放开全部访问流量)->服务恢复正常
 
 # <p>8.使用Hystrix DashBoard和Turbine对服务进行监控</p>
-## 8.1.使用Hystrix DashBoard对单个服务进行监控
+## 8.1.使用Hystrix DashBoard对服务单个节点进行监控
 ### 8.1.1.Hystrix DashBoard简介
     Hystrix Dashboard是Spring Cloud的仪表盘组件,可以查看Hystrix实例的执行情况,支持查看单个实例和查看集群实例,但是需要结合spring-boot-actuator一起使用。Hystrix Dashboard主要用来实时监控Hystrix的各项指标信息。Hystrix Dashboard可以有效地反映出每个Hystrix实例的运行情况，帮助我们快速发现系统中的问题，从而采取对应措施。
 ### 8.1.2.模块简介
@@ -1327,7 +1327,7 @@ flowchart LR
     启动Eureka注册中心-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
-    启动使用了Hystrix功能的服务消费者-->启动Hystrix Dashboard模块(当前模块)
+    启动使用了Hystrix功能的服务消费者-->启动Hystrix_Dashboard监控模块
 ```
     注意事项
     Hystrix DashBoard只能监控设置了服务降级或服务熔断的方法,未设置降级或者熔断的方法是无法监控到的,也是说未设置降级和熔断的方法调用后是不会和Hystrix DashBoard产生任何关系的
@@ -1377,10 +1377,10 @@ http://localhost/consumer/payment/circuitbreaker/get/1
 
     监控服务提供端8004
 ```mermaid
-flowchart LR
-    访问Hystrix DashBoard-->填写http://localhost:8004/hystrix.stream
-    填写http://localhost:8004/hystrix.stream-->点击Monitor Stream
-    点击Monitor Stream-->访问服务提供端8004任何一个服务
+flowchart LR󠀠󠀠
+    访问Hystrix_󠀠󠀠DashBoard-->填写http://localhost:8004/hystrix.stream
+    填写http://localhost:8004/hystrix.stream-->点击Monitor_Stream
+    点击Monitor_Stream-->访问服务提供端8004任何一个服务
 ```
     Hystrix DashBoard参数
 ```
@@ -1503,7 +1503,7 @@ flowchart LR
     启动Eureka注册中心-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
-    启动使用了Hystrix功能的服务消费者-->启动Tunbine模块(当前模块)
+    启动使用了Hystrix功能的服务消费者-->启动Tunbine监控模块
 ```
     注意事项
     Hystrix DashBoard只能监控设置了服务降级或服务熔断的方法,未设置降级或者熔断的方法是无法监控到的,也是说未设置降级和熔断的方法调用后是不会和Hystrix DashBoard产生任何关系的,因为Tunbine是汇聚来自Hystrix DashBoard的数据,所以Tunbine也只能汇聚Hystrix DashBoard可以监控到的数据
@@ -1520,8 +1520,8 @@ http://localhost:9002/hystrix
 ```mermaid
 flowchart LR
     访问Turbine-->填写http://localhost:9002/turbine.stream
-    填写http://localhost:9002/turbine.stream-->点击Monitor Stream
-    点击Monitor Stream-->访问服务消费端任何一个服务
+    填写http://localhost:9002/turbine.stream-->点击Monitor_Stream
+    点击Monitor_Stream-->访问服务消费端任何一个服务
 ```
     Turbine参数
 ```
