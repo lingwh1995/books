@@ -295,7 +295,7 @@ https://gitee.com/lingwh1995/springcloud-eureka.git
     导入数据库脚本(application.yml中数据库配置和mysql部署机器信息保持一致)
 @import "./springcloud-eureka/script/payment.sql"
 
-### 2.3.3.配置使用springboot热部署
+## 2.4.配置使用热部署
     在公共模块的pom.xml中添加热部署依赖和相关配置(上一步已经添加进去了,这里只是展示热部署部分的代码),将热部署相关插件和配置放在公共模块的好处是,其他的模块引用公共模块的时候就已经引入了热部署相关插件和配置,无需额外引入
 ```xml
     <dependencies>
@@ -561,19 +561,19 @@ flowchart LR
 ```
 http://localhost/consumer/payment/get/1
 ```
-    第一次访问
+    第一次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第二次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第三次访问
+    第三次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第四次访问
+    第四次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
@@ -646,19 +646,19 @@ flowchart LR
 ```
 http://localhost/consumer/payment/get/1
 ```
-    第一次访问
+    第一次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第二次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第三次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第四次访问
+    第四次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
@@ -724,19 +724,19 @@ flowchart LR
 ```
 http://localhost/consumer/payment/get/1
 ```
-    第一次访问
+    第一次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第二次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第三次访问
+    第三次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第四次访问
+    第四次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
@@ -775,19 +775,19 @@ flowchart LR
 ```
 http://localhost/consumer/payment/get/1
 ```
-    第一次访问
+    第一次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第二次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第三次访问
+    第三次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第四次访问
+    第四次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
@@ -826,19 +826,19 @@ flowchart LR
 ```
 http://localhost/consumer/payment/get/1
 ```
-    第一次访问
+    第一次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第二次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第三次访问
+    第三次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第四次访问
+    第四次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
@@ -886,19 +886,19 @@ flowchart LR
 ```
 http://localhost/consumer/payment/get/1
 ```
-    第一次访问
+    第一次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第二次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第三次访问
+    第三次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第四次访问
+    第四次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
@@ -906,7 +906,7 @@ http://localhost/consumer/payment/get/1
 
 ### 6.2.11.注意事项
     OpenFeign和RestTemplate
-    容器中注入不用注入RestTemplate,OpenFeign已经在底层对RestTemplate做了封装
+    使用OpenFeign实现远程调用时,容器中注入不用注入RestTemplate,OpenFeign已经在底层对RestTemplate做了封装
 
     在application.yml中配置开启OpenFeign增强日志
 ```yml
@@ -948,19 +948,19 @@ flowchart LR
 ```
 http://localhost/consumer/payment/get/1
 ```
-    第一次访问
+    第一次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
-    第二次访问
+    第二次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第三次访问
+    第三次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
-    第四次访问
+    第四次访问返回结果
 ```json
 {"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
 ```
@@ -1062,3 +1062,92 @@ https://github.com/Netflix/Hystrix
 @import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerHystrixController.java"
 ### 7.4.10.编写模块主启动类
 @import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java"
+### 7.4.11.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8001节点
+    启动服务提供者8003节点-->启动服务提供者8002节点
+    启动服务提供者8004节点-->启动当前模块服务消费者
+```
+
+    测试未做降级和熔断的服务
+```
+http://localhost/consumer/payment/ok/get/1
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
+
+    测试在服务提供方对服务进行降级
+    在浏览器中访问
+```
+http://localhost/consumer/payment/degradation_in_provider/get/1
+```
+    返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8003","data":{"id":1,"serial":"服务提供方:服务降级成功"}}
+```
+    具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
+
+    测试在服务消费方对服务进行降级
+    在浏览器中访问
+```
+http://localhost/consumer/payment/degradation_in_consumer/get/1
+```
+    返回结果
+```json
+{"code":10000,"message":"我是服务消费方","data":{"id":1,"serial":"服务消费方:降级成功"}}
+```
+    具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
+
+    测试全局范围内默认的降级回调方法(这种处理方式可以应用于服务提供方和服务消费方,这里演示的是在服务消费端进行处理)
+    在浏览器中访问
+```
+http://localhost:/consumer/payment/degradation_in_consumer_default/get/1
+```
+    返回结果
+```json
+{"code":10000,"message":"我是服务消费方","data":{"id":null,"serial":"服务消费方:全局范围内默认的降级回调方法...."}}
+```
+    具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
+    
+    测试在服务提供方Service层实现服务降级
+    本次测试较为特殊,首先关闭服务提供者8003和服务提供者8004,模拟服务提供者8003和服务提供者8004发生了宕机
+    在浏览器中访问
+```
+http://localhost:/consumer/payment/degradation_in_consumer_service/get/1
+```
+    返回结果
+```json
+{"code":10000,"message":"发生了错误","data":{"id":null,"serial":"服务消费端:服务提供者宕机了,在服务消费方中Service层对这个服务进行服务降级处理...."}}
+```
+    具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
+
+    测试在服务提供方实现服务熔断
+    模拟发生异常熔断服务,路径1:
+```
+http://localhost/consumer/payment/circuitbreaker/get/-1
+```
+    模拟不发生异常让服务自动恢复,路径2:
+```
+http://localhost/consumer/payment/circuitbreaker/get/1
+```
+    测试方式:先多次访问路径1，将服务熔断,再多次访问路径2,刚开始访问依然返回的是异常信息,多次访问后可以看到服务恢复正常
+    
+    服务熔断(下游服务发生了异常)->断路器半开(放开一定的访问流量,探测一下服务是否恢复正常)->断路器全开(放开全部访问流量)->服务恢复正常
