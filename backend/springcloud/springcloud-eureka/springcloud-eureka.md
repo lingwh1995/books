@@ -1508,15 +1508,15 @@ flowchart LR
     注意事项
     Hystrix DashBoard只能监控设置了服务降级或服务熔断的方法,未设置降级或者熔断的方法是无法监控到的,也是说未设置降级和熔断的方法调用后是不会和Hystrix DashBoard产生任何关系的,因为Tunbine是汇聚来自Hystrix DashBoard的数据,所以Tunbine也只能汇聚Hystrix DashBoard可以监控到的数据
     集成了Turbine的项目修改后需要手动重启,目前发现热加载会报错
-
+    
     测试使用Turbine汇聚服务提供端多个节点访问统计数据
     访问Turbine(Turbine主页面和Hystrix DashBoard主界面是相同的,只是填写的参数不同)
 ```
 http://localhost:9002/hystrix
 ```
-<img src="./images/hystrix_dashboard_turbine.png"  width="100%"/>
+<img src="./images/turbine.png"  width="100%"/>
 
-    汇聚服务提供端所有节点访问统计数据(汇聚Hystrix DashBoard监控到的服务提供端8003节点的数据和服务提供端8004节点的数据)
+    使用Turbine汇聚服务提供端多个节点访问统计数据(汇聚Hystrix DashBoard监控到的服务提供端8003节点的数据和服务提供端8004节点的数据)
 ```mermaid
 flowchart LR
     访问Turbine-->填写http://localhost:9002/turbine.stream
@@ -1532,4 +1532,12 @@ http://localhost:9002/turbine.stream
 http://localhost/consumer/payment/circuitbreaker/get/1
 ```
     可以看到界面一次性自动统计出了服务提供端8003节点和服务提供端8004节点访问统计数据
-<img src="./images/hystrix_dashboard_mointor_consumer.png"  width="100%"/>
+<img src="./images/turbine_mointor_provider_allnode.png"  width="100%"/>
+
+    使用Turbine前
+    连续访问http://localhost/consumer/payment/circuitbreaker/get/1这个测试URL 10次,监控服务提供端8003节点的Hystrix DashBoard中可以统计到的访问次数为3,监控服务提供端8004节点的Hystrix DashBoard中统计到的访问次数值为7,因为服务消费端会随机选择一个节点进行调用,把服务提供端8003节点和服务提供端8004节点中统计到的访问次数的值加起来一定是10
+
+    使用Turbine后
+    连续访问http://localhost/consumer/payment/circuitbreaker/get/1这个测试URL 10次,Turbine中统计到的访问次数的值直接就是10
+
+    
