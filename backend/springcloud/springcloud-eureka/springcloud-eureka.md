@@ -1329,7 +1329,9 @@ flowchart LR
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
     启动使用了Hystrix功能的服务消费者-->启动Hystrix Dashboard
 ```
-
+    注意事项
+    Hystrix DashBoard只能监控设置了服务降级或服务熔断的方法,未设置降级或者熔断的方法是无法监控到的,也是说未设置降级和熔断的方法调用后是不会和Hystrix DashBoard产生任何关系的
+    
     测试使用Hystrix DashBoard对单个服务进行监控
 访问Hystrix DashBoard
 ```
