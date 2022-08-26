@@ -1015,7 +1015,29 @@ https://github.com/Netflix/Hystrix
 ### 7.2.10.编写模块controller
 @import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8003/src/main/java/org/openatom/springcloud/controller/PaymentHystrixController.java"
 ### 7.2.11.编写模块主启动类
-@import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8003/src/main/java//org/openatom/springcloud/PaymentServiceProviderHystrixClusterNode8003.java"
+```java
+package org.openatom.springcloud;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+
+/**
+ * 支付接口提供者
+ *  使用Eureka作为注册中心
+ */
+@EnableEurekaClient
+@SpringBootApplication
+@EnableCircuitBreaker//服务提供方端启用Hystrix
+public class PaymentServiceProviderHystrixClusterNode8003 {
+
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentServiceProviderHystrixClusterNode8003.class, args);
+    }
+
+}
+```
 
 ## 7.3.搭建服务提供者第二个节点
 ### 7.3.1.模块简介
@@ -1039,7 +1061,29 @@ https://github.com/Netflix/Hystrix
 ### 7.3.10.编写模块controller
 @import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8004/src/main/java/org/openatom/springcloud/controller/PaymentHystrixController.java"
 ### 7.3.11.编写模块主启动类
-@import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8004/src/main/java//org/openatom/springcloud/PaymentServiceProviderHystrixClusterNode8004.java"
+```java
+package org.openatom.springcloud;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+
+/**
+ * 支付接口提供者
+ *  使用Eureka作为注册中心
+ */
+@EnableEurekaClient
+@SpringBootApplication
+@EnableCircuitBreaker//服务提供方端启用Hystrix
+public class PaymentServiceProviderHystrixClusterNode8004 {
+
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentServiceProviderHystrixClusterNode8004.class, args);
+    }
+
+}
+```
 
 ## 7.4.搭建服务消费者
 ### 7.4.1.模块简介
@@ -1061,14 +1105,34 @@ https://github.com/Netflix/Hystrix
 ### 7.4.9.编写模块controller
 @import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerHystrixController.java"
 ### 7.4.10.编写模块主启动类
-@import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java"
+```java
+package org.openatom.springcloud;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+
+@EnableEurekaClient
+@SpringBootApplication
+@EnableFeignClients
+@EnableHystrix //消费者端启用Hystrix
+public class OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80 {
+    public static void main(String[] args) {
+        SpringApplication.run(OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.class, args);
+    }
+    
+}
+```
 ### 7.4.11.测试模块
     启动相关服务
 ```mermaid
 flowchart LR
     准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8001节点
-    启动服务提供者8003节点-->启动服务提供者8002节点
+    启动Eureka注册中心-->启动服务提供者8003节点
+    启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动当前模块服务消费者
 ```
 
@@ -1149,5 +1213,128 @@ http://localhost/consumer/payment/circuitbreaker/get/-1
 http://localhost/consumer/payment/circuitbreaker/get/1
 ```
     测试方式:先多次访问路径1，将服务熔断,再多次访问路径2,刚开始访问依然返回的是异常信息,多次访问后可以看到服务恢复正常
-    
+
     服务熔断(下游服务发生了异常)->断路器半开(放开一定的访问流量,探测一下服务是否恢复正常)->断路器全开(放开全部访问流量)->服务恢复正常
+
+# 8.使用Hystrix DashBoard和Turbine对服务进行监控
+## 8.1.使用Hystrix DashBoard对单个服务进行监控
+### 8.1.1.Hystrix DashBoard简介
+    Hystrix Dashboard是Spring Cloud的仪表盘组件,可以查看Hystrix实例的执行情况,支持查看单个实例和查看集群实例,但是需要结合spring-boot-actuator一起使用。Hystrix Dashboard主要用来实时监控Hystrix的各项指标信息。Hystrix Dashboard可以有效地反映出每个Hystrix实例的运行情况，帮助我们快速发现系统中的问题，从而采取对应措施。
+### 8.1.2.模块简介
+    Hystrix DashBoard,启动端口: 9001
+### 8.1.3.模块目录结构
+@import "./springcloud-eureka/springcloud-mointor-hystrix-dashboard9001/tree.md"
+### 8.1.4.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-mointor-hystrix-dashboard9001的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 8.1.5.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-mointor-hystrix-dashboard9001/pom.xml"
+### 8.1.6.编写模块application.yml
+@import "./springcloud-eureka/springcloud-mointor-hystrix-dashboard9001/src/main/resources/application.yml"
+### 8.1.7.编写模块主启动类
+@import "./springcloud-eureka/springcloud-mointor-hystrix-dashboard9001/src/main/java/org/openatom/springcloud/MointorHystrixDashboard9001.java"
+### 8.1.8.修改服务提供者8003主启动类
+    使用Hystrix Dashboard监控服务,被监控的服务提供者和服务消费者必须满足以下条件
+    pom.xml中引入如下依赖
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+</dependency>
+```
+    在主启动类中注册ServletRegistrationBean这个Bean
+```
+@Bean
+public ServletRegistrationBean getServlet() {
+    HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+    ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+    registrationBean.setLoadOnStartup(1);
+    registrationBean.addUrlMappings("/hystrix.stream");
+    registrationBean.setName("HystrixMetricsStreamServlet");
+    return registrationBean;
+}
+```
+
+    修改后的主启动类如下
+@import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8003/src/main/java/org/openatom/springcloud/PaymentServiceProviderHystrixClusterNode8003.java"
+
+### 8.1.9.修改服务提供者8004主启动类
+    使用Hystrix Dashboard监控服务,被监控的服务提供者和服务消费者必须满足以下条件
+    pom.xml中引入如下依赖
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+</dependency>
+```
+    在主启动类中注册ServletRegistrationBean这个Bean
+```
+@Bean
+public ServletRegistrationBean getServlet() {
+    HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+    ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+    registrationBean.setLoadOnStartup(1);
+    registrationBean.addUrlMappings("/hystrix.stream");
+    registrationBean.setName("HystrixMetricsStreamServlet");
+    return registrationBean;
+}
+```
+
+    修改后的主启动类如下
+@import "./springcloud-eureka/springcloud-provider-hystrix-cluster-node-payment8004/src/main/java/org/openatom/springcloud/PaymentServiceProviderHystrixClusterNode8004.java"
+
+### 8.1.10.修改服务消费者80主启动类
+    使用Hystrix Dashboard监控服务,被监控的服务提供者和服务消费者必须满足以下条件
+    pom.xml中引入如下依赖
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+</dependency>
+```
+    在主启动类中注册ServletRegistrationBean这个Bean
+```
+@Bean
+public ServletRegistrationBean getServlet() {
+    HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+    ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+    registrationBean.setLoadOnStartup(1);
+    registrationBean.addUrlMappings("/hystrix.stream");
+    registrationBean.setName("HystrixMetricsStreamServlet");
+    return registrationBean;
+}
+```
+
+    修改后的主启动类如下
+@import "./springcloud-eureka/springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80.java"
+
+### 8.1.11.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8003节点
+    启动服务提供者8003节点-->启动服务提供者8004节点
+    启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
+    启动使用了Hystrix功能的服务消费者-->启动Hystrix Dashboard
+```
+
+    测试使用Hystrix DashBoard和Turbine对服务进行监控
+访问Hystrix DashBoard
+```
+http://localhost:9001/hystrix
+```
+
+# 8.使用Turbine对单个服务进行监控
+## 9.1.Turbine简介
