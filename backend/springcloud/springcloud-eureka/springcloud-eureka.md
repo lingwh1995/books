@@ -16,7 +16,7 @@ https://martinfowler.com/articles/microservices.html
 ## 1.5.微服务架构落地实现方案
 	微服务架构落地实现有很多种方案,本次介绍的方案技术栈如下:
 	注册中心: EUREKA 
-## <a href="https://gitee.com/lingwh1995/springcloud-eureka.git">1.6.项目源代码</a>
+## <a href="https://gitee.com/lingwh1995/springcloud-eureka.git"  target="_blank">1.6.项目源代码</a>
 ```
 https://gitee.com/lingwh1995/springcloud-eureka.git
 ```
@@ -848,7 +848,7 @@ http://localhost/consumer/payment/get/1
 ## 6.1.OpenFeign简介
     Feign是SpringCloud组件中一个轻量级RESTful的HTTP服务客户端,Feign内置了Ribbon,用来做客户端负载均衡,去调用服务注册中心的服务。Feign的使用方式是: 使用Feign的注解定义接口,调用这个接口,就可以调用服务注册中心的服务。OpenFeign是SpringCloud在Feign的基础上支持了SpringMVC的注解,如@RequestMapping等。OpenFeign的@FeignClient可以解析SpringMVC的@RequestMapping注解下的接口,并通过动态代理的方式产生实现类,实现类中做负载均衡并调用其他服务。核心作用是为HTTP形式的Rest API提供了非常简洁高效的RPC调用方式,可以让编写远程调用代码就像编写本地Service一样简单。
 
-<a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/">官方网址(SPRING.IO)</a>
+<a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/"  target="_blank">官方网址(SPRING.IO)</a>
 ```
 https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/
 ```
@@ -1758,19 +1758,23 @@ http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
 ## 10.1.Zipkin、Sleuth简介
     Sleuth简介
     Sleuth可以解决分布式系统的追踪问题。
-<a href="https://github.com/spring-cloud/spring-cloud-sleuth">官方网址(GITHUB)</a>
+<a href="https://github.com/spring-cloud/spring-cloud-sleuth" target="_blank">官方网址(GITHUB)</a>
 ```
 https://github.com/spring-cloud/spring-cloud-sleuth
 ```
-<a href="https://spring.io/projects/spring-cloud-sleuth"  target="_blank">官方网站(SPRING.IO)</a>
+<a href="https://spring.io/projects/spring-cloud-sleuth" target="_blank">官方网站(SPRING.IO)</a>
 ```
 https://spring.io/projects/spring-cloud-sleuth
 ```
     Zipkin简介
     Zipkin是Twitter的一个开源项目,基于 Google Dapper实现。可以使用它来收集各个服务器上请求链路的跟踪数据,并通过它提供的REST API接口来辅助我们查询跟踪数据以实现对分布式系统的监控程序,从而及时地发现系统中出现的延迟升高问题并找出系统性能瓶颈的根源。除了面向开发的API接口之外,它也提供了方便的UI组件帮助我们直观的搜索跟踪信息和分析请求链路明细,比如: 可以查询某段时间内各用户请求的处理时间等。
-<a href="https://zipkin.io/">官方网址</a>
+<a href="https://zipkin.io/" target="_blank">官方网址</a>
 ```
 https://zipkin.io/
+```
+<a href="https://github.com/openzipkin/zipkin" target="_blank">官方网址(GITHUB)</a>
+```
+https://github.com/openzipkin/zipkin
 ```
     
 ## 10.2.搭建服务提供者第一个节点(Sleuth)
@@ -1840,8 +1844,7 @@ https://zipkin.io/
 @import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java"
 
 ## 10.5.搭建Zipkin
-curl -sSL https://zipkin.io/quickstart.sh | bash -s
-java -jar zipkin.jar
+<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql" target="_blank">安装mysql</a>
 ## 10.6.测试Zipkin+Sleuth实现调用链路追踪
 
 # 11.使用Apollo配置中心统一存放配置
