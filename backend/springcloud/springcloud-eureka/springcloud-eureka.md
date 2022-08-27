@@ -350,8 +350,8 @@ https://spring.io/projects/spring-cloud-netflix
 <img src="./images/eureka_architecture.png"  width="80%"/>
 
 	Eureka的基础组件
-	服务提供者(Service Provide): 服务提供方将自身服务注册到Eureka,从而使服务消费方能够找到
-	服务消费者(Service Consumer): 服务消费方从Eureka获取注册服务列表,从而能够消费服务
+	服务提供者(Service Provide): 服务提供端将自身服务注册到Eureka,从而使服务消费端能够找到
+	服务消费者(Service Consumer): 服务消费端从Eureka获取注册服务列表,从而能够消费服务
 	服务中介(Eureka Server): 是服务提供者和服务消费者之间的桥梁，服务提供者可以把自己注册到服务中介那里，而服务消费者如需要消费一些服务(使用一些功能)就可以在服务中介中寻找注册在服务中介的服务提供者。
 
 	Eureka的提供了哪些功能?
@@ -382,7 +382,7 @@ https://spring.io/projects/spring-cloud-netflix
 ### 3.2.7.编写模块主启动类
 @import "./springcloud-eureka/springcloud-register-center-single-node7001/src/main/java/org/openatom/springcloud/RegisterCcenterSingleNode7001.java"
 ### 3.2.8.测试模块
-    编写完成后,等maven依赖导入成功,运行主启动类,在浏览器中访问
+    在浏览器中访问
 ```
 http://localhost:7001/
 ```
@@ -983,12 +983,12 @@ logging: #OpenFeign增强日志配置
     当服务调用发生异常时，快速返回一个事先设置好的值,针对系统全局稳定性考虑,消费端和服务端都可以做
 
     服务熔断
-    当调用服务发生多次异常时服务会会熔断,如数据库连接故障,当故障修复时服务又会恢复到正常状态,针对服务提供方稳定性考虑
+    当调用服务发生多次异常时服务会会熔断,如数据库连接故障,当故障修复时服务又会恢复到正常状态,针对服务提供端稳定性考虑
     
     服务限流
     对访问的流量进行限制
     
-<a href="https://github.com/Netflix/Hystrix">官方网站</a>
+<a href="https://github.com/Netflix/Hystrix"  target="_blank">官方网站</a>
 ```
 https://github.com/Netflix/Hystrix
 ```
@@ -1029,7 +1029,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  */
 @EnableEurekaClient
 @SpringBootApplication
-@EnableCircuitBreaker//服务提供方端启用Hystrix
+@EnableCircuitBreaker//服务提供端启用Hystrix
 public class PaymentServiceProviderHystrixClusterNode8003 {
 
     public static void main(String[] args) {
@@ -1075,7 +1075,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  */
 @EnableEurekaClient
 @SpringBootApplication
-@EnableCircuitBreaker//服务提供方端启用Hystrix
+@EnableCircuitBreaker//服务提供端启用Hystrix
 public class PaymentServiceProviderHystrixClusterNode8004 {
 
     public static void main(String[] args) {
@@ -1158,40 +1158,40 @@ http://localhost/consumer/payment/ok/get/1
 ```
     可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的MyRoundRobinRule(自定义策略,这个策略的效果也是随机调用),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
 
-    测试在服务提供方对服务进行降级
+    测试在服务提供端对服务进行降级
     在浏览器中访问
 ```
 http://localhost/consumer/payment/degradation_in_provider/get/1
 ```
     返回结果
 ```json
-{"code":200,"message":"查询成功,serverPort:  8003","data":{"id":1,"serial":"服务提供方:服务降级成功"}}
+{"code":200,"message":"查询成功,serverPort:  8003","data":{"id":1,"serial":"服务提供端:服务降级成功"}}
 ```
     具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
 
-    测试在服务消费方对服务进行降级
+    测试在服务消费端对服务进行降级
     在浏览器中访问
 ```
 http://localhost/consumer/payment/degradation_in_consumer/get/1
 ```
     返回结果
 ```json
-{"code":10000,"message":"我是服务消费方","data":{"id":1,"serial":"服务消费方:降级成功"}}
+{"code":10000,"message":"我是服务消费端","data":{"id":1,"serial":"服务消费端:降级成功"}}
 ```
     具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
 
-    测试全局范围内默认的降级回调方法(这种处理方式可以应用于服务提供方和服务消费方,这里演示的是在服务消费端进行处理)
+    测试全局范围内默认的降级回调方法(这种处理方式可以应用于服务提供端和服务消费端,这里演示的是在服务消费端进行处理)
     在浏览器中访问
 ```
 http://localhost:/consumer/payment/degradation_in_consumer_default/get/1
 ```
     返回结果
 ```json
-{"code":10000,"message":"我是服务消费方","data":{"id":null,"serial":"服务消费方:全局范围内默认的降级回调方法...."}}
+{"code":10000,"message":"我是服务消费端 ","data":{"id":null,"serial":"服务消费端:全局范围内默认的降级回调方法...."}}
 ```
     具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
     
-    测试在服务提供方Service层实现服务降级
+    测试在服务提供端Service层实现服务降级
     本次测试较为特殊,首先关闭服务提供者8003和服务提供者8004,模拟服务提供者8003和服务提供者8004发生了宕机
     在浏览器中访问
 ```
@@ -1199,11 +1199,11 @@ http://localhost:/consumer/payment/degradation_in_consumer_service/get/1
 ```
     返回结果
 ```json
-{"code":10000,"message":"发生了错误","data":{"id":null,"serial":"服务消费端:服务提供者宕机了,在服务消费方中Service层对这个服务进行服务降级处理...."}}
+{"code":10000,"message":"发生了错误","data":{"id":null,"serial":"服务消费端:服务提供者宕机了,在服务消费端中Service层对这个服务进行服务降级处理...."}}
 ```
     具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
 
-    测试在服务提供方实现服务熔断
+    测试在服务提供端实现服务熔断
     模拟发生异常熔断服务,路径1:
 ```
 http://localhost/consumer/payment/circuitbreaker/get/-1
@@ -1540,4 +1540,216 @@ http://localhost/consumer/payment/circuitbreaker/get/1
     使用Turbine后
     连续访问http://localhost/consumer/payment/circuitbreaker/get/1这个测试URL 10次,Turbine中统计到的访问次数的值直接就是10
 
+# 9.使用GateWay实现网关功能
+## 9.1.GateWay简介
+    Gateway全称SpringCloud Gateway,它旨在为微服务架构提供一种简单有效的统一的API路由管理方式。作为Spring Cloud生态系统中的网关,目标是替代Zuul,为了提升网关的性能,SpringCloud Gateway是基于WebFlux框架实现的,而WebFlux框架底层则使用了高性能的Reactor模式通信框架Netty。主要功能包含认证、鉴权、路由转发、安全策略、防刷、流量控制、监控日志等。
+    为什么要使用SpringCloud Gateway?
+    以鉴权为例,一个大的应用由很多服务组成,不可能为每一个服务都加上鉴权的代码,这样仅是鉴权部分的代码维护工作就是非常庞大的工作量,同时如果为所有的微服务都加上鉴权代码,这样会破坏REST服务的无状态特征,有一个思路是把鉴权的代码写在一个公共的模块,所有的模块都引入这个模块,但是这样仅仅是实现了鉴权操作,所以最好的处理方案是把认证、鉴权、路由转发、安全策略、防刷、流量控制、监控日志等功能都放在网关中实现,网关在进行请求转发的同时还实现一个负载均衡的效果,服务消费端在调用服务提供端的时候可以调用同一个服务提供端的不同节点,进而实现负载均衡,而网关可以在进行请求转发的时候将请求转发到多个服务消费端,实现服务消费端的负载均衡调用。
+
+<a href="https://github.com/spring-cloud/spring-cloud-gateway" target="_blank">官方网站(Spring.IO)</a>
+```
+https://github.com/spring-cloud/spring-cloud-gateway
+```
+
+<a href="https://spring.io/projects/spring-cloud-gateway/" target="_blank">官方网站(Spring.IO)</a>
+```
+https://spring.io/projects/spring-cloud-gateway/
+```
+
+## 9.2.硬编码配置方式使用GateWay(非负载均衡模式)
+### 9.2.1.模块简介
+    使用SpringCloud Gateway实现网关功能,配置方式为硬编码配置,实现了简单的请求转发功能,即请求经过网关之后会转发到单个服务消费者的单个节点,没有实现在请求转发的同时做负载均衡处理,启动端口: 9527
+### 9.2.2.模块目录结构
+@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/tree.md"
+### 9.2.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-router-connect-direct-hardcode-gateway9527的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 9.2.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/pom.xml"
+### 9.2.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/src/main/resources/application.yml"
+### 9.2.6.编写模块config
+@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/src/main/java/com/openatom/springcloud/config/GateWayConfig.java"
+### 9.2.7.编写鉴权LoginFilter
+@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/src/main/java/com/openatom/springcloud/filter/LoginFilter.java"
+### 9.2.8.编写模块主启动类
+@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/src/main/java/org/openatom/springcloud/RouterConnectDirectHardcodeGateWay9527.java"
+### 9.2.7.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8003节点
+    启动服务提供者8003节点-->启动服务提供者8004节点
+    启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
+    启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
+```
+
+    在浏览器中访问
+```
+http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,第一次和第三次是相同的,第二次和第四次是相同的,之所以会出现这样的结果,是因为上面编写RestTemplate时使用了默认的配置,默认的配置使用负载均衡策略是轮询策略,所以接连访问该服务四次会出现上面的情况。但是要注意,这里并没有直接访问服务消费者,而是访问了网关,这些返回的数据是服务消费端返回给网关,网关返回给浏览器的。
+
+## 9.3.声明式配置方式使用GateWay(非负载均衡模式)
+### 9.3.1.模块简介
+    使用SpringCloud Gateway实现网关功能,配置方式为声明式配置,实现了简单的请求转发功能,即请求经过网关之后会转发到单个服务消费者的单个节点,没有实现在请求转发的同时做负载均衡处理,启动端口: 9527
+### 9.3.2.模块目录结构
+@import "./springcloud-eureka/springcloud-router-connect-direct-configuration-gateway9527/tree.md"
+### 9.3.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-router-connect-direct-configuration-gateway9527的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 9.3.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-router-connect-direct-configuration-gateway9527/pom.xml"
+### 9.3.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-router-connect-direct-configuration-gateway9527/src/main/resources/application.yml"
+### 9.3.6.编写鉴权LoginFilter
+@import "./springcloud-eureka/springcloud-router-connect-direct-configuration-gateway9527/src/main/java/com/openatom/springcloud/filter/LoginFilter.java"
+### 9.3.7.编写模块主启动类
+@import "./springcloud-eureka/springcloud-router-connect-direct-configuration-gateway9527/src/main/java/org/openatom/springcloud/RouterConnectDirectConfigurationGateWay9527.java"
+### 9.3.8.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8003节点
+    启动服务提供者8003节点-->启动服务提供者8004节点
+    启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
+    启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
+```
+
+    在浏览器中访问
+```
+http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,第一次和第三次是相同的,第二次和第四次是相同的,之所以会出现这样的结果,是因为上面编写RestTemplate时使用了默认的配置,默认的配置使用负载均衡策略是轮询策略,所以接连访问该服务四次会出现上面的情况。但是要注意,这里并没有直接访问服务消费者,而是访问了网关,这些返回的数据是服务消费端返回给网关网关返回给浏览器的。
     
+## 9.4.硬编码配置方式使用GateWay(负载均衡模式)
+### 9.4.1.模块简介
+    使用SpringCloud Gateway实现网关功能,配置方式为硬编码配置,实现了简单的请求转发功能,即请求经过网关之后会转发到单个服务消费者的单个节点,实现了在请求转发的同时做负载均衡处理,启动端口: 9527
+### 9.4.2.模块目录结构
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-hardcode-gateway9527/tree.md"
+### 9.4.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-router-connect-loadbalance-hardcode-gateway9527的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 9.4.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-hardcode-gateway9527/pom.xml"
+### 9.4.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-hardcode-gateway9527/src/main/resources/application.yml"
+### 9.4.6.编写config
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-hardcode-gateway9527/src/main/java/org/openatom/springcloud/GateWayConfig.java"
+### 9.4.7.编写鉴权LoginFilter
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-hardcode-gateway9527/src/main/java/com/openatom/springcloud/filter/LoginFilter.java"
+### 9.4.8.编写模块主启动类
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-hardcode-gateway9527/src/main/java/org/openatom/springcloud/RouterConnectLoadbalanceHardcodeGateWay9527.java"
+### 9.4.9.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8003节点
+    启动服务提供者8003节点-->启动服务提供者8004节点
+    启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
+    启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
+```
+
+    在浏览器中访问
+```
+http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,第一次和第三次是相同的,第二次和第四次是相同的,之所以会出现这样的结果,是因为上面编写RestTemplate时使用了默认的配置,默认的配置使用负载均衡策略是轮询策略,所以接连访问该服务四次会出现上面的情况。但是要注意,这里并没有直接访问服务消费者,而是访问了网关,这些返回的数据是服务消费端返回给网关网关返回给浏览器的。
+
+## 9.5.声明式配置方式使用GateWay(负载均衡模式)
+### 9.5.1.模块简介
+    使用SpringCloud Gateway实现网关功能,配置方式为声明式配置,实现了简单的请求转发功能,即请求经过网关之后会转发到单个服务消费者的单个节点,实现了在请求转发的同时做负载均衡处理,启动端口: 9527
+### 9.5.2.模块目录结构
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-configuration-gateway9527/tree.md"
+### 9.5.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-router-connect-loadbalance-configuration-gateway9527的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 9.5.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-configuration-gateway9527/pom.xml"
+### 9.5.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-configuration-gateway9527/src/main/resources/application.yml"
+### 9.5.6.编写config
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-configuration-gateway9527/src/main/java/org/openatom/springcloud/GateWayConfig.java"
+### 9.5.7.编写鉴权LoginFilter
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-configuration-gateway9527/src/main/java/com/openatom/springcloud/filter/LoginFilter.java"
+### 9.5.8.编写模块主启动类
+@import "./springcloud-eureka/springcloud-router-connect-loadbalance-configuration-gateway9527/src/main/java/org/openatom/springcloud/RouterConnectLoadbalanceConfigurationGateWay9527.java"
+### 9.5.9.测试模块
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8003节点
+    启动服务提供者8003节点-->启动服务提供者8004节点
+    启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
+    启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
+```
+
+    在浏览器中访问
+```
+http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,第一次和第三次是相同的,第二次和第四次是相同的,之所以会出现这样的结果,是因为上面编写RestTemplate时使用了默认的配置,默认的配置使用负载均衡策略是轮询策略,所以接连访问该服务四次会出现上面的情况。但是要注意,这里并没有直接访问服务消费者,而是访问了网关,这些返回的数据是服务消费端返回给网关网关返回给浏览器的。
