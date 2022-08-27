@@ -1,8 +1,8 @@
-package org.openatom.springcloud.services.impl;
+package org.openatom.springcloud.service.impl;
 
 import org.openatom.springcloud.entities.CommonResult;
 import org.openatom.springcloud.entities.Payment;
-import org.openatom.springcloud.services.PaymentServiceHystrixOpenFeign;
+import org.openatom.springcloud.service.PaymentServiceHystrixOpenFeign;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,7 +30,7 @@ public class PaymentServiceHystrixOpenFeignImpl implements PaymentServiceHystrix
      */
     @Override
     public CommonResult<Payment> getPaymentByIdUseHystrixDegradation(Long id) {
-        Payment payment = new Payment(null,"消费端:Hystrix在Service层对所有服务进行服务降级....");
+        Payment payment = new Payment(null,"服务消费端:服务提供端宕机了,在服务消费端中Service层对这个服务进行服务降级处理....");
         return new CommonResult(10000,"发生了错误",payment);
     }
 

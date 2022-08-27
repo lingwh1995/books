@@ -9,18 +9,17 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
 /**
- * 支付接口提供者
+ * 支付接口提供端
  *  使用Eureka作为注册中心
  */
 @EnableEurekaClient
 @SpringBootApplication
-@EnableCircuitBreaker//服务提供方端启用Hystrix
+@EnableCircuitBreaker//服务提供端启用Hystrix
 public class PaymentServiceProviderHystrixClusterNode8003 {
 
     public static void main(String[] args) {
         SpringApplication.run(PaymentServiceProviderHystrixClusterNode8003.class, args);
     }
-
 
     /**
      *此配置是为了服务监控而配置，与服务容错本身无关，springcloud升级后的坑

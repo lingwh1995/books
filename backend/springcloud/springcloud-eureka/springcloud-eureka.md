@@ -1572,7 +1572,8 @@ https://spring.io/projects/spring-cloud-gateway/
 ### 9.2.7.编写鉴权LoginFilter
 @import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/src/main/java/com/openatom/springcloud/filter/LoginFilter.java"
 ### 9.2.8.编写模块主启动类
-@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/src/main/java/org/openatom/springcloud/RouterConnectDirectHardcodeGateWay9527.java"
+@import "./springcloud-eureka/springcloud-router-connect-direct-hardcode-gateway9527/src/main/java/com/openatom/springcloud/RouterConnectDirectHardcodeGateWay9527.java"
+
 ### 9.2.7.测试模块
     启动相关服务
 ```mermaid
