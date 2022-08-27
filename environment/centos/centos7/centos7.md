@@ -4833,7 +4833,7 @@ mv zipkin-server-2.23.9-exec.jar zipkin.jar &&
 chmod +x zipkin.jar
 ```
 
-启动zipkin
+	启动zipkin
 ```
 java -jar zipkin.jar
 ```
