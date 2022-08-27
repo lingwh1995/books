@@ -1754,12 +1754,10 @@ http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
 ```
     可以看到四次访问返回的结果中,第一次和第三次是相同的,第二次和第四次是相同的,之所以会出现这样的结果,是因为上面编写RestTemplate时使用了默认的配置,默认的配置使用负载均衡策略是轮询策略,所以接连访问该服务四次会出现上面的情况。但是要注意,这里并没有直接访问服务消费者,而是访问了网关,这些返回的数据是服务消费端返回给网关网关返回给浏览器的。
 
-# 10.使用Zipkin+Sleuth实现分调用链路追踪
+# 10.使用Zipkin+Sleuth实现调用链路追踪
 ## 10.1.Zipkin、Sleuth简介
     Sleuth简介
     Sleuth可以解决分布式系统的追踪问题。
-    Zipkin简介
-    Zipkin是Twitter的一个开源项目,基于 Google Dapper实现。可以使用它来收集各个服务器上请求链路的跟踪数据,并通过它提供的REST API接口来辅助我们查询跟踪数据以实现对分布式系统的监控程序,从而及时地发现系统中出现的延迟升高问题并找出系统性能瓶颈的根源。除了面向开发的API接口之外,它也提供了方便的UI组件帮助我们直观的搜索跟踪信息和分析请求链路明细,比如: 可以查询某段时间内各用户请求的处理时间等。
 <a href="https://github.com/spring-cloud/spring-cloud-sleuth">官方网址(GITHUB)</a>
 ```
 https://github.com/spring-cloud/spring-cloud-sleuth
@@ -1768,7 +1766,13 @@ https://github.com/spring-cloud/spring-cloud-sleuth
 ```
 https://spring.io/projects/spring-cloud-sleuth
 ```
-
+    Zipkin简介
+    Zipkin是Twitter的一个开源项目,基于 Google Dapper实现。可以使用它来收集各个服务器上请求链路的跟踪数据,并通过它提供的REST API接口来辅助我们查询跟踪数据以实现对分布式系统的监控程序,从而及时地发现系统中出现的延迟升高问题并找出系统性能瓶颈的根源。除了面向开发的API接口之外,它也提供了方便的UI组件帮助我们直观的搜索跟踪信息和分析请求链路明细,比如: 可以查询某段时间内各用户请求的处理时间等。
+<a href="https://zipkin.io/">官方网址</a>
+```
+https://zipkin.io/
+```
+    
 ## 10.2.搭建服务提供者第一个节点(Sleuth)
 ### 10.2.1.模块简介
     具有调用链路追踪功能的服务提供者的第一个节点,启动端口: 8005
@@ -1834,5 +1838,10 @@ https://spring.io/projects/spring-cloud-sleuth
 @import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
 ### 10.4.8.编写模块主启动类
 @import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java"
+
+## 10.5.搭建Zipkin
+curl -sSL https://zipkin.io/quickstart.sh | bash -s
+java -jar zipkin.jar
+## 10.6.测试Zipkin+Sleuth实现调用链路追踪
 
 # 11.使用Apollo配置中心统一存放配置
