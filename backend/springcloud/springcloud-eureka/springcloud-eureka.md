@@ -1873,10 +1873,10 @@ http://192.168.0.5:9411/zipkin/
 flowchart LR
     点击红色加号-->选择serviceName
     选择serviceName-->弹出框选择服务消费端
-    弹出框选择服务消费端-->点击RUN QUERY
+    弹出框选择服务消费端-->点击RUN_QUERY
 ```
 <img src="./images/zipkin.png" width="100%"/>
 
     通过上图的链路追踪可以清晰的查看到两个服务调用花费的时间情况
-    
+
 # 11.使用Apollo配置中心统一存放配置
