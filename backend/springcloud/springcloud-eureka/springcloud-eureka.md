@@ -848,7 +848,7 @@ http://localhost/consumer/payment/get/1
 ## 6.1.OpenFeign简介
     Feign是SpringCloud组件中一个轻量级RESTful的HTTP服务客户端,Feign内置了Ribbon,用来做客户端负载均衡,去调用服务注册中心的服务。Feign的使用方式是: 使用Feign的注解定义接口,调用这个接口,就可以调用服务注册中心的服务。OpenFeign是SpringCloud在Feign的基础上支持了SpringMVC的注解,如@RequestMapping等。OpenFeign的@FeignClient可以解析SpringMVC的@RequestMapping注解下的接口,并通过动态代理的方式产生实现类,实现类中做负载均衡并调用其他服务。核心作用是为HTTP形式的Rest API提供了非常简洁高效的RPC调用方式,可以让编写远程调用代码就像编写本地Service一样简单。
 
-<a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/">官方网址(Spring.IO)</a>
+<a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/">官方网址(SPRING.IO)</a>
 ```
 https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/reference/html/
 ```
@@ -993,7 +993,7 @@ logging: #OpenFeign增强日志配置
 https://github.com/Netflix/Hystrix
 ```
 
-## 7.2.搭建服务提供者第一个节点
+## 7.2.搭建服务提供者第一个节点(Hystrix)
 ### 7.2.1.模块简介
     具有服务熔断和服务降级功能的服务提供者的第一个节点,启动端口: 8003
 ### 7.2.2.模块目录结构
@@ -1039,7 +1039,7 @@ public class PaymentServiceProviderHystrixClusterNode8003 {
 }
 ```
 
-## 7.3.搭建服务提供者第二个节点
+## 7.3.搭建服务提供者第二个节点(Hystrix)
 ### 7.3.1.模块简介
     具有服务熔断和服务降级功能的服务提供者的第二个节点,启动端口: 8004
 ### 7.3.2.模块目录结构
@@ -1085,7 +1085,7 @@ public class PaymentServiceProviderHystrixClusterNode8004 {
 }
 ```
 
-## 7.4.搭建服务消费者
+## 7.4.搭建服务消费者(Hystrix)
 ### 7.4.1.模块简介
     具有服务熔断和服务降级功能的服务消费者,启动端口: 80
 ### 7.4.2.模块目录结构
@@ -1126,7 +1126,7 @@ public class OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80 {
     
 }
 ```
-## 7.5.测试服务降级和服务熔断
+## 7.5.测试服务降级和服务熔断(Hystrix)
     启动相关服务
 ```mermaid
 flowchart LR
@@ -1546,12 +1546,12 @@ http://localhost/consumer/payment/circuitbreaker/get/1
     为什么要使用SpringCloud Gateway?
     以鉴权为例,一个大的应用由很多服务组成,不可能为每一个服务都加上鉴权的代码,这样仅是鉴权部分的代码维护工作就是非常庞大的工作量,同时如果为所有的微服务都加上鉴权代码,这样会破坏REST服务的无状态特征,有一个思路是把鉴权的代码写在一个公共的模块,所有的模块都引入这个模块,但是这样仅仅是实现了鉴权操作,所以最好的处理方案是把认证、鉴权、路由转发、安全策略、防刷、流量控制、监控日志等功能都放在网关中实现,网关在进行请求转发的同时还实现一个负载均衡的效果,服务消费端在调用服务提供端的时候可以调用同一个服务提供端的不同节点,进而实现负载均衡,而网关可以在进行请求转发的时候将请求转发到多个服务消费端,实现服务消费端的负载均衡调用。
 
-<a href="https://github.com/spring-cloud/spring-cloud-gateway" target="_blank">官方网站(Spring.IO)</a>
+<a href="https://github.com/spring-cloud/spring-cloud-gateway" target="_blank">官方网站(SPRING.IO)</a>
 ```
 https://github.com/spring-cloud/spring-cloud-gateway
 ```
 
-<a href="https://spring.io/projects/spring-cloud-gateway/" target="_blank">官方网站(Spring.IO)</a>
+<a href="https://spring.io/projects/spring-cloud-gateway/" target="_blank">官方网站(SPRING.IO)</a>
 ```
 https://spring.io/projects/spring-cloud-gateway/
 ```
@@ -1753,3 +1753,86 @@ http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
 {"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
 ```
     可以看到四次访问返回的结果中,第一次和第三次是相同的,第二次和第四次是相同的,之所以会出现这样的结果,是因为上面编写RestTemplate时使用了默认的配置,默认的配置使用负载均衡策略是轮询策略,所以接连访问该服务四次会出现上面的情况。但是要注意,这里并没有直接访问服务消费者,而是访问了网关,这些返回的数据是服务消费端返回给网关网关返回给浏览器的。
+
+# 10.使用Zipkin+Sleuth实现分调用链路追踪
+## 10.1.Zipkin、Sleuth简介
+    Sleuth简介
+    Sleuth可以解决分布式系统的追踪问题。
+    Zipkin简介
+    Zipkin是Twitter的一个开源项目,基于 Google Dapper实现。可以使用它来收集各个服务器上请求链路的跟踪数据,并通过它提供的REST API接口来辅助我们查询跟踪数据以实现对分布式系统的监控程序,从而及时地发现系统中出现的延迟升高问题并找出系统性能瓶颈的根源。除了面向开发的API接口之外,它也提供了方便的UI组件帮助我们直观的搜索跟踪信息和分析请求链路明细,比如: 可以查询某段时间内各用户请求的处理时间等。
+<a href="https://github.com/spring-cloud/spring-cloud-sleuth">官方网址(GITHUB)</a>
+```
+https://github.com/spring-cloud/spring-cloud-sleuth
+```
+<a href="https://spring.io/projects/spring-cloud-sleuth"  target="_blank">官方网站(SPRING.IO)</a>
+```
+https://spring.io/projects/spring-cloud-sleuth
+```
+
+## 10.2.搭建服务提供者第一个节点(Sleuth)
+### 10.2.1.模块简介
+    具有调用链路追踪功能的服务提供者的第一个节点,启动端口: 8005
+### 10.2.2.模块目录结构
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/tree.md"
+### 10.2.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-sleuth_zipkin-cluster-node-payment8005的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 10.2.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/pom.xml"
+### 10.2.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/src/main/resources/application.yml"
+### 10.2.6.编写模块Mybatis配置文件
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/src/main/resources/mapper/PaymentMapper.xml"
+### 10.2.7.编写模块dao
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/src/main/java/org/openatom/springcloud/dao/PaymentDao.java"
+### 10.2.8.编写模块service
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/src/main/java/org/openatom/springcloud/service/PaymentService.java"
+### 10.2.9.编写模块service实现类
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/src/main/java/org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
+### 10.2.10.编写模块controller
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/src/main/java/org/openatom/springcloud/controller/PaymentController.java"
+### 10.2.11.编写模块主启动类
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8005/src/main/java/org/openatom/springcloud/PaymentServiceProviderSleuthAndZipkinClusterNode8005.java"
+
+## 10.3.搭建服务提供者第二个节点(Sleuth)
+### 10.3.1.模块简介
+    具有调用链路追踪功能的服务提供者的第二个节点,启动端口: 8006
+### 10.3.2.模块目录结构
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/tree.md"
+### 10.3.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-sleuth_zipkin-cluster-node-payment8006的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 10.3.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/pom.xml"
+### 10.3.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/src/main/resources/application.yml"
+### 10.3.6.编写模块Mybatis配置文件
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/src/main/resources/mapper/PaymentMapper.xml"
+### 10.3.7.编写模块dao
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/src/main/java/org/openatom/springcloud/dao/PaymentDao.java"
+### 10.3.8.编写模块service
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/src/main/java/org/openatom/springcloud/service/PaymentService.java"
+### 10.3.9.编写模块service实现类
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/src/main/java/org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
+### 10.3.10.编写模块controller
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/src/main/java/org/openatom/springcloud/controller/PaymentController.java"
+### 10.3.11.编写模块主启动类
+@import "./springcloud-eureka/springcloud-provider-sleuth_zipkin-cluster-node-payment8006/src/main/java/org/openatom/springcloud/PaymentServiceProviderSleuthAndZipkinClusterNode8006.java"
+
+## 10.4.搭建服务消费者
+### 10.4.1.模块简介
+    具有调用链路追踪功能的服务消费者,启动端口: 80
+### 10.4.2.模块目录结构
+@import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/tree.md"
+### 10.4.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-sleuth_zipkin-loadbalance-default-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 10.4.4.编写模块pom.xml
+@import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/pom.xml"
+### 10.4.5.编写模块application.yml
+@import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/resources/application.yml"
+### 10.4.6.编写模块config
+@import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/config/ApplicationContextConfig.java"
+### 10.4.7.编写模块controller
+@import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+### 10.4.8.编写模块主启动类
+@import "./springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java"
+
+# 11.使用Apollo配置中心统一存放配置
