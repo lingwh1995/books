@@ -289,7 +289,7 @@ https://gitee.com/lingwh1995/springcloud-eureka.git
 ## 2.3.准备项目需要的数据库
 ### 2.3.1.安装mysql数据库
     详细参考
-<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql" target="_blank">安装mysql</a>
+<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-5-安装mysql" target="_blank">安装mysql</a>
 
 ### 2.3.2.创建项目需要的数据库
     导入数据库脚本(application.yml中数据库配置和mysql部署机器信息保持一致)
@@ -1845,8 +1845,35 @@ https://github.com/openzipkin/zipkin
 
 ## 10.5.搭建Zipkin
     详细参考
-<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html#_3-5-%E5%AE%89%E8%A3%85mysql" target="_blank">安装mysql</a>
+<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-12.搭建SpringCloud技术栈所需组件.html#_12-3-搭建zipkin" target="_blank">搭建Zipkin</a>
 
 ## 10.6.测试Zipkin+Sleuth实现调用链路追踪
+    启动相关服务    
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动服务提供者8005节点
+    启动服务提供者8005节点-->启动服务提供者8006节点
+    启动服务提供者8006节点-->启动使用了Sleuth功能的服务消费者
+    启动使用了Sleuth功能的服务消费者-->启动Zipkin
+```
+
+    在浏览器中访问
+```
+http://localhost/consumer/payment/get/1
+```
+    查看调用链路
+```
+http://localhost:9411/zipkin/
+```
+
+    在浏览器中访问
+```
+http://localhost/consumer/payment/timeout/get/1
+```
+    查看调用链路
+```
+http://localhost:9411/zipkin/
+```
 
 # 11.使用Apollo配置中心统一存放配置
