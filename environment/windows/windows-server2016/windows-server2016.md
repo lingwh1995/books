@@ -1,6 +1,6 @@
 # 1.搭建基础开发环境
-# 1.1.安装jdk
-# 1.1.1.安装jdk1.5
+## 1.1.安装jdk
+### 1.1.1.安装jdk1.5
 	下载jdk1.5(64位)
 ```
 curl -fL -u software-1661635201061:b951fa2710ed220c45fe8104a47c32968160d016 \
@@ -14,7 +14,7 @@ curl -fL -u software-1661635201061:b951fa2710ed220c45fe8104a47c32968160d016 \
 	%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin
 	CLASSPATH
 	.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar
-# 1.1.2.安装jdk1.6
+### 1.1.2.安装jdk1.6
 	下载jdk1.6(64位)
 ```
 curl -fL -u software-1661635269701:dc992411c4328c8b858f80dd75e26084c1430ce3 \
@@ -28,7 +28,7 @@ curl -fL -u software-1661635269701:dc992411c4328c8b858f80dd75e26084c1430ce3 \
 	%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin
 	CLASSPATH
 	.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar
-# 1.1.3.安装jdk1.7
+### 1.1.3.安装jdk1.7
 	下载jdk1.7(64位)
 ```
 curl -fL -u software-1661635322447:bc66d997b7cf000b3932888504d1ac735fc4b530 \
@@ -42,7 +42,7 @@ curl -fL -u software-1661635322447:bc66d997b7cf000b3932888504d1ac735fc4b530 \
 	%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin
 	CLASSPATH
 	.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar
-# 1.1.4.安装jdk1.8
+### 1.1.4.安装jdk1.8
 	下载jdk1.8(64位)
 ```
 curl -fL -u software-1661635322447:bc66d997b7cf000b3932888504d1ac735fc4b530 \
