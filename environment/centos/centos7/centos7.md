@@ -4817,4 +4817,23 @@ yum makecache
 ## 11.1.5.使用yum私服来下载软件
 	在测试机上使用yum install xxx来安装包
 
-# 12.SpringCloud运行专区
+# 12.搭建SpringCloud技术栈所需组件
+## 12.1.搭建Zipkin
+	安装jdk	
+	详细参考 3.搭建基础开发环境->3.1.安装jdk
+
+	创建存放安装包的目录->进入该目录->下载zipkin->重命名->赋予运行权限
+```
+mkdir -p /opt/software/springcloud/zipkin &&
+cd /opt/software/springcloud/zipkin &&
+curl -fL -u springcloud-1661567629477:e7770fbb167089a0ca2df33f8c03fa548c83b4c1 \
+"https://lingwh-generic.pkg.coding.net/coding-drive/springcloud/zipkin-server-2.23.9-exec.jar?version=latest" \
+-o zipkin-server-2.23.9-exec.jar &&
+mv zipkin-server-2.23.9-exec.jar zipkin.jar &&
+chmod +x zipkin.jar
+```
+
+启动zipkin
+```
+java -jar zipkin.jar
+```
