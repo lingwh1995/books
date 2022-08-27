@@ -1858,22 +1858,23 @@ flowchart LR
     启动使用了Sleuth功能的服务消费者-->启动Zipkin
 ```
 
-    在浏览器中访问
+    在浏览器中访问下面两个URL
 ```
 http://localhost/consumer/payment/get/1
 ```
-    查看调用链路
-```
-http://localhost:9411/zipkin/
-```
-
-    在浏览器中访问
 ```
 http://localhost/consumer/payment/timeout/get/1
 ```
-    查看调用链路
+    查看调用链路       
 ```
-http://localhost:9411/zipkin/
+http://192.168.0.5:9411/zipkin/
 ```
+```mermaid
+flowchart LR
+    点击红色加号-->选择serviceName
+    选择serviceName-->弹出框选择服务消费端
+    弹出框选择服务消费端-->点击RUN QUERY
+```
+<img src="./images/zipkin.png" width="100%"/>
 
 # 11.使用Apollo配置中心统一存放配置
