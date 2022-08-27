@@ -4841,3 +4841,20 @@ firewall-cmd --reload
 ```
 java -jar zipkin.jar
 ```
+## 12.2.搭建Apollo配置中心
+### 12.2.1.Apollo配置中心简介
+	Apollo(阿波罗)是一款可靠的分布式配置管理中心，诞生于携程框架研发部，能够集中化管理应用不同环境、不同集群的配置，配置修改后能够实时推送到应用端，并且具备规范的权限、流程治理等特性，适用于微服务配置管理场景。
+
+<a href="https://www.apolloconfig.com">官方网址</a>
+```
+https://www.apolloconfig.com
+```
+<a href="https://github.com/apolloconfig">官网网址(GITHUB)</a>
+```
+https://github.com/apolloconfig
+```
+
+### 12.2.2.基于Apollo内置的Eureka搭建Apollo配置中心
+### 12.2.3.基于独立部署的Eureka搭建Apollo配置中心
+### 12.2.4.基于Zookeeper搭建Apollo配置中心
+### 12.2.5.基于Consul搭建Apollo配置中心

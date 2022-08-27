@@ -18,24 +18,31 @@ function downloadDependentCode() {
         #如果启用了增强该md，则继续执行下一步
         if [ $CLONE_STATE == "true" ]
         then
+            #获取项目名称
+            PROJECT_NAMES_STR=( $( parseIni ./enhance/bootstrap.ini markdown-$a projectNames) )
+            PROJECT_NAMES_ARR=(`echo $PROJECT_NAMES_STR | tr ',' ' '` )
+            
             #获取文件相对路径
             MD_FILE_RELATIVE_PATH=( $( parseIni ./enhance/bootstrap.ini markdown-$a relativePath) )
 
             #获取git仓库的地址
-            GIT_REPOSITORY_URL=( $( parseIni ./enhance/bootstrap.ini markdown-$a gitRepositoryUrl) )
+            GIT_REPOSITORY_URLS_STR=( $( parseIni ./enhance/bootstrap.ini markdown-$a gitRepositoryUrls) )
+            GIT_REPOSITORY_URLS_ARR=(`echo $GIT_REPOSITORY_URLS_STR | tr ',' ' '` )
+            
+            for((i=0;i<${#PROJECT_NAMES_ARR[@]};i++));
+            do
+                PROJECT_NAME=${PROJECT_NAMES_ARR[i]}
+                GIT_REPOSITORY_URL=${GIT_REPOSITORY_URLS_ARR[i]}
 
-            #获取项目名称
-            PROJECT_NAME=( $( parseIni ./enhance/bootstrap.ini markdown-$a projectName) )
-
-            #删除旧的代码
-            rm -rf $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
-            echo '正在下载博客所引用的代码...'
-            #如果代码还没有被下载过，执行执行下载代码的操作
-            git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/$PROJECT_NAME
-            echo '完成下载博客所引用的代码...'
-
-            #删除多余的.git文件
-            rm -rf $MD_FILE_RELATIVE_PATH/$PROJECT_NAME/.git
+                #删除旧的代码
+                rm -rf $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/projects/$PROJECT_NAME
+                echo '正在下载博客所引用的代码...'
+                #下载代码
+                git clone $GIT_REPOSITORY_URL $MD_FILE_RELATIVE_PATH/projects/$PROJECT_NAME
+                echo '完成下载博客所引用的代码...'
+                #删除多余的.git文件
+                rm -rf $MD_FILE_RELATIVE_PATH/projects/$PROJECT_NAME/.git
+            done
         fi
     done
 }
