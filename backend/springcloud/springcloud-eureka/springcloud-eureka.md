@@ -288,8 +288,7 @@ https://gitee.com/lingwh1995/springcloud-eureka.git
 
 ## 2.3.准备项目需要的数据库
 ### 2.3.1.安装mysql数据库
-    详细参考
-<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-5-安装mysql" target="_blank">安装mysql</a>
+<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-5-安装mysql" target="_blank">安装mysql8</a>
 
 ### 2.3.2.创建项目需要的数据库
     导入数据库脚本(application.yml中数据库配置和mysql部署机器信息保持一致)
@@ -1894,5 +1893,5 @@ https://github.com/apolloconfig
 ```
 
 ## 12.2.搭建Apollo配置中心
-详细参考<a href="https://lingwh1995.github.io/blogs/environment/windows/windows-server2016/shardings/windows-server2016-chapter-2.%E6%90%AD%E5%BB%BASpringCloud%E6%8A%80%E6%9C%AF%E6%A0%88%E6%89%80%E9%9C%80%E7%BB%84%E4%BB%B6.html#_2-4-2-1-%E5%8D%95%E7%8E%AF%E5%A2%83%E7%89%88">搭建Apollo配置中心</a>
+详细参考<a href="/blogs/environment/windows/windows-server2016/shardings/windows-server2016-chapter-2.搭建SpringCloud技术栈所需组件.html#_2-4-3-1-单环境版">搭建Apollo配置中心</a>
 ## 12.2.搭建Apollo配置中心
