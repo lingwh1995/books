@@ -1893,7 +1893,7 @@ https://github.com/apolloconfig
 ```
 
 ## 12.2.搭建Apollo配置中心
-<a href="/blogs/environment/windows/windows-server2016/shardings/windows-server2016-chapter-2.搭建SpringCloud技术栈所需组件.html#_2-4-3-1-单环境版">搭建Apollo配置中心(Windows版)</a>
+<a href="/blogs/environment/windows/windows-server2016/shardings/windows-server2016-chapter-2.搭建SpringCloud技术栈所需组件.html#_2-4-3-1-单环境版" target="_blank">搭建Apollo配置中心(Windows版)</a>
 
 ## 12.3.搭建服务消费者(Apollo)
 ### 12.3.1.章节内容简介
@@ -1924,7 +1924,7 @@ https://github.com/apolloconfig
 ### 12.3.12.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerApolloLoadBalanceOpenFeignConfiguration80.java"
 ### 12.3.13.测试模块
-    在浏览器中访问
+    启动Apollo,在浏览器中访问
 ```
 http://localhost:7001/
 ```
