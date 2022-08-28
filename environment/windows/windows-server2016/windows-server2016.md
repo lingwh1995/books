@@ -99,7 +99,7 @@ https://github.com/apolloconfig
 https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.2.1.2.修改数据库连接信息
-	修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1-built-in-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
+	修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
 ##### 2.2.2.1.3.使用flyway脚本自动创建好数据库环境
 	在apollo2.0.1-built-in-eureka文件夹下执行如下两个命令；目的是使用flyway脚本自动创建好数据库环境
 ```	
@@ -294,7 +294,7 @@ https://gitee.com/lingwh1995/apollo2.0.1-built-in-eureka.git
 https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.3.1.2.修改数据库连接信息
-	修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
+	修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
 	特别注意:如果已经创建好了数据库环境这一步骤可以省略
 ##### 2.2.3.1.2.创建数据库环境	
 	a.在apollo2.0.1-eureka文件夹下执行如下两个命令,目的是使用flyway脚本自动创建好数据库环境
@@ -857,7 +857,7 @@ https://gitee.com/lingwh1995/apollo2.0.1-zookeeper.git
 https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.5.1.2.修改数据库连接信息
-	a.修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1-consul/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
+	a.修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
 	  特别注意:如果已经创建好了数据库环境这一步骤可以省略
 	b.在apollo2.0.1-consul文件夹下执行如下两个命令；目的是使用flyway脚本自动创建好数据库环境
 		特别注意:如果已经创建好了数据库环境这一步骤可以省略
