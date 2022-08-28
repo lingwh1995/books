@@ -93,11 +93,11 @@ https://github.com/apolloconfig
 ```
 
 ### 2.2.2.基于Apollo内置的Eureka搭建Apollo配置中心
-#### 2.2.2.1.单环境版
+#### 2.2.2.1.单环境版(包含完整编译过程)
 ##### 2.2.2.1.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-built-in-eureka.git
-```	
+https://gitee.com/lingwh1995/apollo2.0.1.git
+```
 ##### 2.2.2.1.2.修改数据库连接信息
 	修改apollo2.0.1-built-in-eureka/scripts/flyway/flyway-configdb.properties和apollo2.0.1-built-in-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
 ##### 2.2.2.1.3.使用flyway脚本自动创建好数据库环境
@@ -145,10 +145,10 @@ http://localhost:8070/
 ```
 	登录用户名/密码: apollo/admin
 
-#### 2.2.2.2.多环境版
+#### 2.2.2.2.多环境版(包含完整编译过程)
 ##### 2.2.2.2.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-built-in-eureka.git
+https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.2.2.2.准备数据库环境
 	注意:dev和pro环境的configService、adminService用到的数据库需要分别部署,dev和pro环境的protal可以连接到同一套数据库
@@ -273,11 +273,25 @@ UPDATE apolloconfigdb.ServerConfig SET `Value` = "http://localhost:8081/eureka/"
 
 	d.如果启动后多环境现实不正常,直接重启下Portal,再刷新页面即可
 
+#### 2.2.2.3.开箱即用的Apollo(已经修改好了需要修改的内容)
+##### 2.2.2.3.1.下载工程,并在本地安装所有用到的依赖
+```
+https://gitee.com/lingwh1995/apollo2.0.1-built-in-eureka.git
+```
+##### 2.2.2.3.2.获取jar包
+	a.执行apollo2.0.1-built-in-eureka/scripts/build.bat
+	b.在下面三个位置找到编译好的jar包
+	apollo2.0.1-built-in-eureka/apollo-adminservice/target
+	apollo2.0.1-built-in-eureka/apollo-configservice/target
+	apollo2.0.1-built-in-eureka/apollo-portal/target
+##### 2.2.2.3.3.如何修改使用到的参数
+	在启动脚本中对使用到的参数进行设置,如-Dserver.port=8888
+
 ### 2.2.3.基于独立部署的Eureka搭建Apollo配置中心
-#### 2.2.3.1.单环境版
+#### 2.2.3.1.单环境版(包含完整编译过程)
 ##### 2.2.3.1.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-eureka.git
+https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.3.1.2.修改数据库连接信息
 	修改apollo2.0.1-eureka/scripts/flyway/flyway-configdb.properties和apollo2.0.1-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
@@ -412,10 +426,10 @@ http://localhost:8070/
 ```	
 	登录用户名/密码: apollo/admin
 
-#### 2.2.3.2.多环境版
+#### 2.2.3.2.多环境版(包含完整编译过程)
 ##### 2.2.3.2.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-eureka.git
+https://gitee.com/lingwh1995/apollo2.0.1.git
 ```	
 ##### 2.2.3.2.2.准备数据库环境
 	说明:dev和pro环境的configService、adminService用到的数据库需要分别部署,dev和pro环境的protal可以连接到同一套数据库
@@ -622,11 +636,25 @@ UPDATE apolloconfigdb.ServerConfig SET `Value` = "http://localhost:7002/eureka/"
 	当数据库中没有这个参数时,使用启动时参数修改才有效
 	c.如果启动后多环境现实不正常,直接重启下Portal,再刷新页面即可
 
+#### 2.2.3.3.开箱即用的Apollo(已经修改好了需要修改的内容)
+##### 2.2.3.3.1.下载工程,并在本地安装所有用到的依赖
+```
+https://gitee.com/lingwh1995/apollo2.0.1-eureka.git
+```
+##### 2.2.3.3.2.获取jar包
+	a.执行apollo2.0.1-eureka/scripts/build.bat
+	b.在下面三个位置找到编译好的jar包
+	apollo2.0.1-eureka/apollo-adminservice/target
+	apollo2.0.1-eureka/apollo-configservice/target
+	apollo2.0.1-eureka/apollo-portal/target
+##### 2.2.3.3.3.如何修改使用到的参数
+	在启动脚本中对使用到的参数进行设置,如-Dserver.port=8888
+
 ### 2.2.4.基于Zookeeper搭建Apollo配置中心
-#### 2.2.4.1.单环境版
+#### 2.2.4.1.单环境版(包含完整编译过程)
 ##### 2.2.4.1.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-zookeeper.git
+https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.4.1.2.准备数据库环境
 	a.修改apollo2.0.1-zookeeper/scripts/flyway/flyway-configdb.properties和apollo2.0.1-zookeeper/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
@@ -685,10 +713,10 @@ http://localhost:8070/
 ```	
 	登录用户名/密码: apollo/admin
 
-#### 2.2.4.2.多环境版
+#### 2.2.4.2.多环境版(包含完整编译过程)
 ##### 2.2.4.2.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-zookeeper.git
+https://gitee.com/lingwh1995/apollo2.0.1.git
 ```	
 ##### 2.2.4.2.2.准备数据库环境
 	说明:dev和pro环境的configService、adminService用到的数据库需要分别部署,dev和pro环境的protal可以连接到同一套数据库
@@ -808,11 +836,25 @@ http://localhost:8070/
 	b.dev环境和pro环境需要不同的Zookeeper地址,即需要两套Zookeeper环境
 	c.如果启动后多环境现实不正常,直接重启下Portal,再刷新页面即可
 
+#### 2.2.4.3.开箱即用的Apollo(已经修改好了需要修改的内容)
+##### 2.2.4.3.1.下载工程,并在本地安装所有用到的依赖
+```
+https://gitee.com/lingwh1995/apollo2.0.1-zookeeper.git
+```
+##### 2.2.4.3.2.获取jar包
+	a.执行apollo2.0.1-zookeeper/scripts/build.bat
+	b.在下面三个位置找到编译好的jar包
+	apollo2.0.1-zookeeper/apollo-adminservice/target
+	apollo2.0.1-zookeeper/apollo-configservice/target
+	apollo2.0.1-zookeeper/apollo-portal/target
+##### 2.2.4.3.3.如何修改使用到的参数
+	在启动脚本中对使用到的参数进行设置,如-Dserver.port=8888
+
 ### 2.2.5.基于Consul搭建Apollo配置中心
-#### 2.2.5.1.单环境版
+#### 2.2.5.1.单环境版(包含完整编译过程)
 ##### 2.2.5.1.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-consul.git
+https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.5.1.2.修改数据库连接信息
 	a.修改apollo2.0.1-consul/scripts/flyway/flyway-configdb.properties和apollo2.0.1-consul/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
@@ -872,10 +914,10 @@ http://localhost:8070/
 ```	
 	登录用户名/密码: apollo/admin
 
-#### 2.2.5.2.多环境版
+#### 2.2.5.2.多环境版(包含完整编译过程)
 ##### 2.2.5.2.1.下载工程,并在本地安装所有用到的依赖
 ```
-https://gitee.com/lingwh1995/apollo2.0.1-consul.git
+https://gitee.com/lingwh1995/apollo2.0.1.git
 ```	
 ##### 2.2.5.2.2.准备数据库环境
 	说明:dev和pro环境的configService、adminService用到的数据库需要分别部署,dev和pro环境的protal可以连接到同一套数据库
@@ -996,3 +1038,17 @@ http://localhost:8070/
 	a.dev环境和pro环境需要不同的数据库地址,即需要两套Mysql环境,第一套中有apolloconfigdb、apolloportaldb两个库,第二套 环境中只有apolloconfigdb这个库
 	b.dev环境和pro环境需要不同的Consul地址,即需要两套Consul环境
 	c.如果启动后多环境现实不正常,直接重启下Portal,再刷新页面即可
+
+#### 2.2.5.3.开箱即用的Apollo(已经修改好了需要修改的内容)
+##### 2.2.5.3.1.下载工程,并在本地安装所有用到的依赖
+```
+https://gitee.com/lingwh1995/apollo2.0.1-consul.git
+```
+##### 2.2.5.3.2.获取jar包
+	a.执行apollo2.0.1-consul/scripts/build.bat
+	b.在下面三个位置找到编译好的jar包
+	apollo2.0.1-consul/apollo-adminservice/target
+	apollo2.0.1-consul/apollo-configservice/target
+	apollo2.0.1-consul/apollo-portal/target
+##### 2.2.5.3.3.如何修改使用到的参数
+	在启动脚本中对使用到的参数进行设置,如-Dserver.port=8888
