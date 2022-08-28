@@ -1913,9 +1913,9 @@ https://github.com/apolloconfig
 ### 12.3.8.编写模块config
 @import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
 ### 12.3.9.编写模块service
-@import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
+@import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
 ### 12.3.10.编写模块listener
-@import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
+@import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
 ### 12.3.11.编写模块controller
     ApolloConfigController.java
 @import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/ApolloConfigController.java"
