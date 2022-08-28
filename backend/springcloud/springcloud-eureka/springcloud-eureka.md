@@ -583,7 +583,7 @@ http://localhost/consumer/payment/get/1
 ## 5.1.Ribbon简介
     Ribbon是Netflix发布的开源项目，主要功能是提供客户端的软件负载均衡算法，将Netflix的中间层服务连接在一起。Ribbon客户端组件提供一系列完善的配置项如连接超时，重试等。简单的说，就是在配置文件中列出Load Balancer（简称LB）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随即连接等）去连接这些机器,也可以使用Ribbon实现自定义的负载均衡算法。
 
-<a href="https://github.com/Netflix/ribbon">官方网址</a>
+<a href="https://github.com/Netflix/ribbon" target="_blank">官方网址</a>
 ```
 https://github.com/Netflix/ribbon
 ```
@@ -1883,11 +1883,11 @@ flowchart LR
 ## 12.1.Apollo配置中心简介
 	Apollo(阿波罗)是一款可靠的分布式配置管理中心，诞生于携程框架研发部，能够集中化管理应用不同环境、不同集群的配置，配置修改后能够实时推送到应用端，并且具备规范的权限、流程治理等特性，适用于微服务配置管理场景。
 
-<a href="https://www.apolloconfig.com">官方网址</a>
+<a href="https://www.apolloconfig.com" target="_blank">官方网址</a>
 ```
 https://www.apolloconfig.com
 ```
-<a href="https://github.com/apolloconfig">官网网址(GITHUB)</a>
+<a href="https://github.com/apolloconfig" target="_blank">官网网址(GITHUB)</a>
 ```
 https://github.com/apolloconfig
 ```
