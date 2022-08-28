@@ -175,11 +175,11 @@ mvn -N -Pconfigdb flyway:migrate
 	c.更新数据库数据
 	192.168.0.2(使用Apollo内置的Eureka一般不用执行这个操作,默认就是8080Eureka服务器)
 ```
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:8080/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:8080/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 	192.168.0.3
 ```	
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:8081/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:8081/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 ##### 2.2.2.2.3.获取jar包
 	执行apollo2.0.1-built-in-eureka/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
@@ -263,11 +263,11 @@ http://localhost:8070/
 	b.启动dev环境和pro环境时,不要再运行参数中覆盖eureka的service-url,要修改数据库中的数据,因为这个配置是从数据库中获取的
 	192.168.0.2(使用Apollo内置的Eureka一般不用执行这个操作,默认就是8080Eureka服务器)
 ```
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:8080/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:8080/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 	192.168.0.3
 ```	
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:8081/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:8081/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 	当数据库中没有这个参数时,使用启动时参数修改才有效
 
@@ -307,7 +307,7 @@ mvn -N -Pportaldb flyway:migrate
 
 	b.数据库创建好之后在ApolloConfigDB库中执行:将Apollo自带的Eureka的地址换成外部Eureka的地址
 ```	
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:7001/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:7001/eureka/" WHERE `key` = "eureka.service.url";
 ```
 ##### 2.2.3.1.3.改造apollo-configservice
 	a.修改apollo2.0.1-eureka/apollo-configservice/src/main/resources/application.yml
@@ -453,11 +453,11 @@ mvn -N -Pconfigdb flyway:migrate
 	c.更新数据库数据
 	192.168.0.2
 ```	
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:7001/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:7001/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 	192.168.0.3
 ```	
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:7002/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:7002/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 ##### 2.2.3.2.3.改造apollo-configservice
 	a.修改apollo2.0.1-eureka/apollo-configservice/src/main/resources/application.yml
@@ -626,11 +626,11 @@ http://localhost:8070/
 	b.启动dev环境和pro环境时,不要再运行参数中覆盖eureka的service-url,要修改数据库中的数据,因为这个配置是从数据库中获取的
 	192.168.0.2
 ```	
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:7001/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:7001/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 	192.168.0.3
 ```	
-UPDATE Apolloconfigdb.ServerConfig SET `Value` = "http://localhost:7002/eureka/" WHERE `key` = "eureka.service.url";
+UPDATE ApolloConfigDB.ServerConfig SET `Value` = "http://localhost:7002/eureka/" WHERE `key` = "eureka.service.url";
 ```	
 	当数据库中没有这个参数时,使用启动时参数修改才有效
 	c.如果启动后多环境现实不正常,直接重启下Portal,再刷新页面即可
