@@ -99,7 +99,7 @@ https://github.com/apolloconfig
 https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.2.1.2.修改数据库连接信息
-	修改apollo2.0.1-built-in-eureka/scripts/flyway/flyway-configdb.properties和apollo2.0.1-built-in-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
+	修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1-built-in-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
 ##### 2.2.2.1.3.使用flyway脚本自动创建好数据库环境
 	在apollo2.0.1-built-in-eureka文件夹下执行如下两个命令；目的是使用flyway脚本自动创建好数据库环境
 ```	
@@ -108,11 +108,11 @@ mvn -N -Pconfigdb flyway:migrate
 ```	
 mvn -N -Pportaldb flyway:migrate
 ```
-##### 2.2.2.1.4.获得jar包
-	执行apollo2.0.1-built-in-eureka/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名一下)
+##### 2.2.2.1.4.获取jar包
+	执行apollo2.0.1/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名一下)
 	apollo2.0.1-built-in-eureka/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar -> apollo-adminservice-2.0.1.jar
-	apollo2.0.1-built-in-eureka/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar	-> apollo-configservice-2.0.1.jar
-	apollo2.0.1-built-in-eureka/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar	-> apollo-configservice-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 ##### 2.2.2.1.5.创建启动文件夹	
 	a.创建名称为Apollo2.0.1_built_in_eureka_dev的文件夹(版本号以实际为准)
 	b.把三个jar包放入文件夹中
@@ -183,13 +183,13 @@ UPDATE apolloconfigdb.ServerConfig SET `Value` = "http://localhost:8081/eureka/"
 ```	
 ##### 2.2.2.2.3.获取jar包
 	执行apollo2.0.1-built-in-eureka/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
-	apollo2.0.1-built-in-eureka/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
+	apollo2.0.1/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
 	  apollo-adminservice-2.0.1-dev.jar
 	  apollo-adminservice-2.0.1-pro.jar
-	apollo/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
 	  apollo-configservice-2.0.1-dev.jar
 	  apollo-configservice-2.0.1-pro.jar
-	apollo2.0.1-built-in-eureka/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 	注意:操作完成后共得到5个jar
 ##### 2.2.2.2.4.创建运行文件夹
 	a.创建名称为Apollo2.0.1_eureka_built_in_pro的文件夹(版本号以实际为准)
@@ -294,7 +294,7 @@ https://gitee.com/lingwh1995/apollo2.0.1-built-in-eureka.git
 https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.3.1.2.修改数据库连接信息
-	修改apollo2.0.1-eureka/scripts/flyway/flyway-configdb.properties和apollo2.0.1-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
+	修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1-eureka/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
 	特别注意:如果已经创建好了数据库环境这一步骤可以省略
 ##### 2.2.3.1.2.创建数据库环境	
 	a.在apollo2.0.1-eureka文件夹下执行如下两个命令,目的是使用flyway脚本自动创建好数据库环境
@@ -395,10 +395,10 @@ public class ConfigServerEurekaClientConfigure {
 </dependency>
 ```
 ##### 2.2.3.1.5.获取jar包
-	执行apollo2.0.1-eureka/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
-	apollo2.0.1-eureka/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar -> apollo-adminservice-2.0.1.jar
-	apollo2.0.1-eureka/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar -> apollo-configservice-2.0.1.jar
-	apollo2.0.1-eureka/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	执行apollo2.0.1/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
+	apollo2.0.1/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar -> apollo-adminservice-2.0.1.jar
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar -> apollo-configservice-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 ##### 2.2.3.1.6.创建运行文件夹
 	a.创建名称为Apollo2.0.1_eureka_dev的文件夹(版本号以实际为准)
 	b.把三个jar包放入文件夹中
@@ -545,14 +545,14 @@ public class ConfigServerEurekaClientConfigure {
 </dependency>
 ```
 ##### 2.2.3.2.5.获取jar包
-	执行apollo2.0.1-eureka/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
-	apollo2.0.1-eureka/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
+	执行apollo2.0.1/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
+	apollo2.0.1/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
 	  apollo-adminservice-2.0.1-dev.jar
 	  apollo-adminservice-2.0.1-pro.jar
-	apollo2.0.1-eureka/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
 	  apollo-configservice-2.0.1-dev.jar
 	  apollo-configservice-2.0.1-pro.jar
-	apollo2.0.1-eureka/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 	注意:操作完成后共得到5个jar
 
 ##### 2.2.3.2.6.创建运行文件夹
@@ -681,10 +681,10 @@ mvn clean package -Pgithub -DskipTests -pl apollo-configservice,apollo-adminserv
 spring.cloud.zookeeper.connect-string=127.0.0.1:2181
 ```
 ##### 2.2.4.1.6.获取jar包
-	执行apollo2.0.1-zookeeper/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
-	apollo2.0.1-zookeeper/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar -> apollo-adminservice-2.0.1.jar
-	apollo2.0.1-zookeeper/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar	-> apollo-configservice-2.0.1.jar
-	apollo2.0.1-zookeeper/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	执行apollo2.0.1/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
+	apollo2.0.1/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar -> apollo-adminservice-2.0.1.jar
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar	-> apollo-configservice-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 ##### 2.2.4.1.7.创建运行文件夹
 	a.创建名称为Apollo2.0.1_zookeeper_dev的文件夹(版本号以实际为准)
 	b.把三个jar包放入文件夹中
@@ -752,14 +752,14 @@ mvn clean package -Pgithub -DskipTests -pl apollo-configservice,apollo-adminserv
 spring.cloud.zookeeper.connect-string=127.0.0.1:2181
 ```
 ##### 2.2.4.2.6.获取jar包
-	执行apollo2.0.1-zookeeper/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
-	apollo2.0.1-zookeeper/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
+	执行apollo2.0.1/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
+	apollo2.0.1/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
 	  apollo-adminservice-2.0.1-dev.jar
 	  apollo-adminservice-2.0.1-pro.jar
-	apollo2.0.1-zookeeper/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
 	  apollo-configservice-2.0.1-dev.jar
 	  apollo-configservice-2.0.1-pro.jar
-	apollo2.0.1-zookeeper/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 	注意:操作完成后共得到5个jar
 ##### 2.2.4.2.7.创建运行文件夹
 	a.创建名称为Apollo2.0.1_zookeeper_pro的文件夹(版本号以实际为准)
@@ -857,7 +857,7 @@ https://gitee.com/lingwh1995/apollo2.0.1-zookeeper.git
 https://gitee.com/lingwh1995/apollo2.0.1.git
 ```
 ##### 2.2.5.1.2.修改数据库连接信息
-	a.修改apollo2.0.1-consul/scripts/flyway/flyway-configdb.properties和apollo2.0.1-consul/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
+	a.修改apollo2.0.1/scripts/flyway/flyway-configdb.properties和apollo2.0.1-consul/scripts/flyway/flyway-portaldb.properties中的数据库连接信息
 	  特别注意:如果已经创建好了数据库环境这一步骤可以省略
 	b.在apollo2.0.1-consul文件夹下执行如下两个命令；目的是使用flyway脚本自动创建好数据库环境
 		特别注意:如果已经创建好了数据库环境这一步骤可以省略
@@ -882,10 +882,10 @@ spring.cloud.consul.host=127.0.0.1
 spring.cloud.consul.port=8500
 ```
 ##### 2.2.5.1.6.获取jar包
-	执行apollo2.0.1-consul/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
-	apollo2.0.1-consul/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar -> apollo-adminservice-2.0.1.jar
-	apollo2.0.1-consul/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar -> apollo-configservice-2.0.1.jar
-	apollo2.0.1-consul/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	执行apollo2.0.1/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
+	apollo2.0.1/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar -> apollo-adminservice-2.0.1.jar
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar -> apollo-configservice-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 ##### 2.2.5.1.7.创建运行文件夹
 	a.创建名称为Apollo2.0.1_consul_dev的文件夹(版本号以实际为准)
 	b.把三个jar包放入文件夹中
@@ -956,14 +956,14 @@ spring.cloud.consul.host=127.0.0.1
 spring.cloud.consul.port=8500
 ```
 ##### 2.2.5.2.6.获取jar包
-	执行apollo2.0.1-consul/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
-	apollo2.0.1-consul/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
+	执行apollo2.0.1/scripts/build.bat,执行完成后可以得到下面三个jar包(最好是重命名以下)
+	apollo2.0.1/apollo-adminservice/target/apollo-adminservice-2.0.1-SNAPSHOT.jar->复制一份分别命名为
 	  apollo-adminservice-2.0.1-dev.jar
 	  apollo-adminservice-2.0.1-pro.jar
-	apollo2.0.1-consul/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
+	apollo2.0.1/apollo-configservice/target/apollo-configservice-2.0.1-SNAPSHOT.jar->->复制一份分别命名为
 	  apollo-configservice-2.0.1-dev.jar
 	  apollo-configservice-2.0.1-pro.jar
-	apollo2.0.1-consul/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
+	apollo2.0.1/apollo-portal/target/apollo-portal-2.0.1-SNAPSHOT.jar -> apollo-portal-2.0.1.jar
 	注意:操作完成后共得到5个jar
 ##### 2.2.5.2.7.创建运行文件夹
 	a.创建名称为Apollo2.0.1_consul_pro的文件夹(版本号以实际为准)
