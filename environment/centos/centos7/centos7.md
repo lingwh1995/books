@@ -1238,6 +1238,7 @@ sudo sysctl -w vm.max_map_count=262144
 ```
 
 # 5.搭建Rancher技术栈
+## 5.1.搭建Rancher
 	下载rancher
 ```
 docker pull rancher/server
