@@ -4819,7 +4819,7 @@ yum makecache
 
 # 12.搭建SpringCloud技术栈所需组件
 ## 12.1.搭建Zipkin
-	安装jdk	
+	安装jdk
 <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-3-安装jdk" target="_blank">安装jdk</a>
 
 	创建存放安装包的目录->进入该目录->下载zipkin->重命名->赋予运行权限
