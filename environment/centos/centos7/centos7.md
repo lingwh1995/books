@@ -1087,7 +1087,7 @@ docker push 192.168.0.4:5000/jdk/jdk1.8.0_181:latest
 	访问:http://192.168.0.4:5000/v2/_catalog,看到:{"repositories":["jdk/jdk1.8.0_181"]}
 
 ## 4.7.Docker中安装常用软件
-### 4.7.1.Docker安装mysql
+### 4.7.1.安装mysql
 	下载mysql镜像
 ```
 docker pull mysql
@@ -1100,7 +1100,7 @@ docker run -di --name mysql -p 3306:3306 --restart=always -e MYSQL_ROOT_PASSWORD
 ```
 myqldocker exec -it mysql bash
 ```
-### 4.7.2.Docker中安装consul
+### 4.7.2.安装consul
 	下载consul镜像
 ```
 docker pull consul
@@ -1114,7 +1114,7 @@ docker run -d --name=consul \
 	consul:latest
 ```
 
-### 4.7.3.Docker容器中安装vim
+### 4.7.3.安装vim
 	进入容器内部
 ```
 docker exec -it 容器id /bin/bash
@@ -1144,7 +1144,7 @@ apt update
 apt-get install vim
 ```
 
-### 4.7.3.docker安装elk
+### 4.7.3.安装elk
 	下载elk镜像
 ```
 docker pull sebp/elk:6.8.22
@@ -4835,7 +4835,7 @@ chmod +x zipkin.jar
 	开放端口
 ```
 firewall-cmd --zone=public --add-port=9411/tcp --permanent &&
-firewall-cmd --reload 
+firewall-cmd --reload
 ```
 	启动zipkin
 ```
@@ -4858,3 +4858,8 @@ https://github.com/apolloconfig
 ### 12.2.3.基于独立部署的Eureka搭建Apollo配置中心
 ### 12.2.4.基于Zookeeper搭建Apollo配置中心
 ### 12.2.5.基于Consul搭建Apollo配置中心
+
+## 12.3.Seata-Server
+## 12.4.搭建ELK
+### 12.4.1.在操作系统中搭建ELK
+### 12.4.2.在Docker中搭建ELK

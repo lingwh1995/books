@@ -218,6 +218,7 @@ https://gitee.com/lingwh1995/springcloud-eureka.git
 
 ## 2.3.准备项目需要的数据库
 ### 2.3.1.安装mysql数据库
+    在192.168.0.5上安装mysql数据库
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-5-安装mysql" target="_blank">安装mysql(8.x版本)</a>
 
 ### 2.3.2.创建项目需要的数据库
@@ -1774,6 +1775,7 @@ https://github.com/openzipkin/zipkin
 @import "./projects/springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java"
 
 ## 10.5.搭建Zipkin
+    在192.168.0.5上搭建Zipkin
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-12.搭建SpringCloud技术栈所需组件.html#_12-3-搭建zipkin" target="_blank">搭建Zipkin</a>
 
 ## 10.6.测试Zipkin+Sleuth实现调用链路追踪
@@ -2012,6 +2014,7 @@ https://seata.io/zh-cn/
 ```
 
 ## 12.2.搭建Seata Server
+    在localhost上搭建Seata Server
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-12.搭建SpringCloud技术栈所需组件.html#_12-3-搭建zipkin" target="_blank">搭建Seate-Server(Windows版)</a>
 ## 12.3.准备数据库环境
     导入数据库脚本(application.yml中数据库配置和mysql部署机器信息保持一致)
@@ -2511,24 +2514,155 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/java/org/openatom/springcloud/MointorSpringBootAdmin9003.java"
 
 ## 13.7.测试适用于生产环境的微服务
-### 13.7.1.启动相关服务
+### 13.7.1.测试多环境相关配置
+#### 13.7.1.1.测试多环境运行
+    dev环境
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
+    将运行环境切换为dev环境-->重新导入项目依赖
+    重新导入项目依赖-->启动Eureka注册中心
+```
+    在浏览器访问
+```
+http://localhost:7005/
+```
+<img src="./images/eureka7005-dev.png"  width="100%"/>
+    可以看到服务名为SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-DEV
+
+    test环境
+```mermaid
+flowchart LR
+    将运行环境切换为test环境-->重新导入项目依赖
+    重新导入项目依赖-->启动Eureka注册中心
+```
+    在浏览器访问
+```
+http://localhost:7005/
+```
+<img src="./images/eureka7005-test.png"  width="100%"/>
+
+#### 13.7.1.2.测试多环境打包
+    dev环境
+```mermaid
+flowchart LR
+    将运行环境切换为dev环境-->重新导入项目依赖
+    重新导入项目依赖-->使用maven打包
+    使用maven打包-->进入target目录中
+```
+    执行如下命令
+```
+jar xf springcloud-basic-sample-register-center-single-node7005.jar &&
+ls BOOT-INF/classes/
+```
+    查看jar包中使用的配置文件
+```
+application.yml  application-dev.yml  logback-custom.xml  org
+```
+    只包含了application-dev.yml这个多环境配置文件,其他的多环境配置配置都没有被包含进来
+
+    test环境
+```mermaid
+flowchart LR
+    将运行环境切换为test环境-->重新导入项目依赖
+    重新导入项目依赖-->使用maven打包
+    使用maven打包-->进入target目录中
+```
+    执行如下命令
+```
+jar xf springcloud-basic-sample-register-center-single-node7005.jar &&
+ls BOOT-INF/classes/
+```
+    查看jar包中使用的配置文件
+```
+application.yml  application-test.yml  logback-custom.xml  org
+```
+    只包含了application-test.yml这个多环境配置文件,其他的多环境配置配置都没有被包含进来
+### 13.7.2.测试微服务监控技术
+    启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->将运行环境切换为dev环境
+    将运行环境切换为dev环境-->重新导入项目依赖
+    重新导入项目依赖-->启动Eureka注册中心
     启动Eureka注册中心-->启动SpringBootAdminServer
     启动SpringBootAdminServer-->启动服务提供者8009节点
     启动服务提供者8009节点-->启动服务提供者8010节点
     启动服务提供者8010节点-->启动当前模块服务消费者
 ```
-    a.多环境相关配置
-        多环境运行
-        多环境打包
+
+    在浏览器访问
+```
+http://localhost:7005/
+```
+<img src="./images/springbootadmin-server.png"  width="100%"/>
+    可以看到SpringbootAdminServer中已经监控到了相关的服务,可以点击具体服务查看详细信息,这里不在继续做展示
+
+### 13.7.3.测试更完善的日志系统
+#### 13.7.3.1.测试输出日志到控制台
+    在idea中启动项目时可以在控制台看到输出的日志,这个输出的日志的格式自定义的,不是使用的默认的格式,详细的日志格式查看logback-custom.xml,不同的环境输出的日志格式不一定相同,具体要看logback-custom.xml中针对具体的环境设置的格式
+#### 13.7.3.2.测试输出日志到文件
+    在当前项目根目录执行命令
+```
+ls -R log
+```
+    log:
+    localhost  tree.md
+
+    log/localhost:
+    192.168.0.1
+
+    log/localhost/192.168.0.1:
+    HISTORY
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-DEV-debug.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-DEV-error.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-DEV-info.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-TEST-debug.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-TEST-error.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-TEST-info.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-DEV-debug.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-DEV-error.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-DEV-info.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-TEST-debug.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-TEST-error.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-TEST-info.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-DEV-debug.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-DEV-error.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-DEV-info.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-debug.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-error.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-info.log
+
+    log/localhost/192.168.0.1/HISTORY:
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-DEV-debug-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-DEV-error-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-DEV-info-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-TEST-debug-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-TEST-error-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-CONSUMER-LOADBALANCE-OPENFEIGN-DYNAMIC-SERVICENAME-ORDER80-TEST-info-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-DEV-debug-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-DEV-error-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-DEV-info-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-TEST-debug-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-TEST-error-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-TEST-info-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-DEV-debug-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-DEV-error-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-DEV-info-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-debug-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-debug-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-error-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-error-2022-08-30-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-info-2022-07-17-index0.log
+    SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-info-2022-08-30-index0.log
+
+    查询出来的都是输出的文件的日志,输出日志到文件时和输出日志到控制台是一样的,不同的环境输出的日志格式不一定相同,具体要看logback-custom.xml中针对具体的环境设置的格式
+#### 13.7.3.2.测试推送日志到ELK中
+    在192.168.0.5上搭建ELK
+详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank">Docker中安装ELK</a>
+
+
         多环境推送到Docker
-    b.微服务监控技术
-        SpringBootAdmin
     c.更完善的日志系统
-        集成logback日志(输出到控制台+输出到文件)
-        使用Logstash推送日志到ELK中
         在日志中输出调用链路信息(集成Zipkin+Sleuth,实现在日志中输出TraceId和SpanId和Span-Export)
     d.持续集成技术:
         持续集成到Docker
