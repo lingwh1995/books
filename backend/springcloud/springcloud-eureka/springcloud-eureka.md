@@ -2187,8 +2187,8 @@ https://seata.io/zh-cn/
 flowchart LR
     启动Eureka注册中心-->启动Apollo
 	启动Apollo-->启动Seata-Server
-    启动服务提供者Account服务-->启动服务提供者Storage服务
-    启动服务提供者Storage服务-->启动服务消费者Order服务
+    启动服务提供者Account服务8007-->启动服务提供者Storage服务8008
+    启动服务提供者Storage服务8008-->启动服务消费者Order服务
 ```
     在seate-server控制台查看,三个服务已经被成功注册
 <img src="./images/seate-server-console.png"  width="100%"/>
@@ -2251,3 +2251,7 @@ http://localhost/order/create?userId=1&productId=1&count=10&money=100
     b.在调用的时候打端点,可以观察到表中的数据会先发生变化,放开断点后,又会因为发生异常触发回滚导致表中的数据恢复到初始状态
 ## 12.7.注意事项
     在这个案例中,三个服务和seata-server在Apollo注册中接入在同一个项目中,依靠namespace的值区分三个不同服务和seata-server,这样就可以让三个不同的服务和seata-server同时使用apollo,因为application.yml中app.id这个配置项只能配置一个值,如果不这样处理,三个服务只能使用seata进行分布式事务控制,并不能使用apollo管理配置
+
+# 12.在生产环境中更好的使用SpringCloud
+
+使用SpingBootAdmin监控微服务
