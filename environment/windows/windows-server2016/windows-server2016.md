@@ -1244,9 +1244,9 @@ https://gitee.com/lingwh1995/apollo2.0.1-consul.git
 ##### 2.2.5.3.3.如何修改使用到的参数
 	在启动脚本中对使用到的参数进行设置,如-Dserver.port=8888
 
-## 2.3.搭建Seata Server
+## 2.3.搭建Seata-Server
 ### 2.3.1.Seata简介
-    Seata 是一款开源的分布式事务解决方案,致力于提供高性能和简单易用的分布式事务服务。Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式,为用户打造一站式的分布式解决方案。本地事务和seata事务的区别:本地事务只可以在同一台机器的同一个mysql中进行操作,seata事务可以跨机器进行事务控制
+    Seata是一款开源的分布式事务解决方案,致力于提供高性能和简单易用的分布式事务服务。Seata将为用户提供了 AT、TCC、SAGA 和 XA 事务模式,为用户打造一站式的分布式解决方案。本地事务和seata事务的区别:本地事务只可以在同一台机器的同一个mysql中进行操作,seata事务可以跨机器进行事务控制
 <a href="https://seata.io/zh-cn/" target="_blank">官方网址</a>
 ```
 https://seata.io/zh-cn/
@@ -1256,12 +1256,12 @@ https://seata.io/zh-cn/
 https://github.com/seata/seata
 ```
 
-### 2.3.2.基于Eureka+Apollo搭建Seata Server
+### 2.3.2.基于Eureka+Apollo搭建Seata-Server
 #### 2.3.2.1.单节点版
 ##### 2.3.2.1.1.单节点版说明
-	使用eureka作为注册中心+使用apollo作为配置中心,seata版本为1.4.2
+	使用eureka作为注册中心+使用apollo作为配置中心,seata-server版本为1.4.2
 ##### 2.3.2.1.2.下载Seata Server1.4.2
-	下载Seata Server1.4.2
+	下载Seata-Server1.4.2
 ```
 curl -fL -u springcloud-1661828979817:5cc2489844765586c2032bafa6645a14921e4490 "https://lingwh-generic.pkg.coding.net/coding-drive/springcloud/seata-server-1.4.2.zip?version=latest" -o seata-server-1.4.2.zip
 ```
@@ -1437,10 +1437,10 @@ metrics.exporterPrometheusPort=9898
 ```
 	上传完成后发布配置
 
-##### 2.3.2.1.7.启动Seata Server
+##### 2.3.2.1.7.启动Seata-Server
 	进入bin目录,双击seata-server.bat启动seate
 ```mermaid
 flowchart LR
     启动Eureka-->启动Apollo
-	启动Apollo-->启动Seata-server
+	启动Apollo-->启动Seata-Server
 ```

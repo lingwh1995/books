@@ -1844,8 +1844,7 @@ https://github.com/openzipkin/zipkin
 @import "./projects/springcloud-eureka/springcloud-consumer-sleuth_zipkin-loadbalance-default-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerSleuthAndZipkinLoadBalanceDefault80.java"
 
 ## 10.5.搭建Zipkin
-    详细参考
-<a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-12.搭建SpringCloud技术栈所需组件.html#_12-3-搭建zipkin" target="_blank">搭建Zipkin</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-12.搭建SpringCloud技术栈所需组件.html#_12-3-搭建zipkin" target="_blank">搭建Zipkin</a>
 
 ## 10.6.测试Zipkin+Sleuth实现调用链路追踪
     启动相关服务
@@ -2083,7 +2082,103 @@ https://seata.io/zh-cn/
 ```
 
 ## 12.2.搭建Seata Server
-## 12.3.搭建服务提供者第一个节点(Seata)
-## 12.4.搭建服务提供者第二个节点(Seata)
-## 12.5.搭建服务消费者
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-12.搭建SpringCloud技术栈所需组件.html#_12-3-搭建zipkin" target="_blank">搭建Seate-Server(Windows版)</a>
+## 12.3.准备数据库环境
+    导入数据库脚本(application.yml中数据库配置和mysql部署机器信息保持一致)
+@import "./projects/springcloud-eureka/script/payment.sql"
+## 12.4.搭建服务提供者Account服务(Seata)
+### 12.4.1.模块简介
+    具有分布式事务控制功能的服务提供者Account服务,启动端口: 8007
+### 12.4.2.模块目录结构
+@import "./projects/springcloud-provider-seata-account8007/tree.md"
+### 12.4.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-seata-account8007的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 12.4.4.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/pom.xml"
+### 12.4.5.编写模块application.yml
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/resources/application.yml"
+### 12.4.6.编写Apollo配置文件
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/resources/apollo-env.properties"
+### 12.4.7.编写模块Mybatis配置文件
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/resources/mapper/AccountMapper.xml"
+### 12.4.8.编写模块dao
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/dao/AccountDao.java"
+### 12.4.9.编写模块service
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/service/AccountService.java"
+### 12.4.10.编写模块service实现类
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/service/impl/AccountServiceImpl.java"
+### 12.4.11.编写模块listener
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
+### 12.4.12.编写模块config
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/conf/DataSourceProxyConfig.java"
+### 12.4.13.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/controller/AccountController.java"
+### 12.4.14.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/AccountServiceProviderSeatal8007.java"
+## 12.4.搭建服务提供者Storage服务(Seata)
+### 12.5.1.模块简介
+    具有分布式事务控制功能的服务提供者Storage服务,启动端口: 8008
+### 12.5.2.模块目录结构
+@import "./projects/springcloud-provider-seata-storage8008/tree.md"
+### 12.5.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-provider-seata-storage8008的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 12.5.4.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/pom.xml"
+### 12.5.5.编写模块application.yml
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/resources/application.yml"
+### 12.5.6.编写Apollo配置文件
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/resources/apollo-env.properties"
+### 12.5.7.编写模块Mybatis配置文件
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/resources/mapper/StorageMapper.xml"
+### 12.5.8.编写模块dao
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/dao/StorageDao.java"
+### 12.5.9.编写模块service
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/service/StorageService.java"
+### 12.5.10.编写模块service实现类
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/service/impl/StorageServiceImpl.java"
+### 12.5.11.编写模块listener
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
+### 12.5.12.编写模块config
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/conf/DataSourceProxyConfig.java"
+### 12.5.13.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/controller/StorageController.java"
+### 12.5.14.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/StorageServiceProviderSeatal8008.java"
+## 12.6.搭建服务消费者
+### 12.6.1.模块简介
+    具有分布式事务控制功能的服务消费者Order服务,启动端口: 80
+### 12.6.2.模块目录结构
+@import "./projects/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/tree.md"
+### 12.6.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-seata-loadbalance-openfeign-configuration-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 12.6.4.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/pom.xml"
+### 12.6.5.编写模块application.yml
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/resources/application.yml"
+### 12.6.6.编写Apollo配置文件
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/resources/apollo-env.properties"
+### 12.6.7.编写模块Mybatis配置文件
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/resources/mapper/OrderMapper.xml"
+### 12.6.8.编写模块dao
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/dao/OrderDao.java"
+### 12.6.9.编写模块service
+    AccountService.java
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/AccountService.java"
+    OrderService.java
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/OrderService.java"
+    StorageService.java
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/StorageService.java"
+### 12.6.10.编写模块service实现类
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/impl/OrderServiceImpl.java"
+### 12.6.11.编写模块listener
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
+### 12.6.12.编写模块config
+    DataSourceProxyConfig.java
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/conf/DataSourceProxyConfig.java"
+    FeignConfig.java
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/conf/FeignConfig.java"
+### 12.6.13.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderController.java"
+### 12.6.14.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerSeatalLoadBalanceOpenFeignConfiguration80.java"
 ## 12.6.测试使用Seata进行分布式事务控制
