@@ -1441,6 +1441,6 @@ metrics.exporterPrometheusPort=9898
 	进入bin目录,双击seata-server.bat启动seate
 ```mermaid
 flowchart LR
-    启动Eureka-->启动Apollo
+    启动Eureka注册中心-->启动Apollo
 	启动Apollo-->启动Seata-Server
 ```

@@ -1927,7 +1927,7 @@ https://github.com/apolloconfig
     启动相关服务
 ```mermaid
 flowchart LR
-    启动Eureka-->启动Apollo
+    启动Eureka注册中心-->启动Apollo
 ```
 
     Eureka注册中心
@@ -2182,3 +2182,72 @@ https://seata.io/zh-cn/
 ### 12.6.14.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerSeatalLoadBalanceOpenFeignConfiguration80.java"
 ## 12.6.测试使用Seata进行分布式事务控制
+    启动相关服务
+```mermaid
+flowchart LR
+    启动Eureka注册中心-->启动Apollo
+	启动Apollo-->启动Seata-Server
+    启动服务提供者Account服务-->启动服务提供者Storage服务
+    启动服务提供者Storage服务-->启动服务消费者Order服务
+```
+    在seate-server控制台查看,三个服务已经被成功注册
+<img src="./images/seate-server-console.png"  width="100%"/>
+
+    测试使用Seata控制实现分布式事务回滚
+    调用接口前查看数据库中数据
+    a.t_account表
+    mysql> SELECT * FROM seata_account.t_account;
+    +----+---------+-------+------+---------+
+    | id | user_id | total | used | residue |
+    +----+---------+-------+------+---------+
+    |  1 |       1 |  1000 |    0 |    1000 |
+    +----+---------+-------+------+---------+
+    1 row in set (0.00 sec)
+
+    b.t_storage表
+    mysql> SELECT * FROM seata_storage.t_storage;
+    +----+------------+-------+------+---------+
+    | id | product_id | total | used | residue |
+    +----+------------+-------+------+---------+
+    |  1 |          1 |   100 |    0 |     100 |
+    +----+------------+-------+------+---------+
+    1 row in set (0.00 sec)
+
+    c.t_order表
+    mysql> SELECT * FROM seata_order.t_order;
+    Empty set (0.00 sec)
+
+    在浏览器访问引发异常的接口
+```
+http://localhost/order/create?userId=1&productId=1&count=10&money=100
+```
+    由于在调用Account服务时会报异常,浏览器页面会直接报错,seata会自动进行回滚
+
+    调用接口前查看数据库中数据
+    a.t_account表
+    mysql> SELECT * FROM seata_account.t_account;
+    +----+---------+-------+------+---------+
+    | id | user_id | total | used | residue |
+    +----+---------+-------+------+---------+
+    |  1 |       1 |  1000 |    0 |    1000 |
+    +----+---------+-------+------+---------+
+    1 row in set (0.00 sec)
+
+    b.t_storage表
+    mysql> SELECT * FROM seata_storage.t_storage;
+    +----+------------+-------+------+---------+
+    | id | product_id | total | used | residue |
+    +----+------------+-------+------+---------+
+    |  1 |          1 |   100 |    0 |     100 |
+    +----+------------+-------+------+---------+
+    1 row in set (0.00 sec)
+
+    c.t_order表
+    mysql> SELECT * FROM seata_order.t_order;
+    Empty set (0.00 sec)
+
+    如果想要更明显的查看Seata在项目中起的作用,可使用如下方式
+    a.关闭seata-server,在浏览器中访问服务,再去数据库中查看,可以发现表中的数据发生了改变
+    b.在调用的时候打端点,可以观察到表中的数据会先发生变化,放开断点后,又会因为发生异常触发回滚导致表中的数据恢复到初始状态
+## 12.7.注意事项
+    在这个案例中,三个服务和seata-server在Apollo注册中接入在同一个项目中,依靠namespace的值区分三个不同服务和seata-server,这样就可以让三个不同的服务和seata-server同时使用apollo,因为application.yml中app.id这个配置项只能配置一个值,如果不这样处理,三个服务只能使用seata进行分布式事务控制,并不能使用apollo管理配置
