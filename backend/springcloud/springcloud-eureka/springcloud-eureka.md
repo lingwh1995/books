@@ -2252,6 +2252,7 @@ http://localhost/order/create?userId=1&productId=1&count=10&money=100
 ## 12.7.注意事项
     在这个案例中,三个服务和seata-server在Apollo注册中接入在同一个项目中,依靠namespace的值区分三个不同服务和seata-server,这样就可以让三个不同的服务和seata-server同时使用apollo,因为application.yml中app.id这个配置项只能配置一个值,如果不这样处理,三个服务只能使用seata进行分布式事务控制,并不能使用apollo管理配置
 
-# 12.在生产环境中更好的使用SpringCloud
+# 13.搭建适用于生产环境的微服务
 
-使用SpingBootAdmin监控微服务
+
+    使用SpingBootAdmin监控微服务
