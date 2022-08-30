@@ -2509,3 +2509,29 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/resources/application.yml"
 ### 13.6.6.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/java/org/openatom/springcloud/MointorSpringBootAdmin9003.java"
+
+## 13.7.测试适用于生产环境的微服务
+### 13.7.1.启动相关服务
+```mermaid
+flowchart LR
+    准备好数据库环境-->启动Eureka注册中心
+    启动Eureka注册中心-->启动SpringBootAdminServer
+    启动SpringBootAdminServer-->启动服务提供者8009节点
+    启动服务提供者8009节点-->启动服务提供者8010节点
+    启动服务提供者8010节点-->启动当前模块服务消费者
+```
+    a.多环境相关配置
+        多环境运行
+        多环境打包
+        多环境推送到Docker
+    b.微服务监控技术
+        SpringBootAdmin
+    c.更完善的日志系统
+        集成logback日志(输出到控制台+输出到文件)
+        使用Logstash推送日志到ELK中
+        在日志中输出调用链路信息(集成Zipkin+Sleuth,实现在日志中输出TraceId和SpanId和Span-Export)
+    d.持续集成技术:
+        持续集成到Docker
+        持续集成到Kubernetes
+    e.更好的使用OpenFeign
+        实现OpenFeign动态服务名称和动态URL调用
