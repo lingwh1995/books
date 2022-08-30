@@ -288,7 +288,7 @@ https://gitee.com/lingwh1995/springcloud-eureka.git
 
 ## 2.3.准备项目需要的数据库
 ### 2.3.1.安装mysql数据库
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-5-安装mysql" target="_blank">安装mysql8</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-5-安装mysql" target="_blank">安装mysql(8.x版本)</a>
 
 ### 2.3.2.创建项目需要的数据库
     导入数据库脚本(application.yml中数据库配置和mysql部署机器信息保持一致)
@@ -1893,7 +1893,7 @@ https://github.com/apolloconfig
 ```
 
 ## 11.2.搭建Apollo配置中心
-<a href="/blogs/environment/windows/windows-server2016/shardings/windows-server2016-chapter-2.搭建SpringCloud技术栈所需组件.html#_2-4-3-1-单环境版" target="_blank">搭建Apollo配置中心(Windows版)</a>
+<a href="/blogs/environment/windows/windows-server2016/shardings/windows-server2016-chapter-2.搭建SpringCloud技术栈所需组件.html#_2-4-3-1-单环境版" target="_blank">基于独立部署的Eureka搭建Apollo配置中心-单环境版(Windows版)</a>
 
 ## 11.3.搭建服务消费者(Apollo)
 ### 11.3.1.章节内容简介
@@ -1928,5 +1928,11 @@ https://github.com/apolloconfig
 ```
 http://localhost:7001/
 ```
-    看到如下界面代表搭建成功
-<img src="./images/eureka7001.png"  width="100%"/>
+    看到如下界面代表apollo的adminservice服务和configservice服务启动成功
+<img src="./images/apollo-eureka7001.png"  width="100%"/>
+
+    在浏览器中访问
+```
+http://localhost:8070/
+```
+    登录用户名/密码: apollo/admin
