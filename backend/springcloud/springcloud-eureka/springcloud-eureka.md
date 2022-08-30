@@ -2481,17 +2481,31 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/test/logback-custom.xml"
 ### 13.5.6.编写模块service
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentService.java"
-### 13.4.7.编写模块service实现类
+### 13.5.7.编写模块service实现类
     PaymentServiceOpenFeign.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
     PaymentServiceOpenFeignDynamicFeignClientFactory.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeignDynamicFeignClientFactory.java"
-### 13.4.8.编写模块config
+### 13.5.8.编写模块config
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
-### 13.4.9.编写模块controller
+### 13.5.9.编写模块controller
     OrderConsumerController.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
     OrderConsumerControllerDynamicFeignClientFactory.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerControllerDynamicFeignClientFactory.java"
-### 13.4.10.编写模块主启动类
+### 13.5.10.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java"
+
+## 13.6.搭建SpringBootAdminServer
+### 13.6.1.模块简介
+    SpringBootAdmin的Server端,启动端口: 9003
+### 13.6.2.模块目录结构
+@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/tree.md"
+### 13.6.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-mointor-springboot-admin-server9003的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+### 13.6.4.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/pom.xml"
+### 13.6.5.编写模块application.yml
+@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/resources/application.yml"
+### 13.6.6.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/java/org/openatom/springcloud/MointorSpringBootAdmin9003.java"
