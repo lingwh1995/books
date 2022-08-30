@@ -2073,3 +2073,17 @@ management:
 ```
     这个方法可以直接调用触发(如当前模块中由在监听器中调用触发重启的方法),可以通过REST API触发,如
 @import "./projects/springcloud-eureka/springcloud-config-apollo-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/RestartApplicationController.java"
+
+# 12.使用Seata进行分布式事务控制
+## 12.1.Seata简介
+    Seata 是一款开源的分布式事务解决方案，致力于提供高性能和简单易用的分布式事务服务。Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式，为用户打造一站式的分布式解决方案。
+<a href="https://seata.io/zh-cn/" target="_blank">官方网址</a>
+```
+https://seata.io/zh-cn/
+```
+
+## 12.2.搭建Seata Server
+## 12.3.搭建服务提供者第一个节点(Seata)
+## 12.4.搭建服务提供者第二个节点(Seata)
+## 12.5.搭建服务消费者
+## 12.6.测试使用Seata进行分布式事务控制
