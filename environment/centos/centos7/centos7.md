@@ -102,6 +102,19 @@ cp /opt/software/package/Centos-7.repo /CentOS-Base.repo
 ```
 yum makecache && yum update
 ```
+执行下面的命令设置时区
+
+## 2.5.同步时间
+	设置硬件时钟调整为与本地时钟一致并设置时区为上海
+```
+timedatectl set-local-rtc 1 &&
+timedatectl set-timezone Asia/Shanghai
+```
+	使用ntpdate同步时间
+```
+yum -y install ntpdate &&
+ntpdate -u  pool.ntp.org
+```
 
 ## 2.6.安装常用基础系统软件
 ### 2.6.1.手动安装常用基础软件
@@ -114,7 +127,7 @@ yum -y install vim*
 	set showmode   #设置在命令行界面最下面显示当前模式等
 	set ruler      #在右下角显示光标所在的行数等信息
 	set autoindent #设置每次单击Enter键后，光标移动到下一行时与上一行的起始字符对齐
-	syntax on      #即设置语法检测，当编辑C或者Shell脚本时，关键字会用特殊颜色显示		
+	syntax on      #即设置语法检测，当编辑C或者Shell脚本时，关键字会用特殊颜色显示
 
 	wget
 ```
@@ -1169,32 +1182,36 @@ firewall-cmd --reload &&
 firewall-cmd --add-port=5044/tcp --permanent &&
 firewall-cmd --reload
 ```
-	访问Kibana
-	192.168.0.4:5601
-
+	查看启动日志
+```
+docker logs `docker ps | grep elk | cut -d' ' -f1`
+```
+	访问Kibana(注意修改ip为实际部署ip)
+```
+192.168.0.4:5601
+```
 	进入ELK中进行配置
 ```
 docker exec -it elk /bin/bash
 ```
-	修改logstash配置,把下面内容粘贴进去
+	修改logstash配置,把下面内容粘贴进去(注意修改ip为实际部署ip)
 ```
-vim /etc/logstash/conf.d/02-beats-input.conf
-```
-```
+cat > /etc/logstash/conf.d/02-beats-input.conf << EOF
 input{
-	tcp{
-		host => "0.0.0.0"
-		port => 5044
-		codec=> json_lines
-	}
+    tcp{
+        host => "0.0.0.0"
+        port => 5044
+        codec=> json_lines
+    }
 }
 output{
-	elasticsearch{
-		hosts => ["192.168.0.4:9200"]
-		action => "index"
-		index => "%{[appName]}-%{+YYYY.MM.dd}"
-	}
+    elasticsearch{
+        hosts => ["192.168.0.4:9200"]
+        action => "index"
+        index => "%{[appName]}-%{+YYYY.MM.dd}"
+    }
 }
+EOF
 ```
 	配置说明:
 	input代表数据输入配置 ， logstatsh的开放端口是 5044
@@ -1219,14 +1236,8 @@ docker inspect 容器id
 
 	执行放行操作
 ```
-firewall-cmd --zone=trusted --add-source=172.17.0.2/16 --permanent
-```
-	重新载入防火墙配置
-```
-firewall-cmd --reload
-```
-	重启防火墙
-```
+firewall-cmd --zone=trusted --add-source=172.17.0.2/16 --permanent &&
+firewall-cmd --reload &&
 systemctl restart firewalld
 ```
 	docker启动elk报错/或一直重启故障解决
