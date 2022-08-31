@@ -2339,7 +2339,7 @@ ls -R log
 
     log/localhost/192.168.1.4:
     HISTORY                                                                          SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-PERFECT-LOG-SYSTEM-ORDER80-error.log
-    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-PERFECT-LOG-SYSTEM-ORDER80-debug.log  SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-PERFECT-LOG-SYSTEM-ORDER80-info.log 
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-PERFECT-LOG-SYSTEM-ORDER80-debug.log  SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-PERFECT-LOG-SYSTEM-ORDER80-info.log
 
     log/localhost/192.168.1.4/HISTORY:
     SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-PERFECT-LOG-SYSTEM-ORDER80-debug-2022-08-31-index0.log
@@ -2369,7 +2369,7 @@ flowchart LR
     注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作,可以看到kibana中展示出来了推送到elk中日志
 <img src="./images/kibana-springcloud-eureka.png"  width="100%"/>
 
-# 15.多环境相关
+# 15.让微服务区分多种不同环境
 ## 15.1.模块简介
     集成了多种环境的的服务消费端,启动端口: 80
 ## 15.2.模块目录结构
@@ -2398,19 +2398,6 @@ flowchart LR
             <profile.active>test</profile.active>
         </properties>
     </profile>
-
-    <!--生产环境-->
-    <profile>
-        <id>prod</id>
-        <properties>
-            <!--profile.active对应application.yml中的@profile.active@-->
-            <profile.active>prod</profile.active>
-        </properties>
-        <activation>
-            <!--默认激活环境-->
-            <activeByDefault>true</activeByDefault>
-        </activation>
-    </profile>
 </profiles>
 <!--定义多种开发环境:结束-->
 ```
@@ -2424,13 +2411,6 @@ flowchart LR
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/dev/application-dev.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/dev/logback-custom.xml"
-    prod环境配置文件
-    application.yml
-@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/prod/application.yml"
-    application-prod.yml
-@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/prod/application-prod.yml"
-    logback-custom.xml
-@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/prod/logback-custom.xml"
     test环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/test/application.yml"
@@ -2449,13 +2429,21 @@ flowchart LR
 @import "./projects/springcloud-eureka/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
 ## 15.10.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignMultiplyEnv80.java"
-## 15.11.测试多环境相关
-### 15.11.1.测试多环境运行
+## 15.11.搭建Zipkin和ELK
+    为了更完善的展示添加多环境后支持后,日志系统会针对不同的环境生成对应的日志,完整的日志系统需要Zipkin和ELK的支持,所以先搭建好Zipkin和ELK
+    在192.168.0.5上搭建Zipkin
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-12.搭建SpringCloud技术栈所需组件.html#_12-3-搭建zipkin" target="_blank">搭建Zipkin</a>
+    在192.168.0.5上搭建ELK
+详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank">Docker中安装ELK</a>
+## 15.12.测试让微服务区分多种不同环境
+### 15.12.1.测试多环境运行
     dev环境
 ```mermaid
 flowchart LR
-    将运行环境切换为dev环境-->重新导入项目依赖
-    重新导入项目依赖-->启动Eureka注册中心7001
+    将运行环境切换为dev环境-->导入项目依赖
+    导入项目依赖-->启动Zipkin
+    启动Zipkin-->启动ELK
+    启动ELK-->启动Eureka注册中心7001
     启动Eureka注册中心7001-->启动当前模块服务消费者
 ```
     在浏览器访问
@@ -2469,7 +2457,9 @@ http://localhost:7001/
 ```mermaid
 flowchart LR
     将运行环境切换为test环境-->重新导入项目依赖
-    重新导入项目依赖-->启动Eureka注册中心7001
+    重新导入项目依赖-->启动Zipkin
+    启动Zipkin-->启动ELK
+    启动ELK-->启动Eureka注册中心7001
     启动Eureka注册中心7001-->启动当前模块服务消费者
 ```
     在浏览器访问
@@ -2479,7 +2469,7 @@ http://localhost:7001/
 <img src="./images/eureka7001-test.png"  width="100%"/>
     可以看到服务名为SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST
 
-### 15.11.2.测试多环境打包
+### 15.12.2.测试多环境打包
     dev环境
 ```mermaid
 flowchart LR
@@ -2515,6 +2505,71 @@ ls BOOT-INF/classes/
 application.yml  application-test.yml  logback-custom.xml  org
 ```
     只包含了application-test.yml这个多环境配置文件,其他的多环境配置配置都没有被包含进来
+
+### 15.12.2.测试多环境输出对应环境的日志
+    运行系统,产生对应环境的日志
+
+    dev环境
+```mermaid
+flowchart LR
+    将运行环境切换为dev环境-->导入项目依赖
+    导入项目依赖-->启动Zipkin
+    启动Zipkin-->启动ELK
+    启动ELK-->启动Eureka注册中心7001
+    启动Eureka注册中心7001-->启动当前模块服务消费者
+```
+    在当前项目根目录执行命令
+```
+ls -R log
+```
+    log:
+    localhost
+
+    log/localhost:
+    192.168.0.1
+
+    log/localhost/192.168.0.1:
+    HISTORY                                                                        SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-DEV-error.log
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-DEV-debug.log  SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-DEV-info.log
+
+    log/localhost/192.168.0.1/HISTORY:
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-DEV-debug-2022-08-31-index0.log
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-DEV-error-2022-08-31-index0.log
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-DEV-info-2022-08-31-index0.log
+
+    可以看到了生成了dev环境的日志
+
+
+    test环境
+```mermaid
+flowchart LR
+    删除当前项目根目录下log文件夹-->将运行环境切换为test环境
+    将运行环境切换为test环境-->重新导入项目依赖
+    重新导入项目依赖-->启动Zipkin
+    启动Zipkin-->启动ELK
+    启动ELK-->启动Eureka注册中心7001
+    启动Eureka注册中心7001-->启动当前模块服务消费者
+```
+    在当前项目根目录执行命令
+```
+ls -R log
+```
+    log:
+    localhost
+
+    log/localhost:
+    192.168.0.1
+
+    log/localhost/192.168.0.1:
+    HISTORY                                                                        SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST-error.log
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST-debug.log  SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST-info.log
+
+    log/localhost/192.168.0.1/HISTORY:
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST-debug-2022-08-31-index0.log
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST-error-2022-08-31-index0.log
+    SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST-info-2022-08-31-index0.log
+
+    可以看到了生成了test环境的日志
 
 # 16.综合案例
 ## 16.1.综合案例简介
