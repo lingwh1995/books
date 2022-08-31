@@ -1159,8 +1159,8 @@ http://localhost/consumer/payment/circuitbreaker/get/1
 
     服务熔断(下游服务发生了异常)->断路器半开(放开一定的访问流量,探测一下服务是否恢复正常)->断路器全开(放开全部访问流量)->服务恢复正常
 
-# 8.使用DashBoard和Turbine对服务访问流量进行统计
-## 8.1.使用Hystrix DashBoard对服务单个节点访数据况进行统计分析
+# 8.使用DashBoard和Turbine监控服务访问情况
+## 8.1.使用Hystrix DashBoard监控服务单个节点访问情况
 ### 8.1.1.Hystrix DashBoard简介
     DashBoard全称Hystrix Dashboard,是Spring Cloud的仪表盘组件,可以查看Hystrix实例的执行情况,支持查看单个实例和查看集群实例,但是需要结合spring-boot-actuator一起使用。Hystrix Dashboard主要用来实时监控Hystrix的各项指标信息。Hystrix Dashboard可以有效地反映出每个Hystrix实例的运行情况,可以在以图形化的方式展示出具体的服务的访问数据,如某个服务被访问了多少次,这其中失败了几次,成功了几次等,帮助我们快速发现系统中的问题，从而采取对应措施。
 ### 8.1.2.模块简介
@@ -1336,7 +1336,7 @@ http://localhost/consumer/payment/circuitbreaker/get/1
     可以看到界面自动统计出了提供端8004某个服务的访问情况
 <img src="./images/hystrix_dashboard_mointor_provider8004.png"  width="100%"/>
 
-## 8.2.使用Turbine对服务多个节点访数据况进行统计分析
+## 8.2.使用Turbine监控服务多个节点访问情况
 ### 8.2.1.Turbine简介
     Turbine是聚合服务器发送事件流数据的一个工具,Hystrix DashBoard的监控中,只能统计分析单个节点访问流量,实际生产中都为集群,每个服务都会部署在多个节点上,因此可以通过Turbine来统计分析多个节点访问流量,将Hystrix DashBoard收集到的单个节点的服务访问数据统计数据汇集在一起并以图形化界面展示出来。
 ### 8.2.2.模块简介
