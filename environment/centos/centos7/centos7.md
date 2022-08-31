@@ -754,7 +754,9 @@ docker run -d --name portainer \
 	portainer/portainer:1.24.2
 ```
 	登录portainer
-	登录地址：http://192.168.0.4:9000/
+```
+http://192.168.0.4:9000/
+```
 	用户名/密码：admin/portainer
 	单机版选择local即可
 
@@ -4472,7 +4474,7 @@ https://lingwh.coding.net/p/java/ci/agent
 curl -fL 'https://coding.net/public-files/coding-ci/install/linux/install.sh?version=2022.03.22-b3bd8b2ac67f552c7be7bf82c311f6c11083f619' | CODING_SERVER=wss://lingwh.coding.net PACKAGE_URL=https://coding.net JENKINS_VERSION=2.293-cci-v2.2 JENKINS_HOME_VERSION=v43 PYPI_HOST=https://lingwh.coding.net/ci/pypi/simple PYPI_EXTRA_INDEX_URL= LOG_REPORT=http://worker-beat.coding.net bash -s 4ada5d876d32c8990debd64b62823c3a5ecbb959 false default
 ```
 	查看Coding.net中节点接入状态(这里换成自己的Coding.net用户名)
-	在目标机器(192.168.0.5)上执行生成接入命令,执行成功后到Coding.net中Jenkins节点列表查看节点是否准备就绪,如果接入命令执行成功了,则节点状态显示为 在线
+	在目标机器(192.168.0.5)上执行生成接入命令,执行成功后到Coding.net中Jenkins节点列表查看节点是否准备就绪,如果接入命令执行成功了,则节点状态显示为在线
 ```
 https://lingwh.coding.net/p/java/ci/agent/136295/list
 ```

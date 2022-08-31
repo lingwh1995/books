@@ -1147,11 +1147,11 @@ http://localhost:/consumer/payment/degradation_in_consumer_service/get/1
     具体降级过程,请根据访问地址追踪代码,查看具体降级是如何处理的,代码中有详细的注释
 
     测试在服务提供端实现服务熔断
-    模拟发生异常熔断服务,路径1:
+    模拟发生异常熔断服务,路径1
 ```
 http://localhost/consumer/payment/circuitbreaker/get/-1
 ```
-    模拟不发生异常让服务自动恢复,路径2:
+    模拟不发生异常让服务自动恢复,路径2
 ```
 http://localhost/consumer/payment/circuitbreaker/get/1
 ```
@@ -2497,6 +2497,35 @@ http://localhost/consumer/dynamic/payment/replace_router/get/1
 
 # 16.使用持续集成快捷部署服务
 ## 16.1.持续集成微服务到docker中
+### 16.1.1.搭建docker
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建docker</a>
+### 16.1.2.搭建harbor
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建harbor</a>
+### 16.1.3.搭建jenkins
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-4-使用coding内网穿透搭建持续集成环境" target="_blank">搭建jenkins</a>
+### 16.1.4.搭建持续集成使用的微服务
+#### 16.1.4.1.模块简介
+    测试持续集成微服务到docker中使用到的微服务
+#### 16.1.4.2.模块目录结构
+@import "./projects/springcloud-eureka/springcloud-ci-docker80/tree.md"
+#### 16.1.4.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-ci-docker80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+#### 16.1.4.4.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-ci-docker80/pom.xml"
+#### 16.1.4.5.编写模块application.yml
+@import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/resources/application.yml"
+#### 16.1.4.5.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/java/org/openatom/springcloud/CiDocker80.java"
+#### 16.1.4.6.测试模块
+    在浏览器中访问
+```
+http://localhost/ci/docker
+```
+    返回数据
+```json
+{"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
+```
+### 16.1.5.测试持续集成微服务到docker中
 ## 16.2.持续集成微服务到k8s中
 
 # 17.让微服务区分多种不同环境
