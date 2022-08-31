@@ -2400,6 +2400,100 @@ flowchart LR
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-senior-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerControllerDynamicFeignClientFactory.java"
 ### 15.1.10.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-configuration-openfeign-senior-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java"
+## 15.2.测试OpenFeign高级用法
+### 15.2.1.测试动态服务名
+    在浏览器中访问
+    非动态服务名调用(服务名配置在Service中使用@FeignClient配置)
+```
+http://localhost/consumer/payment/get/1
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的RandomRule(随机策略),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
+
+    动态服务名调用(服务名配置在application.yml中配置)
+```
+http://localhost/consumer/dynamic/payment/get/1
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的RandomRule(随机策略),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
+
+    从配置文件中动态获取服务名有什么好处?
+    有时候服务名可能会出现在代码中的两个地方,分别是@FeignClient中application.yml中,这意味着如果修改了服务名就要同时修改@FeignClient中application.yml中的配置,如果OpenFeign发起调用时,直接从application.yml中读取服务名称,那么当服务名发生了变化时,只需要修改application.yml中这一个地方的配置即可
+### 15.2.2.测试openfeign拦截器
+    在浏览器中访问
+    非动态服务名调用(服务名配置在Service中使用@FeignClient配置)
+```
+http://localhost/consumer/payment/replace_router/get/1
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的RandomRule(随机策略),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
+
+    动态服务名调用(服务名配置在application.yml中配置)
+```
+http://localhost/consumer/dynamic/payment/replace_router/get/1
+```
+    第一次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    第二次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第三次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8002","data":{"id":1,"serial":"15646546546"}}
+```
+    第四次访问返回结果
+```json
+{"code":200,"message":"查询成功,serverPort:  8001","data":{"id":1,"serial":"15646546546"}}
+```
+    可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的RandomRule(随机策略),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
 
 # 15.使用持续集成快捷部署服务
 # 15.1.持续集成微服务到docker中
@@ -2741,7 +2835,7 @@ ls -R log
 ### 17.3.7.编写模块config
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
 ### 17.3.8.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/java/org/openatom/springcloud/RegisterCcenterSingleNode7005.java"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/java/org/openatom/springcloud/BasicSampleRegisterCcenterSingleNode7005.java"
 ### 17.3.9.测试模块
     在浏览器中访问
 ```
@@ -2808,7 +2902,7 @@ http://localhost:7005/
 ### 17.4.10.编写模块controller
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/controller/PaymentController.java"
 ### 17.4.11.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/PaymentServiceProviderClusterNode8009.java"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/BasicSamplePaymentServiceProviderClusterNode8009.java"
 ## 17.5.搭建服务提供者第二个节点
 ### 17.5.1.模块简介
     为综合案例搭建服务提供者的第二个节点,启动端口: 8010
@@ -2866,59 +2960,67 @@ http://localhost:7005/
 ### 17.5.10.编写模块controller
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/controller/PaymentController.java"
 ### 17.5.11.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/PaymentServiceProviderClusterNode8010.java"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/BasicSamplePaymentServiceProviderClusterNode8010.java"
 ## 17.6.搭建服务消费者
 ### 17.6.1.模块简介
     为综合案例搭建服务消费者,启动端口: 80
 ### 17.6.2.模块目录结构
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/tree.md"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/tree.md"
 ### 17.6.3.创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 17.6.4.编写模块pom.xml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/pom.xml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/pom.xml"
 ### 17.6.5.编写模块配置文件
     dev环境配置文件
     application.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/dev/application.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/dev/application.yml"
     application-dev.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/dev/application-dev.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/dev/application-dev.yml"
     logback-custom.xml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/dev/logback-custom.xml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/dev/logback-custom.xml"
     prod环境配置文件
     application.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/prod/application.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/prod/application.yml"
     application-prod.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/prod/application-prod.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/prod/application-prod.yml"
     logback-custom.xml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/prod/logback-custom.xml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/prod/logback-custom.xml"
     rancher环境配置文件
     application.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/rancher/application.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/rancher/application.yml"
     application-rancher.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/rancher/application-rancher.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/rancher/application-rancher.yml"
     logback-custom.xml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/rancher/logback-custom.xml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/rancher/logback-custom.xml"
     test环境配置文件
     application.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/test/application.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/test/application.yml"
     application-test.yml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/test/application-test.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/test/application-test.yml"
     logback-custom.xml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/test/logback-custom.xml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/test/logback-custom.xml"
 ### 17.6.6.编写模块service实现类
     PaymentServiceOpenFeign.java
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
     PaymentServiceOpenFeignDynamicFeignClientFactory.java
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeignDynamicFeignClientFactory.java"
-### 17.6.7.编写模块config
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
-### 17.6.8.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeignDynamicFeignClientFactory.java"
+### 17.6.7.编写模块controller
     OrderConsumerController.java
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
     OrderConsumerControllerDynamicFeignClientFactory.java
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerControllerDynamicFeignClientFactory.java"
-### 17.6.9.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerControllerDynamicFeignClientFactory.java"
+### 17.6.8.编写模块config
+    VirtualIpConfig.java
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
+    OpenFeignConfig.java
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
+    DynamicFeignClientFactoryConfig.java
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/DynamicFeignClientFactoryConfig.java"
+### 17.6.9.编写模块interceptor
+    FeignClientRequestInterceptor.java
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/interceptor/FeignClientRequestInterceptor.java"
+### 17.6.10.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/BasicSampleOrderServiceConsumerLoadBalanceOpenFeignConfiguration80.java"
 
 ## 17.7.搭建SpringBootAdminServer
 ### 17.7.1.模块简介
