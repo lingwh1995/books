@@ -494,8 +494,8 @@ http://eureka7004:7004/
 ### 4.5.1.启动第一个微服务应用
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者第一个节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者第一个节点
     启动服务提供者第一个节点-->启动服务提供者第二个节点
     启动服务提供者第二个节点-->启动当前模块服务消费者
 ```
@@ -579,8 +579,8 @@ https://github.com/Netflix/ribbon
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8001节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8001节点
     启动服务提供者8001节点-->启动服务提供者8002节点
     启动服务提供者8002节点-->启动当前模块服务消费者
 ```
@@ -657,8 +657,8 @@ http://localhost/consumer/payment/get/1
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8001节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8001节点
     启动服务提供者8001节点-->启动服务提供者8002节点
     启动服务提供者8002节点-->启动当前模块服务消费者
 ```
@@ -708,8 +708,8 @@ http://localhost/consumer/payment/get/1
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8001节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8001节点
     启动服务提供者8001节点-->启动服务提供者8002节点
     启动服务提供者8002节点-->启动当前模块服务消费者
 ```
@@ -759,8 +759,8 @@ http://localhost/consumer/payment/get/1
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8001节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8001节点
     启动服务提供者8001节点-->启动服务提供者8002节点
     启动服务提供者8002节点-->启动当前模块服务消费者
 ```
@@ -819,8 +819,8 @@ https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.BUILD-SNAPSHOT/referen
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8001节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8001节点
     启动服务提供者8001节点-->启动服务提供者8002节点
     启动服务提供者8002节点-->启动当前模块服务消费者
 ```
@@ -881,8 +881,8 @@ logging: #OpenFeign增强日志配置
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8001节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8001节点
     启动服务提供者8001节点-->启动服务提供者8002节点
     启动服务提供者8002节点-->启动当前模块服务消费者
 ```
@@ -1073,8 +1073,8 @@ public class OrderServiceConsumerHystrixLoadBalanceOpenFeignConfiguration80 {
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8003节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动当前模块服务消费者
 ```
@@ -1266,8 +1266,8 @@ public ServletRegistrationBean getServlet() {
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8003节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
     启动使用了Hystrix功能的服务消费者-->启动Hystrix_Dashboard监控模块
@@ -1442,8 +1442,8 @@ public ServletRegistrationBean getServlet() {
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8003节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
     启动使用了Hystrix功能的服务消费者-->启动Tunbine监控模块
@@ -1521,8 +1521,8 @@ https://spring.io/projects/spring-cloud-gateway/
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8003节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
     启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
@@ -1569,8 +1569,8 @@ http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8003节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
     启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
@@ -1619,8 +1619,8 @@ http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8003节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
     启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
@@ -1669,8 +1669,8 @@ http://localhost:9527/consumer/payment/ok/get/1?uname=zhangsan
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8003节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8003节点
     启动服务提供者8003节点-->启动服务提供者8004节点
     启动服务提供者8004节点-->启动使用了Hystrix功能的服务消费者
     启动使用了Hystrix功能的服务消费者-->启动当前GateWay模块
@@ -1795,8 +1795,8 @@ https://github.com/openzipkin/zipkin
     启动相关服务
 ```mermaid
 flowchart LR
-    准备好数据库环境-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务提供者8005节点
+    准备好数据库环境-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务提供者8005节点
     启动服务提供者8005节点-->启动服务提供者8006节点
     启动服务提供者8006节点-->启动使用了Sleuth功能的服务消费者
     启动使用了Sleuth功能的服务消费者-->启动Zipkin
@@ -1872,7 +1872,7 @@ https://github.com/apolloconfig
     启动相关服务
 ```mermaid
 flowchart LR
-    启动Eureka注册中心-->启动Apollo
+    启动Eureka注册中心7001节点-->启动Apollo
 ```
 
     Eureka注册中心
@@ -2131,8 +2131,9 @@ https://seata.io/zh-cn/
     启动相关服务
 ```mermaid
 flowchart LR
-    启动Eureka注册中心-->启动Apollo
+    启动Eureka注册中心7001节点-->启动Apollo
 	启动Apollo-->启动Seata-Server
+    启动Seata-Server-->启动服务提供者Account服务8007
     启动服务提供者Account服务8007-->启动服务提供者Storage服务8008
     启动服务提供者Storage服务8008-->启动服务消费者Order服务
 ```
@@ -2242,7 +2243,7 @@ https://github.com/codecentric/spring-boot-admin
     启动相关服务
 ```mermaid
 flowchart LR
-    启动Eureka注册中心-->启动SpringBootAdminServer
+    启动Eureka注册中心7001节点-->启动SpringBootAdminServer
 	启动SpringBootAdminServer-->启动启动SpringBootAdminClient
 ```
     在浏览器访问
@@ -2320,8 +2321,8 @@ https://github.com/elastic/kibana
 ```mermaid
 flowchart LR
     启动Zipkin-->启动ELK
-    启动ELK-->启动Eureka注册中心
-    启动Eureka注册中心-->启动服务消费者
+    启动ELK-->启动Eureka注册中心7001节点
+    启动Eureka注册中心7001节点-->启动服务消费者
 ```
 ### 14.5.2.测试日志输出到控制台时自定义日志格式
     在idea控制台中查看输入的日志格式,这个格式使用的是自定义的日志格式,不是默认的日志格式,请自行在idea控制台查看日志格式,这里不再赘述
@@ -2365,9 +2366,17 @@ flowchart LR
     下拉框选择@timestap-->点击Create_Index_Pattern
     点击Create_Index_Pattern-->再次点击Discover
 ```
-    注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作
+    注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作,可以看到kibana中展示出来了推送到elk中日志
+<img src="./images/kibana-springcloud-eureka.png"  width="100%"/>
+
 # 15.多环境相关
-## 15.1.在父工程pom.xml添加多环境配置
+## 15.1.模块简介
+    集成了多种环境的的服务消费端,启动端口: 80
+## 15.2.模块目录结构
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/tree.md"
+## 15.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-consumer-loadbalance-openfeign-multiply-env-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+## 15.4.在父工程pom.xml添加多环境配置
 ```
 <!--定义多种开发环境:开始-->
 <profiles>
@@ -2378,13 +2387,6 @@ flowchart LR
         <properties>
             <!--profile.active对应application.yml中的@profile.active@-->
             <profile.active>dev</profile.active>
-            <!--dev环境docker私服连接信息(使用docker官方提供的私服):开始-->
-            <docker.registry.uri>192.168.0.4:5000</docker.registry.uri>
-            <docker.registry.username>docker</docker.registry.username>
-            <docker.registry.password>123456</docker.registry.password>
-            <!--dev环境docker私服连接信息(使用docker官方提供的私服):结束-->
-            <!--dev环境docker部署地址:端口-->
-            <docker.host>tcp://192.168.0.4:2375</docker.host>
         </properties>
     </profile>
 
@@ -2392,14 +2394,8 @@ flowchart LR
     <profile>
         <id>test</id>
         <properties>
+            <!--profile.active对应application.yml中的@profile.active@-->
             <profile.active>test</profile.active>
-            <!--test环境docker私服连接信息(vmware提供的私服的harbor私服):开始-->
-            <docker.registry.uri>192.168.0.4:5001</docker.registry.uri>
-            <docker.registry.username>admin</docker.registry.username>
-            <docker.registry.password>123456</docker.registry.password>
-            <!--dev环境docker私服连接信息(vmware提供的私服的harbor私服):结束-->
-            <!--dev环境docker部署地址:端口-->
-            <docker.host>tcp://192.168.0.4:2375</docker.host>
         </properties>
     </profile>
 
@@ -2407,38 +2403,118 @@ flowchart LR
     <profile>
         <id>prod</id>
         <properties>
+            <!--profile.active对应application.yml中的@profile.active@-->
             <profile.active>prod</profile.active>
-            <!--prod环境docker私服连接信息(使用docker官方提供的私服):开始-->
-            <docker.registry.uri>192.168.0.4:5000</docker.registry.uri>
-            <docker.registry.username>docker</docker.registry.username>
-            <docker.registry.password>123456</docker.registry.password>
-            <!--prod环境docker私服连接信息(使用docker官方提供的私服):结束-->
-            <!--prod环境docker部署地址:端口-->
-            <docker.host>tcp://192.168.0.4:2375</docker.host>
         </properties>
         <activation>
             <!--默认激活环境-->
             <activeByDefault>true</activeByDefault>
         </activation>
     </profile>
-
-    <!--rancher测试专用环境-->
-    <profile>
-        <id>rancher</id>
-        <properties>
-            <profile.active>rancher</profile.active>
-            <!--rancher环境docker私服连接信息(vmware提供的私服的harbor私服):开始-->
-            <docker.registry.uri>192.168.0.4:5001</docker.registry.uri>
-            <docker.registry.username>admin</docker.registry.username>
-            <docker.registry.password>123456</docker.registry.password>
-            <!--rancher环境docker私服连接信息(vmware提供的私服的harbor私服):结束-->
-            <!--rancher环境docker部署地址:端口-->
-            <docker.host>tcp://192.168.0.4:2375</docker.host>
-        </properties>
-    </profile>
 </profiles>
 <!--定义多种开发环境:结束-->
 ```
+## 15.5.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/pom.xml"
+## 15.6.编写模块配置文件
+    dev环境配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/dev/application.yml"
+    application-dev.yml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/dev/application-dev.yml"
+    logback-custom.xml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80src/main/resources/dev/logback-custom.xml"
+    prod环境配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/prod/application.yml"
+    application-prod.yml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/prod/application-prod.yml"
+    logback-custom.xml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/prod/logback-custom.xml"
+    test环境配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/test/application.yml"
+    application-test.yml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/test/application-test.yml"
+    logback-custom.xml
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/test/logback-custom.xml"
+## 15.7.编写模块config
+    OpenFeignConfig.java
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
+    VirtualIpConfig.java
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
+## 15.8.编写模块service
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
+## 15.9.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+## 15.10.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignMultiplyEnv80.java"
+## 15.11.测试多环境相关
+### 15.11.1.测试多环境运行
+    dev环境
+```mermaid
+flowchart LR
+    将运行环境切换为dev环境-->重新导入项目依赖
+    重新导入项目依赖-->启动Eureka注册中心7001
+    启动Eureka注册中心7001-->启动当前模块服务消费者
+```
+    在浏览器访问
+```
+http://localhost:7001/
+```
+<img src="./images/eureka7001-dev.png"  width="100%"/>
+    可以看到服务名为SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-DEV
+
+    test环境
+```mermaid
+flowchart LR
+    将运行环境切换为test环境-->重新导入项目依赖
+    重新导入项目依赖-->启动Eureka注册中心7001
+    启动Eureka注册中心7001-->启动当前模块服务消费者
+```
+    在浏览器访问
+```
+http://localhost:7001/
+```
+<img src="./images/eureka7001-test.png"  width="100%"/>
+    可以看到服务名为SPRINGCLOUD-CONSUMER-LOADBALANCE-OPENFEIGN-MULTIPLY-ENV-ORDER80-TEST
+
+### 15.11.2.测试多环境打包
+    dev环境
+```mermaid
+flowchart LR
+    将运行环境切换为dev环境-->重新导入项目依赖
+    重新导入项目依赖-->使用maven打包
+    使用maven打包-->进入target目录中
+```
+    执行如下命令
+```
+jar xf springcloud-consumer-loadbalance-openfeign-multiply-env-order80.jar &&
+ls BOOT-INF/classes/
+```
+    查看jar包中使用的配置文件
+```
+application.yml  application-dev.yml  logback-custom.xml  org
+```
+    只包含了application-dev.yml这个多环境配置文件,其他的多环境配置配置都没有被包含进来
+
+    test环境
+```mermaid
+flowchart LR
+    将运行环境切换为test环境-->重新导入项目依赖
+    重新导入项目依赖-->使用maven打包
+    使用maven打包-->进入target目录中
+```
+    执行如下命令
+```
+jar xf springcloud-consumer-loadbalance-openfeign-multiply-env-order80.jar &&
+ls BOOT-INF/classes/
+```
+    查看jar包中使用的配置文件
+```
+application.yml  application-test.yml  logback-custom.xml  org
+```
+    只包含了application-test.yml这个多环境配置文件,其他的多环境配置配置都没有被包含进来
 
 # 16.综合案例
 ## 16.1.综合案例简介
