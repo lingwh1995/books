@@ -4479,6 +4479,17 @@ curl -fL 'https://coding.net/public-files/coding-ci/install/linux/install.sh?ver
 https://lingwh.coding.net/p/java/ci/agent/136295/list
 ```
 
+	让其他机器可以访问Coding节点中的Jenkins(如果不设置,Coding节点中的Jenkins只能在部署机器上访问,其他机器无法访问)
+	开放ip
+```
+qci_worker stop &&
+qci_worker config JENKINS_HOST=0.0.0.0 &&
+qci_worker up -d
+```
+	访问地址
+```
+http://192.168.0.5:15740
+```
 ### 9.2.6.安装配置Jenkins用到的插件
 	Publish Over SSH
 
