@@ -2541,6 +2541,7 @@ http://localhost/consumer/dynamic/payment/replace_router/get/1
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/dev/application-dev.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/dev/logback-custom.xml"
+
     test环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/test/application.yml"
@@ -2811,6 +2812,7 @@ ls -R log
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/dev/application-dev.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/dev/logback-custom.xml"
+
     prod环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/prod/application.yml"
@@ -2818,6 +2820,7 @@ ls -R log
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/prod/application-prod.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/prod/logback-custom.xml"
+
     rancher环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/rancher/application.yml"
@@ -2825,6 +2828,7 @@ ls -R log
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/rancher/application-rancher.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/rancher/logback-custom.xml"
+
     test环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/test/application.yml"
@@ -2864,6 +2868,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/dev/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/dev/mapper/PaymentMapper.xml"
+
     prod环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/prod/application.yml"
@@ -2873,6 +2878,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/prod/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/prod/mapper/PaymentMapper.xml"
+
     rancher环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/rancher/application.yml"
@@ -2882,6 +2888,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/rancher/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/rancher/mapper/PaymentMapper.xml"
+
     test环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/test/application.yml"
@@ -2922,6 +2929,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/dev/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/dev/mapper/PaymentMapper.xml"
+
     prod环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/prod/application.yml"
@@ -2931,6 +2939,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/prod/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/prod/mapper/PaymentMapper.xml"
+
     rancher环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/rancher/application.yml"
@@ -2940,6 +2949,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/rancher/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/rancher/mapper/PaymentMapper.xml"
+
     test环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/test/application.yml"
@@ -2978,6 +2988,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/dev/application-dev.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/dev/logback-custom.xml"
+
     prod环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/prod/application.yml"
@@ -2985,6 +2996,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/prod/application-prod.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/prod/logback-custom.xml"
+
     rancher环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/rancher/application.yml"
@@ -2992,6 +3004,7 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/rancher/application-rancher.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/rancher/logback-custom.xml"
+
     test环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/test/application.yml"
@@ -3024,17 +3037,40 @@ http://localhost:7005/
 
 ## 17.7.搭建SpringBootAdminServer
 ### 17.7.1.模块简介
-    SpringBootAdmin的Server端,启动端口: 9003
+    SpringBootAdmin的Server端,启动端口: 9004
 ### 17.7.2.模块目录结构
-@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/tree.md"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/tree.md"
 ### 17.7.3.创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-mointor-springboot-admin-server9003的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-mointor-springboot-admin-server9004的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
 ### 17.7.4.编写模块pom.xml
-@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/pom.xml"
-### 17.7.5.编写模块application.yml
-@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/resources/application.yml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/pom.xml"
+### 17.7.5.编写模块配置文件
+    dev环境配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/dev/application.yml"
+    application-dev.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/dev/application-dev.yml"
+
+    prod环境配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/prod/application.yml"
+    application-prod.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/prod/application-prod.yml"
+
+    rancher环境配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/rancher/application.yml"
+    application-rancher.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/rancher/application-rancher.yml"
+
+    test环境配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/test/application.yml"
+    application-test.yml
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/test/application-test.yml"
+
 ### 17.7.6.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/java/org/openatom/springcloud/MointorSpringBootAdmin9003.java"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/java/org/openatom/springcloud/BasicSampleMointorSpringBootAdmin9004.java"
 
 ## 17.8.测试适用于生产环境的微服务
 ### 17.8.1.测试多环境相关配置
