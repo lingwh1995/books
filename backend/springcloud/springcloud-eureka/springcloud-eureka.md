@@ -2738,21 +2738,19 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/test/application-test.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/resources/test/logback-custom.xml"
-### 16.7.6.编写模块service
-@import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentService.java"
-### 16.7.7.编写模块service实现类
+### 16.7.6.编写模块service实现类
     PaymentServiceOpenFeign.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
     PaymentServiceOpenFeignDynamicFeignClientFactory.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeignDynamicFeignClientFactory.java"
-### 16.7.8.编写模块config
+### 16.7.7.编写模块config
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
-### 16.7.9.编写模块controller
+### 16.7.8.编写模块controller
     OrderConsumerController.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
     OrderConsumerControllerDynamicFeignClientFactory.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerControllerDynamicFeignClientFactory.java"
-### 16.7.10.编写模块主启动类
+### 16.7.9.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java"
 
 ## 16.8.搭建SpringBootAdminServer
