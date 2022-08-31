@@ -2264,7 +2264,8 @@ http://localhost:9003/
     为了解决以上问题,需要在搭建服务时将这些功能增加进去
 ## 14.2.ELK简介
     ELK是三个开源软件的缩写,分别表示: Elasticsearch,Logstash,Kibana,它们都是开源软件。
-    a.Elasticsearch是个开源分布式搜索引擎，提供搜集、分析、存储数据三大功能。它的特点有: 分布式、零配置、自动发现、索引自动分片、索引副本机制、restful风格接口、多数据源、自动搜索负载等。
+
+    Elasticsearch是个开源分布式搜索引擎，提供搜集、分析、存储数据三大功能。它的特点有: 分布式、零配置、自动发现、索引自动分片、索引副本机制、restful风格接口、多数据源、自动搜索负载等。
 <a href="https://www.elastic.co/cn/elasticsearch/" target="_blank">官方网址</a>
 ```
 https://www.elastic.co/cn/elasticsearch/
@@ -2273,7 +2274,8 @@ https://www.elastic.co/cn/elasticsearch/
 ```
 https://github.com/elastic/elasticsearch
 ```
-    b.Logstash主要是用来日志的搜集、分析、过滤日志的工具,支持大量的数据获取方式。一般工作方式为c/s架构,client端安装在需要收集日志的主机上,server端负责将收到的各节点日志进行过滤、修改等操作在一并发往elasticsearch上去。
+
+    Logstash主要是用来日志的搜集、分析、过滤日志的工具,支持大量的数据获取方式。一般工作方式为c/s架构,client端安装在需要收集日志的主机上,server端负责将收到的各节点日志进行过滤、修改等操作在一并发往elasticsearch上去。
 <a href="https://www.elastic.co/cn/logstash/" target="_blank">官方网址</a>
 ```
 https://www.elastic.co/cn/logstash/
@@ -2282,7 +2284,8 @@ https://www.elastic.co/cn/logstash/
 ```
 https://github.com/elastic/logstash
 ```
-    c.Kibana也是一个开源和免费的工具,Kibana可以为Logstash和ElasticSearch提供的日志分析友好的Web界面，可以帮助汇总、分析和搜索重要数据日志。
+
+    Kibana也是一个开源和免费的工具,Kibana可以为Logstash和ElasticSearch提供的日志分析友好的Web界面，可以帮助汇总、分析和搜索重要数据日志。
 <a href="https://www.elastic.co/cn/kibana/" target="_blank">官方网址</a>
 ```
 https://www.elastic.co/cn/kibana/
@@ -2366,7 +2369,7 @@ flowchart LR
 ```
     注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作
 # 15.多环境相关
-# 15.1.在父工程pom.xml添加多环境配置
+## 15.1.在父工程pom.xml添加多环境配置
 ```
 <!--定义多种开发环境:开始-->
 <profiles>
