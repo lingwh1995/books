@@ -2314,7 +2314,7 @@ https://github.com/elastic/kibana
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignPerfectLogSystem80.java"
 ## 14.4.搭建ELK
     在192.168.0.5上搭建ELK
-详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank" target="_blank">Docker中安装ELK</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank">Docker中安装ELK</a>
 ## 14.5.测试适用于生产环境的日志系统简介
 ### 14.5.1.启动相关服务
 ```mermaid
@@ -2912,7 +2912,7 @@ ls -R log
     查询出来的都是输出的文件的日志,输出日志到文件时和输出日志到控制台是一样的,不同的环境输出的日志格式不一定相同,具体要看logback-custom.xml中针对具体的环境设置的格式
 #### 16.9.3.2.测试推送日志到ELK中
     在192.168.0.5上搭建ELK
-详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank" target="_blank">Docker中安装ELK</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank">Docker中安装ELK</a>
 
 
         多环境推送到Docker
