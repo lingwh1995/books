@@ -4336,41 +4336,11 @@ kubectl get service guestbook
 
 # 9.搭建持续集成环境
 ## 9.1.使用本地内网穿透搭建持续集成环境
-
 ### 9.1.1.持续集成环境组件列表
 	Jenkins、git、maven、docker
-
-### 9.1.2.安装jekins
-	下载tomcat
-	https://downloads.apache.org/tomcat/
-
-	下载Jenkins的war包
-	https://www.jenkins.io/download/
-
-	上传tomcat和jenkins.war到/opt/software/package
-	cd /opt/software/package/
-
-	解压tomcat到/opt/software/install
-	tar -zxvf apache-tomcat-8.5.79.tar.gz -C /opt/software/install
-
-	复制jekins.war复制到 /opt/software/install/apache-tomcat-8.5.79/webapps中
-	cp jenkins.war /opt/software/install/apache-tomcat-8.5.79/webapps
-
-	配置Jekins字符编码(解决输出控制台中文乱码问题)
-	设置jenkins所在服务器环境变量
-	vim  /etc/profile
-	export JAVA_TOOL_OPTIONS="-Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8"
-	source /etc/profile
-
-	在jekins中进入系统管理->系统配置->全局属性->环境变量
-	键: JAVA_TOOL_OPTIONS
-	值: -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
-	如项目已经启动修改完字符配置后要重启tomcat
-
-### 9.1.3.安装jdk
+### 9.1.2.安装jdk
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-3-安装jdk" target="_blank">安装jdk(Centos7)</a>
-
-### 9.1.4.安装maven
+### 9.1.3.安装maven
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-4-安装maven" target="_blank">安装maven(Centos7)</a>
 
 	注意事项
@@ -4384,9 +4354,44 @@ kubectl get service guestbook
 		指定项目其中的一个模块及其依赖
 	-am, --also-make
 		自动构建该模块所依赖的其他模块
-
-### 9.1.5.安装git
+### 9.1.4.安装git
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-8-1-安装默认版本git" target="_blank">安装默认版本git(Centos7)</a>
+### 9.1.5.安装jekins
+	下载tomcat
+```
+https://downloads.apache.org/tomcat/
+```
+	下载Jenkins的war包
+```
+https://www.jenkins.io/download/
+```
+	上传tomcat和jenkins.war到/opt/software/package
+```
+cd /opt/software/package/
+```
+	解压tomcat到/opt/software/install
+```
+tar -zxvf apache-tomcat-8.5.79.tar.gz -C /opt/software/install
+```
+	复制jekins.war复制到 /opt/software/install/apache-tomcat-8.5.79/webapps中
+```
+cp jenkins.war /opt/software/install/apache-tomcat-8.5.79/webapps
+```
+	配置Jekins字符编码(解决输出控制台中文乱码问题)
+	设置jenkins所在服务器环境变量
+```
+vim  /etc/profile
+```
+```
+export JAVA_TOOL_OPTIONS="-Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8"
+```
+```
+source /etc/profile
+```
+	在jekins中进入系统管理->系统配置->全局属性->环境变量
+	键: JAVA_TOOL_OPTIONS
+	值: -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
+	如项目已经启动修改完字符配置后要重启tomcat
 
 ### 9.1.6.启动Jenkins
 	启动部署了Jenkins的tomcat
