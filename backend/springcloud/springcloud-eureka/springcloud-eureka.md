@@ -2122,7 +2122,7 @@ https://seata.io/zh-cn/
     DataSourceProxyConfig.java
 @import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/DataSourceProxyConfig.java"
     FeignConfig.java
-@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/conf/FeignConfig.java"
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/FeignConfig.java"
 ### 12.6.13.编写模块controller
 @import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderController.java"
 ### 12.6.14.编写模块主启动类
@@ -2235,9 +2235,7 @@ https://github.com/codecentric/spring-boot-admin
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-springbootadmin-client-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
 ### 13.3.7.编写模块service
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-springbootadmin-client-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
-### 13.3.8.编写模块service实现类
-@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-springbootadmin-client-order80/src/main/java/org/openatom/springcloud/service/impl/PaymentHystrixServiceImpl.java"
-### 13.3.10.编写模块主启动类
+### 13.3.8.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-springbootadmin-client-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignSpringBootAdminClient80.java"
 
 ## 13.4.测试使用SpringBootAdmin监控服务
@@ -2631,7 +2629,7 @@ http://localhost:7005/
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/test/logback-custom.xml"
     PaymentMapper.xml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/dev/test/PaymentMapper.xml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/dev/mapper/PaymentMapper.xml"
 ### 16.4.6.编写模块dao
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/dao/PaymentDao.java"
 ### 16.4.7.编写模块service
@@ -2689,10 +2687,10 @@ http://localhost:7005/
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/test/logback-custom.xml"
     PaymentMapper.xml
-@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/dev/test/PaymentMapper.xml"
+@import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/dev/mapper/PaymentMapper.xml"
 ### 16.5.6.编写模块dao
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/dao/PaymentDao.java"
-### 16.6.7.编写模块service
+### 16.5.7.编写模块service
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/service/PaymentService.java"
 ### 16.5.8.编写模块service实现类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
@@ -2769,7 +2767,7 @@ http://localhost:7005/
 ### 16.8.5.编写模块application.yml
 @import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/resources/application.yml"
 ### 16.8.6.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/java/org/openatom/springcloud/MointorSpringBootAdmin9003.java"
+@import "./projects/springcloud-eureka/springcloud-mointor-springboot-admin-server9003/src/main/java/org/openatom/springcloud/MointorSpringBootAdmin9003.java"
 
 ## 16.9.测试适用于生产环境的微服务
 ### 16.9.1.测试多环境相关配置
