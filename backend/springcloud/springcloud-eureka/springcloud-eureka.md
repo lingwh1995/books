@@ -2056,7 +2056,7 @@ https://seata.io/zh-cn/
 ### 12.4.11.编写模块listener
 @import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
 ### 12.4.12.编写模块config
-@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/conf/DataSourceProxyConfig.java"
+@import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/config/DataSourceProxyConfig.java"
 ### 12.4.13.编写模块controller
 @import "./projects/springcloud-eureka/springcloud-provider-seata-account8007/src/main/java/org/openatom/springcloud/controller/AccountController.java"
 ### 12.4.14.编写模块主启动类
@@ -2085,7 +2085,7 @@ https://seata.io/zh-cn/
 ### 12.5.11.编写模块listener
 @import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
 ### 12.5.12.编写模块config
-@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/conf/DataSourceProxyConfig.java"
+@import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/config/DataSourceProxyConfig.java"
 ### 12.5.13.编写模块controller
 @import "./projects/springcloud-eureka/springcloud-provider-seata-storage8008/src/main/java/org/openatom/springcloud/controller/StorageController.java"
 ### 12.5.14.编写模块主启动类
@@ -2120,7 +2120,7 @@ https://seata.io/zh-cn/
 @import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/listener/ApolloPropertiesChangedListener.java"
 ### 12.6.12.编写模块config
     DataSourceProxyConfig.java
-@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/conf/DataSourceProxyConfig.java"
+@import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/DataSourceProxyConfig.java"
     FeignConfig.java
 @import "./projects/springcloud-eureka/springcloud-consumer-seata-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/conf/FeignConfig.java"
 ### 12.6.13.编写模块controller
