@@ -4362,26 +4362,30 @@ kubectl get service guestbook
 mkdir -p /opt/software/package/ &&
 cd /opt/software/package/
 ```
+
 	下载tomcat
 ```
 curl -fL -u software-1661953563528:bdfda2d0fc61e3ffa238b4b99ef520de06584dfb \
 "https://lingwh-generic.pkg.coding.net/coding-drive/software/apache-tomcat-8.5.79.tar.gz?version=latest" -o apache-tomcat-8.5.79.tar.gz
 ```
+
 	下载Jenkins的war包
 ```
 curl -fL -u software-1661953722468:109d5d12233f3e4760115800b7ad861ddc2224a3 \
 "https://lingwh-generic.pkg.coding.net/coding-drive/software/jenkins.war?version=latest" -o jenkins.war
 ```
+
 	解压tomcat到/opt/software/install
 ```
 tar -zxvf apache-tomcat-8.5.79.tar.gz -C /opt/software/install
 ```
+
 	复制jekins.war复制到 /opt/software/install/apache-tomcat-8.5.79/webapps中
 ```
 cp jenkins.war /opt/software/install/apache-tomcat-8.5.79/webapps
 ```
-	配置Jekins字符编码(解决输出控制台中文乱码问题)
-	设置jenkins所在服务器环境变量
+
+	设置Jenkins所在服务器环境变量(解决输出控制台中文乱码问题步骤1)
 ```
 vim  /etc/profile
 ```
@@ -4391,35 +4395,60 @@ export JAVA_TOOL_OPTIONS="-Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -D
 ```
 source /etc/profile
 ```
-	在jekins中进入系统管理->系统配置->全局属性->环境变量
-	键: JAVA_TOOL_OPTIONS
-	值: -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
-	如项目已经启动修改完字符配置后要重启tomcat
+
+	开放端口
+```
+firewall-cmd --zone=public --add-port=8080/tcp --permanent &&
+firewall-cmd --reload
+```
 
 ### 9.1.6.启动Jenkins
-	启动部署了Jenkins的tomcat
-	访问:http://192.168.0.5:8080/jenkins
-
+	启动部署了jenkins的tomcat
+```
+/opt/software/install/apache-tomcat-8.5.79/bin/startup.sh
+```
+	访问jenkins
+```
+http://192.168.0.5:8080/jenkins
+```
+	查看Jenkins启动日志
+```
+cat /opt/software/install/apache-tomcat-8.5.79/logs/catalina.out
+```
 	进入tomcat部署机器复制密码
-	cat /root/.jenkins/secrets/initialAdminPassword
-
-	在jekins界面输入密码
+```
+cat /root/.jenkins/secrets/initialAdminPassword
+```
+	在Jekins界面输入密码->安装推荐的插件
 	如:7960e85d79cb4dd2b0d12c740e9aec62
 
 	设置Jenkins用户密码
 	登录界面设置 admin/123456
 
+	设置Jenkins URL(一般使用默认设置即可)
+```
+http://192.168.0.5:8080/jenkins/
+```
+
+	在Jekins中配置环境变量(解决输出控制台中文乱码问题步骤2)
+	进入配置环境变量界面
+	DASHBOARD->Manage Jenkins->Configure System(System Configuration下)->全局属性->勾选环境变量->新增(键值对列表下)->输入键值对
+```
+http://192.168.0.5:8080/jenkins/configure
+```
+	键: JAVA_TOOL_OPTIONS
+	值: -Duser.timezone=Asia/Shanghai -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
+	点击保存->重启Jenkins
+
 ### 9.1.7.安装配置Jenkins用到的插件
+	进入安装插件界面
+	DASHBOARD->Manage Jenkins->Manage Plugins(System Configuration下)
+```
+http://192.168.0.5:8080/jenkins/pluginManager/
+```
+
 	Publish Over SSH
-
-	安装Publish Over SSH
-	DASHBOARD->系统管理->插件管理->可选插件->输入 Publish Over SSH->Download now and install after restart->重启Tomcat
-
-	配置Publish Over SSH
-	进入配置界面
-	DASHBOARD->系统管理->系统配置->Publish over SSH
-	配置Jenkins所在服务器到docker所在服务器的免密登录
-	需要百度查询确定
+	Available->输入 Publish Over SSH->勾选 Publish Over SSH->Download now and install after restart->重启Jenkins
 
 ### 9.1.8.搭建内网穿透
 	下载natapp

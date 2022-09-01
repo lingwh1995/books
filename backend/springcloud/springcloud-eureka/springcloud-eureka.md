@@ -2502,7 +2502,7 @@ http://localhost/consumer/dynamic/payment/replace_router/get/1
 ### 16.1.2.搭建harbor
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建harbor</a>
 ### 16.1.3.搭建jenkins
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-4-使用coding内网穿透搭建持续集成环境" target="_blank">搭建jenkins</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-使用本地内网穿透搭建持续集成环境" target="_blank">搭建jenkins</a>
 ### 16.1.4.搭建持续集成使用的微服务
 #### 16.1.4.1.模块简介
     测试持续集成微服务到docker中使用到的微服务
@@ -2525,6 +2525,109 @@ http://localhost/ci/docker
 ```json
 {"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
 ```
+### 16.1.5.编写Jekinsfile
+    在项目根目录下新建script文件夹,在script中新建Jekinsfile,内容如下
+```
+//定义远程git仓库中项目的地址
+def project_url='https://gitee.com/lingwh1995/springcloud-eureka.git'
+//定义devops-script文件夹存放在linux机器上的位置
+def devops_script_path = '/devops-script'
+//定义devops-script文件夹中部署脚本的名称
+def devops_script_name='deploy.sh'
+//定义deploy.sh的使用的docker-compose.yml文件的名称，不同的项目这个文件的名称不同
+def docker_compose_yml_name = 'docker-compose-sample.yml'
+
+def jekins_ip='192.168.0.5'
+
+node {
+    echo '开始执行自动化...'
+    /*指定在那台Jenkins节点上运行*/
+    agent { label '${jekins_ip}'}
+
+    /*从远程仓库检出代码*/
+    stage('从远程仓库检出代码') {
+        echo '开始 从远程仓库检出代码...'
+        checkout([
+            $class: 'GitSCM',
+            branches: [[name: '*/master']], extensions: [],
+            userRemoteConfigs: [[url: "${project_url}"]]
+        ])
+        echo '完成 从远程仓库检出代码...'
+    }
+
+    /**
+     * maven命令扩展:实现多模块情况下只针对某一个模块打包
+     * -pl, --projects
+     *      Build specified reactor projects instead of all projects
+     *      指定项目其中的一个模块及其依赖
+     *  -am, --also-make
+     *      If project list is specified, also build projects required by the list
+     *      自动构建该模块所依赖的其他模块
+     *
+     */
+    stage('打包->安装->构建镜像->推送到私服->删除docker中本地镜像') {
+        echo '开始 打包->安装->构建镜像->推送到私服->删除docker中本地镜像...'
+        //如果install的是一个模块或者是多个模块
+            //执行遍历依次次打包涉及的模块
+        //如果是install的是整个项目
+            //一次性打包整个项目
+        sh "mvn clean install -T 1C -Dmaven.test.skip=true -Dmaven.compile.fork=true -pl springcloud-ci-docker80 -am"
+        echo '完成 打包->安装->构建镜像->推送到私服->删除docker中本地镜像...'
+    }
+
+    /**
+     *安装Publish Over SSH插件，使用插件的功能触发远程的shell脚本的执行
+     */
+    stage('自动部署上传到私服中的所有镜像到docker') {
+        echo '开始 自动部署上传到私服中的所有镜像到docker...'
+        sshPublisher(
+            publishers:
+                [
+                    sshPublisherDesc(
+                        configName: 'master',
+                        transfers: [
+                            sshTransfer(
+                                cleanRemote: false,
+                                excludes: '',
+                                execCommand: "${devops_script_path}/${devops_script_name} ${devops_script_path} ${docker_compose_yml_name}",
+                                execTimeout: 600000,
+                                flatten: false,
+                                makeEmptyDirs: false,
+                                noDefaultExcludes: false,
+                                patternSeparator: '[, ]+',
+                                remoteDirectory: '',
+                                remoteDirectorySDF: false,
+                                removePrefix: '',
+                                sourceFiles: ''
+                            )
+                        ],
+                        usePromotionTimestamp: false,
+                        useWorkspaceInPromotion: false,
+                        verbose: false
+                    )
+                ]
+       )
+       echo '结束 自动部署上传到私服中的所有镜像到docker...'
+    }
+
+    echo '完成执行自动化...'
+}
+```
+### 16.1.5.在Jekins中配置项目
+    新建任务
+    DashBoard->新建任务->输入任务名称(springcloud-eureka)->流水线->确定
+
+    配置流水线
+    a.定义
+    Pipeline script from SCM(点击下拉框选择)
+    b.定义->SCM
+    Git(点击下拉框选择)
+    c.定义->SCM->Repositories(根据自己的项目信息进行配置)
+    Repository URL
+    https://gitee.com/lingwh1995/springcloud-eureka.git
+    d.定义->SCM->脚本路径(根据自己的项目信息进行配置)
+    script/Jenkinsfile
+
 ### 16.1.5.测试持续集成微服务到docker中
 
 ## 16.2.持续集成微服务到k8s中
@@ -3251,10 +3354,11 @@ ls -R log
 
 
         多环境推送到Docker
-    c.更完善的日志系统
-        在日志中输出调用链路信息(集成Zipkin+Sleuth,实现在日志中输出TraceId和SpanId和Span-Export)
     d.持续集成技术:
         持续集成到Docker
         持续集成到Kubernetes
-    e.更好的使用OpenFeign
-        实现OpenFeign动态服务名称和动态URL调用
+
+
+	配置Jenkins所在服务器到docker所在服务器的免密登录
+	需要百度查询确定
+    DASHBOARD->系统管理->系统配置->Publish over SSH
