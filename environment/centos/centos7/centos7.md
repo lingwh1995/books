@@ -4357,27 +4357,20 @@ kubectl get service guestbook
 ### 9.1.4.安装git
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-3.搭建基础开发环境.html#_3-8-1-安装默认版本git" target="_blank">安装默认版本git(Centos7)</a>
 ### 9.1.5.安装jekins
+	创建工作目录->进入该工作目录->在该目录下载tomcat和jenkins
+```
+mkdir -p /opt/software/package/ &&
+cd /opt/software/package/
+```
 	下载tomcat
-```
-https://downloads.apache.org/tomcat/
-```
-	或
 ```
 curl -fL -u software-1661953563528:bdfda2d0fc61e3ffa238b4b99ef520de06584dfb \
 "https://lingwh-generic.pkg.coding.net/coding-drive/software/apache-tomcat-8.5.79.tar.gz?version=latest" -o apache-tomcat-8.5.79.tar.gz
 ```
 	下载Jenkins的war包
 ```
-https://www.jenkins.io/download/
-```
-	或
-```
 curl -fL -u software-1661953722468:109d5d12233f3e4760115800b7ad861ddc2224a3 \
 "https://lingwh-generic.pkg.coding.net/coding-drive/software/jenkins.war?version=latest" -o jenkins.war
-```
-	上传tomcat和jenkins.war到/opt/software/package
-```
-cd /opt/software/package/
 ```
 	解压tomcat到/opt/software/install
 ```
