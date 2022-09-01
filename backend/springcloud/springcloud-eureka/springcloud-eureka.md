@@ -2504,8 +2504,9 @@ http://localhost/consumer/dynamic/payment/replace_router/get/1
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
 ### 16.1.2.搭建Harbor
     在192.168.0.5上搭建Harbor
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Darbor</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Harbor</a>
     配置192.168.0.4上的Docker信任192.168.0.5上的Harbor私服
+```
 vim /etc/docker/daemon.json
 ```
 	添加如下内容
@@ -2516,11 +2517,13 @@ vim /etc/docker/daemon.json
         "http://192.168.0.5:5000"
     ]
 }
+```
 	刷新daemon并重启docker
 ```
 systemctl daemon-reload &&
 systemctl restart docker
 ```
+
 ### 16.1.3.搭建Jenkins
     在192.168.0.5上搭建Jenkins
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-使用本地内网穿透搭建持续集成环境" target="_blank">搭建Jenkins</a>
