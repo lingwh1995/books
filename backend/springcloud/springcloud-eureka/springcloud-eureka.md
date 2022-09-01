@@ -2500,6 +2500,22 @@ http://localhost/consumer/dynamic/payment/replace_router/get/1
 ### 16.1.1.搭建Docker
     在192.168.0.4上搭建Docker
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
+    开启192.168.0.4上的Docker2375端口(为使用docker的maven插件做准备)
+```
+vim /lib/systemd/system/docker.service
+```
+    其中ExecStart=后添加配置-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+    开放端口
+```
+firewall-cmd --zone=public --add-port=2375/tcp --permanent &&
+firewall-cmd --reload
+```
+    刷新daemon.json并重启动docker
+```
+systemctl daemon-reload &&
+systemctl restart docker
+```
+
     在192.168.0.5上搭建Docker
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
 ### 16.1.2.搭建Harbor
@@ -2523,10 +2539,37 @@ vim /etc/docker/daemon.json
 systemctl daemon-reload &&
 systemctl restart docker
 ```
-
 ### 16.1.3.搭建Jenkins
     在192.168.0.5上搭建Jenkins
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-使用本地内网穿透搭建持续集成环境" target="_blank">搭建Jenkins</a>
+
+    在Jenkins中安装配置Publish Over SSH插件(需要先安装该插件)
+	配置Jenkins所在服务器到docker所在服务器的免密登录
+
+    进入Publish over SSH配置面板
+    DASHBOARD->Manage Jenkins/系统管理->Configure System(System Configuration下)/系统配置(系统配置)->Publish over SSH
+
+    配置如下字段
+    Publish over SSH
+    a.Passphrase
+    192.168.0.4机器的密码
+
+    Publish over SSH->SSH Servers->新增
+    a.Name
+    docker-server
+    b.Hostname
+    192.168.0.4
+    c.Username
+    root
+    d.Remote Directory
+    /
+
+    测试连通性(成功返回Success)
+    Publish over SSH->SSH Servers->Test Configuration
+
+    保存配置
+    Publish over SSH->保存
+
 ### 16.1.4.搭建持续集成使用的微服务
 #### 16.1.4.1.模块简介
     测试持续集成微服务到docker中使用到的微服务
@@ -2538,9 +2581,12 @@ systemctl restart docker
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/pom.xml"
 #### 16.1.4.5.编写模块application.yml
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/resources/application.yml"
-#### 16.1.4.5.编写模块主启动类
+#### 16.1.4.6.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/java/org/openatom/springcloud/CiDocker80.java"
-#### 16.1.4.6.测试模块
+#### 16.1.4.7.编写模块Dockerfile
+    注意:需要先在 项目根目录/springcloud-ci-docker80下创建docker文件夹
+@import "./projects/springcloud-eureka/springcloud-ci-docker80/docker/Dockerfile"
+#### 16.1.4.8.测试模块
     在浏览器中访问
 ```
 http://localhost/ci/docker
@@ -2549,17 +2595,45 @@ http://localhost/ci/docker
 ```json
 {"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
 ```
+#### 16.1.4.8.测试docker的maven插件
+    在项目根目录下执行打包命令
+```
+mvn clean package
+```
+
+    复制生成的jar包到指定位置(在项目根目录下执行)
+```
+cp springcloud-ci-docker80/target/springcloud-ci-docker80.jar springcloud-ci-docker80/docker
+```
+
+    在idea中打开docker的maven插件操作面板
+<img src="./images/idea-docker-maven-plugin.png"  width="100%"/>
+
+    制作Docker镜像
+    点击docker:build
+
+    上传镜像到docker->在docker中为该镜像创建容器->启动docker中的容器
+```
+http://192.168.0.4/ci/docker
+```
+    返回结果
+```
+{"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
+```
+
+    在Harbor私服中创建springcloud-eureka项目
+<img src="./images/harbor-springcloud-eureka.png"  width="100%"/>
+
+    推送到Harbor私服
+    点击docker:push
+<img src="./images/harbor-springcloud-eureka-dockerci80.png"  width="100%"/>
+    可以看到当前模块微服务已经被推送到了Harbor私服中
+
 ### 16.1.5.编写Jekinsfile
-    在项目根目录下新建script文件夹,在script中新建Jekinsfile,内容如下
+    在项目根目录下新建script文件夹,在script中新建Jenkinsfile_ci_docker,内容如下
 ```
 //定义远程git仓库中项目的地址
 def project_url='https://gitee.com/lingwh1995/springcloud-eureka.git'
-//定义devops-script文件夹存放在linux机器上的位置
-def devops_script_path = '/devops-script'
-//定义devops-script文件夹中部署脚本的名称
-def devops_script_name='deploy.sh'
-//定义deploy.sh的使用的docker-compose.yml文件的名称，不同的项目这个文件的名称不同
-def docker_compose_yml_name = 'docker-compose-sample.yml'
 
 def jekins_ip='192.168.0.5'
 
@@ -2613,7 +2687,7 @@ node {
                             sshTransfer(
                                 cleanRemote: false,
                                 excludes: '',
-                                execCommand: "${devops_script_path}/${devops_script_name} ${devops_script_path} ${docker_compose_yml_name}",
+                                execCommand: "/springcloud-ci-docker.sh",
                                 execTimeout: 600000,
                                 flatten: false,
                                 makeEmptyDirs: false,
@@ -2637,10 +2711,11 @@ node {
     echo '完成执行自动化...'
 }
 ```
-### 16.1.5.在Jekins中配置项目
+### 16.1.6.在Jekins中配置项目
     新建任务
     DashBoard->新建任务->输入任务名称(springcloud-eureka)->流水线->确定
 
+    配置如下字段
     配置流水线
     a.定义
     Pipeline script from SCM(点击下拉框选择)
@@ -2650,10 +2725,33 @@ node {
     Repository URL
     https://gitee.com/lingwh1995/springcloud-eureka.git
     d.定义->SCM->脚本路径(根据自己的项目信息进行配置)
-    script/Jenkinsfile
+    script/Jenkinsfile_ci_docker
 
-### 16.1.5.测试持续集成微服务到docker中
+### 16.1.7.测试持续集成微服务到docker中
+    为了更明显的查看本次测试效果,首先删除192.168.0.4中docker中前面测试产生的镜像和容器
 
+    在192.168.0.4上编写持续集成脚本
+```
+cd / &&
+cat > springcloud-ci-docker.sh << EOF
+docker login 192.168.0.5:5000 -uadmin -p123456
+docker pull 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80:latest
+docker rmi -f springcloud-ci-docker80
+docker run -di --name=springcloud-ci-docker80 -p80:80 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80 &&
+chmod +x springcloud-ci-docker.sh
+EOF
+```
+
+    访问项目主页,点击构建按钮
+```
+http://192.168.0.5:8080/jenkins/
+```
+<img src="./images/jenkins-springcloud-eureka-build.png"  width="100%"/>
+
+    访问服务
+```
+http://192.168.0.4/ci/docker
+```
 ## 16.2.持续集成微服务到k8s中
 
 # 17.让微服务区分多种不同环境
@@ -3381,8 +3479,3 @@ ls -R log
     d.持续集成技术:
         持续集成到Docker
         持续集成到Kubernetes
-
-
-	配置Jenkins所在服务器到docker所在服务器的免密登录
-	需要百度查询确定
-    DASHBOARD->系统管理->系统配置->Publish over SSH

@@ -4435,7 +4435,7 @@ http://192.168.0.5:8080/jenkins/
 
 	在Jekins中配置环境变量(解决输出控制台中文乱码问题步骤2)
 	进入配置环境变量界面
-	DASHBOARD->Manage Jenkins->Configure System(System Configuration下)->全局属性->勾选环境变量->新增(键值对列表下)->输入键值对
+	DASHBOARD->Manage Jenkins/系统管理->Configure System(System Configuration下)/系统配置(系统配置)->全局属性->勾选环境变量->新增(键值对列表下)->输入键值对
 ```
 http://192.168.0.5:8080/jenkins/configure
 ```
@@ -4445,7 +4445,7 @@ http://192.168.0.5:8080/jenkins/configure
 
 ### 9.1.7.安装配置Jenkins用到的插件
 	进入安装插件界面
-	DASHBOARD->Manage Jenkins->Manage Plugins(System Configuration下)
+	DASHBOARD->Manage Jenkins/系统管理->Manage Plugins(System Configuration下)/插件管理(系统配置下)
 ```
 http://192.168.0.5:8080/jenkins/pluginManager/
 ```
