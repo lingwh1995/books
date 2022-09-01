@@ -2555,8 +2555,8 @@ systemctl restart docker
     192.168.0.4机器的密码
 
     Publish over SSH->SSH Servers->新增
-    a.Name
-    docker-server
+    a.Name(和Jenkinsfile中sshPublisherDesc.configName保持一致)
+    cidocker
     b.Hostname
     192.168.0.4
     c.Username
@@ -2682,12 +2682,12 @@ node {
             publishers:
                 [
                     sshPublisherDesc(
-                        configName: 'master',
+                        configName: 'cidocker',
                         transfers: [
                             sshTransfer(
                                 cleanRemote: false,
                                 excludes: '',
-                                execCommand: "/springcloud-ci-docker.sh",
+                                execCommand: "cd / && ./springcloud-ci-docker.sh",
                                 execTimeout: 600000,
                                 flatten: false,
                                 makeEmptyDirs: false,
@@ -2711,6 +2711,8 @@ node {
     echo '完成执行自动化...'
 }
 ```
+    注意事项
+    执行Jenkinsfile中执行了mvn install命令后,就会触发 将生成的jar拷贝到docker文件夹中->build镜像->tag镜像->push镜像 这些操作,这是由于在pom.xml中把这些操作都和install命令绑定在了一起,所以才会有这样的效果
 ### 16.1.6.在Jekins中配置项目
     新建任务
     DashBoard->新建任务->输入任务名称(springcloud-eureka)->流水线->确定
@@ -2726,21 +2728,24 @@ node {
     https://gitee.com/lingwh1995/springcloud-eureka.git
     d.定义->SCM->脚本路径(根据自己的项目信息进行配置)
     script/Jenkinsfile_ci_docker
-
-### 16.1.7.测试持续集成微服务到docker中
-    为了更明显的查看本次测试效果,首先删除192.168.0.4中docker中前面测试产生的镜像和容器
-
+### 16.1.7.编写持续集成脚本
     在192.168.0.4上编写持续集成脚本
 ```
 cd / &&
 cat > springcloud-ci-docker.sh << EOF
 docker login 192.168.0.5:5000 -uadmin -p123456
+docker rmi -f 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80
+docker rm -f springcloud-ci-docker80
 docker pull 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80:latest
-docker rmi -f springcloud-ci-docker80
-docker run -di --name=springcloud-ci-docker80 -p80:80 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80 &&
-chmod +x springcloud-ci-docker.sh
+docker run -di --name=springcloud-ci-docker80 -p80:80 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80
 EOF
 ```
+    赋予可执行权限
+```
+chmod +x springcloud-ci-docker.sh
+```
+### 16.1.8.测试持续集成微服务到docker中
+    为了更明显的查看本次测试效果,首先删除192.168.0.4中docker中在前面环节产生的镜像和容器
 
     访问项目主页,点击构建按钮
 ```
@@ -2748,10 +2753,24 @@ http://192.168.0.5:8080/jenkins/
 ```
 <img src="./images/jenkins-springcloud-eureka-build.png"  width="100%"/>
 
+
     访问服务
 ```
 http://192.168.0.4/ci/docker
 ```
+
+    返回结果
+```
+{"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
+```
+### 16.1.9.持续集成流程
+```mermaid
+flowchart LR
+    GITEE提交代码-->触发WebHooks
+    触发WebHooks-->触发Jenkins构建项目
+    触发Jenkins构建项目-->Jenkins执行对应的Jenkinsfile
+```
+
 ## 16.2.持续集成微服务到k8s中
 
 # 17.让微服务区分多种不同环境
