@@ -4361,9 +4361,19 @@ kubectl get service guestbook
 ```
 https://downloads.apache.org/tomcat/
 ```
+	或
+```
+curl -fL -u software-1661953563528:bdfda2d0fc61e3ffa238b4b99ef520de06584dfb \
+"https://lingwh-generic.pkg.coding.net/coding-drive/software/apache-tomcat-8.5.79.tar.gz?version=latest" -o apache-tomcat-8.5.79.tar.gz
+```
 	下载Jenkins的war包
 ```
 https://www.jenkins.io/download/
+```
+	或
+```
+curl -fL -u software-1661953722468:109d5d12233f3e4760115800b7ad861ddc2224a3 \
+"https://lingwh-generic.pkg.coding.net/coding-drive/software/jenkins.war?version=latest" -o jenkins.war
 ```
 	上传tomcat和jenkins.war到/opt/software/package
 ```

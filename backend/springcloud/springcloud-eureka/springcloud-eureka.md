@@ -2526,6 +2526,7 @@ http://localhost/ci/docker
 {"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
 ```
 ### 16.1.5.测试持续集成微服务到docker中
+
 ## 16.2.持续集成微服务到k8s中
 
 # 17.让微服务区分多种不同环境
