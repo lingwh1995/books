@@ -779,21 +779,21 @@ docker run -d --name registry_official \
 	配置私服地址和镜像源地址并且将私服地址加入到镜像源列表，这样就可以从私服中拉取镜像了
 
 	给docker配置私服
+	具体的私服访问地址根据实际情况部署,这里配置的是http://192.168.0.4:5000
 ```
 vim /etc/docker/daemon.json
 ```
 	添加如下内容
 ```
 {
-	"insecure-registries":["192.168.0.4:5000","192.168.0.4:5001"],
-	"registry-mirrors": [
-			"https://5pfmrxk8.mirror.aliyuncs.com",
-			"http://hub-mirror.c.163.com",
-			"https://docker.mirrors.ustc.edu.cn",
-			"https://registry.docker-cn.com",
-			"http://192.168.0.4:5000",
-			"http://192.168.0.4:5001"
-	]
+    "insecure-registries":["192.168.0.4:5000","192.168.0.4:5001"],
+    "registry-mirrors": [
+        "https://5pfmrxk8.mirror.aliyuncs.com",
+        "http://hub-mirror.c.163.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://registry.docker-cn.com",
+        "http://192.168.0.4:5000",
+    ]
 }
 ```
 	或
@@ -801,15 +801,14 @@ vim /etc/docker/daemon.json
 sudo mkdir -p /etc/docker &&
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-	"insecure-registries":["192.168.0.4:5000","192.168.0.4:5001"],
-	"registry-mirrors": [
-			"https://5pfmrxk8.mirror.aliyuncs.com",
-			"http://hub-mirror.c.163.com",
-			"https://docker.mirrors.ustc.edu.cn",
-			"https://registry.docker-cn.com",
-			"http://192.168.0.4:5000",
-			"http://192.168.0.4:5001"
-	]
+    "insecure-registries":["192.168.0.4:5000","192.168.0.4:5001"],
+    "registry-mirrors": [
+        "https://5pfmrxk8.mirror.aliyuncs.com",
+        "http://hub-mirror.c.163.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://registry.docker-cn.com",
+        "http://192.168.0.4:5000",
+    ]
 }
 EOF
 ```
@@ -993,7 +992,11 @@ vim harbor.yml
 ```
 ./install.sh
 ```
-
+	放行端口
+```
+firewall-cmd --permanent --add-port=5000/tcp &&
+firewall-cmd --reload
+```
 	使用docker-compose启动harbor
 	一次性启动所有harbor相关的容器,一般执行完./install.sh就已经启动了相关的容器
 ```

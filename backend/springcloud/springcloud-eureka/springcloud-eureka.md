@@ -2496,13 +2496,34 @@ http://localhost/consumer/dynamic/payment/replace_router/get/1
     可以看到四次访问返回的结果中,四次返回结果是没有规律的,因为采用的RandomRule(随机策略),实际返回结果可能不是上面的情况,但是一定是随机进行服务调用的
 
 # 16.使用持续集成快捷部署服务
-## 16.1.持续集成微服务到docker中
-### 16.1.1.搭建docker
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建docker</a>
-### 16.1.2.搭建harbor
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建harbor</a>
-### 16.1.3.搭建jenkins
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-使用本地内网穿透搭建持续集成环境" target="_blank">搭建jenkins</a>
+## 16.1.持续集成微服务到Docker中
+### 16.1.1.搭建Docker
+    在192.168.0.4上搭建Docker
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
+    在192.168.0.5上搭建Docker
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
+### 16.1.2.搭建Harbor
+    在192.168.0.5上搭建Harbor
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Darbor</a>
+    配置192.168.0.4上的Docker信任192.168.0.5上的Harbor私服
+vim /etc/docker/daemon.json
+```
+	添加如下内容
+```
+{
+    "insecure-registries":["192.168.0.5:5000"],
+    "registry-mirrors": [
+        "http://192.168.0.5:5000"
+    ]
+}
+	刷新daemon并重启docker
+```
+systemctl daemon-reload &&
+systemctl restart docker
+```
+### 16.1.3.搭建Jenkins
+    在192.168.0.5上搭建Jenkins
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-使用本地内网穿透搭建持续集成环境" target="_blank">搭建Jenkins</a>
 ### 16.1.4.搭建持续集成使用的微服务
 #### 16.1.4.1.模块简介
     测试持续集成微服务到docker中使用到的微服务
