@@ -2497,7 +2497,17 @@ http://localhost/consumer/dynamic/payment/replace_router/get/1
 
 # 16.使用持续集成快捷部署服务
 ## 16.1.持续集成微服务到Docker中
-### 16.1.1.搭建Docker
+### 16.1.1.持续集成微服务到Docker中流程说明
+```mermaid
+flowchart LR
+    GITEE提交代码-->触发WebHooks
+    触发WebHooks-->触发Jenkins构建项目
+    触发Jenkins构建项目-->Jenkins执行对应的Jenkinsfile
+    Jenkins执行对应的Jenkinsfile-->触发build镜像->tag镜像->push镜像到私服
+    触发build镜像->tag镜像->push镜像到私服-->执行远程脚本
+    执行远程脚本-->自动从私服中拉取镜像创建容器并启动容器
+```
+### 16.1.2.搭建Docker
     在192.168.0.4上搭建Docker
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
     开启192.168.0.4上的Docker2375端口(为使用docker的maven插件做准备)
@@ -2518,7 +2528,7 @@ systemctl restart docker
 
     在192.168.0.5上搭建Docker
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
-### 16.1.2.搭建Harbor
+### 16.1.3.搭建Harbor
     在192.168.0.5上搭建Harbor
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Harbor</a>
     配置192.168.0.4上的Docker信任192.168.0.5上的Harbor私服
@@ -2539,7 +2549,7 @@ vim /etc/docker/daemon.json
 systemctl daemon-reload &&
 systemctl restart docker
 ```
-### 16.1.3.搭建Jenkins
+### 16.1.4.搭建Jenkins
     在192.168.0.5上搭建Jenkins
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-使用本地内网穿透搭建持续集成环境" target="_blank">搭建Jenkins</a>
 
@@ -2570,23 +2580,23 @@ systemctl restart docker
     保存配置
     Publish over SSH->保存
 
-### 16.1.4.搭建持续集成使用的微服务
-#### 16.1.4.1.模块简介
+### 16.1.5.搭建持续集成使用的微服务
+#### 16.1.5.1.模块简介
     测试持续集成微服务到docker中使用到的微服务
-#### 16.1.4.2.模块目录结构
+#### 16.1.5.2.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/tree.md"
-#### 16.1.4.3.创建模块
+#### 16.1.5.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-ci-docker80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-#### 16.1.4.4.编写模块pom.xml
+#### 16.1.5.4.编写模块pom.xml
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/pom.xml"
-#### 16.1.4.5.编写模块application.yml
+#### 16.1.5.5.编写模块application.yml
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/resources/application.yml"
-#### 16.1.4.6.编写模块主启动类
+#### 16.1.5.6.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/java/org/openatom/springcloud/CiDocker80.java"
-#### 16.1.4.7.编写模块Dockerfile
+#### 16.1.5.7.编写模块Dockerfile
     注意:需要先在 项目根目录/springcloud-ci-docker80下创建docker文件夹
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/docker/Dockerfile"
-#### 16.1.4.8.本地测试模块
+#### 16.1.5.8.本地测试模块
     在浏览器中访问
 ```
 http://localhost/ci/docker
@@ -2595,7 +2605,7 @@ http://localhost/ci/docker
 ```json
 {"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
 ```
-### 16.1.5.测试docker的maven插件
+### 16.1.6.测试docker的maven插件
     在项目根目录下执行打包命令
 ```
 mvn clean package
@@ -2632,16 +2642,8 @@ http://192.168.0.4/ci/docker
 <img src="./images/harbor-springcloud-eureka-dockerci80.png"  width="100%"/>
     可以看到当前模块微服务已经被推送到了Harbor私服中
 
-### 16.1.6.持续集成Jekins相关配置
-#### 16.1.6.1.持续集成流程说明
-```mermaid
-flowchart LR
-    GITEE提交代码-->触发WebHooks
-    触发WebHooks-->触发Jenkins构建项目
-    触发Jenkins构建项目-->Jenkins执行对应的Jenkinsfile
-    Jenkins执行对应的Jenkinsfile-->触发build镜像->tag镜像->push镜像到私服+执行远程脚本
-```
-#### 16.1.6.2.编写Jekinsfile
+### 16.1.7.持续集成Jekins相关配置
+#### 16.1.7.1.编写Jekinsfile
     在项目根目录下新建script文件夹,在script中新建Jenkinsfile_ci_docker,内容如下
 ```
 //定义远程git仓库中项目的地址
@@ -2725,7 +2727,7 @@ node {
 ```
     注意事项
     执行Jenkinsfile中执行了mvn install命令后,就会触发 将生成的jar拷贝到docker文件夹中->build镜像->tag镜像->push镜像 这些操作,这是由于在pom.xml中把这些操作都和install命令绑定在了一起,所以才会有这样的效果
-#### 16.1.6.3.在Jekins中配置项目
+#### 16.1.7.2.在Jekins中配置项目
     新建任务
     DashBoard->新建任务->输入任务名称(springcloud-eureka)->流水线->确定
 
@@ -2740,7 +2742,7 @@ node {
     https://gitee.com/lingwh1995/springcloud-eureka.git
     d.定义->SCM->脚本路径(根据自己的项目信息进行配置)
     script/Jenkinsfile_ci_docker
-#### 16.1.6.4.编写持续集成脚本
+#### 16.1.7.3.编写持续集成脚本
     在192.168.0.4上编写持续集成脚本
 ```
 cd / &&
@@ -2756,7 +2758,7 @@ EOF
 ```
 chmod +x springcloud-ci-docker.sh
 ```
-### 16.1.7.测试持续集成微服务到docker中
+### 16.1.8.测试持续集成微服务到docker中
     为了更明显的查看本次测试效果,首先删除192.168.0.4中docker中在前面环节产生的镜像和容器
 
     访问项目主页,点击构建按钮
