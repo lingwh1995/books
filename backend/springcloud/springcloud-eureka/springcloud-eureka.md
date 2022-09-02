@@ -2508,9 +2508,9 @@ flowchart LR
     执行远程脚本-->自动从私服中拉取镜像创建容器并启动容器
 ```
 ### 16.1.2.搭建Docker
-    在192.168.0.4上搭建Docker
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
-    开启192.168.0.4上的Docker2375端口(为使用docker的maven插件做准备)
+    在192.168.0.4上搭建docker
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建docker</a>
+    开启192.168.0.4上的docker的2375端口(为使用docker的maven插件做准备)
 ```
 vim /lib/systemd/system/docker.service
 ```
@@ -2525,9 +2525,6 @@ firewall-cmd --reload
 systemctl daemon-reload &&
 systemctl restart docker
 ```
-
-    在192.168.0.5上搭建Docker
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
 ### 16.1.3.搭建Harbor
     在192.168.0.5上搭建Harbor
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Harbor</a>
@@ -2606,9 +2603,17 @@ http://localhost/ci/docker
 {"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
 ```
 ### 16.1.6.测试docker的maven插件
+    启动相关服务
+```mermaid
+flowchart LR
+    启动192.168.0.4上的docker-->启动192.168.0.5上的docker
+    启动192.168.0.5上的docker-->启动192.168.0.5上的harbor
+    启动192.168.0.5上的harbor-->启动192.168.0.5上的jenkins
+```
+
     在项目根目录下执行打包命令
 ```
-mvn clean package
+mvn clean install
 ```
 
     在项目根目录下执行复制生成的jar包到指定位置
@@ -2617,13 +2622,13 @@ cp springcloud-ci-docker80/target/springcloud-ci-docker80.jar springcloud-ci-doc
 ```
 
     在idea中打开docker的maven插件操作面板
-<img src="./images/idea-docker-maven-plugin.png"  width="100%"/>
+<img src="./images/idea-docker-maven-plugin-cidocker80.png"  width="100%"/>
 
     制作Docker镜像
     点击docker:build
 
-    上传镜像到docker->在docker中为该镜像创建容器->启动docker中的容器
-    点击docker:run
+    上传镜像到docker后在docker中为该镜像创建容器并启动docker中的容器
+    点击docker:build->点击docker:run
 
     测试部署到docker中的服务
 ```
@@ -2634,17 +2639,22 @@ http://192.168.0.4/ci/docker
 {"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
 ```
 
-    在Harbor私服中创建springcloud-eureka项目
+    在harbor私服中创建springcloud-eureka项目
 <img src="./images/harbor-springcloud-eureka.png"  width="100%"/>
 
-    推送到Harbor私服
-    点击docker:push
-<img src="./images/harbor-springcloud-eureka-dockerci80.png"  width="100%"/>
-    可以看到当前模块微服务已经被推送到了Harbor私服中
+    推送到harbor私服
+    点击docker:build->点击docker:push
+    登录harbor私服查看刚才推送上去的的服务
+```
+http://192.168.0.5:5000/harbor/projects
+```
+    点击springcloud这个项目
+<img src="./images/harbor-springcloud-eureka-cidocker80.png"  width="100%"/>
+    可以看到当前模块微服务已经被推送到了harbor私服中
 
 ### 16.1.7.持续集成Jekins相关配置
 #### 16.1.7.1.编写Jekinsfile
-    在项目根目录下新建script文件夹,在script中新建Jenkinsfile_ci_docker,内容如下
+    在项目根目录下新建script文件夹,在script中新建JenkinsfileCiDocker,内容如下
 ```
 //定义远程git仓库中项目的地址
 def project_url='https://gitee.com/lingwh1995/springcloud-eureka.git'
@@ -2741,7 +2751,7 @@ node {
     Repository URL
     https://gitee.com/lingwh1995/springcloud-eureka.git
     d.定义->SCM->脚本路径(根据自己的项目信息进行配置)
-    script/Jenkinsfile_ci_docker
+    script/JenkinsfileCiDocker
 #### 16.1.7.3.编写持续集成脚本
     在192.168.0.4上编写持续集成脚本
 ```
@@ -2790,9 +2800,10 @@ flowchart LR
     执行远程脚本-->自动从私服中拉取镜像创建容器并启动容器
 ```
 ### 16.2.2.搭建Docker
-    在192.168.0.4上搭建Docker
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
-    开启192.168.0.4上的Docker2375端口(为使用docker的maven插件做准备)
+        在192.168.0.4上搭建docker
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建docker</a>
+
+    开启192.168.0.4上的docker2375端口(为使用docker的maven插件做准备)
 ```
 vim /lib/systemd/system/docker.service
 ```
@@ -2807,12 +2818,9 @@ firewall-cmd --reload
 systemctl daemon-reload &&
 systemctl restart docker
 ```
-
-    在192.168.0.5上搭建Docker
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建Docker</a>
 ### 16.2.3.搭建Harbor
     在192.168.0.5上搭建Harbor
-详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Harbor</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建harbor</a>
     配置192.168.0.4上的Docker信任192.168.0.5上的Harbor私服
 ```
 vim /etc/docker/daemon.json
@@ -2862,71 +2870,94 @@ systemctl restart docker
     保存配置
     Publish over SSH->保存
 
-### 16.2.5.搭建持续集成使用的微服务
+### 16.2.5.搭建Minikube
+    在192.168.0.4上搭建minikube
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-6.搭建Minikube.html#_6-搭建minikube" target="_blank">搭建minikube</a>
+
+    这里使用minikube作为k8s的演示环境,如要搭建适用于生产环境的k8s环境,请参考
+    kubeadm搭建Kubernetes
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-7.kubeadm搭建Kubernetes.html" target="_blank">minikube</a>
+    二进制包搭建Kubernetes
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-8.二进制包搭建Kubernetes.html" target="_blank">minikube</a>
+### 16.2.6.搭建持续集成使用的微服务
 #### 16.2.5.1.模块简介
     测试持续集成微服务到docker中使用到的微服务
-#### 16.2.5.2.模块目录结构
-@import "./projects/springcloud-eureka/springcloud-ci-docker80/tree.md"
-#### 16.2.5.3.创建模块
-	在父工程(springcloud-eureka)中创建一个名为springcloud-ci-docker80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-#### 16.2.5.4.编写模块pom.xml
-@import "./projects/springcloud-eureka/springcloud-ci-docker80/pom.xml"
-#### 16.2.5.5.编写模块application.yml
-@import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/resources/application.yml"
-#### 16.2.5.6.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/java/org/openatom/springcloud/CiDocker80.java"
-#### 16.2.5.7.编写模块Dockerfile
-    注意:需要先在 项目根目录/springcloud-ci-docker80下创建docker文件夹
-@import "./projects/springcloud-eureka/springcloud-ci-docker80/docker/Dockerfile"
-#### 16.2.5.8.本地测试模块
+#### 16.2.6.2.模块目录结构
+@import "./projects/springcloud-eureka/springcloud-ci-k8s80/tree.md"
+#### 16.2.6.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-ci-k8s80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+#### 16.2.6.4.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-ci-k8s80/pom.xml"
+#### 16.2.6.5.编写模块application.yml
+@import "./projects/springcloud-eureka/springcloud-ci-k8s80/src/main/resources/application.yml"
+#### 16.2.6.6.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-ci-k8s80/src/main/java/org/openatom/springcloud/CiK8s80.java"
+#### 16.2.6.7.编写模块Dockerfile
+    注意:需要先在 项目根目录/springcloud-ci-k8s80下创建docker文件夹
+@import "./projects/springcloud-eureka/springcloud-ci-k8s80/docker/Dockerfile"
+#### 16.2.6.8.本地测试模块
     在浏览器中访问
 ```
-http://localhost/ci/docker
+http://localhost/ci/k8s
 ```
     返回数据
 ```json
-{"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
+{"code":200,"message":"持续集成","data":"测试持续集成到K8s"}
 ```
-### 16.2.6.测试docker的maven插件
+### 16.2.7.测试docker的maven插件
+    启动相关服务
+```mermaid
+flowchart LR
+    启动192.168.0.4上的docker-->启动192.168.0.5上的docker
+    启动192.168.0.5上的docker-->启动192.168.0.5上的harbor
+    启动192.168.0.5上的harbor-->启动192.168.0.5上的jenkins
+    启动192.168.0.5上的jenkins-->启动192.168.0.4上的minikube
+```
+
     在项目根目录下执行打包命令
 ```
-mvn clean package
+mvn clean install
 ```
 
     在项目根目录下执行复制生成的jar包到指定位置
 ```
-cp springcloud-ci-docker80/target/springcloud-ci-docker80.jar springcloud-ci-docker80/docker
+cp springcloud-ci-k8s80/target/springcloud-ci-k8s80.jar springcloud-ci-k8s80/docker
 ```
 
     在idea中打开docker的maven插件操作面板
-<img src="./images/idea-docker-maven-plugin.png"  width="100%"/>
+<img src="./images/idea-docker-maven-plugin-cik8s80.png"  width="100%"/>
 
     制作Docker镜像
     点击docker:build
 
-    上传镜像到docker->在docker中为该镜像创建容器->启动docker中的容器
-    点击docker:run
+    上传镜像到docker后在docker中为该镜像创建容器并启动docker中的容器
+    点击docker:build->点击docker:run
 
     测试部署到docker中的服务
 ```
-http://192.168.0.4/ci/docker
+http://192.168.0.4/ci/k8s
 ```
     返回结果
 ```
-{"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
+{"code":200,"message":"持续集成","data":"测试持续集成到K8s"}
 ```
 
-    在Harbor私服中创建springcloud-eureka项目
+    在harbor私服中创建springcloud-eureka项目
 <img src="./images/harbor-springcloud-eureka.png"  width="100%"/>
 
     推送到Harbor私服
-    点击docker:push
-<img src="./images/harbor-springcloud-eureka-dockerci80.png"  width="100%"/>
-    可以看到当前模块微服务已经被推送到了Harbor私服中
+    点击docker:build->点击docker:push
+    登录harbor私服查看刚才推送上去的的服务
+```
+http://192.168.0.5:5000/harbor/projects
+```
+    点击springcloud这个项目
+<img src="./images/harbor-springcloud-eureka-cik8s80.png"  width="100%"/>
+    可以看到当前模块微服务已经被推送到了harbor私服中
 
-### 16.2.7.持续集成Jekins相关配置
-#### 16.2.7.1.编写Jekinsfile
-    在项目根目录下新建script文件夹,在script中新建Jenkinsfile_ci_docker,内容如下
+### 16.2.8.持续集成Jekins相关配置
+#### 16.2.8.1.编写Jekinsfile
+    在项目根目录下新建script文件夹,在script中新建JenkinsfileCiK8s,内容如下
 ```
 //定义远程git仓库中项目的地址
 def project_url='https://gitee.com/lingwh1995/springcloud-eureka.git'
@@ -2973,17 +3004,17 @@ node {
      *安装Publish Over SSH插件，使用插件的功能触发远程的shell脚本的执行
      */
     stage('自动部署上传到私服中的所有镜像到docker') {
-        echo '开始 自动部署上传到私服中的所有镜像到docker...'
+        echo '开始 自动部署上传到私服中的所有镜像到k8s...'
         sshPublisher(
             publishers:
                 [
                     sshPublisherDesc(
-                        configName: 'cidocker',
+                        configName: 'cik8s',
                         transfers: [
                             sshTransfer(
                                 cleanRemote: false,
                                 excludes: '',
-                                execCommand: "cd / && ./springcloud-ci-docker.sh",
+                                execCommand: "cd / && ./springcloud-ci-k8s.sh",
                                 execTimeout: 600000,
                                 flatten: false,
                                 makeEmptyDirs: false,
@@ -3001,7 +3032,7 @@ node {
                     )
                 ]
        )
-       echo '结束 自动部署上传到私服中的所有镜像到docker...'
+       echo '结束 自动部署上传到私服中的所有镜像到k8s...'
     }
 
     echo '完成执行自动化...'
@@ -3009,7 +3040,7 @@ node {
 ```
     注意事项
     执行Jenkinsfile中执行了mvn install命令后,就会触发 将生成的jar拷贝到docker文件夹中->build镜像->tag镜像->push镜像 这些操作,这是由于在pom.xml中把这些操作都和install命令绑定在了一起,所以才会有这样的效果
-#### 16.2.7.2.在Jekins中配置项目
+#### 16.2.8.2.在Jekins中配置项目
     新建任务
     DashBoard->新建任务->输入任务名称(springcloud-eureka)->流水线->确定
 
@@ -3023,22 +3054,60 @@ node {
     Repository URL
     https://gitee.com/lingwh1995/springcloud-eureka.git
     d.定义->SCM->脚本路径(根据自己的项目信息进行配置)
-    script/Jenkinsfile_ci_docker
-#### 16.2.7.3.编写持续集成脚本
+    script/JenkinsfileCiK8s
+#### 16.2.8.3.编写持续集成脚本
+```
+kubectl create secret docker-registry registry-secret \
+--docker-server=192.168.0.5:5000 \
+--docker-username=admin \
+--docker-password=123456 \
+--namespace=default
+```
+
+
     在192.168.0.4上编写持续集成脚本
 ```
 cd / &&
-cat > springcloud-ci-docker.sh << EOF
+cat > springcloud-ci-k8s.sh << EOF
 docker login 192.168.0.5:5000 -uadmin -p123456
-docker rmi -f 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80
-docker rm -f springcloud-ci-docker80
-docker pull 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80:latest
-docker run -di --name=springcloud-ci-docker80 -p80:80 192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker80
+kubectl delete deployment springcloud-ci-k8s80
+kubectl create deployment springcloud-ci-docker80 --image=192.168.0.5:5000/springcloud-eureka/springcloud-ci-k8s80:latest --imagePullSecrets=docker-registry
+kubectl port-forward --address 0.0.0.0 pod/`kubectl get pods | grep springcloud-ci | cut -d' ' -f1` 80:80
+firewall-cmd --zone=public --add-port=80/tcp --permanent &&
+firewall-cmd --reload
+EOF
+
+cat > springcloud-ci-k8s.yaml << EOF
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springcloud-ci-k8s80
+  labels:
+    app: springcloud-ci-k8s80
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springcloud-ci-k8s80
+  template:
+    metadata:
+      labels:
+        app: springcloud-ci-k8s80
+    spec:
+      containers:
+      - name: springcloud-ci-k8s80
+        image: 192.168.0.5:5000/springcloud-eureka/springcloud-ci-k8s80:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80    #containerPort是在pod控制器中定义的、pod中的容器需要暴露的端口
+      imagePullSecrets:
+      - name: registry-secret
 EOF
 ```
     赋予可执行权限
 ```
-chmod +x springcloud-ci-docker.sh
+chmod +x springcloud-ci-k8s.sh
 ```
 ### 16.2.8.测试持续集成微服务到docker中
     为了更明显的查看本次测试效果,首先删除192.168.0.4中docker中在前面环节产生的镜像和容器
