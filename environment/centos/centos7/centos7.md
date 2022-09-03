@@ -816,7 +816,7 @@ EOF
 	insecure-registries：docker信任的私服地址
 	registry-mirrors：docker国内镜像源地址
 
-	daemon.json配置注意事项：把私服配置到registry-mirrors时，一定要正确的加上 http://前缀：	
+	daemon.json配置注意事项：把私服配置到registry-mirrors时，一定要正确的加上 http://前缀：
 	正确格式: http://192.168.0.4:5000
 	错误格式: 192.168.0.4:5001
 
@@ -890,7 +890,7 @@ vim /etc/docker/daemon.json
 	insecure-registries：docker信任的私服地址
 	registry-mirrors：docker国内镜像源地址
 
-	daemon.json配置注意事项：把私服配置到registry-mirrors时，一定要正确的加上 http://前缀：	
+	daemon.json配置注意事项：把私服配置到registry-mirrors时，一定要正确的加上 http://前缀：
 	正确格式: http://192.168.0.4:5000
 	错误格式: 192.168.0.4:5001
 	放行5000端口并保证5000端口确实被放开
@@ -1008,13 +1008,8 @@ docker-compose up -d
 vim /etc/docker/daemon.json
 ```
 	配置Docker(Register)注册仓库服务器信任192.168.0.4:5001
-	没有配置任何私服配置
 ```
 {"insecure-registries":["192.168.0.4:5001"]}
-```
-	已经配置任何私服配置
-```
-"insecure-registries":["192.168.0.4:5001"]
 ```
 	重新加载docker daemon配置文件并重启docker
 ```
@@ -1472,16 +1467,10 @@ minikube stop
 minikube delete --all
 ```
 	卸载minikube
-	停止运行
+	停止运行->执行卸载命令->删除 ~/.minikube 目录缓存的文件
 ```
-minikube stop
-```
-	执行卸载命令
-```
-minikube delete
-```
-	删除 ~/.minikube 目录缓存的文件
-```
+minikube stop &&
+minikube delete &&
 rm -rf ~/.minikube
 ```
 

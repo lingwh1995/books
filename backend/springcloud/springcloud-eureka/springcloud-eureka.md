@@ -2526,7 +2526,7 @@ systemctl daemon-reload &&
 systemctl restart docker
 ```
 ### 16.1.3.搭建Harbor
-    在192.168.0.5上搭建Harbor
+    在192.168.0.5上搭建harbor
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Harbor</a>
     配置192.168.0.4上的Docker信任192.168.0.5上的Harbor私服
 ```
@@ -2653,18 +2653,18 @@ http://192.168.0.5:5000/harbor/projects
     可以看到当前模块微服务已经被推送到了harbor私服中
 
 ### 16.1.7.持续集成Jekins相关配置
-#### 16.1.7.1.编写Jekinsfile
+#### 16.1.7.1.编写Jenkinsfile
     在项目根目录下新建script文件夹,在script中新建JenkinsfileCiDocker,内容如下
 ```
 //定义远程git仓库中项目的地址
 def project_url='https://gitee.com/lingwh1995/springcloud-eureka.git'
 
-def jekins_ip='192.168.0.5'
+def jenkins_ip='192.168.0.5'
 
 node {
     echo '开始执行自动化...'
     /*指定在那台Jenkins节点上运行*/
-    agent { label '${jekins_ip}'}
+    agent { label '${jenkins_ip}'}
 
     /*从远程仓库检出代码*/
     stage('从远程仓库检出代码') {
@@ -2803,7 +2803,7 @@ flowchart LR
         在192.168.0.4上搭建docker
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-3-1-在线安装docker" target="_blank">搭建docker</a>
 
-    开启192.168.0.4上的docker2375端口(为使用docker的maven插件做准备)
+    开启minikube部署机器(192.168.0.4)上的docker2375端口(为使用docker的maven插件做准备)
 ```
 vim /lib/systemd/system/docker.service
 ```
@@ -2821,7 +2821,7 @@ systemctl restart docker
 ### 16.2.3.搭建Harbor
     在192.168.0.5上搭建Harbor
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建harbor</a>
-    配置192.168.0.4上的Docker信任192.168.0.5上的Harbor私服
+    配置192.168.0.4上的docker信任192.168.0.5上的harbor私服
 ```
 vim /etc/docker/daemon.json
 ```
@@ -2875,10 +2875,24 @@ systemctl restart docker
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-6.搭建Minikube.html#_6-搭建minikube" target="_blank">搭建minikube</a>
 
     这里使用minikube作为k8s的演示环境,如要搭建适用于生产环境的k8s环境,请参考
-    kubeadm搭建Kubernetes
+    kubeadm搭建kubernetes
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-7.kubeadm搭建Kubernetes.html" target="_blank">minikube</a>
-    二进制包搭建Kubernetes
+    二进制包搭建kubernetes
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-8.二进制包搭建Kubernetes.html" target="_blank">minikube</a>
+
+    配置minikube或kubernetes的所有工作节点上的docker信任harbor私服
+```
+vim /etc/docker/daemon.json
+```
+	添加如下内容
+```
+{
+    "insecure-registries":["192.168.0.5:5000"],
+    "registry-mirrors": [
+        "http://192.168.0.5:5000"
+    ]
+}
+```
 ### 16.2.6.搭建持续集成使用的微服务
 #### 16.2.5.1.模块简介
     测试持续集成微服务到docker中使用到的微服务
@@ -2945,7 +2959,7 @@ http://192.168.0.4/ci/k8s
     在harbor私服中创建springcloud-eureka项目
 <img src="./images/harbor-springcloud-eureka.png"  width="100%"/>
 
-    推送到Harbor私服
+    推送到harbor私服
     点击docker:build->点击docker:push
     登录harbor私服查看刚才推送上去的的服务
 ```
@@ -2956,18 +2970,18 @@ http://192.168.0.5:5000/harbor/projects
     可以看到当前模块微服务已经被推送到了harbor私服中
 
 ### 16.2.8.持续集成Jekins相关配置
-#### 16.2.8.1.编写Jekinsfile
+#### 16.2.8.1.编写Jenkinsfile
     在项目根目录下新建script文件夹,在script中新建JenkinsfileCiK8s,内容如下
 ```
 //定义远程git仓库中项目的地址
 def project_url='https://gitee.com/lingwh1995/springcloud-eureka.git'
 
-def jekins_ip='192.168.0.5'
+def jenkins_ip='192.168.0.5'
 
 node {
     echo '开始执行自动化...'
     /*指定在那台Jenkins节点上运行*/
-    agent { label '${jekins_ip}'}
+    agent { label '${jenkins_ip}'}
 
     /*从远程仓库检出代码*/
     stage('从远程仓库检出代码') {
@@ -3060,10 +3074,9 @@ node {
 kubectl create secret docker-registry registry-secret \
 --docker-server=192.168.0.5:5000 \
 --docker-username=admin \
---docker-password=123456 \
+--docker-password=YWRtaW46MTIzNDU2 \
 --namespace=default
 ```
-
 
     在192.168.0.4上编写持续集成脚本
 ```
@@ -3102,8 +3115,21 @@ spec:
         ports:
         - containerPort: 80    #containerPort是在pod控制器中定义的、pod中的容器需要暴露的端口
       imagePullSecrets:
-      - name: registry-secret
+      - name: harbor-login
 EOF
+```
+
+cat > harbor_secret.yaml << EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: harbor-login
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSIxOTIuMTY4LjAuNTo1MDAwIjogewoJCQkiYXV0aCI6ICJZV1J0YVc0Nk1USXpORFUyIgoJCX0KCX0KfQ==
+EOF
+```
+kubectl create -f harbor_secret.yaml
 ```
     赋予可执行权限
 ```
