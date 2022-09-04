@@ -3209,35 +3209,46 @@ spec:
         - containerPort: 80    #containerPort是在pod控制器中定义的、pod中的容器需要暴露的端口
 
 ---
-apiVersion: apps/v1
+apiVersion: v1
 kind: Service
 metadata:
-  name: springcloud-ci-k8s80-service
+  labels:
+    app: springcloud-ci-k8s80
+  name: springcloud-ci-k8s80
+  namespace: default
 spec:
-  type: NodePort
+  ports:
+  - name: springcloud-ci-k8s80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 30090
+    port: 80
   selector:
     app: springcloud-ci-k8s80
-  ports:
-    - protocol: TCP #对外暴露的协议类型
-      port: 80     #pod中服务的访问端口，如nginx访问端口是80
-      targetPort: 80  #对外暴露的端口，外部调用时通过这个端口访问服务
+  type: NodePort
 EOF
 ```
+
     在192.168.0.4上编写持续集成脚本
 ```
 cd / &&
 cat > springcloud-ci-k8s.sh << EOF
 kubectl apply -f springcloud-ci-k8s.yaml
+firewall-cmd --zone=public --add-port=30090/tcp --permanent &&
+firewall-cmd --reload
 EOF
 ```
+kubectl port-forward --address 0.0.0.0 pod/springcloud-ci-k8s80-77fb58df6f-m4ngr 80:801
+
 
     赋予可执行权限
 ```
 chmod +x springcloud-ci-k8s.sh
 ```
 
-### 16.2.10.测试持续集成微服务到docker中
-    为了更明显的查看本次测试效果,首先删除192.168.0.4中docker中在前面环节产生的镜像和容器
+### 16.2.10.测试持续集成微服务到k8s中
+   注意
+   不用删除192.168.0.4中docker中在前面环节产生的镜像和容器,因为minikube使用的是minikube内部的docker拉取镜像
 
     访问项目主页,点击构建按钮
 ```
