@@ -2908,9 +2908,9 @@ minikube ssh
 ```
 sudo vi /usr/lib/systemd/system/docker.service
 ```
-    ExecStart=/usr/bin/dockerd后添加insecure-registry
+    ExecStart=/usr/bin/dockerd后添加insecure-registry配置
 ```
---insecure-registry=192.168.0.5:5000
+    --insecure-registry=192.168.0.5:5000
 ```
 <img src="./images/minikube-docker-conf.png"  width="100%"/>
 

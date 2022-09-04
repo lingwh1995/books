@@ -791,8 +791,7 @@ vim /etc/docker/daemon.json
         "https://5pfmrxk8.mirror.aliyuncs.com",
         "http://hub-mirror.c.163.com",
         "https://docker.mirrors.ustc.edu.cn",
-        "https://registry.docker-cn.com",
-        "http://192.168.0.4:5000",
+        "https://registry.docker-cn.com"
     ]
 }
 ```
@@ -806,8 +805,7 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
         "https://5pfmrxk8.mirror.aliyuncs.com",
         "http://hub-mirror.c.163.com",
         "https://docker.mirrors.ustc.edu.cn",
-        "https://registry.docker-cn.com",
-        "http://192.168.0.4:5000",
+        "https://registry.docker-cn.com"
     ]
 }
 EOF
@@ -880,9 +878,7 @@ vim /etc/docker/daemon.json
         "https://5pfmrxk8.mirror.aliyuncs.com",
         "http://hub-mirror.c.163.com",
         "https://docker.mirrors.ustc.edu.cn",
-        "https://registry.docker-cn.com",
-        "http://192.168.0.4:5000",
-        "http://192.168.0.4:5001"
+        "https://registry.docker-cn.com"
     ]
 }
 ```
