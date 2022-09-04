@@ -2555,7 +2555,7 @@ systemctl restart docker
 
     配置如下字段
     Publish over SSH
-    a.Passphrase
+    a.Passphrase(可以配置也可以不配置,下面的配置中会覆盖这个配置)
     192.168.0.4机器的密码
 
     Publish over SSH->SSH Servers->新增
@@ -2567,6 +2567,10 @@ systemctl restart docker
     root
     d.Remote Directory
     /
+
+    Publish over SSH->SSH Servers->勾选Use password authentication, or use a different key
+    a.Passphrase / Password(注意:这个配置会覆盖Publish over SSH下a.中的配置)
+    192.168.0.4机器的密码
 
     测试连通性(成功返回Success)
     Publish over SSH->SSH Servers->Test Configuration
@@ -2585,12 +2589,14 @@ systemctl restart docker
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/pom.xml"
 #### 16.1.5.5.编写模块application.yml
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/resources/application.yml"
-#### 16.1.5.6.编写模块主启动类
+#### 16.1.5.6.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/java/org/openatom/springcloud/controller/CiDockerController.java"
+#### 16.1.5.7.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/src/main/java/org/openatom/springcloud/CiDocker80.java"
-#### 16.1.5.7.编写模块Dockerfile
+#### 16.1.5.8.编写模块Dockerfile
     注意:需要先在 项目根目录/springcloud-ci-docker80下创建docker文件夹
 @import "./projects/springcloud-eureka/springcloud-ci-docker80/docker/Dockerfile"
-#### 16.1.5.8.本地测试模块
+#### 16.1.5.9.本地测试模块
     在浏览器中访问
 ```
 http://localhost/ci/docker
@@ -2737,6 +2743,8 @@ node {
 #### 16.1.7.2.在Jekins中配置项目
     新建任务
     DashBoard->新建任务->输入任务名称(springcloud-eureka)->流水线->确定
+    或
+    DashBoard->点击springcloud-eureka->配置
 
     配置如下字段
     配置流水线
@@ -2783,6 +2791,84 @@ http://192.168.0.4/ci/docker
     返回结果
 ```
 {"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
+```
+### 16.1.9.使用Webhook触发持续集成
+#### 16.1.9.1.webhook的作用
+    在前面的环节中,访问项目主页,点击构建按钮后才能触发持续集成,使用webhook可以更方便的触发持续集成,配置好webhook时,当提交代码时就会触发持续集成
+#### 16.1.9.2.使用webhook前准备工作
+    jenkins安装Gitee插件
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-7-安装配置jenkins用到的插件" target="_blank">jenkins安装Gitee插件</a>
+
+    搭建内网穿透
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-8-搭建内网穿透" target="_blank">搭建内网穿透</a>
+    搭建好了内网穿透后,可以使用新的地址来访问jenkins
+    不使用内网穿透访问jenkins的地址是
+```
+http://192.168.0.5:8080/jenkins/
+```
+    使用内网穿透访问jenkins的地址是
+```
+http://8sybmw.natappfree.cc/jenkins
+```
+#### 16.1.9.3.配置使用webhook
+    使用内网穿透访问jenkins的地址是
+```
+http://8sybmw.natappfree.cc/jenkins
+```
+    在jenkins中配置job
+    jenkins具体项目->配置->构建触发器->Gitee webhook 触发构建->Gitee WebHook 密码—>得到密码 0d71d48f211af16c477cf9c817ac612d
+
+    配置gitee的webhook
+    进入gitee的webhook配置界面(这里的url根据自己的项目进行修改)
+```
+https://gitee.com/lingwh1995/springcloud-eureka/hooks
+```
+
+    点击添加webHook->填写URL和WebHook 密码/签名密钥
+    URL
+    http://8sybmw.natappfree.cc/jenkins/gitee-project/springcloud-eureka
+    WebHook 密码/签名密钥(上面在jenkins中生成的)
+    0d71d48f211af16c477cf9c817ac612d
+
+    测试webhook是否配置成功(可以测试,也可以不测试)
+    点击测试->查看更多
+#### 16.1.9.4.配置使用的Jenkinsfile
+    DashBoard->点击springcloud-eureka->配置->流水线->脚本路径->输入 script/JenkinsfileCiDocker
+#### 16.1.9.5.测试使用Webhook触发持续集成
+    修改springcloud-eureka/springcloud-ci-docker80/src/main/java/org/openatom/springcloud/controller/CiK8sController.java中代码为
+```java
+package org.openatom.springcloud.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.openatom.springcloud.entities.CommonResult;
+import org.openatom.springcloud.entities.Payment;
+
+
+@RestController
+public class CiDockerController {
+
+    @GetMapping("/ci/docker")
+    public CommonResult<String> create(Payment payment) {
+        return new CommonResult(200,"持续集成","测试持续集成到Docker+测试WebHook");
+    }
+
+}
+```
+    在git中提交代码
+
+    查看webhook触发jenkins构建
+```
+http://8sybmw.natappfree.cc/jenkins/job/springcloud-eureka/
+```
+
+    在浏览器中访问
+```
+http://192.168.0.4/ci/docker
+```
+    返回数据
+```json
+{"code":200,"message":"持续集成","data":"测试持续集成到Docker+测试WebHook"}
 ```
 
 ## 16.2.持续集成微服务到k8s中
@@ -2845,7 +2931,7 @@ systemctl restart docker
 
     配置如下字段
     Publish over SSH
-    a.Passphrase
+    a.Passphrase(可以配置也可以不配置,下面的配置中会覆盖这个配置)
     192.168.0.4机器的密码
 
     Publish over SSH->SSH Servers->新增
@@ -2857,6 +2943,10 @@ systemctl restart docker
     root
     d.Remote Directory
     /
+
+    Publish over SSH->SSH Servers->勾选Use password authentication, or use a different key
+    a.Passphrase / Password(注意:这个配置会覆盖Publish over SSH下a.中的配置)
+    192.168.0.4机器的密码
 
     测试连通性(成功返回Success)
     Publish over SSH->SSH Servers->Test Configuration
@@ -2910,7 +3000,12 @@ sudo vi /usr/lib/systemd/system/docker.service
 ```
     ExecStart=/usr/bin/dockerd后添加insecure-registry配置
 ```
-    --insecure-registry=192.168.0.5:5000
+--insecure-registry=192.168.0.5:5000
+```
+	刷新daemon并重启docker
+```
+sudo systemctl daemon-reload &&
+sudo systemctl restart docker
 ```
 <img src="./images/minikube-docker-conf.png"  width="100%"/>
 
@@ -3006,7 +3101,7 @@ kubectl get secret regcred --output=yaml
 
 ### 16.2.7.搭建持续集成使用的微服务
 #### 16.2.7.1.模块简介
-    测试持续集成微服务到docker中使用到的微服务
+    测试持续集成微服务到k8s中使用到的微服务
 #### 16.2.7.2.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/tree.md"
 #### 16.2.7.3.创建模块
@@ -3015,12 +3110,14 @@ kubectl get secret regcred --output=yaml
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/pom.xml"
 #### 16.2.7.5.编写模块application.yml
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/src/main/resources/application.yml"
-#### 16.2.7.6.编写模块主启动类
+#### 16.2.7.6.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-ci-k8s80/src/main/java/org/openatom/springcloud/controller/CiK8sController.java"
+#### 16.2.7.7.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/src/main/java/org/openatom/springcloud/CiK8s80.java"
-#### 16.2.7.7.编写模块Dockerfile
+#### 16.2.7.8.编写模块Dockerfile
     注意:需要先在 项目根目录/springcloud-ci-k8s80下创建docker文件夹
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/docker/Dockerfile"
-#### 16.2.7.8.本地测试模块
+#### 16.2.7.9.本地测试模块
     在浏览器中访问
 ```
 http://localhost/ci/k8s
@@ -3194,6 +3291,11 @@ spec:
   selector:
     matchLabels:
       app: springcloud-ci-k8s80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -3234,20 +3336,16 @@ EOF
 cd / &&
 cat > springcloud-ci-k8s.sh << EOF
 kubectl apply -f springcloud-ci-k8s.yaml
-firewall-cmd --zone=public --add-port=30090/tcp --permanent &&
-firewall-cmd --reload
 EOF
 ```
-kubectl port-forward --address 0.0.0.0 pod/springcloud-ci-k8s80-77fb58df6f-m4ngr 80:801
-
 
     赋予可执行权限
 ```
 chmod +x springcloud-ci-k8s.sh
 ```
 
-### 16.2.10.测试持续集成微服务到k8s中
-   注意
+### 16.2.10.测试持续集成微服务到minikube中或k8s中
+#### 16.2.10.1.测试持续集成微服务到minikube中
    不用删除192.168.0.4中docker中在前面环节产生的镜像和容器,因为minikube使用的是minikube内部的docker拉取镜像
 
     访问项目主页,点击构建按钮
@@ -3256,15 +3354,104 @@ http://192.168.0.5:8080/jenkins/
 ```
 <img src="./images/jenkins-springcloud-eureka-build.png"  width="100%"/>
 
-
-    访问服务
+    访问之前需要先在192.168.0.4上开放相关端口并开启端口转发
 ```
-http://192.168.0.4/ci/docker
+firewall-cmd --zone=public --add-port=9080/tcp --permanent &&
+firewall-cmd --reload &&
+kubectl port-forward --address 0.0.0.0 service/springcloud-ci-k8s80 9080:80
+```
+    在浏览器中访问
+```
+http://192.168.0.4:9080/ci/k8s
 ```
 
     返回结果
 ```
-{"code":200,"message":"持续集成","data":"测试持续集成到Docker"}
+{"code":200,"message":"持续集成","data":"测试持续集成到K8s"}
+```
+### 16.2.10.使用Webhook触发持续集成
+#### 16.2.10.1.webhook的作用
+    在前面的环节中,访问项目主页,点击构建按钮后才能触发持续集成,使用webhook可以更方便的触发持续集成,配置好webhook时,当提交代码时就会触发持续集成
+#### 16.2.10.2.使用webhook前准备工作
+    jenkins安装Gitee插件
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-7-安装配置jenkins用到的插件" target="_blank">jenkins安装Gitee插件</a>
+
+    搭建内网穿透
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-9.搭建持续集成环境.html#_9-3-8-搭建内网穿透" target="_blank">搭建内网穿透</a>
+    搭建好了内网穿透后,可以使用新的地址来访问jenkins
+    不使用内网穿透访问jenkins的地址是
+```
+http://192.168.0.5:8080/jenkins/
+```
+    使用内网穿透访问jenkins的地址是
+```
+http://8sybmw.natappfree.cc/jenkins
+```
+#### 16.2.10.3.配置使用webhook
+    使用内网穿透访问jenkins的地址是
+```
+http://8sybmw.natappfree.cc/jenkins
+```
+    在jenkins中配置job
+    jenkins具体项目->配置->构建触发器->Gitee webhook 触发构建->Gitee WebHook 密码—>得到密码 0d71d48f211af16c477cf9c817ac612d
+
+    配置gitee的webhook
+    进入gitee的webhook配置界面(这里的url根据自己的项目进行修改)
+```
+https://gitee.com/lingwh1995/springcloud-eureka/hooks
+```
+
+    点击添加webHook->填写URL和WebHook 密码/签名密钥
+    URL
+    http://8sybmw.natappfree.cc/jenkins/gitee-project/springcloud-eureka
+    WebHook 密码/签名密钥(上面在jenkins中生成的)
+    0d71d48f211af16c477cf9c817ac612d
+
+    测试webhook是否配置成功(可以测试,也可以不测试)
+    点击测试->查看更多
+#### 16.2.10.4.配置使用的Jenkinsfile
+    DashBoard->点击springcloud-eureka->配置->流水线->脚本路径->输入 script/JenkinsfileCiK8s
+#### 16.2.10.5.测试使用Webhook触发持续集成
+    修改springcloud-eureka/springcloud-ci-k8s80/src/main/java/org/openatom/springcloud/controller/CiK8sController.java中代码为
+```java
+package org.openatom.springcloud.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.openatom.springcloud.entities.CommonResult;
+import org.openatom.springcloud.entities.Payment;
+
+@RestController
+public class CiK8sController {
+
+
+    @GetMapping("/ci/k8s")
+    public CommonResult<String> create(Payment payment) {
+        return new CommonResult(200,"持续集成","测试持续集成到K8s+测试WebHook");
+    }
+
+}
+```
+    在git中提交代码
+
+    查看webhook触发jenkins构建
+```
+http://8sybmw.natappfree.cc/jenkins/job/springcloud-eureka/
+```
+
+    访问之前需要先在192.168.0.4上开放相关端口并开启端口转发
+```
+firewall-cmd --zone=public --add-port=9080/tcp --permanent &&
+firewall-cmd --reload &&
+kubectl port-forward --address 0.0.0.0 service/springcloud-ci-k8s80 9080:80
+```
+    在浏览器中访问
+```
+http://192.168.0.4:9080/ci/k8s
+```
+    返回数据
+```json
+{"code":200,"message":"持续集成","data":"测试持续集成到K8s+测试WebHook"}
 ```
 
 # 17.让微服务区分多种不同环境
