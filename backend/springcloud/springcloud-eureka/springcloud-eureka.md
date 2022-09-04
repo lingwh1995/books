@@ -2528,17 +2528,14 @@ systemctl restart docker
 ### 16.1.3.搭建Harbor
     在192.168.0.5上搭建harbor
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-4.搭建docker技术栈.html#_4-6-3-搭建harbor私服" target="_blank">搭建Harbor</a>
-    配置192.168.0.4上的Docker信任192.168.0.5上的Harbor私服
+    配置192.168.0.4上的Docker信任192.168.0.5上的harbor私服
 ```
 vim /etc/docker/daemon.json
 ```
 	添加如下内容
 ```
 {
-    "insecure-registries":["192.168.0.5:5000"],
-    "registry-mirrors": [
-        "http://192.168.0.5:5000"
-    ]
+    "insecure-registries":["192.168.0.5:5000"]
 }
 ```
 	刷新daemon并重启docker
@@ -2828,10 +2825,7 @@ vim /etc/docker/daemon.json
 	添加如下内容
 ```
 {
-    "insecure-registries":["192.168.0.5:5000"],
-    "registry-mirrors": [
-        "http://192.168.0.5:5000"
-    ]
+    "insecure-registries":["192.168.0.5:5000"]
 }
 ```
 	刷新daemon并重启docker
@@ -2870,7 +2864,7 @@ systemctl restart docker
     保存配置
     Publish over SSH->保存
 
-### 16.2.5.搭建Minikube
+### 16.2.5.搭建Minikube或K8s
     在192.168.0.4上搭建minikube
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-6.搭建Minikube.html#_6-搭建minikube" target="_blank">搭建minikube</a>
 
@@ -2880,6 +2874,12 @@ systemctl restart docker
     二进制包搭建kubernetes
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-8.二进制包搭建Kubernetes.html" target="_blank">minikube</a>
 
+### 16.2.6.配置Minikube或Kubernetes
+#### 16.2.6.1.配置minikube
+##### 16.2.6.1.1.协议类型
+    docker: tcp
+    harbor: http
+##### 16.2.6.1.2.配置配置minikube的所有工作节点上的使用的docker
     配置minikube或kubernetes的所有工作节点上的docker信任harbor私服
 ```
 vim /etc/docker/daemon.json
@@ -2887,29 +2887,140 @@ vim /etc/docker/daemon.json
 	添加如下内容
 ```
 {
-    "insecure-registries":["192.168.0.5:5000"],
-    "registry-mirrors": [
-        "http://192.168.0.5:5000"
-    ]
+    "insecure-registries":["192.168.0.5:5000"]
 }
 ```
-### 16.2.6.搭建持续集成使用的微服务
-#### 16.2.5.1.模块简介
+	刷新daemon并重启docker
+```
+systemctl daemon-reload &&
+systemctl restart docker
+```
+##### 16.2.6.1.3.配置docker中minikube容器内部使用的docker
+<!--
+    参考博客
+    https://blog.csdn.net/Xin_101/article/details/124445591
+-->
+    进入minikube终端
+```
+minikube ssh
+```
+    配置/usr/lib/systemd/system/docker.service
+```
+sudo vi /usr/lib/systemd/system/docker.service
+```
+    ExecStart=/usr/bin/dockerd后添加insecure-registry
+```
+--insecure-registry=192.168.0.5:5000
+```
+<img src="./images/minikube-docker-conf.png"  width="100%"/>
+
+##### 16.2.6.1.4.配置Minikube从harbor拉取镜像时使用的秘钥
+    a.根据docker用户名密码创建秘钥
+    创建秘钥
+```
+kubectl create secret docker-registry harbor-login \
+--docker-server=192.168.0.5:5000 \
+--docker-username=admin \
+--docker-password=123456
+```
+    查看创建的秘钥
+```
+kubectl get secret
+```
+```
+kubectl get secret regcred --output=yaml
+```
+
+    b.基于现有docker登录凭证使用yaml创建秘钥
+    登录docker镜像仓库
+```
+docker login 192.168.0.4:5000 --username docker -password 123456
+```
+    查看生成的docker登录凭证
+```
+cat ~/.docker/config.json
+```
+    以base64编码格式查看docker登录凭证
+```
+cat ~/.docker/config.json | base64 -w 0
+```
+    创建用于创建秘钥的yaml
+```
+cat > harbor_secret.yaml << EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: harbor-login
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSIxOTIuMTY4LjAuNTo1MDAwIjogewoJCQkiYXV0aCI6ICJZV1J0YVc0Nk1USXpORFUyIgoJCX0KCX0KfQ==
+EOF
+```
+    创建秘钥
+```
+kubectl create -f harbor_secret.yaml
+```
+    查看创建的秘钥
+```
+kubectl get secret
+```
+```
+kubectl get secret regcred --output=yaml
+```
+
+    c.基于现有docker登录凭证引用config.json创建秘钥
+    登录docker镜像仓库
+```
+docker login 192.168.0.4:5000 --username docker -password 123456
+```
+    查看生成的docker登录信息
+```
+cat ~/.docker/config.json
+```
+    根据生成的docker登录信息创建秘钥
+```
+kubectl create secret generic harbor-login \
+    --from-file=.dockerconfigjson=/root/.docker/config.json \
+    --type=kubernetes.io/dockerconfigjson
+```
+    查看创建的秘钥
+```
+kubectl get secret
+```
+```
+kubectl get secret regcred --output=yaml
+```
+#### 16.2.6.2.配置kubernetes
+##### 16.2.6.2.1.协议类型
+    docker: tcp
+    harbor: http
+
+#### 16.2.6.3.配置minikube
+##### 16.2.6.3.1.协议类型
+    docker: tcp
+    harbor: https
+#### 16.2.6.4.配置Kubernetes
+##### 16.2.6.4.1.协议类型
+    docker: tcp
+    harbor: https
+
+### 16.2.7.搭建持续集成使用的微服务
+#### 16.2.7.1.模块简介
     测试持续集成微服务到docker中使用到的微服务
-#### 16.2.6.2.模块目录结构
+#### 16.2.7.2.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/tree.md"
-#### 16.2.6.3.创建模块
+#### 16.2.7.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-ci-k8s80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-#### 16.2.6.4.编写模块pom.xml
+#### 16.2.7.4.编写模块pom.xml
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/pom.xml"
-#### 16.2.6.5.编写模块application.yml
+#### 16.2.7.5.编写模块application.yml
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/src/main/resources/application.yml"
-#### 16.2.6.6.编写模块主启动类
+#### 16.2.7.6.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/src/main/java/org/openatom/springcloud/CiK8s80.java"
-#### 16.2.6.7.编写模块Dockerfile
+#### 16.2.7.7.编写模块Dockerfile
     注意:需要先在 项目根目录/springcloud-ci-k8s80下创建docker文件夹
 @import "./projects/springcloud-eureka/springcloud-ci-k8s80/docker/Dockerfile"
-#### 16.2.6.8.本地测试模块
+#### 16.2.7.8.本地测试模块
     在浏览器中访问
 ```
 http://localhost/ci/k8s
@@ -2918,7 +3029,7 @@ http://localhost/ci/k8s
 ```json
 {"code":200,"message":"持续集成","data":"测试持续集成到K8s"}
 ```
-### 16.2.7.测试docker的maven插件
+### 16.2.8.测试docker的maven插件
     启动相关服务
 ```mermaid
 flowchart LR
@@ -2969,8 +3080,8 @@ http://192.168.0.5:5000/harbor/projects
 <img src="./images/harbor-springcloud-eureka-cik8s80.png"  width="100%"/>
     可以看到当前模块微服务已经被推送到了harbor私服中
 
-### 16.2.8.持续集成Jekins相关配置
-#### 16.2.8.1.编写Jenkinsfile
+### 16.2.9.持续集成Jekins相关配置
+#### 16.2.9.1.编写Jenkinsfile
     在项目根目录下新建script文件夹,在script中新建JenkinsfileCiK8s,内容如下
 ```
 //定义远程git仓库中项目的地址
@@ -3054,7 +3165,7 @@ node {
 ```
     注意事项
     执行Jenkinsfile中执行了mvn install命令后,就会触发 将生成的jar拷贝到docker文件夹中->build镜像->tag镜像->push镜像 这些操作,这是由于在pom.xml中把这些操作都和install命令绑定在了一起,所以才会有这样的效果
-#### 16.2.8.2.在Jekins中配置项目
+#### 16.2.9.2.在Jekins中配置项目
     新建任务
     DashBoard->新建任务->输入任务名称(springcloud-eureka)->流水线->确定
 
@@ -3069,35 +3180,15 @@ node {
     https://gitee.com/lingwh1995/springcloud-eureka.git
     d.定义->SCM->脚本路径(根据自己的项目信息进行配置)
     script/JenkinsfileCiK8s
-#### 16.2.8.3.编写持续集成脚本
-```
-kubectl create secret docker-registry registry-secret \
---docker-server=192.168.0.5:5000 \
---docker-username=admin \
---docker-password=YWRtaW46MTIzNDU2 \
---namespace=default
-```
+#### 16.2.9.3.编写yaml和持续集成脚本
 
-    在192.168.0.4上编写持续集成脚本
+    在192.168.0.4编写springcloud-ci-k8s.yaml
 ```
-cd / &&
-cat > springcloud-ci-k8s.sh << EOF
-docker login 192.168.0.5:5000 -uadmin -p123456
-kubectl delete deployment springcloud-ci-k8s80
-kubectl create deployment springcloud-ci-docker80 --image=192.168.0.5:5000/springcloud-eureka/springcloud-ci-k8s80:latest --imagePullSecrets=docker-registry
-kubectl port-forward --address 0.0.0.0 pod/`kubectl get pods | grep springcloud-ci | cut -d' ' -f1` 80:80
-firewall-cmd --zone=public --add-port=80/tcp --permanent &&
-firewall-cmd --reload
-EOF
-
 cat > springcloud-ci-k8s.yaml << EOF
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: springcloud-ci-k8s80
-  labels:
-    app: springcloud-ci-k8s80
 spec:
   replicas: 1
   selector:
@@ -3108,34 +3199,44 @@ spec:
       labels:
         app: springcloud-ci-k8s80
     spec:
+      imagePullSecrets:
+      - name: harbor-login
       containers:
       - name: springcloud-ci-k8s80
         image: 192.168.0.5:5000/springcloud-eureka/springcloud-ci-k8s80:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 80    #containerPort是在pod控制器中定义的、pod中的容器需要暴露的端口
-      imagePullSecrets:
-      - name: harbor-login
+
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: springcloud-ci-k8s80-service
+spec:
+  type: NodePort
+  selector:
+    app: springcloud-ci-k8s80
+  ports:
+    - protocol: TCP #对外暴露的协议类型
+      port: 80     #pod中服务的访问端口，如nginx访问端口是80
+      targetPort: 80  #对外暴露的端口，外部调用时通过这个端口访问服务
+EOF
+```
+    在192.168.0.4上编写持续集成脚本
+```
+cd / &&
+cat > springcloud-ci-k8s.sh << EOF
+kubectl apply -f springcloud-ci-k8s.yaml
 EOF
 ```
 
-cat > harbor_secret.yaml << EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: harbor-login
-type: kubernetes.io/dockerconfigjson
-data:
-  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSIxOTIuMTY4LjAuNTo1MDAwIjogewoJCQkiYXV0aCI6ICJZV1J0YVc0Nk1USXpORFUyIgoJCX0KCX0KfQ==
-EOF
-```
-kubectl create -f harbor_secret.yaml
-```
     赋予可执行权限
 ```
 chmod +x springcloud-ci-k8s.sh
 ```
-### 16.2.8.测试持续集成微服务到docker中
+
+### 16.2.10.测试持续集成微服务到docker中
     为了更明显的查看本次测试效果,首先删除192.168.0.4中docker中在前面环节产生的镜像和容器
 
     访问项目主页,点击构建按钮
