@@ -4438,28 +4438,39 @@ http://192.168.0.5:8080/jenkins/pluginManager/
 	Publish Over SSH
 	Available->输入 Publish Over SSH->勾选 Publish Over SSH->Download now and install after restart->重启Jenkins
 
+	Gitee
+	Available->输入 Publish Over SSH->勾选 Gitee->Download now and install after restart->重启Jenkins
 ### 9.1.8.搭建内网穿透
+	<a href="https://natapp.cn/" target="_blank">官方网址</a>
+
 	下载natapp
+```
+curl -fL -u software-1662284787738:cc9dfefc17af854b540eca3609488d8cadea55b9 \
+"https://lingwh-generic.pkg.coding.net/coding-drive/software/natapp?version=latest" -o natapp
+```
+	或
 	登录 https://natapp.cn/ 后下载Linux64位版
 
 	注册账号，注意这里的端口就是我们我们要用到的jekins的端口，实名制认证后得到一个token(cce8e31a304892ea)
 
-	上传natapp到服务器
-	赋予 运行权限
-	chmod a+x natapp
+	赋予运行权限
+```
+chmod a+x natapp
+```
 
 	运行natapp
-	./natapp -authtoken=cce8e31a304892ea
-
+```
+./natapp -authtoken=cce8e31a304892ea
+```
 	运行成功后效果如下
 	Powered By NATAPP       Please visit https://natapp.cn
 	Tunnel Status			Online
 	Version             	2.3.9
-	Forwarding              http://2edv7s.natappfree.cc -> 127.0.0.1:8080
+	Forwarding              http://8sybmw.natappfree.cc -> 127.0.0.1:8080
 
 	使用内网穿透
 	启动本地Jenkins，访问地址为: http://192.168.0.5/jenkins，
-	内网穿透后公网访问Jenkins，访问地址为: http://2edv7s.natappfree.cc/jenkins
+	内网穿透后公网访问Jenkins，访问地址为: http://8sybmw.natappfree.cc/jenkins
 
 ## 9.2.使用Coding内网穿透搭建持续集成环境
 
@@ -4550,7 +4561,7 @@ wget http://dl.mycat.org.cn/1.6.7.3/20190828135747/Mycat-server-1.6.7.3-release-
 ```
 	上传到 /opt/software/package
 
-	解压到/user/local/bin
+	解压到/usr/local/bin
 ```
 tar -zxvf Mycat-server-1.6.7.3-release-20190828135747-linux.tar.gz -C /usr/local/bin
 ```
@@ -4704,7 +4715,7 @@ vim prototypeDs.datasource.json
 ### 10.2.6.启动和关闭mycat，默认端口8066
 	进入mycat安装目录
 ```
-cd /usr/local/bin/mycat
+cd /opt/software/install/mycat/bin
 ```
 
 	启动mycat
