@@ -3657,8 +3657,15 @@ ls -R log
 
     可以看到了生成了test环境的日志
 
-# 18.综合案例
-## 18.1.综合案例简介
+# 18.使用mycat提升数据库吞吐能力
+## 18.1.搭建mycat+mysql
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-10.搭建Mycat技术栈.html#_10-3-安装myact1-6" target="_blank">搭建mycat+mysql</a>
+## 18.2.配置mycat
+
+## 18.3.使用mycat
+    将原来application.yml中数据库的配置信息修改为mycat的连接信息
+# 19.综合案例
+## 19.1.综合案例简介
     综合案例会将前面所有章节提到的技术整合在一起,具体整合的技术有
     a.多环境相关配置
       多环境运行
@@ -3675,7 +3682,7 @@ ls -R log
       持续集成到Kubernetes
     e.更好的使用OpenFeign
       实现OpenFeign动态服务名称和动态URL调用
-## 18.2.在父工程pom.xml添加多环境配置
+## 19.2.在父工程pom.xml添加多环境配置
     如果父工程pom.xml已经添加了多环境相关的配置,则这一步骤可以省略,如没有添加,请在pom.xml中添加如下内容
 ```
 <!--定义多种开发环境:开始-->
@@ -3748,18 +3755,18 @@ ls -R log
 </profiles>
 <!--定义多种开发环境:结束-->
 ```
-## 18.3.搭建单节点版EUREKA注册中心
-### 18.3.1.章节内容简介
+## 19.3.搭建单节点版EUREKA注册中心
+### 19.3.1.章节内容简介
     为综合案例搭建单节点版的Eureka注册中心
-### 18.3.2.模块简介
+### 19.3.2.模块简介
     适用于生产环境的单节点版Eureka注册中心,启动端口: 7005
-### 18.3.3.模块目录结构
+### 19.3.3.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/tree.md"
-### 18.3.4.创建模块
+### 19.3.4.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-register-center-single-node7005的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-### 18.3.5.编写模块pom.xml
+### 19.3.5.编写模块pom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/pom.xml"
-### 18.3.6.编写模块配置文件
+### 19.3.6.编写模块配置文件
     dev环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/dev/application.yml"
@@ -3791,11 +3798,11 @@ ls -R log
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/test/application-test.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/resources/test/logback-custom.xml"
-### 18.3.7.编写模块config
+### 19.3.7.编写模块config
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
-### 18.3.8.编写模块主启动类
+### 19.3.8.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-register-center-single-node7005/src/main/java/org/openatom/springcloud/BasicSampleRegisterCcenterSingleNode7005.java"
-### 18.3.9.测试模块
+### 19.3.9.测试模块
     在浏览器中访问
 ```
 http://localhost:7005/
@@ -3803,17 +3810,17 @@ http://localhost:7005/
     看到如下界面代表搭建成功
 <img src="./images/eureka7001.png"  width="100%"/>
 
-## 18.4.搭建服务提供者第一个节点
-### 18.4.1.模块简介
+## 19.4.搭建服务提供者第一个节点
+### 19.4.1.模块简介
     为综合案例搭建服务提供者的第一个节点,启动端口: 8009
-### 18.4.2.模块目录结构
+### 19.4.2.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/tree.md"
-### 18.4.3.创建模块
+### 19.4.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-provider-cluster-node-payment8009的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-### 18.4.4.编写模块pom.xml
+### 19.4.4.编写模块pom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/pom.xml"
 /pom.xml"
-### 18.4.5.编写模块配置文件
+### 19.4.5.编写模块配置文件
     dev环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/dev/application.yml"
@@ -3853,28 +3860,28 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/test/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/resources/dev/mapper/PaymentMapper.xml"
-### 18.4.6.编写模块dao
+### 19.4.6.编写模块dao
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/dao/PaymentDao.java"
-### 18.4.7.编写模块service
+### 19.4.7.编写模块service
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/service/PaymentService.java"
-### 18.4.8.编写模块service实现类
+### 19.4.8.编写模块service实现类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
-### 18.4.9.编写模块config
+### 19.4.9.编写模块config
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
-### 18.4.10.编写模块controller
+### 19.4.10.编写模块controller
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/controller/PaymentController.java"
-### 18.4.11.编写模块主启动类
+### 19.4.11.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8009/src/main/java/org/openatom/springcloud/BasicSamplePaymentServiceProviderClusterNode8009.java"
-## 18.5.搭建服务提供者第二个节点
-### 18.5.1.模块简介
+## 19.5.搭建服务提供者第二个节点
+### 19.5.1.模块简介
     为综合案例搭建服务提供者的第二个节点,启动端口: 8010
-### 18.5.2.模块目录结构
+### 19.5.2.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/tree.md"
-### 18.5.3.创建模块
+### 19.5.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-provider-cluster-node-payment8010的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-### 18.5.4.编写模块pom.xml
+### 19.5.4.编写模块pom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/pom.xml"
-### 18.5.5.编写模块配置文件
+### 19.5.5.编写模块配置文件
     dev环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/dev/application.yml"
@@ -3914,28 +3921,28 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/test/logback-custom.xml"
     PaymentMapper.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/resources/dev/mapper/PaymentMapper.xml"
-### 18.5.6.编写模块dao
+### 19.5.6.编写模块dao
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/dao/PaymentDao.java"
-### 18.5.7.编写模块service
+### 19.5.7.编写模块service
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/service/PaymentService.java"
-### 18.5.8.编写模块service实现类
+### 19.5.8.编写模块service实现类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/service/impl/PaymentServiceImpl.java"
-### 18.5.9.编写模块config
+### 19.5.9.编写模块config
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
-### 18.5.10.编写模块controller
+### 19.5.10.编写模块controller
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/controller/PaymentController.java"
-### 18.5.11.编写模块主启动类
+### 19.5.11.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-provider-cluster-node-payment8010/src/main/java/org/openatom/springcloud/BasicSamplePaymentServiceProviderClusterNode8010.java"
-## 18.6.搭建服务消费者
-### 18.6.1.模块简介
+## 19.6.搭建服务消费者
+### 19.6.1.模块简介
     为综合案例搭建服务消费者,启动端口: 80
-### 18.6.2.模块目录结构
+### 19.6.2.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/tree.md"
-### 18.6.3.创建模块
+### 19.6.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-### 18.6.4.编写模块pom.xml
+### 19.6.4.编写模块pom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/pom.xml"
-### 18.6.5.编写模块配置文件
+### 19.6.5.编写模块配置文件
     dev环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/dev/application.yml"
@@ -3967,39 +3974,39 @@ http://localhost:7005/
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/test/application-test.yml"
     logback-custom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/resources/test/logback-custom.xml"
-### 18.6.6.编写模块service实现类
+### 19.6.6.编写模块service实现类
     PaymentServiceOpenFeign.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
     PaymentServiceOpenFeignDynamicFeignClientFactory.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeignDynamicFeignClientFactory.java"
-### 18.6.7.编写模块controller
+### 19.6.7.编写模块controller
     OrderConsumerController.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
     OrderConsumerControllerDynamicFeignClientFactory.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerControllerDynamicFeignClientFactory.java"
-### 18.6.8.编写模块config
+### 19.6.8.编写模块config
     VirtualIpConfig.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
     OpenFeignConfig.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
     DynamicFeignClientFactoryConfig.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/config/DynamicFeignClientFactoryConfig.java"
-### 18.6.9.编写模块interceptor
+### 19.6.9.编写模块interceptor
     FeignClientRequestInterceptor.java
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/interceptor/FeignClientRequestInterceptor.java"
-### 18.6.10.编写模块主启动类
+### 19.6.10.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80/src/main/java/org/openatom/springcloud/BasicSampleOrderServiceConsumerLoadBalanceOpenFeignConfiguration80.java"
 
-## 18.7.搭建SpringBootAdminServer
-### 18.7.1.模块简介
+## 19.7.搭建SpringBootAdminServer
+### 19.7.1.模块简介
     SpringBootAdmin的Server端,启动端口: 9004
-### 18.7.2.模块目录结构
+### 19.7.2.模块目录结构
 @import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/tree.md"
-### 18.7.3.创建模块
+### 19.7.3.创建模块
 	在父工程(springcloud-eureka)中创建一个名为springcloud-basic-sample-mointor-springboot-admin-server9004的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
-### 18.7.4.编写模块pom.xml
+### 19.7.4.编写模块pom.xml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/pom.xml"
-### 18.7.5.编写模块配置文件
+### 19.7.5.编写模块配置文件
     dev环境配置文件
     application.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/dev/application.yml"
@@ -4024,12 +4031,12 @@ http://localhost:7005/
     application-test.yml
 @import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/resources/test/application-test.yml"
 
-### 18.7.6.编写模块主启动类
+### 19.7.6.编写模块主启动类
 @import "./projects/springcloud-eureka/springcloud-basic-sample-mointor-springboot-admin-server9004/src/main/java/org/openatom/springcloud/BasicSampleMointorSpringBootAdmin9004.java"
 
-## 18.8.测试适用于生产环境的微服务
-### 18.8.1.测试多环境相关配置
-#### 18.8.1.1.测试多环境运行
+## 19.8.测试适用于生产环境的微服务
+### 19.8.1.测试多环境相关配置
+#### 19.8.1.1.测试多环境运行
     dev环境
 ```mermaid
 flowchart LR
@@ -4055,7 +4062,7 @@ http://localhost:7005/
 ```
 <img src="./images/eureka7005-test.png"  width="100%"/>
 
-#### 18.8.1.2.测试多环境打包
+#### 19.8.1.2.测试多环境打包
     dev环境
 ```mermaid
 flowchart LR
@@ -4091,7 +4098,7 @@ ls BOOT-INF/classes/
 application.yml  application-test.yml  logback-custom.xml  org
 ```
     只包含了application-test.yml这个多环境配置文件,其他的多环境配置配置都没有被包含进来
-### 18.8.2.测试微服务监控技术
+### 19.8.2.测试微服务监控技术
     启动相关服务
 ```mermaid
 flowchart LR
@@ -4111,10 +4118,10 @@ http://localhost:7005/
 <img src="./images/springbootadmin-server.png"  width="100%"/>
     可以看到SpringbootAdminServer中已经监控到了相关的服务,可以点击具体服务查看详细信息,这里不在继续做展示
 
-### 18.8.3.测试更完善的日志系统
+### 19.8.3.测试更完善的日志系统
 #### 18.8.3.1.测试输出日志到控制台
     在idea中启动项目时可以在控制台看到输出的日志,这个输出的日志的格式自定义的,不是使用的默认的格式,详细的日志格式查看logback-custom.xml,不同的环境输出的日志格式不一定相同,具体要看logback-custom.xml中针对具体的环境设置的格式
-#### 18.8.3.2.测试输出日志到文件
+#### 19.8.3.2.测试输出日志到文件
     在当前项目根目录执行命令
 ```
 ls -R log
@@ -4170,12 +4177,6 @@ ls -R log
     SPRINGCLOUD-BASIC-SAMPLE-REGISTER-CENTER-SINGLE-NODE7005-TEST-info-2022-08-30-index0.log
 
     查询出来的都是输出的文件的日志,输出日志到文件时和输出日志到控制台是一样的,不同的环境输出的日志格式不一定相同,具体要看logback-custom.xml中针对具体的环境设置的格式
-#### 18.8.3.2.测试推送日志到ELK中
+#### 19.8.3.2.测试推送日志到ELK中
     在192.168.0.5上搭建ELK
 详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank">Docker中安装ELK</a>
-
-
-        多环境推送到Docker
-    d.持续集成技术:
-        持续集成到Docker
-        持续集成到Kubernetes
