@@ -2362,8 +2362,8 @@ flowchart LR
     访问kibana-->点击左侧Discover
     点击左侧Discover-->在Create_Index_pattern输入springcloud-eureka-*
     在Create_Index_pattern输入springcloud-eureka-*-->点击Next_Step
-    点击Next_Step-->下拉框选择@timestap
-    下拉框选择@timestap-->点击Create_Index_Pattern
+    点击Next_Step-->X("下拉框选择@timestap")
+    X("下拉框选择@timestap")-->点击Create_Index_Pattern
     点击Create_Index_Pattern-->再次点击Discover
 ```
     注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作,可以看到kibana中展示出来了推送到elk中日志
