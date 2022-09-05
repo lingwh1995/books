@@ -2627,7 +2627,7 @@ cp springcloud-ci-docker80/target/springcloud-ci-docker80.jar springcloud-ci-doc
     在idea中打开docker的maven插件操作面板
 <img src="./images/idea-docker-maven-plugin-cidocker80.png"  width="100%"/>
 
-    制作Docker镜像
+    制作Docker镜像并上传镜像到docker
     点击docker:build
 
     上传镜像到docker后在docker中为该镜像创建容器并启动docker中的容器
@@ -2651,7 +2651,7 @@ http://192.168.0.4/ci/docker
 ```
 http://192.168.0.5:5000/harbor/projects
 ```
-    点击springcloud这个项目
+    点击springcloud-eureka这个项目
 <img src="./images/harbor-springcloud-eureka-cidocker80.png"  width="100%"/>
     可以看到当前模块微服务已经被推送到了harbor私服中
 
@@ -3149,7 +3149,7 @@ cp springcloud-ci-k8s80/target/springcloud-ci-k8s80.jar springcloud-ci-k8s80/doc
     在idea中打开docker的maven插件操作面板
 <img src="./images/idea-docker-maven-plugin-cik8s80.png"  width="100%"/>
 
-    制作Docker镜像
+    制作Docker镜像并上传镜像到docker制作Docker镜像
     点击docker:build
 
     上传镜像到docker后在docker中为该镜像创建容器并启动docker中的容器
@@ -3173,7 +3173,7 @@ http://192.168.0.4/ci/k8s
 ```
 http://192.168.0.5:5000/harbor/projects
 ```
-    点击springcloud这个项目
+    点击springcloud-eureka这个项目
 <img src="./images/harbor-springcloud-eureka-cik8s80.png"  width="100%"/>
     可以看到当前模块微服务已经被推送到了harbor私服中
 
@@ -3661,11 +3661,564 @@ ls -R log
 ## 18.1.搭建mycat+mysql
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-10.搭建Mycat技术栈.html#_10-3-安装myact1-6" target="_blank">搭建mycat+mysql</a>
 ## 18.2.配置mycat
+    autopartition-long.txt
+```
+0-5=0
+5-100M=1
+```
+    rule.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - - Licensed under the Apache License, Version 2.0 (the "License"); 
+	- you may not use this file except in compliance with the License. - You 
+	may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<!DOCTYPE mycat:rule SYSTEM "rule.dtd">
+<mycat:rule xmlns:mycat="http://io.mycat/">
+	<tableRule name="rule1">
+		<rule>
+			<columns>id</columns>
+			<algorithm>func1</algorithm>
+		</rule>
+	</tableRule>
 
+	<tableRule name="rule2">
+		<rule>
+			<columns>user_id</columns>
+			<algorithm>func1</algorithm>
+		</rule>
+	</tableRule>
+
+	<tableRule name="sharding-by-intfile">
+		<rule>
+			<columns>sharding_id</columns>
+			<algorithm>hash-int</algorithm>
+		</rule>
+	</tableRule>
+	<tableRule name="auto-sharding-long">
+		<rule>
+			<columns>id</columns>
+			<algorithm>rang-long</algorithm>
+		</rule>
+	</tableRule>
+	<tableRule name="mod-long">
+		<rule>
+			<columns>u_id</columns>
+			<algorithm>mod-long</algorithm>
+		</rule>
+	</tableRule>
+	<tableRule name="sharding-by-murmur">
+		<rule>
+			<columns>id</columns>
+			<algorithm>murmur</algorithm>
+		</rule>
+	</tableRule>
+	<tableRule name="crc32slot">
+		<rule>
+			<columns>id</columns>
+			<algorithm>crc32slot</algorithm>
+		</rule>
+	</tableRule>
+	<tableRule name="sharding-by-month">
+		<rule>
+			<columns>create_time</columns>
+			<algorithm>partbymonth</algorithm>
+		</rule>
+	</tableRule>
+	<tableRule name="latest-month-calldate">
+		<rule>
+			<columns>calldate</columns>
+			<algorithm>latestMonth</algorithm>
+		</rule>
+	</tableRule>
+
+	<tableRule name="auto-sharding-rang-mod">
+		<rule>
+			<columns>id</columns>
+			<algorithm>rang-mod</algorithm>
+		</rule>
+	</tableRule>
+
+	<tableRule name="jch">
+		<rule>
+			<columns>id</columns>
+			<algorithm>jump-consistent-hash</algorithm>
+		</rule>
+	</tableRule>
+
+	<function name="murmur"
+		class="io.mycat.route.function.PartitionByMurmurHash">
+		<property name="seed">0</property><!-- 默认是0 -->
+		<property name="count">2</property><!-- 要分片的数据库节点数量，必须指定，否则没法分片 -->
+		<property name="virtualBucketTimes">160</property><!-- 一个实际的数据库节点被映射为这么多虚拟节点，默认是160倍，也就是虚拟节点数是物理节点数的160倍 -->
+		<!-- <property name="weightMapFile">weightMapFile</property> 节点的权重，没有指定权重的节点默认是1。以properties文件的格式填写，以从0开始到count-1的整数值也就是节点索引为key，以节点权重值为值。所有权重值必须是正整数，否则以1代替 -->
+		<!-- <property name="bucketMapPath">/etc/mycat/bucketMapPath</property>
+			用于测试时观察各物理节点与虚拟节点的分布情况，如果指定了这个属性，会把虚拟节点的murmur hash值与物理节点的映射按行输出到这个文件，没有默认值，如果不指定，就不会输出任何东西 -->
+	</function>
+
+	<function name="crc32slot"
+			  class="io.mycat.route.function.PartitionByCRC32PreSlot">
+	</function>
+	<function name="hash-int"
+		class="io.mycat.route.function.PartitionByFileMap">
+		<property name="mapFile">partition-hash-int.txt</property>
+	</function>
+	<function name="rang-long"
+		class="io.mycat.route.function.AutoPartitionByLong">
+		<property name="mapFile">autopartition-long.txt</property>
+	</function>
+	<function name="mod-long" class="io.mycat.route.function.PartitionByMod">
+		<!-- how many data nodes -->
+		<property name="count">2</property>
+	</function>
+
+	<function name="func1" class="io.mycat.route.function.PartitionByLong">
+		<property name="partitionCount">8</property>
+		<property name="partitionLength">128</property>
+	</function>
+	<function name="latestMonth"
+		class="io.mycat.route.function.LatestMonthPartion">
+		<property name="splitOneDay">24</property>
+	</function>
+	<function name="partbymonth"
+		class="io.mycat.route.function.PartitionByMonth">
+		<property name="dateFormat">yyyy-MM-dd</property>
+		<property name="sBeginDate">2015-01-01</property>
+	</function>
+
+	<function name="rang-mod" class="io.mycat.route.function.PartitionByRangeMod">
+        	<property name="mapFile">partition-range-mod.txt</property>
+	</function>
+
+	<function name="jump-consistent-hash" class="io.mycat.route.function.PartitionByJumpConsistentHash">
+		<property name="totalBuckets">3</property>
+	</function>
+</mycat:rule>
+```
+    schema.xml
+```
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+
+	<schema name="mycat_logic_db" checkSQLschema="true" sqlMaxLimit="100">
+		<table name="tb_order" dataNode="dn1,dn2" primaryKey="id" rule="auto-sharding-long" />
+	</schema>
+
+	<dataNode name="dn1" dataHost="mysql8host1" database="mysql_real_db" />
+	<dataNode name="dn2" dataHost="mysql8host2" database="mysql_real_db" />
+
+	<dataHost name="mysql8host1" maxCon="1000" minCon="10" balance="0"
+			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1"  slaveThreshold="100">
+		<heartbeat>select user()</heartbeat>
+		<!--特别注意：数据库连接信息中所有的&全部替换为转移字符&amp;，否则xml解析会报错-->
+		<writeHost host="master" url="jdbc:mysql://192.168.0.7:3306?useSSL=false&amp;serverTimezone=UTC"
+			user="mycat"  password="Mysql123456_" />
+	</dataHost>
+
+
+	<dataHost name="mysql8host2" maxCon="1000" minCon="10" balance="0"
+			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1"  slaveThreshold="100">
+		<heartbeat>select user()</heartbeat>
+		<!--特别注意：数据库连接信息中所有的&全部替换为转移字符&amp;，否则xml解析会报错-->
+		<writeHost host="master" url="jdbc:mysql://192.168.0.8:3306?useSSL=false&amp;serverTimezone=UTC"
+			user="mycat"  password="Mysql123456_" />
+	</dataHost>
+</mycat:schema>
+```
+    server.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - - Licensed under the Apache License, Version 2.0 (the "License");
+	- you may not use this file except in compliance with the License. - You
+	may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0
+	- - Unless required by applicable law or agreed to in writing, software -
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the
+	License for the specific language governing permissions and - limitations
+	under the License. -->
+<!DOCTYPE mycat:server SYSTEM "server.dtd">
+<mycat:server xmlns:mycat="http://io.mycat/">
+	<system>
+		<property name="nonePasswordLogin">0</property> <!-- 0为需要密码登陆、1为不需要密码登陆 ,默认为0，设置为1则需要指定默认账户-->
+		<!--开启支持高版本mysql-->
+		<property name="useHandshakeV10">1</property>
+		<!--设置使用druid解析sql-->
+		<property name="defaultSqlParser">druidparser</property>
+		<property name="useSqlStat">0</property>  <!-- 1为开启实时统计、0为关闭 -->
+		<property name="useGlobleTableCheck">0</property>  <!-- 1为开启全加班一致性检测、0为关闭 -->
+			<property name="sqlExecuteTimeout">300</property>  <!-- SQL 执行超时 单位:秒-->
+			<property name="sequnceHandlerType">2</property>
+			<!--<property name="sequnceHandlerPattern">(?:(\s*next\s+value\s+for\s*MYCATSEQ_(\w+))(,|\)|\s)*)+</property>-->
+			<!--必须带有MYCATSEQ_或者 mycatseq_进入序列匹配流程 注意MYCATSEQ_有空格的情况-->
+			<property name="sequnceHandlerPattern">(?:(\s*next\s+value\s+for\s*MYCATSEQ_(\w+))(,|\)|\s)*)+</property>
+		<property name="subqueryRelationshipCheck">false</property> <!-- 子查询中存在关联查询的情况下,检查关联字段中是否有分片字段 .默认 false -->
+		  <!--  <property name="useCompression">1</property>--> <!--1为开启mysql压缩协议-->
+			<!--  <property name="fakeMySQLVersion">5.6.20</property>--> <!--设置模拟的MySQL版本号-->
+		<!-- <property name="processorBufferChunk">40960</property> -->
+
+		<!-- <property name="processors">1</property>--> 
+		<!-- <property name="processorExecutor">32</property><--> 
+
+        <!--默认为type 0: DirectByteBufferPool | type 1 ByteBufferArena | type 2 NettyBufferPool -->
+		<property name="processorBufferPoolType">0</property>
+		<!--默认是65535 64K 用于sql解析时最大文本长度 -->
+		<!--<property name="maxStringLiteralLength">65535</property>-->
+		<!--<property name="sequnceHandlerType">0</property>-->
+		<!--<property name="backSocketNoDelay">1</property>-->
+		<!--<property name="frontSocketNoDelay">1</property>-->
+		<!--<property name="processorExecutor">16</property>-->
+		<!--
+			<property name="serverPort">8066</property> <property name="managerPort">9066</property> 
+			<property name="idleTimeout">300000</property> <property name="bindIp">0.0.0.0</property>
+			<property name="dataNodeIdleCheckPeriod">300000</property> 5 * 60 * 1000L; //连接空闲检查
+			<property name="frontWriteQueueSize">4096</property> <property name="processors">32</property> -->
+		<!--分布式事务开关，0为不过滤分布式事务，1为过滤分布式事务（如果分布式事务内只涉及全局表，则不过滤），2为不过滤分布式事务,但是记录分布式事务日志-->
+		<property name="handleDistributedTransactions">0</property>
+
+			<!--
+			off heap for merge/order/group/limit      1开启   0关闭
+		-->
+		<property name="useOffHeapForMerge">0</property>
+
+		<!--
+			单位为m
+		-->
+        <property name="memoryPageSize">64k</property>
+
+		<!--
+			单位为k
+		-->
+		<property name="spillsFileBufferSize">1k</property>
+
+		<property name="useStreamOutput">0</property>
+
+		<!--
+			单位为m
+		-->
+		<property name="systemReserveMemorySize">384m</property>
+
+
+		<!--是否采用zookeeper协调切换  -->
+		<property name="useZKSwitch">false</property>
+
+		<!-- XA Recovery Log日志路径 -->
+		<!--<property name="XARecoveryLogBaseDir">./</property>-->
+
+		<!-- XA Recovery Log日志名称 -->
+		<!--<property name="XARecoveryLogBaseName">tmlog</property>-->
+		<!--如果为 true的话 严格遵守隔离级别,不会在仅仅只有select语句的时候在事务中切换连接-->
+		<property name="strictTxIsolation">false</property>
+
+		<property name="useZKSwitch">true</property>
+
+	</system>
+
+	<!-- 全局SQL防火墙设置 -->
+	<!--白名单可以使用通配符%或着*-->
+	<!--例如<host host="127.0.0.*" user="root"/>-->
+	<!--例如<host host="127.0.*" user="root"/>-->
+	<!--例如<host host="127.*" user="root"/>-->
+	<!--例如<host host="1*7.*" user="root"/>-->
+	<!--这些配置情况下对于127.0.0.1都能以root账户登录-->
+	<!--
+	<firewall>
+	   <whitehost>
+	      <host host="1*7.0.0.*" user="root"/>
+	   </whitehost>
+       <blacklist check="false">
+       </blacklist>
+	</firewall>
+	-->
+
+	<user name="root" defaultAccount="true">
+		<property name="password">123456</property>
+		<property name="schemas">mycat_logic_db</property>
+		<property name="defaultSchema">mycat_logic_db</property>
+		<!-- 表级 DML 权限设置 -->
+		<!--
+		<privileges check="false">
+			<schema name="TESTDB" dml="0110" >
+				<table name="tb01" dml="0000"></table>
+				<table name="tb02" dml="1111"></table>
+			</schema>
+		</privileges>
+		 -->
+	</user>
+
+	<user name="user">
+		<property name="password">user</property>
+		<property name="schemas">mycat_logic_db</property>
+		<property name="readOnly">true</property>
+	</user>
+
+</mycat:server>
+```
 ## 18.3.使用mycat
     将原来application.yml中数据库的配置信息修改为mycat的连接信息
+
 # 19.使用rancher管理docker和Kubernetes
 ## 19.1.使用rancher管理docker
+### 19.1.1.搭建rancher
+    在192.168.0.4上搭建rancher
+详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-5.搭建Rancher技术栈.html#_5-3-搭建rancher" target="_blank">搭建rancher</a>
+### 19.1.2.搭建用于测试使用rancher管理docker的微服务
+#### 19.1.2.1.模块简介
+    测试持续集成微服务到docker中使用到的微服务
+#### 19.1.2.2.模块目录结构
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/tree.md"
+#### 19.1.2.3.创建模块
+	在父工程(springcloud-eureka)中创建一个名为springcloud-ci-docker-rancher80的maven模块,注意:当前模块创建成功后,在父工程pom.xml中<modules></modules>中会自动生成有关当前模块的信息
+#### 19.1.2.4.编写模块pom.xml
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/pom.xml"
+#### 19.1.2.5.编写模块配置文件
+    application.yml
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/src/main/resources/application.yml"
+    logback-custom.xml
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/src/main/resources/logback-custom.xml"
+#### 19.1.2.6.编写模块controller
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/src/main/java/org/openatom/springcloud/controller/CiDockerRancherController.java"
+#### 19.1.2.7.编写模块config
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
+#### 19.1.2.8.编写模块主启动类
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/src/main/java/org/openatom/springcloud/CiDockerRancher80.java"
+#### 19.1.2.9.编写模块Dockerfile
+    注意:需要先在 项目根目录/springcloud-ci-docker-rancher80下创建docker文件夹
+@import "./projects/springcloud-eureka/springcloud-ci-docker-rancher80/docker/Dockerfile"
+### 19.1.3.配置rancher连接docker
+    访问rancher->点击右下角切换语言处切换为中文环境
+```
+http://192.168.0.4:9003/
+```
+<img src="./images/rancher-9003.png"  width="100%"/>
+
+    添加主机
+```mermaid
+flowchart LR
+    访问rancher-->点击基础架构
+    点击基础架构-->点击主机
+    点击主机-->点击添加主机
+    点击添加主机-->根据情况输入主机注册地址
+    根据情况输入主机注册地址-->点击保存
+```
+    在docker主机上注册rancher
+    上面步骤执行完成之后,复制弹出界面中第五步(将下列脚本拷贝到每一台主机上运行以注册 Rancher:)的代码到docker安装的主机上执行,执行完成后点击关闭按钮
+```
+sudo docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock \
+-v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.11 \
+http://192.168.0.4:9003/v1/scripts/9F1C7A21277B3BBB9357:1640908800000:wdp8qKpCKNvXMXY3IYsICf0ovk
+```
+### 19.1.4.配置rancher连接harbor使用的认证
+```mermaid
+flowchart LR
+    访问rancher-->点击基础架构
+    点击基础架构-->点击镜像库
+    点击镜像库-->点击Custom
+    点击Custom-->填写镜像库信息
+    填写镜像库信息-->点击创建
+```
+    镜像库信息
+    a.地址*
+    192.168.0.5:5000
+    b.用户名
+    admin
+    c.密码
+    123456
+<img src="./images/rancher-harbor-secret.png"  width="100%"/>
+
+### 19.1.5.使用docker的maven插件推送镜像到harbor
+    启动相关服务
+```mermaid
+flowchart LR
+    启动192.168.0.4上的docker-->启动192.168.0.5上的docker
+    启动192.168.0.5上的docker-->启动192.168.0.5上的harbor
+```
+
+    在项目根目录下执行打包命令
+```
+mvn clean install
+```
+
+    在项目根目录下执行复制生成的jar包到指定位置
+```
+cp springcloud-ci-docker80/target/springcloud-ci-docker-rancher80.jar springcloud-ci-docker-rancher80/docker
+```
+
+    在idea中打开docker的maven插件操作面板
+<img src="./images/idea-docker-maven-plugin-cidockerrancher80.png"  width="100%"/>
+
+    制作Docker镜像并上传镜像到docker制作Docker镜像
+    点击docker:build
+
+    在harbor私服中创建springcloud-eureka项目
+<img src="./images/harbor-springcloud-eureka.png"  width="100%"/>
+
+    推送到harbor私服
+    点击docker:build->点击docker:push
+    登录harbor私服查看刚才推送上去的的服务
+```
+http://192.168.0.5:5000/harbor/projects
+```
+    点击springcloud-eureka这个项目
+<img src="./images/harbor-springcloud-eureka-cidockerrancher80.png"  width="100%"/>
+    可以看到当前模块微服务已经被推送到了harbor私服中
+
+### 19.1.6.使用rancher管理docker容器
+#### 19.1.6.1.添加docker容器
+    访问rancher
+```
+http://192.168.0.4:9003/
+```
+    添加容器
+```mermaid
+flowchart LR
+    访问rancher-->点击基础架构
+    点击基础架构-->点击容器
+    点击容器-->点击添加容器
+```
+
+    填写容器信息
+    a.名称
+    springcloud-ci-docker-rancher80
+    b.选择镜像*
+    192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker-rancher80:latest
+    c.端口映射
+    公开主机端口 80
+    私有容器端口 80
+    协议 TCP
+<img src="./images/rancher-add-container-cidockerrancher80.png"  width="100%"/>
+
+    最后点击页面底部创建
+#### 19.1.6.2.测试使用rancher管理docker容器
+    浏览器访问
+```
+http://192.168.0.4/ci/docker/rancher
+```
+    返回结果
+```
+{"code":200,"message":"持续集成","data":"测试持续集成到Docker+测试Racnehr"}
+```
+
+### 19.1.7.使用rancher对应用进行扩容
+#### 19.1.7.1.添加应用
+    访问rancher
+```
+http://192.168.0.4:9003/
+```
+
+    添加应用
+```mermaid
+flowchart LR
+    访问rancher-->点击应用
+    点击应用-->点击添加应用
+    点击添加应用-->输入应用信息
+```
+
+    填写应用信息
+    a.名称
+    springcloud-eureka
+
+    进入界面后选择添加服务->填写容器信息
+    a.名称
+    springcloud-ci-docker-rancher80-plus
+    b.选择镜像*
+    192.168.0.5:5000/springcloud-eureka/springcloud-ci-docker-rancher80:latest
+    c.端口映射
+    特别注意: 这里不要配置端口映射
+#### 19.1.7.2.配置WebHooks
+    访问rancher
+```
+http://192.168.0.4:9003/
+```
+
+    添加接收器
+```mermaid
+flowchart LR
+    访问rancher-->点击API
+    点击API-->点击WebHooks
+    点击WebHooks-->点击添加接收器
+    点击添加接收器-->配置接收器信息
+    配置接收器信息-->点击创建
+```
+<img src="./images/rancher-manage-app.png"  width="100%"/>
+
+    点击创建后来到如下界面,点击复制按钮即可获取扩容触发api
+<img src="./images/rancher-manage-app-copy.png"  width="100%"/>
+
+#### 19.1.7.3.使用postman触发扩容
+    使用postman触发扩容(点击两次,注意:请求方式一定是post方式)
+<img src="./images/rancher-manage-app-postman.png"  width="100%"/>
+
+    查看扩容效果
+```mermaid
+flowchart LR
+    访问rancher-->点击基础架构
+    点击基础架构-->点击容器
+```
+    即可查看到应用已经扩容为三份,缩容不再演示,详细请参考扩容自动配置
+#### 19.1.7.4.为扩容后的应用添加负载均衡器
+    在刚才创建应用的时候,没有配置端口映射,外部是无法访问这个服务的,如果外部要访问这个服务,则要配置负载均衡器
+```mermaid
+flowchart LR
+    访问rancher-->点击应用
+    点击应用-->点击用户
+    点击用户-->点击springcloud-eureka
+    点击springcloud-eureka-->点击添加服务旁小三角
+    点击添加服务旁小三角-->点击添加负载均衡
+    点击添加负载均衡-->填写负载均衡配置
+    填写负载均衡配置-->点击创建
+```
+<img src="./images/rancher-manage-app-loadbalance.png"  width="100%"/>
+
+    在浏览器访问
+```
+http://192.168.0.4/ci/docker/rancher
+```
+
+    返回结果
+```
+{"code":200,"message":"持续集成","data":"测试持续集成到Docker+测试Racnehr"}
+```
+#### 19.1.7.5.查看扩容后每个节点的日志
+##### 19.1.7.5.1.在kibana为日志创建索引
+    访问kibana
+```
+http://192.168.0.5:5601/
+```
+<img src="./images/kibana.png"  width="100%"/>
+
+    为推送到ELK中的日志文件创建索引
+```mermaid
+flowchart LR
+    访问kibana-->点击左侧Discover
+    点击左侧Discover-->在Create_Index_pattern输入springcloud-eureka-*
+    在Create_Index_pattern输入springcloud-eureka-*-->点击Next_Step
+    点击Next_Step-->下拉框选择@timestap
+    下拉框选择@timestap-->点击Create_Index_Pattern
+    点击Create_Index_Pattern-->再次点击Discover
+```
+    注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作,可以看到kibana中展示出来了推送到elk中日志
+##### 19.1.7.5.2.获取扩容后节点的ip
+    查看服务所有节点详细信息
+```mermaid
+flowchart LR
+    访问rancher-->点击应用
+    点击应用-->点击用户
+    点击用户-->点击springcloud-eureka
+    点击springcloud-eureka-->点击springcloud-ci-docker-rancher80-plus
+```
+
+    可以看到扩容后所有节点的ip信息
+<img src="./images/rancher-manage-app-nodes.png"  width="100%"/>
+
+##### 19.1.7.5.3.查看日志
+    根据ip信息可以在kibana中过滤出不同节点的日志
+<img src="./images/rancher-manage-app-nodes-log.png"  width="100%"/>
+
 ## 19.2.使用rancher管理Kubernetes
 
 # 20.综合案例
@@ -4183,4 +4736,4 @@ ls -R log
     查询出来的都是输出的文件的日志,输出日志到文件时和输出日志到控制台是一样的,不同的环境输出的日志格式不一定相同,具体要看logback-custom.xml中针对具体的环境设置的格式
 #### 20.8.3.2.测试推送日志到ELK中
     在192.168.0.5上搭建ELK
-详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank">Docker中安装ELK</a>
+详细参考-> <a href="/blogs/environment/centos/centos7/centos7.html#_4-9-3-安装elk" target="_blank">docker中安装ELK</a>
