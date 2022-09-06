@@ -21,7 +21,7 @@ function downloadDependentCode() {
             #获取项目名称
             PROJECT_NAMES_STR=( $( parseIni ./enhance/bootstrap.ini markdown-$a projectNames) )
             PROJECT_NAMES_ARR=(`echo $PROJECT_NAMES_STR | tr ',' ' '` )
-            
+
             #获取文件相对路径
             MD_FILE_RELATIVE_PATH=( $( parseIni ./enhance/bootstrap.ini markdown-$a relativePath) )
 
