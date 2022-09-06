@@ -1285,9 +1285,9 @@ http://localhost:9001/hystrix
     监控服务消费端
 ```mermaid
 flowchart LR
-    访问Hystrix_DashBoard-->填写http://localhost/hystrix.stream
-    填写http://localhost/hystrix.stream-->点击Monitor_Stream
-    点击Monitor_Stream-->访问服务消费端任何一个服务
+    A("访问Hystrix DashBoard")-->填写http://localhost/hystrix.stream
+    填写http://localhost/hystrix.stream-->B("点击Monitor Stream")
+    B("点击Monitor Stream")-->访问服务消费端任何一个服务
 ```
     Hystrix DashBoard参数
 ```
@@ -1303,9 +1303,9 @@ http://localhost/consumer/payment/circuitbreaker/get/1
     监控服务提供端8003
 ```mermaid
 flowchart LR
-    访问Hystrix_DashBoard-->填写http://localhost:8003/hystrix.stream
-    填写http://localhost:8003/hystrix.stream-->点击Monitor_Stream
-    点击Monitor_Stream-->访问服务提供端8003任何一个服务
+    A("访问Hystrix DashBoard")-->填写http://localhost:8003/hystrix.stream
+    填写http://localhost:8003/hystrix.stream-->B("点击Monitor Stream")
+    B("点击Monitor Stream")-->访问服务提供端8003任何一个服务
 ```
     Hystrix DashBoard参数
 ```
@@ -4218,6 +4218,9 @@ flowchart LR
 ##### 19.1.7.5.3.查看日志
     根据ip信息可以在kibana中过滤出不同节点的日志
 <img src="./images/rancher-manage-app-nodes-log.png"  width="100%"/>
+
+#### 19.1.7.6.为rancher设计扩容缩容算法
+    使用java程序触发rancher的扩容或缩容,如根据时间节点扩容缩容,8:00-12:00这个时间范围内扩容,12:00-20:00这个时间内缩容,这只是一种思路,其他的更复杂的扩容缩容算法请自行根据业务设计
 
 ## 19.2.使用rancher管理Kubernetes
 
