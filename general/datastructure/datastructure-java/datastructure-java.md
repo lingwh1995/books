@@ -279,8 +279,8 @@ public class Person {
 ```mermaid
 classDiagram
     DaoSupport <|-- PersonServiceBean
-    DaoSupport: +save(Object object)
-    DaoSupport: +delete(Object object)
+    DaoSupport: +save(Object object) void
+    DaoSupport: +delete(Object object) void
     class PersonServiceBean{
     }
 ```
