@@ -1323,7 +1323,7 @@ http://localhost/consumer/payment/circuitbreaker/get/1
 flowchart LR
     A("访问Hystrix DashBoard-")->填写http://localhost:8004/hystrix.stream
     填写http://localhost:8004/hystrix.stream-->B("点击Monitor Stream")
-    B("点击Monitor Stream")-->访问服务提供端8003任何一个服务
+    B("点击Monitor Stream")-->访问服务提供端8003任意一个服务
 ```
     Hystrix DashBoard参数
 ```
@@ -1463,8 +1463,8 @@ http://localhost:9002/hystrix
 ```mermaid
 flowchart LR
     访问Turbine-->填写http://localhost:9002/turbine.stream
-    填写http://localhost:9002/turbine.stream-->点击Monitor_Stream
-    点击Monitor_Stream-->访问服务消费端任何一个服务
+    填写http://localhost:9002/turbine.stream-->A("点击Monitor Stream")
+    A("点击Monitor Stream")-->访问服务消费端任何一个服务
 ```
     Turbine参数
 ```
@@ -1817,7 +1817,7 @@ http://192.168.0.5:9411/zipkin/
 flowchart LR
     点击红色加号-->选择serviceName
     选择serviceName-->弹出框选择服务消费端
-    弹出框选择服务消费端-->点击RUN_QUERY
+    弹出框选择服务消费端-->A("点击RUN QUERY")
 ```
 <img src="./images/zipkin.png" width="100%"/>
 
@@ -2360,11 +2360,11 @@ http://192.168.0.5:5601/
 ```mermaid
 flowchart LR
     访问kibana-->点击左侧Discover
-    点击左侧Discover-->在Create_Index_pattern输入springcloud-eureka-*
-    在Create_Index_pattern输入springcloud-eureka-*-->点击Next_Step
-    点击Next_Step-->X("下拉框选择@timestap")
-    X("下拉框选择@timestap")-->点击Create_Index_Pattern
-    点击Create_Index_Pattern-->再次点击Discover
+    点击左侧Discover-->A("在Create Index pattern输入springcloud-eureka-*")
+    A("在Create Index pattern输入springcloud-eureka-*")-->B("点击Next Step")
+    B("点击Next Step")-->C("下拉框选择@timestap")
+    C("下拉框选择@timestap")-->D("点击Create Index Pattern")
+    D("点击Create Index Pattern")-->再次点击Discover
 ```
     注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作,可以看到kibana中展示出来了推送到elk中日志
 <img src="./images/kibana-springcloud-eureka.png"  width="100%"/>
@@ -4195,11 +4195,11 @@ http://192.168.0.5:5601/
 ```mermaid
 flowchart LR
     访问kibana-->点击左侧Discover
-    点击左侧Discover-->在Create_Index_pattern输入springcloud-eureka-*
-    在Create_Index_pattern输入springcloud-eureka-*-->点击Next_Step
-    点击Next_Step-->下拉框选择@timestap
-    下拉框选择@timestap-->点击Create_Index_Pattern
-    点击Create_Index_Pattern-->再次点击Discover
+    点击左侧Discover-->A("在Create Index pattern输入springcloud-eureka-*")
+    A("在Create Index pattern输入springcloud-eureka-*")-->B("点击Next Step")
+    B("点击Next Step")-->C("下拉框选择@timestap")
+    C("下拉框选择@timestap")-->D("点击Create Index Pattern")
+    D("点击Create Index Pattern")-->再次点击Discover
 ```
     注意:如果点击Discover没有显示日志,请确定ELK部署机器中的时区和时间是否正确,如果不正确,将时区和时间修改正确后再次启动项目,重新执行创建索引的操作,可以看到kibana中展示出来了推送到elk中日志
 ##### 19.1.7.5.2.获取扩容后节点的ip
