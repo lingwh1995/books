@@ -403,8 +403,8 @@ yum -y install libicu
 	下载fastGithub
 ```
 curl -fL -u fastgithub-1660864382041:5d8500249a7d3da57c34a3214397f54709cf55dc \
-"https://lingwh-generic.pkg.coding.net/coding-drive/fastgithub/v2.1.4/fastgithub_win-x64.zip?version=2.1.4" \
--o fastgithub_win-x64.zip
+"https://lingwh-generic.pkg.coding.net/coding-drive/fastgithub/v2.1.4/fastgithub_linux-x64.zip?version=2.1.4" \
+-o fastgithub_linux-x64.zip
 ```
 
     解压
@@ -414,7 +414,7 @@ unzip fastgithub_linux-x64.zip
 
 	设置权限
 ```
-chmod -r 777 fastgithub_linux-x64/dnscrypt-proxy &&
+chmod -R 777 fastgithub_linux-x64/dnscrypt-proxy &&
 chmod +x fastgithub_linux-x64/fastgithub
 ```
 
@@ -436,12 +436,10 @@ wget -c https://github.com/tanghaibao/goatools/blob/main/data/association.txt
 
 	配置git使用代理（不配置无法提交代码）
 ```
-git config --global http.proxy http://127.0.0.1:38457
+git config --global http.proxy http://127.0.0.1:38457 &&
 git config --global https.proxy http://127.0.0.1:38457
 ```
-
 ## 3.6.安装git
-
 ### 3.6.1.安装默认版本git
 	卸载旧版本
 ```
@@ -459,7 +457,13 @@ git version
 ### 3.6.2.安装指定版本git
 	下载需要安装的版本号
 ```
-wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.29.0.tar.gz
+https://mirrors.edge.kernel.org/pub/software/scm/git/
+```
+	或
+```
+curl -fL -u software-1662543378297:709127e14ec237057db48199b841a245c3ec9762 \
+"https://lingwh-generic.pkg.coding.net/coding-drive/software/git-2.29.0.tar.gz?version=latest" \
+-o git-2.29.0.tar.gz
 ```
 
     安装需要的组件
@@ -481,7 +485,7 @@ make prefix=/usr/local/git install
 ```
 	添加环境变量
 ```
-echo export PATH=$PATH:/usr/local/git/bin >> /etc/profile
+echo 'export PATH=$PATH:/usr/local/git/bin' >> /etc/profile
 ```
 
 	刷新环境变量
