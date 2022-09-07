@@ -15,6 +15,7 @@ function downloadDependentCode() {
     for((a=1;a<=$TOTAL_MD_COUNTS;a++))
     do
         CLONE_STATE=( $( parseIni ./enhance/bootstrap.ini markdown-$a clone) )
+        echo markdown-$a'的增强启用状态:'$CLONE_STATE
         #如果启用了增强该md，则继续执行下一步
         if [ $CLONE_STATE == "true" ]
         then

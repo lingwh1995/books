@@ -1,5 +1,7 @@
 springcloud-eureka
 |   |-- Jenkinsfile
+|   |-- JenkinsfileCiDocker
+|   |-- JenkinsfileCiK8s
 |   |-- payment.sql
 |   •-- seata.sql
 |-- springcloud-api-commons
@@ -18,7 +20,7 @@ springcloud-eureka
 |   |       •-- resources
 |   |           •-- application.yml
 |   •-- pom.xml
-|-- springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80
+|-- springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80
 |   |-- docker
 |   |   •-- Dockerfile
 |   |-- src
@@ -28,18 +30,19 @@ springcloud-eureka
 |   |       |       •-- openatom
 |   |       |           •-- springcloud
 |   |       |               |-- config
-|   |       |               |   |-- DynamicFeignClientFactory.java
-|   |       |               |   |-- FeignClientRequestInterceptor.java
+|   |       |               |   |-- DynamicFeignClientFactoryConfig.java
 |   |       |               |   |-- OpenFeignConfig.java
 |   |       |               |   •-- VirtualIpConfig.java
 |   |       |               |-- controller
 |   |       |               |   |-- OrderConsumerController.java
 |   |       |               |   |-- OrderConsumerControllerDynamicFeignClientFactory.java
 |   |       |               |   •-- SpringCloudServiceDiscoveryController.java
+|   |       |               |-- interceptor
+|   |       |               |   •-- FeignClientRequestInterceptor.java
 |   |       |               |-- service
 |   |       |               |   |-- PaymentServiceOpenFeign.java
 |   |       |               |   •-- PaymentServiceOpenFeignDynamicFeignClientFactory.java
-|   |       |               •-- OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java
+|   |       |               •-- BasicSampleOrderServiceConsumerLoadBalanceOpenFeignConfiguration80.java
 |   |       •-- resources
 |   |           |-- dev
 |   |           |   |-- application-dev.yml
@@ -57,6 +60,31 @@ springcloud-eureka
 |   |               |-- application-test.yml
 |   |               |-- application.yml
 |   |               •-- logback-custom.xml
+|   •-- pom.xml
+|-- springcloud-basic-sample-mointor-springboot-admin-server9004
+|   |-- src
+|   |   •-- main
+|   |       |-- java
+|   |       |   •-- org
+|   |       |       •-- openatom
+|   |       |           •-- springcloud
+|   |       |               |-- endpoint
+|   |       |               |   •-- CoustomEndpoint.java
+|   |       |               •-- BasicSampleMointorSpringBootAdmin9004.java
+|   |       •-- resources
+|   |           |-- dev
+|   |           |   |-- application-dev.yml
+|   |           |   •-- application.yml
+|   |           |-- prod
+|   |           |   |-- application-prod.yml
+|   |           |   |-- application.yml
+|   |           |   •-- logback-custom.xml
+|   |           |-- rancher
+|   |           |   |-- application-rancher.yml
+|   |           |   •-- application.yml
+|   |           •-- test
+|   |               |-- application-test.yml
+|   |               •-- application.yml
 |   •-- pom.xml
 |-- springcloud-basic-sample-provider-cluster-node-payment8009
 |   |-- docker
@@ -78,7 +106,7 @@ springcloud-eureka
 |   |       |               |   |-- impl
 |   |       |               |   |   •-- PaymentServiceImpl.java
 |   |       |               |   •-- PaymentService.java
-|   |       |               •-- PaymentServiceProviderClusterNode8009.java
+|   |       |               •-- BasicSamplePaymentServiceProviderClusterNode8009.java
 |   |       •-- resources
 |   |           |-- dev
 |   |           |   |-- mapper
@@ -125,7 +153,7 @@ springcloud-eureka
 |   |       |               |   |-- impl
 |   |       |               |   |   •-- PaymentServiceImpl.java
 |   |       |               |   •-- PaymentService.java
-|   |       |               •-- PaymentServiceProviderClusterNode8010.java
+|   |       |               •-- BasicSamplePaymentServiceProviderClusterNode8010.java
 |   |       •-- resources
 |   |           |-- dev
 |   |           |   |-- mapper
@@ -163,7 +191,7 @@ springcloud-eureka
 |   |       |           •-- springcloud
 |   |       |               |-- config
 |   |       |               |   •-- VirtualIpConfig.java
-|   |       |               •-- RegisterCcenterSingleNode7005.java
+|   |       |               •-- BasicSampleRegisterCcenterSingleNode7005.java
 |   |       •-- resources
 |   |           |-- dev
 |   |           |   |-- application-dev.yml
@@ -181,6 +209,54 @@ springcloud-eureka
 |   |               |-- application-test.yml
 |   |               |-- application.yml
 |   |               •-- logback-custom.xml
+|   •-- pom.xml
+|-- springcloud-ci-docker-rancher80
+|   |-- docker
+|   |   •-- Dockerfile
+|   |-- src
+|   |   •-- main
+|   |       |-- java
+|   |       |   •-- org
+|   |       |       •-- openatom
+|   |       |           •-- springcloud
+|   |       |               |-- config
+|   |       |               |   •-- VirtualIpConfig.java
+|   |       |               |-- controller
+|   |       |               |   •-- CiDockerRancherController.java
+|   |       |               •-- CiDockerRancher80.java
+|   |       •-- resources
+|   |           |-- application.yml
+|   |           •-- logback-custom.xml
+|   •-- pom.xml
+|-- springcloud-ci-docker80
+|   |-- docker
+|   |   •-- Dockerfile
+|   |-- src
+|   |   •-- main
+|   |       |-- java
+|   |       |   •-- org
+|   |       |       •-- openatom
+|   |       |           •-- springcloud
+|   |       |               |-- controller
+|   |       |               |   •-- CiDockerController.java
+|   |       |               •-- CiDocker80.java
+|   |       •-- resources
+|   |           •-- application.yml
+|   •-- pom.xml
+|-- springcloud-ci-k8s80
+|   |-- docker
+|   |   •-- Dockerfile
+|   |-- src
+|   |   •-- main
+|   |       |-- java
+|   |       |   •-- org
+|   |       |       •-- openatom
+|   |       |           •-- springcloud
+|   |       |               |-- controller
+|   |       |               |   •-- CiK8sController.java
+|   |       |               •-- CiK8s80.java
+|   |       •-- resources
+|   |           •-- application.yml
 |   •-- pom.xml
 |-- springcloud-config-apollo-loadbalance-openfeign-configuration-order80
 |   |-- src
@@ -260,6 +336,29 @@ springcloud-eureka
 |   |       •-- resources
 |   |           •-- application.yml
 |   •-- pom.xml
+|-- springcloud-consumer-loadbalance-openfeign-configuration-openfeign-senior-order80
+|   |-- src
+|   |   •-- main
+|   |       |-- java
+|   |       |   •-- org
+|   |       |       •-- openatom
+|   |       |           •-- springcloud
+|   |       |               |-- config
+|   |       |               |   |-- DynamicFeignClientFactoryConfig.java
+|   |       |               |   •-- OpenFeignConfig.java
+|   |       |               |-- controller
+|   |       |               |   |-- OrderConsumerController.java
+|   |       |               |   |-- OrderConsumerControllerDynamicFeignClientFactory.java
+|   |       |               |   •-- SpringCloudServiceDiscoveryController.java
+|   |       |               |-- interceptor
+|   |       |               |   •-- FeignClientRequestInterceptor.java
+|   |       |               |-- service
+|   |       |               |   |-- PaymentServiceOpenFeign.java
+|   |       |               |   •-- PaymentServiceOpenFeignDynamicFeignClientFactory.java
+|   |       |               •-- OrderServiceConsumerLoadBalanceOpenFeignDynamicServiceName80.java
+|   |       •-- resources
+|   |           •-- application.yml
+|   •-- pom.xml
 |-- springcloud-consumer-loadbalance-openfeign-configuration-ribbon-order80
 |   |-- src
 |   |   •-- main
@@ -277,6 +376,32 @@ springcloud-eureka
 |   |       |               •-- OrderServiceConsumerLoadBalanceOpenFeignConfigurationRibbon80.java
 |   |       •-- resources
 |   |           •-- application.yml
+|   •-- pom.xml
+|-- springcloud-consumer-loadbalance-openfeign-multiply-env-order80
+|   |-- src
+|   |   •-- main
+|   |       |-- java
+|   |       |   •-- org
+|   |       |       •-- openatom
+|   |       |           •-- springcloud
+|   |       |               |-- config
+|   |       |               |   |-- OpenFeignConfig.java
+|   |       |               |   •-- VirtualIpConfig.java
+|   |       |               |-- controller
+|   |       |               |   |-- OrderConsumerController.java
+|   |       |               |   •-- SpringCloudServiceDiscoveryController.java
+|   |       |               |-- service
+|   |       |               |   •-- PaymentServiceOpenFeign.java
+|   |       |               •-- OrderServiceConsumerLoadBalanceOpenFeignMultiplyEnv80.java
+|   |       •-- resources
+|   |           |-- dev
+|   |           |   |-- application-dev.yml
+|   |           |   |-- application.yml
+|   |           |   •-- logback-custom.xml
+|   |           •-- test
+|   |               |-- application-test.yml
+|   |               |-- application.yml
+|   |               •-- logback-custom.xml
 |   •-- pom.xml
 |-- springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80
 |   |-- src

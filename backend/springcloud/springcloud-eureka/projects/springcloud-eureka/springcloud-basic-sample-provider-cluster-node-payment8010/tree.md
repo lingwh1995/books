@@ -17,7 +17,7 @@ springcloud-basic-sample-provider-cluster-node-payment8010
 |       |               |   |-- impl
 |       |               |   |   •-- PaymentServiceImpl.java
 |       |               |   •-- PaymentService.java
-|       |               •-- PaymentServiceProviderClusterNode8010.java
+|       |               •-- BasicSamplePaymentServiceProviderClusterNode8010.java
 |       •-- resources
 |           |-- dev
 |           |   |-- mapper

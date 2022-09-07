@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * 使用系统自带的OpenFeignClient发起调用
  */
 @Component
-@FeignClient(name="SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER-DEV")
+@FeignClient(name="SPRINGCLOUD-BASIC-SAMPLE-PROVIDER-PAYMENT-SERVICE-CLUSTER")
 public interface PaymentServiceOpenFeign {
     @PostMapping(value = "/provider/payment/create")
     CommonResult create(@RequestBody Payment payment);

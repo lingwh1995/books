@@ -76,11 +76,17 @@
         <module>springcloud-provider-seata-storage8008</module>
         <module>springcloud-mointor-springboot-admin-server9003</module>
         <module>springcloud-basic-sample-register-center-single-node7005</module>
-        <module>springcloud-basic-sample-consumer-loadbalance-openfeign-dynamic-servicename-order80</module>
+        <module>springcloud-basic-sample-consumer-loadbalance-openfeign-configuration-order80</module>
         <module>springcloud-basic-sample-provider-cluster-node-payment8009</module>
         <module>springcloud-basic-sample-provider-cluster-node-payment8010</module>
         <module>springcloud-consumer-loadbalance-openfeign-springbootadmin-client-order80</module>
         <module>springcloud-consumer-loadbalance-openfeign-perfect-log-system-order80</module>
+        <module>springcloud-consumer-loadbalance-openfeign-multiply-env-order80</module>
+        <module>springcloud-consumer-loadbalance-openfeign-configuration-openfeign-senior-order80</module>
+        <module>springcloud-basic-sample-mointor-springboot-admin-server9004</module>
+        <module>springcloud-ci-docker80</module>
+        <module>springcloud-ci-k8s80</module>
+        <module>springcloud-ci-docker-rancher80</module>
     </modules>
     <!--引入所有模块：结束-->
 

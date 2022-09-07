@@ -17,7 +17,7 @@ springcloud-basic-sample-provider-cluster-node-payment8009
 |       |               |   |-- impl
 |       |               |   |   •-- PaymentServiceImpl.java
 |       |               |   •-- PaymentService.java
-|       |               •-- PaymentServiceProviderClusterNode8009.java
+|       |               •-- BasicSamplePaymentServiceProviderClusterNode8009.java
 |       •-- resources
 |           |-- dev
 |           |   |-- mapper

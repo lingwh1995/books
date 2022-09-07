@@ -9,7 +9,7 @@ springcloud-basic-sample-register-center-single-node7005
 |       |           •-- springcloud
 |       |               |-- config
 |       |               |   •-- VirtualIpConfig.java
-|       |               •-- RegisterCcenterSingleNode7005.java
+|       |               •-- BasicSampleRegisterCcenterSingleNode7005.java
 |       •-- resources
 |           |-- dev
 |           |   |-- application-dev.yml
