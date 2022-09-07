@@ -234,9 +234,10 @@ classDiagram
 ### 3.1.2.单一职责原则代码
 #### 3.1.2.1.不使用单一职责原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/single_reponsibility/SingleReponsibility1.java"
-#### 3.1.2.2.类级别单一职责原则代码
+#### 3.1.2.2.使用单一职责原则代码
+##### 3.1.2.2.1.类级别单一职责原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/single_reponsibility/SingleResponsibility2.java"
-#### 3.1.2.3.方法别单一职责原则代码
+##### 3.1.2.2.2.方法别单一职责原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/single_reponsibility/SingleResponsibility3.java"
 ## 3.2.接口隔离原则
 ### 3.2.1.接口隔离原则介绍
@@ -275,7 +276,8 @@ classDiagram
 ### 3.3.2.依赖倒转原则代码
 #### 3.3.2.1.不使用依赖倒转原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/dependenceinversion/NoUseDependenceDeliverTest.java"
-##### 3.3.2.2.1.依赖倒转原则初体验
+#### 3.3.2.2.使用依赖倒转原则代码
+##### 3.3.2.2.1.依赖倒转原则简单案例
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/dependenceinversion/UseDependenceDeliverTest.java"
 ##### 3.3.2.2.2.通过接口传递依赖
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/dependenceinversion/DependenceDeliver1.java"
