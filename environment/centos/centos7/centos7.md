@@ -353,11 +353,6 @@ flush privileges;
 ```
 
 ## 3.4.安装nodejs
-	安装wget
-```
-yum -y install wget
-```
-
 	安装gcc
 ```
 yum install gcc gcc-c++
@@ -375,12 +370,8 @@ mv node-v14.0.0-linux-x64 node
 ```
 	配置环境变量
 ```
-vi /etc/profile
-```
-在文件最后添加以下配置
-```
-export NODE_HOME=/root/node
-export PATH=$PATH:$NODE_HOME/bin
+echo 'export NODE_HOME=/root/node' >> /etc/profile &&
+echo 'export PATH=$PATH:$NODE_HOME/bin'  >> /etc/profile
 ```
 	刷新环境变量配置
 ```
@@ -436,8 +427,7 @@ wget -c https://github.com/tanghaibao/goatools/blob/main/data/association.txt
 
 	配置git使用代理（不配置无法提交代码）
 ```
-git config --global http.proxy http://127.0.0.1:38457 &&
-git config --global https.proxy http://127.0.0.1:38457
+
 ```
 	查看git config
 ```
