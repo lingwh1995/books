@@ -439,6 +439,10 @@ wget -c https://github.com/tanghaibao/goatools/blob/main/data/association.txt
 git config --global http.proxy http://127.0.0.1:38457 &&
 git config --global https.proxy http://127.0.0.1:38457
 ```
+	查看git config
+```
+git config --list
+```
 ## 3.6.安装git
 ### 3.6.1.安装默认版本git
 	卸载旧版本
