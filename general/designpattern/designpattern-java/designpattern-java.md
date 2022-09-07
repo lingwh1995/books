@@ -376,3 +376,7 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/compositereuse/CompositeReuse1.java"
 #### 3.7.2.2.使用合成复用原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/compositereuse/CompositeReuse2.java"
+
+# 3.创建型模式-1-单例模式
+# 4.创建型模式-2-工厂模式
+# 5.创建型模式-3-抽象工厂模式
