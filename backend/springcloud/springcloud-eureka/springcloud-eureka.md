@@ -3506,15 +3506,15 @@ http://192.168.0.4:9080/ci/k8s
 @import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/resources/test/logback-custom.xml"
 ## 17.7.编写模块config
     OpenFeignConfig.java
-@import "./projects/springcloud-eureka/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/config/OpenFeignConfig.java"
     VirtualIpConfig.java
-@import "./projects/springcloud-eureka/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/config/VirtualIpConfig.java"
 ## 17.8.编写模块service
-@import "./projects/springcloud-eureka/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/service/PaymentServiceOpenFeign.java"
 ## 17.9.编写模块controller
-@import "./projects/springcloud-eureka/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/controller/OrderConsumerController.java"
 ## 17.10.编写模块主启动类
-@import "./projects/springcloud-eureka/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignMultiplyEnv80.java"
+@import "./projects/springcloud-eureka/springcloud-consumer-loadbalance-openfeign-multiply-env-order80/src/main/java/org/openatom/springcloud/OrderServiceConsumerLoadBalanceOpenFeignMultiplyEnv80.java"
 ## 17.11.搭建Zipkin和ELK
     为了更完善的展示添加多环境后支持后,日志系统会针对不同的环境生成对应的日志,完整的日志系统需要Zipkin和ELK的支持,所以先搭建好Zipkin和ELK
     在192.168.0.5上搭建Zipkin
