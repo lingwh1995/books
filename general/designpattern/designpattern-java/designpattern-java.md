@@ -66,10 +66,12 @@ classDiagram
     PersonServiceBean ..> IDCard
     PersonServiceBean ..> Person
     PersonServiceBean ..> PersonDao
-    PersonServiceBean : -PersonDao personDao
-    PersonServiceBean: +save(Person person) void
-    PersonServiceBean: +getIDCard(Integer personId) IDCard
-    PersonServiceBean: +modify() void
+    class PersonServiceBean {
+        -PersonDao personDao
+        +save(Person person) void
+        +getIDCard(Integer personId) IDCard
+        +modify() void
+    }
     class Department{
     }
     class IDCard{
@@ -77,8 +79,6 @@ classDiagram
     class Person{
     }
     class PersonDao{
-    }
-    class PersonServiceBean{
     }
 ```
 ### 2.1.4.依赖关系代码
@@ -102,7 +102,9 @@ classDiagram
 ```mermaid
 classDiagram
     Person --> IDCard
-    Person : -IDCard card
+    class Person {
+        -IDCard card
+    }
     class IDCard{
     }
 ```
@@ -110,11 +112,11 @@ classDiagram
 ```mermaid
 classDiagram
     Person <--> IDCard
-    Person : -IDCard card
-    IDCard : -Person person
-    class IDCard{
+    class Person {
+        -IDCard card
     }
-    class Person{
+    class IDCard {
+        -Person person
     }
 ```
 ### 2.2.4.关联关系代码
@@ -138,12 +140,14 @@ classDiagram
 classDiagram
     Computer o-- Moniter
     Computer o-- Mouse
-    Computer : -Moniter moniter
-    Computer : -Mouse mouse
-    Computer: +getMoniter() Moniter
-    Computer: +setMoniter(Moniter moniter) void
-    Computer: +getMouse() Mouse
-    Computer: +setMouse(Mouse mouse) void
+    class Computer {
+        -Moniter moniter
+        -Mouse mouse
+        +setMoniter(Moniter moniter) void
+        +getMoniter() Moniter
+        +setMouse(Mouse mouse) void
+        +getMouse() Mouse
+    }
     class Moniter{
     }
     class Mouse{
@@ -166,8 +170,10 @@ classDiagram
 classDiagram
     Person *-- Head
     Person *-- Leg
-    Person : -Head head
-    Person : -Leg leg
+    class Person {
+        -Head head
+        -Leg leg
+    }
     class Head{
     }
     class Leg{
@@ -189,8 +195,10 @@ classDiagram
 ```mermaid
 classDiagram
     DaoSupport <|-- PersonServiceBean
-    DaoSupport: +save(Object object) void
-    DaoSupport: +delete(Object object) void
+    class DaoSupport {
+        +save(Object object) void
+        +delete(Object object) void
+    }
     class PersonServiceBean{
     }
 ```
@@ -208,8 +216,11 @@ classDiagram
 ```mermaid
 classDiagram
     PersonService <|.. PersonServiceBean
-    PersonService: +delete(Integer id) void
+    class PersonService {
+        +delete(Integer id) void
+    }
     class PersonServiceBean{
+        +delete(Integer id) void
     }
 ```
 ### 2.6.4.实现关系代码
@@ -404,7 +415,7 @@ classDiagram
 classDiagram
     Client ..> SingletonA
     class SingletonA {
-        -static final SingletonA SINGLETONA
+        -SingletonA SINGLETONA
         -SingletonA()
         +getInstance() SingletonA
     }
@@ -755,7 +766,10 @@ classDiagram
     class ConcreteProductC{
     }
     class SimpleFactory {
-        +factoryMethod Product
+        +factoryMethod(String productType) Product
+    }
+    class Client {
+        +simpleFactoryTest() void
     }
     <<abstract>> Product
 ```
@@ -777,7 +791,12 @@ classDiagram
 ### 5.3.1.1.PizzaStore类图
 ```mermaid
 classDiagram
+    Client ..> SimplePizzaStore
     Client ..> SimplePizzaFactory
+    Client ..> Pizza
+    Client ..> CheesePizza
+    Client ..> ClamPizza
+    Client ..> PepperoniPizza
     Pizza <|-- CheesePizza
     Pizza <|-- ClamPizza
     Pizza <|-- PepperoniPizza
@@ -788,13 +807,13 @@ classDiagram
     SimplePizzaStore ..> Pizza
     SimplePizzaStore ..> SimplePizzaFactory
     class CheesePizza{
-        -CheesePizza()
+        +CheesePizza()
     }
     class ClamPizza{
-        -ClamPizza()
+        +ClamPizza()
     }
     class PepperoniPizza {
-        -PepperoniPizza()
+        +PepperoniPizza()
     }
     class SimplePizzaFactory {
         +createPizza(String pizzaType) Pizza
@@ -803,6 +822,9 @@ classDiagram
         -SimplePizzaFactory simplePizzaFactory
         +setSimplePizzaFactory(SimplePizzaFactory simplePizzaFactory) void
         +orderPizza(String pizzaType) Pizza
+    }
+    class Client {
+        +simplePizzaFactoryTest() void
     }
     <<abstract>> Pizza
 ```
