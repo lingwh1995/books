@@ -425,9 +425,15 @@ sudo ./fastgithub_linux-x64/fastgithub stop
 wget -c https://github.com/tanghaibao/goatools/blob/main/data/association.txt
 ```
 
-	配置git使用代理（不配置无法提交代码）
+	配置git使用代理（不配置无法提交代码到github）
 ```
-
+git config --global http.proxy http://127.0.0.1:38457 &&
+git config --global https.proxy http://127.0.0.1:38457
+```
+	配置git取消代理
+```
+git config --global --unset http.proxy &&
+git config --global --unset https.proxy
 ```
 	查看git config
 ```
