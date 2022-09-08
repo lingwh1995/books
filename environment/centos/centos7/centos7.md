@@ -33,7 +33,7 @@ http://ftp.sjtu.edu.cn/centos/
 	VMware NetworkAdepter VMnet1：Host用于与Host-Only虚拟网络进行通信的虚拟网卡
 	VMware NetworkAdepter VMnet8：Host用于与NAT虚拟网络进行通信的虚拟网卡
 
-## 1.4.安装时分区大小设置
+## 1.4.安装时设置分区大小设置
 	/boot	/*存放系统启动引导文件，建议大小：512mb
 	/swap 	/*交换区，建议大小：2g
 	/*主分区，剩下的空间全部分给这个分区
