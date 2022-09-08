@@ -43,6 +43,9 @@
 
     行为型模式(共11种)
     模版方法模式、命令模式、迭代器模式、观察者模式、中介者模式、备忘录模式、解释器模式、状态模式、策略模式、职责链模式、访问者模式。
+
+    在Gof提出的23种设计模式之外,还有一些常用的模式
+    简单工厂模式/静态工厂模式
 # 2.类与类之间的六种关系
 ## 2.1.依赖关系
 ### 2.1.1.依赖关系概述
@@ -218,7 +221,7 @@ classDiagram
     泛化 = 实现 > 组合 > 聚合 > 关联 > 依赖
 
 # 3.设计模式七大原则
-## 3.1.单一职责原则
+## 3.1.单一职责原则SRP
 ### 3.1.1.单一职责原则介绍
     概述
     一个类应该只负责一项职责
@@ -239,7 +242,7 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/single_reponsibility/SingleResponsibility2.java"
 ##### 3.1.2.2.2.方法别单一职责原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/single_reponsibility/SingleResponsibility3.java"
-## 3.2.接口隔离原则
+## 3.2.接口隔离原则ISP
 ### 3.2.1.接口隔离原则介绍
     客户端不应该依赖它不需要的接口，即一个类对另一个类的依赖应该建立在最小的接口上
 ### 3.2.2.接口隔离原则代码
@@ -255,7 +258,7 @@ classDiagram
 
     Interface2Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/interface_segregation/Interface2Client.java"
-## 3.3.依赖倒转原则
+## 3.3.依赖倒转原则DIP
 ### 3.3.1.依赖倒转原则介绍
     概述
     a.高层模块不应该依赖底层模块,二者都应该依赖其抽象
@@ -285,7 +288,7 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/dependenceinversion/DependenceDeliver2.java"
 ##### 3.3.2.2.4.通过setter()方法传递依赖
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/dependenceinversion/DependenceDeliver3.java"
-## 3.4.里氏替换原则
+## 3.4.里氏替换原则LSP
 ### 3.4.1.里氏替换原则介绍
     概述
     里氏替换原则告诉我们,继承实际上让两个类耦合性增强了,在适当的情况下,可以通过聚合、组合、依赖来解决问题
@@ -303,7 +306,7 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/liskov_substitution/Liskov1.java"
 #### 3.4.2.2.使用里氏替换原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/liskov_substitution/Liskov2.java"
-## 3.5.开闭原则
+## 3.5.开闭原则OCP
 ### 3.5.1.开闭原则介绍
     概述
     对修改关闭,对扩展开放
@@ -318,15 +321,15 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/open_close/OCPTest1.java"
 #### 3.5.2.2.使用开闭原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/open_close/OCPTest2.java"
-## 3.6.迪米特法则
-### 3.6.1.迪米特法则介绍
+## 3.6.迪米特原则LoD
+### 3.6.1.迪米特原则介绍
     概述
     只与直接的朋友通信，最少知道原则,避免与非直接朋友的耦合,对自己依赖的类知道的越少越好,对于被依赖的类不管多复杂,都尽量将逻辑封在内部。需要注意的是降低类之间的耦合,只是减少不必要的耦合,并不是要求完全解除耦合
 
-    迪米特法则详细说明
+    迪米特原则详细说明
     a.一个对象应该对其他对象保持最少的了解
     b.类与类关系越密切,耦合度越大
-    c.迪米特法则又称最少知道原则,即一个类对自己依赖的类知道的越少越好,也就是说,对于被依赖的类不管多么复杂,都应该尽量将逻辑封装在类的内部,除了对外提供public方法之外,不对外泄露任何信息
+    c.迪米特原则又称最少知道原则,即一个类对自己依赖的类知道的越少越好,也就是说,对于被依赖的类不管多么复杂,都应该尽量将逻辑封装在类的内部,除了对外提供public方法之外,不对外泄露任何信息
     e.迪米特方法还有个更简单的定义: 只与直接朋友通信
         直接朋友:每个对象都会与其他对象有耦合关系,只要两个对象之间有耦合关系,我们就直接说这两个对象之间是朋友关系。耦合的方式有很多依赖、关联、组合、聚合，其中我们将出现在成员变量,方法参数,方法返回值这几个位置中类称为直接朋友,而出现在局部变量中的类不是直接朋友,也就是说,陌生的类最好不要以局部变量的方式出现在类的内部
 
@@ -356,12 +359,12 @@ classDiagram
             a.fun();
         }
     }
-### 3.6.2.迪米特法则代码
-#### 3.6.2.1.不使用迪米特法则代码
+### 3.6.2.迪米特原则代码
+#### 3.6.2.1.不使用迪米特原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/demeter/Demeter1.java"
-#### 3.6.2.2.使用迪米特法则代码
+#### 3.6.2.2.使用迪米特原则代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/principles/demeter/Demeter2.java"
-## 3.7.合成复用原则
+## 3.7.合成复用原则CARP
 ### 3.7.1.合成复用原则介绍
     概述
     尽量使用合成/聚合方法,避免使用继承
@@ -384,7 +387,7 @@ classDiagram
 ### 4.2.1.模型类图
 ```mermaid
 classDiagram
-    Client --> SingletonObject
+    Client ..> SingletonObject
     class SingletonObject {
         -SingletonObject instance
         -SingletonObject()
@@ -434,23 +437,56 @@ public class Runtime {
     private Runtime() {}
 }
 ```
-# 5.创建型模式-工厂模式
+# 5.创建型模式-简单工厂模式(Gof之外)
 ## 5.1.简介
+    简单工厂模式(SimpleFactory Pattern)是一种创建型设计模式,是设计模式中最为常见的模式之一,但是不是Gof提出的23中设计模式中的一种,更像是一种编程习惯。简单工厂模式是隐藏对象的实例化过程,对外部提供一个获取对象的方法,可以根据参数获取不同类型的对象,是工厂模式家族中最简单实用的模式,可以理解为是不同工厂模式的一个特殊实现。
 ## 5.2.模型
 ### 5.2.1.模型类图
+```mermaid
+classDiagram
+    Product <|-- ConcreteProductA
+    Product <|-- ConcreteProductB
+    Product <|-- ConcreteProductC
+    Client ..> SimpleFactory
+    SimpleFactory ..> Product
+    SimpleFactory ..> ConcreteProductA
+    SimpleFactory ..> ConcreteProductB
+    SimpleFactory ..> ConcreteProductC
+    class ConcreteProductA{
+    }
+    class ConcreteProductB{
+    }
+    class ConcreteProductC{
+    }
+```
 ### 5.2.2.模型代码
+    Product.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/Product.java"
+    ConcreteProductA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/ConcreteProductA.java"
+    ConcreteProductB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/ConcreteProductB.java"
+    ConcreteProductC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/ConcreteProductC.java"
+    SimpleFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/SimpleFactory.java"
+    Client.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/Client.java"
 ## 5.3.示例代码
 ## 5.4.经典应用场景
 ## 5.5.在开源框架中的应用场景
-# 6.创建型模式-抽象工厂模式
+# 6.创建型模式-工厂模式
 ## 6.1.简介
+    工厂模式(FactoryMethod Pattern)又称工厂方法模式(FactoryMethod Pattern)是一种创建型设计模式,
+简单工厂模式
+简单工厂模式，是设计模式中最为常见的模式之一。属于创建型模式，提供创建对象的最佳方式。工厂模式，顾名思义，一个模型，用来大规模的生产同类产品。该模式将对象的具体实例过程抽象化，并不关心具体的创建过程。通常，工厂模式被用来定义一个对象模型，之后，便可快速规模化实例化对象。
 ## 6.2.模型
 ### 6.2.1.模型类图
 ### 6.2.2.模型代码
 ## 6.3.示例代码
 ## 6.4.经典应用场景
 ## 6.5.在开源框架中的应用场景
-# 7.创建型模式-原型模式
+# 7.创建型模式-抽象工厂模式
 ## 7.1.简介
 ## 7.2.模型
 ### 7.2.1.模型类图
@@ -458,7 +494,7 @@ public class Runtime {
 ## 7.3.示例代码
 ## 7.4.经典应用场景
 ## 7.5.在开源框架中的应用场景
-# 8.创建型模式-建造者模式
+# 8.创建型模式-原型模式
 ## 8.1.简介
 ## 8.2.模型
 ### 8.2.1.模型类图
@@ -466,7 +502,7 @@ public class Runtime {
 ## 8.3.示例代码
 ## 8.4.经典应用场景
 ## 8.5.在开源框架中的应用场景
-# 9.结构型模式-适配器模式
+# 9.创建型模式-建造者模式
 ## 9.1.简介
 ## 9.2.模型
 ### 9.2.1.模型类图
@@ -474,7 +510,7 @@ public class Runtime {
 ## 9.3.示例代码
 ## 9.4.经典应用场景
 ## 9.5.在开源框架中的应用场景
-# 10.结构型模式-桥接模式
+# 10.结构型模式-适配器模式
 ## 10.1.简介
 ## 10.2.模型
 ### 10.2.1.模型类图
@@ -482,7 +518,7 @@ public class Runtime {
 ## 10.3.示例代码
 ## 10.4.经典应用场景
 ## 10.5.在开源框架中的应用场景
-# 11.结构型模式-装饰者模式
+# 11.结构型模式-桥接模式
 ## 11.1.简介
 ## 11.2.模型
 ### 11.2.1.模型类图
@@ -490,7 +526,7 @@ public class Runtime {
 ## 11.3.示例代码
 ## 11.4.经典应用场景
 ## 11.5.在开源框架中的应用场景
-# 12.结构型模式-组合模式
+# 12.结构型模式-装饰者模式
 ## 12.1.简介
 ## 12.2.模型
 ### 12.2.1.模型类图
@@ -498,7 +534,7 @@ public class Runtime {
 ## 12.3.示例代码
 ## 12.4.经典应用场景
 ## 12.5.在开源框架中的应用场景
-# 13.结构型模式-外观模式
+# 13.结构型模式-组合模式
 ## 13.1.简介
 ## 13.2.模型
 ### 13.2.1.模型类图
@@ -506,7 +542,7 @@ public class Runtime {
 ## 13.3.示例代码
 ## 13.4.经典应用场景
 ## 13.5.在开源框架中的应用场景
-# 14.结构型模式-享元模式
+# 14.结构型模式-外观模式
 ## 14.1.简介
 ## 14.2.模型
 ### 14.2.1.模型类图
@@ -514,7 +550,7 @@ public class Runtime {
 ## 14.3.示例代码
 ## 14.4.经典应用场景
 ## 14.5.在开源框架中的应用场景
-# 15.结构型模式-代理模式
+# 15.结构型模式-享元模式
 ## 15.1.简介
 ## 15.2.模型
 ### 15.2.1.模型类图
@@ -522,7 +558,7 @@ public class Runtime {
 ## 15.3.示例代码
 ## 15.4.经典应用场景
 ## 15.5.在开源框架中的应用场景
-# 16.行为型模式-模版方法模式
+# 16.结构型模式-代理模式
 ## 16.1.简介
 ## 16.2.模型
 ### 16.2.1.模型类图
@@ -530,7 +566,7 @@ public class Runtime {
 ## 16.3.示例代码
 ## 16.4.经典应用场景
 ## 16.5.在开源框架中的应用场景
-# 17.行为型模式-命令模式
+# 17.行为型模式-模版方法模式
 ## 17.1.简介
 ## 17.2.模型
 ### 17.2.1.模型类图
@@ -538,7 +574,7 @@ public class Runtime {
 ## 17.3.示例代码
 ## 17.4.经典应用场景
 ## 17.5.在开源框架中的应用场景
-# 18.行为型模式-迭代器模式
+# 18.行为型模式-命令模式
 ## 18.1.简介
 ## 18.2.模型
 ### 18.2.1.模型类图
@@ -546,7 +582,7 @@ public class Runtime {
 ## 18.3.示例代码
 ## 18.4.经典应用场景
 ## 18.5.在开源框架中的应用场景
-# 19.行为型模式-观察者模式
+# 19.行为型模式-迭代器模式
 ## 19.1.简介
 ## 19.2.模型
 ### 19.2.1.模型类图
@@ -554,7 +590,7 @@ public class Runtime {
 ## 19.3.示例代码
 ## 19.4.经典应用场景
 ## 19.5.在开源框架中的应用场景
-# 20.行为型模式-中介者模式
+# 20.行为型模式-观察者模式
 ## 20.1.简介
 ## 20.2.模型
 ### 20.2.1.模型类图
@@ -562,7 +598,7 @@ public class Runtime {
 ## 20.3.示例代码
 ## 20.4.经典应用场景
 ## 20.5.在开源框架中的应用场景
-# 21.行为型模式-备忘录模式
+# 21.行为型模式-中介者模式
 ## 21.1.简介
 ## 21.2.模型
 ### 21.2.1.模型类图
@@ -570,7 +606,7 @@ public class Runtime {
 ## 21.3.示例代码
 ## 21.4.经典应用场景
 ## 21.5.在开源框架中的应用场景
-# 22.行为型模式-解释器模式
+# 22.行为型模式-备忘录模式
 ## 22.1.简介
 ## 22.2.模型
 ### 22.2.1.模型类图
@@ -578,7 +614,7 @@ public class Runtime {
 ## 22.3.示例代码
 ## 22.4.经典应用场景
 ## 22.5.在开源框架中的应用场景
-# 23.行为型模式-状态模式
+# 23.行为型模式-解释器模式
 ## 23.1.简介
 ## 23.2.模型
 ### 23.2.1.模型类图
@@ -586,7 +622,7 @@ public class Runtime {
 ## 23.3.示例代码
 ## 23.4.经典应用场景
 ## 23.5.在开源框架中的应用场景
-# 24.行为型模式-策略模式
+# 24.行为型模式-状态模式
 ## 24.1.简介
 ## 24.2.模型
 ### 24.2.1.模型类图
@@ -594,7 +630,7 @@ public class Runtime {
 ## 24.3.示例代码
 ## 24.4.经典应用场景
 ## 24.5.在开源框架中的应用场景
-# 25.行为型模式-职责链模式
+# 25.行为型模式-策略模式
 ## 25.1.简介
 ## 25.2.模型
 ### 25.2.1.模型类图
@@ -602,7 +638,7 @@ public class Runtime {
 ## 25.3.示例代码
 ## 25.4.经典应用场景
 ## 25.5.在开源框架中的应用场景
-# 26.行为型模式-访问者模式
+# 26.行为型模式-职责链模式
 ## 26.1.简介
 ## 26.2.模型
 ### 26.2.1.模型类图
@@ -610,3 +646,11 @@ public class Runtime {
 ## 26.3.示例代码
 ## 26.4.经典应用场景
 ## 26.5.在开源框架中的应用场景
+# 27.行为型模式-访问者模式
+## 27.1.简介
+## 27.2.模型
+### 27.2.1.模型类图
+### 27.2.2.模型代码
+## 27.3.示例代码
+## 27.4.经典应用场景
+## 27.5.在开源框架中的应用场景
