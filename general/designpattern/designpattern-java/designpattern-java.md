@@ -397,11 +397,307 @@ classDiagram
 ```
 ### 4.2.2.模型代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/model/SingletonObject.java"
-## 4.3.示例代码
-    Singleton.java
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/Singleton.java"
+## 4.3.示例
+### 4.3.1.饿汉式单例
+### 4.3.1.1.饿汉式单例类图
+```mermaid
+classDiagram
+    Client ..> SingletonA
+    class SingletonA {
+        -static final SingletonA SINGLETONA
+        -SingletonA()
+        +getInstance() SingletonA
+    }
+    class Client {
+        +fun() void
+    }
+```
+### 4.3.1.2.饿汉式单例代码
+    SingletonA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonA.java"
     Client.java
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/Client.java"
+```java
+package com.dragonsoft.designpattern.create.singleton;
+
+import org.junit.Test;
+
+public class Client {
+	/**
+	 * 测试测试饿汉式单例
+	 */
+	@Test
+	public void fun() {
+		SingletonA instance1 = SingletonA.getInstance();
+		SingletonA instance2 = SingletonA.getInstance();
+		System.out.println(instance1 == instance2);
+		System.out.println("instance1.hashCode():"+instance1.hashCode());
+		System.out.println("instance2.hashCode():"+instance2.hashCode());
+	}
+}
+```
+### 4.3.2.懒汉式单例
+### 4.3.2.1.饿汉式单例类图
+```mermaid
+classDiagram
+    Client ..> SingletonB
+    class SingletonB {
+        -SingletonB SINGLETONA
+        -SingletonB()
+        +getInstance() SingletonB
+    }
+    class Client {
+        +fun1() void
+        +fun2() void
+    }
+```
+### 4.3.2.2.饿汉式单例代码
+    SingletonB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonB.java"
+    Client.java
+```java
+package com.dragonsoft.designpattern.create.singleton;
+
+import org.junit.Test;
+
+public class Client {
+	/**
+	 * 测试单线程测试懒汉式
+	 */
+	@Test
+	public void fun1() {
+		SingletonB instance1 = SingletonB.getInstance();
+		SingletonB instance2 = SingletonB.getInstance();
+		System.out.println(instance1 == instance2);
+		System.out.println("instance1.hashCode():"+instance1.hashCode());
+		System.out.println("instance2.hashCode():"+instance2.hashCode());
+	}
+
+	/**
+	 * 测试多线程测试线程不安全的懒汉式
+	 */
+	@Test
+	public void fun2() {
+		long begin = System.currentTimeMillis();
+		//多线程测试单例模式线程是否安全
+		Thread[] threads = new Thread[10000];
+        for(int i = 0;i<threads.length;i++){
+        	//创建线程
+        	threads[i] =
+				new Thread(new Runnable() {
+	    			@Override
+	    			public void run() {
+	    				SingletonB instance = SingletonB.getInstance();
+	    				System.out.println("instance.hashCode():"+instance.hashCode());
+	    			}
+	    		});
+        }
+        for(int i=0;i<threads.length;i++){
+        	threads[i].start();//线程启动
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("程序执行时间：" + (end-begin));
+	}
+}
+```
+### 4.3.3.线程安全的懒汉式单例
+### 4.3.3.1.线程安全的懒汉式类图
+```mermaid
+classDiagram
+    Client ..> SingletonC
+    class SingletonC {
+        -SingletonC SINGLETONA
+        -SingletonC()
+        +getInstance() SingletonC
+    }
+    class Client {
+        +fun() void
+    }
+```
+### 4.3.3.2.线程安全的懒汉式代码
+    SingletonC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonC.java"
+    Client.java
+```java
+package com.dragonsoft.designpattern.create.singleton;
+
+import org.junit.Test;
+
+public class Client {
+	/**
+	 * 测试多线程测试线程安全的懒汉式
+	 * 	方法级别的锁：实测执行效率并不是很低
+	 */
+	@Test
+	public void fun() {
+		long begin = System.currentTimeMillis();
+		//多线程测试单例模式线程是否安全
+		Thread[] threads = new Thread[10000];
+		for(int i = 0;i<threads.length;i++){
+			//创建线程
+			threads[i] =
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							SingletonC instance = SingletonC.getInstance();
+							System.out.println("instance.hashCode():"+instance.hashCode());
+						}
+					});
+		}
+		for(int i=0;i<threads.length;i++){
+			threads[i].start();//线程启动
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("程序执行时间：" + (end-begin));
+	}
+}
+```
+### 4.3.4.双重检索懒汉式懒汉式单例
+### 4.3.4.1.双重检索懒汉式单例类图
+```mermaid
+classDiagram
+    Client ..> SingletonD
+    class SingletonD {
+        -SingletonD SINGLETONA
+        -SingletonD()
+        +getInstance() SingletonD
+    }
+    class Client {
+        +fun() void
+    }
+```
+### 4.3.4.2.双重检索懒汉式单例代码
+    SingletonD.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonD.java"
+    Client.java
+```java
+package com.dragonsoft.designpattern.create.singleton;
+
+import org.junit.Test;
+
+public class Client {
+    	/**
+	 * 测试多线程测试静态双重检索线程安全的懒汉式
+	 * 	方法级别的锁：实测执行效率并不是很低
+	 */
+	@Test
+	public void fun() {
+		long begin = System.currentTimeMillis();
+		//多线程测试单例模式线程是否安全
+		Thread[] threads = new Thread[10000];
+		for(int i = 0;i<threads.length;i++){
+			//创建线程
+			threads[i] =
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							SingletonD instance = SingletonD.getInstance();
+							System.out.println("instance.hashCode():"+instance.hashCode());
+						}
+					});
+		}
+		for(int i=0;i<threads.length;i++){
+			threads[i].start();//线程启动
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("程序执行时间：" + (end-begin));
+	}
+}
+```
+### 4.3.5.静态内部类懒汉式单例
+### 4.3.5.1.静态内部类懒汉式单例类图
+```mermaid
+classDiagram
+    Client ..> SingletonE
+    SingletonE *-- SingletonInstacne :内部类
+    class SingletonE {
+        -SingletonE SINGLETONA
+        +getInstance() SingletonE
+    }
+    class SingletonInstacne {
+        -SingletonE INSTANCE
+    }
+    class Client {
+        +fun() void
+    }
+```
+### 4.3.5.2.静态内部类懒汉式单例代码
+    SingletonE.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonE.java"
+    Client.java
+```java
+package com.dragonsoft.designpattern.create.singleton;
+
+import org.junit.Test;
+
+public class Client {
+    /**
+	 * 测试多线程测试静态内部类线程安全的懒汉式
+	 *
+	 */
+	@Test
+	public void fun() {
+		long begin = System.currentTimeMillis();
+		//多线程测试单例模式线程是否安全
+		Thread[] threads = new Thread[10000];
+		for(int i = 0;i<threads.length;i++){
+			//创建线程
+			threads[i] =
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							SingletonE instance = SingletonE.getInstance();
+							System.out.println("instance.hashCode():"+instance.hashCode());
+						}
+					});
+		}
+		for(int i=0;i<threads.length;i++){
+			threads[i].start();//线程启动
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("程序执行时间：" + (end-begin));
+	}
+}
+```
+### 4.3.6.枚举单例
+### 4.3.6.1.枚举单例类图
+```mermaid
+classDiagram
+    Client ..> SingletonF
+    class SingletonF {
+        INSTANCE
+        +doSomething() void
+    }
+    class Client {
+        +fun() void
+    }
+    <<enumeration>> SingletonF
+```
+### 4.3.6.2.枚举单例代码
+    SingletonF.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonF.java"
+    Client.java
+```java
+package com.dragonsoft.designpattern.create.singleton;
+
+import org.junit.Test;
+
+public class Client {
+    /**
+	 * 测试枚举实现单例
+	 */
+	@Test
+	public void fun() {
+		SingletonF instance1 = SingletonF.INSTANCE;
+		SingletonF instance2 = SingletonF.INSTANCE;
+		System.out.println(instance1 == instance2);
+		System.out.println("instance1.hashCode():"+instance1.hashCode());
+		System.out.println("instance2.hashCode():"+instance2.hashCode());
+		//通过单例调用doSomething()
+		instance1.doSomething();
+		instance2.doSomething();
+	}
+}
+```
 ## 4.4.经典应用场景
     单例模式应用的场景一般发现在以下条件下
     资源共享的情况下: 避免由于资源操作时导致的性能或损耗等
@@ -444,10 +740,10 @@ public class Runtime {
 ### 5.2.1.模型类图
 ```mermaid
 classDiagram
+    Client ..> SimpleFactory
     Product <|-- ConcreteProductA
     Product <|-- ConcreteProductB
     Product <|-- ConcreteProductC
-    Client ..> SimpleFactory
     SimpleFactory ..> Product
     SimpleFactory ..> ConcreteProductA
     SimpleFactory ..> ConcreteProductB
@@ -458,6 +754,10 @@ classDiagram
     }
     class ConcreteProductC{
     }
+    class SimpleFactory {
+        +Product factoryMethod
+    }
+    <<abstract>> Product
 ```
 ### 5.2.2.模型代码
     Product.java
@@ -472,7 +772,10 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/SimpleFactory.java"
     Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/Client.java"
-## 5.3.示例代码
+## 5.3.示例
+### 5.3.1.PizzaStore
+### 5.3.1.1.PizzaStore类图
+### 5.3.1.2.PizzaStore代码
 ## 5.4.经典应用场景
 ## 5.5.在开源框架中的应用场景
 # 6.创建型模式-工厂模式
@@ -483,7 +786,7 @@ classDiagram
 ## 6.2.模型
 ### 6.2.1.模型类图
 ### 6.2.2.模型代码
-## 6.3.示例代码
+## 6.3.示例
 ## 6.4.经典应用场景
 ## 6.5.在开源框架中的应用场景
 # 7.创建型模式-抽象工厂模式
@@ -491,7 +794,7 @@ classDiagram
 ## 7.2.模型
 ### 7.2.1.模型类图
 ### 7.2.2.模型代码
-## 7.3.示例代码
+## 7.3.示例
 ## 7.4.经典应用场景
 ## 7.5.在开源框架中的应用场景
 # 8.创建型模式-原型模式
@@ -499,7 +802,7 @@ classDiagram
 ## 8.2.模型
 ### 8.2.1.模型类图
 ### 8.2.2.模型代码
-## 8.3.示例代码
+## 8.3.示例
 ## 8.4.经典应用场景
 ## 8.5.在开源框架中的应用场景
 # 9.创建型模式-建造者模式
@@ -507,7 +810,7 @@ classDiagram
 ## 9.2.模型
 ### 9.2.1.模型类图
 ### 9.2.2.模型代码
-## 9.3.示例代码
+## 9.3.示例
 ## 9.4.经典应用场景
 ## 9.5.在开源框架中的应用场景
 # 10.结构型模式-适配器模式
@@ -515,7 +818,7 @@ classDiagram
 ## 10.2.模型
 ### 10.2.1.模型类图
 ### 10.2.2.模型代码
-## 10.3.示例代码
+## 10.3.示例
 ## 10.4.经典应用场景
 ## 10.5.在开源框架中的应用场景
 # 11.结构型模式-桥接模式
@@ -523,7 +826,7 @@ classDiagram
 ## 11.2.模型
 ### 11.2.1.模型类图
 ### 11.2.2.模型代码
-## 11.3.示例代码
+## 11.3.示例
 ## 11.4.经典应用场景
 ## 11.5.在开源框架中的应用场景
 # 12.结构型模式-装饰者模式
@@ -531,7 +834,7 @@ classDiagram
 ## 12.2.模型
 ### 12.2.1.模型类图
 ### 12.2.2.模型代码
-## 12.3.示例代码
+## 12.3.示例
 ## 12.4.经典应用场景
 ## 12.5.在开源框架中的应用场景
 # 13.结构型模式-组合模式
@@ -539,7 +842,7 @@ classDiagram
 ## 13.2.模型
 ### 13.2.1.模型类图
 ### 13.2.2.模型代码
-## 13.3.示例代码
+## 13.3.示例
 ## 13.4.经典应用场景
 ## 13.5.在开源框架中的应用场景
 # 14.结构型模式-外观模式
@@ -547,7 +850,7 @@ classDiagram
 ## 14.2.模型
 ### 14.2.1.模型类图
 ### 14.2.2.模型代码
-## 14.3.示例代码
+## 14.3.示例
 ## 14.4.经典应用场景
 ## 14.5.在开源框架中的应用场景
 # 15.结构型模式-享元模式
@@ -555,7 +858,7 @@ classDiagram
 ## 15.2.模型
 ### 15.2.1.模型类图
 ### 15.2.2.模型代码
-## 15.3.示例代码
+## 15.3.示例
 ## 15.4.经典应用场景
 ## 15.5.在开源框架中的应用场景
 # 16.结构型模式-代理模式
@@ -563,7 +866,7 @@ classDiagram
 ## 16.2.模型
 ### 16.2.1.模型类图
 ### 16.2.2.模型代码
-## 16.3.示例代码
+## 16.3.示例
 ## 16.4.经典应用场景
 ## 16.5.在开源框架中的应用场景
 # 17.行为型模式-模版方法模式
@@ -571,7 +874,7 @@ classDiagram
 ## 17.2.模型
 ### 17.2.1.模型类图
 ### 17.2.2.模型代码
-## 17.3.示例代码
+## 17.3.示例
 ## 17.4.经典应用场景
 ## 17.5.在开源框架中的应用场景
 # 18.行为型模式-命令模式
@@ -579,7 +882,7 @@ classDiagram
 ## 18.2.模型
 ### 18.2.1.模型类图
 ### 18.2.2.模型代码
-## 18.3.示例代码
+## 18.3.示例
 ## 18.4.经典应用场景
 ## 18.5.在开源框架中的应用场景
 # 19.行为型模式-迭代器模式
@@ -587,7 +890,7 @@ classDiagram
 ## 19.2.模型
 ### 19.2.1.模型类图
 ### 19.2.2.模型代码
-## 19.3.示例代码
+## 19.3.示例
 ## 19.4.经典应用场景
 ## 19.5.在开源框架中的应用场景
 # 20.行为型模式-观察者模式
@@ -595,7 +898,7 @@ classDiagram
 ## 20.2.模型
 ### 20.2.1.模型类图
 ### 20.2.2.模型代码
-## 20.3.示例代码
+## 20.3.示例
 ## 20.4.经典应用场景
 ## 20.5.在开源框架中的应用场景
 # 21.行为型模式-中介者模式
@@ -603,7 +906,7 @@ classDiagram
 ## 21.2.模型
 ### 21.2.1.模型类图
 ### 21.2.2.模型代码
-## 21.3.示例代码
+## 21.3.示例
 ## 21.4.经典应用场景
 ## 21.5.在开源框架中的应用场景
 # 22.行为型模式-备忘录模式
@@ -611,7 +914,7 @@ classDiagram
 ## 22.2.模型
 ### 22.2.1.模型类图
 ### 22.2.2.模型代码
-## 22.3.示例代码
+## 22.3.示例
 ## 22.4.经典应用场景
 ## 22.5.在开源框架中的应用场景
 # 23.行为型模式-解释器模式
@@ -619,7 +922,7 @@ classDiagram
 ## 23.2.模型
 ### 23.2.1.模型类图
 ### 23.2.2.模型代码
-## 23.3.示例代码
+## 23.3.示例
 ## 23.4.经典应用场景
 ## 23.5.在开源框架中的应用场景
 # 24.行为型模式-状态模式
@@ -627,7 +930,7 @@ classDiagram
 ## 24.2.模型
 ### 24.2.1.模型类图
 ### 24.2.2.模型代码
-## 24.3.示例代码
+## 24.3.示例
 ## 24.4.经典应用场景
 ## 24.5.在开源框架中的应用场景
 # 25.行为型模式-策略模式
@@ -635,7 +938,7 @@ classDiagram
 ## 25.2.模型
 ### 25.2.1.模型类图
 ### 25.2.2.模型代码
-## 25.3.示例代码
+## 25.3.示例
 ## 25.4.经典应用场景
 ## 25.5.在开源框架中的应用场景
 # 26.行为型模式-职责链模式
@@ -643,7 +946,7 @@ classDiagram
 ## 26.2.模型
 ### 26.2.1.模型类图
 ### 26.2.2.模型代码
-## 26.3.示例代码
+## 26.3.示例
 ## 26.4.经典应用场景
 ## 26.5.在开源框架中的应用场景
 # 27.行为型模式-访问者模式
@@ -651,6 +954,6 @@ classDiagram
 ## 27.2.模型
 ### 27.2.1.模型类图
 ### 27.2.2.模型代码
-## 27.3.示例代码
+## 27.3.示例
 ## 27.4.经典应用场景
 ## 27.5.在开源框架中的应用场景
