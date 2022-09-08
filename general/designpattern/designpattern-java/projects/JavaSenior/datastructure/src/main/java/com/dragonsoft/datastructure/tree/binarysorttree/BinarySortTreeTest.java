@@ -1,4 +1,4 @@
-package com.dragonsoft.datastructure.tree.binarysortedtree;
+package com.dragonsoft.datastructure.tree.binarysorttree;
 
 import org.junit.Test;
 
@@ -8,12 +8,12 @@ import org.junit.Test;
  * 			3				10
  * 		1		5		9			12
  */
-public class BinarySortedTreeTest {
+public class BinarySortTreeTest {
 	
 	@Test
 	public void fun() {
 		int[] arr = {7,3,10,12,5,1,9};
-        BinarySortedTree binarySortTree = new BinarySortedTree();
+        BinarySortTree binarySortTree = new BinarySortTree();
         for (int i = 0; i < arr.length; i++) {
             binarySortTree.add(new Node(arr[i]));
         }

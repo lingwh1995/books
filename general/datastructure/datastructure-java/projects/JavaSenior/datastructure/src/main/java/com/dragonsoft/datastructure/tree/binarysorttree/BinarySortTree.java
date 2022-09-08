@@ -1,9 +1,9 @@
-package com.dragonsoft.datastructure.tree.binarysortedtree;
+package com.dragonsoft.datastructure.tree.binarysorttree;
 
 /**
  * 二叉排序树(BST)
  */
-public class BinarySortedTree {
+public class BinarySortTree {
     private Node root;
 
     /**
@@ -29,10 +29,7 @@ public class BinarySortedTree {
     }
 
     /**
-     * 删除节点:三种情况
-     * 	1.删除叶子节点
-     *  2.删除只有一颗子树的叶子节点
-     *  3.删除有两颗子树的节点
+     * 删除节点
      */
     public void delNode(int value){
         if(root == null){
@@ -44,7 +41,7 @@ public class BinarySortedTree {
             if(targetNode == null){
                 return;
             }
-            //如果我们发现当前这颗二叉排序树只有一个节点,这个节点就是root节点
+            //如果我们发现当前这颗二叉排序树只有一个节点
             if(root.left == null && root.right == null){
                 root = null;
                 return;
