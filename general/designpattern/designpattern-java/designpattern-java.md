@@ -755,7 +755,7 @@ classDiagram
     class ConcreteProductC{
     }
     class SimpleFactory {
-        +Product factoryMethod
+        +factoryMethod Product
     }
     <<abstract>> Product
 ```
@@ -775,6 +775,37 @@ classDiagram
 ## 5.3.示例
 ### 5.3.1.PizzaStore
 ### 5.3.1.1.PizzaStore类图
+```mermaid
+classDiagram
+    Client ..> SimplePizzaFactory
+    Pizza <|-- CheesePizza
+    Pizza <|-- ClamPizza
+    Pizza <|-- PepperoniPizza
+    SimplePizzaFactory ..> Pizza
+    SimplePizzaFactory ..> CheesePizza
+    SimplePizzaFactory ..> ClamPizza
+    SimplePizzaFactory ..> PepperoniPizza
+    SimplePizzaStore ..> Pizza
+    SimplePizzaStore ..> SimplePizzaFactory
+    class CheesePizza{
+        -CheesePizza()
+    }
+    class ClamPizza{
+        -ClamPizza()
+    }
+    class PepperoniPizza {
+        -PepperoniPizza()
+    }
+    class SimplePizzaFactory {
+        +createPizza(String pizzaType) Pizza
+    }
+    class SimplePizzaStore {
+        -SimplePizzaFactory simplePizzaFactory
+        +setSimplePizzaFactory(SimplePizzaFactory simplePizzaFactory) void
+        +orderPizza(String pizzaType) Pizza
+    }
+    <<abstract>> Pizza
+```
 ### 5.3.1.2.PizzaStore代码
 ## 5.4.经典应用场景
 ## 5.5.在开源框架中的应用场景
