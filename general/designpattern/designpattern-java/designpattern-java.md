@@ -829,6 +829,20 @@ classDiagram
     <<abstract>> Pizza
 ```
 ### 5.3.1.2.PizzaStore代码
+    Pizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/Pizza.java"
+    CheesePizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/CheesePizza.java"
+    ClamPizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/ClamPizza.java"
+    PepperoniPizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/PepperoniPizza.java"
+    SimplePizzaFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/SimplePizzaFactory.java"
+    SimplePizzaStore.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/SimplePizzaStore.java"
+    Client.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/Client.java"
 ## 5.4.经典应用场景
 ## 5.5.在开源框架中的应用场景
 # 6.创建型模式-工厂模式
