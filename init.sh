@@ -29,7 +29,7 @@ function downloadDependentCode() {
             #获取git仓库的地址
             GIT_REPOSITORY_URLS_STR=( $( parseIni ./enhance/bootstrap.ini markdown-$a gitRepositoryUrls) )
             GIT_REPOSITORY_URLS_ARR=(`echo $GIT_REPOSITORY_URLS_STR | tr ',' ' '` )
-            
+
             for((i=0;i<${#PROJECT_NAMES_ARR[@]};i++));
             do
                 PROJECT_NAME=${PROJECT_NAMES_ARR[i]}
