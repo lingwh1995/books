@@ -818,12 +818,11 @@ classDiagram
     Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/Client.java"
 ## 5.6.示例
-### 5.6.1.PizzaStore
-### 5.6.1.1.PizzaStore类图
+### 5.6.1.PizzaFactory
+### 5.6.1.1.PizzaFactory类图
 ```mermaid
 classDiagram
-    Client ..> SimplePizzaStore
-    Client ..> SimplePizzaFactory
+    Client ..> PizzaFactory
     Client ..> Pizza
     Client ..> CheesePizza
     Client ..> ClamPizza
@@ -831,12 +830,10 @@ classDiagram
     Pizza <|-- CheesePizza
     Pizza <|-- ClamPizza
     Pizza <|-- PepperoniPizza
-    SimplePizzaFactory ..> Pizza
-    SimplePizzaFactory ..> CheesePizza
-    SimplePizzaFactory ..> ClamPizza
-    SimplePizzaFactory ..> PepperoniPizza
-    SimplePizzaStore ..> Pizza
-    SimplePizzaStore ..> SimplePizzaFactory
+    PizzaFactory ..> Pizza
+    PizzaFactory ..> CheesePizza
+    PizzaFactory ..> ClamPizza
+    PizzaFactory ..> PepperoniPizza
     class Pizza {
         String name
 	    String dough
@@ -857,20 +854,16 @@ classDiagram
     class PepperoniPizza {
         +PepperoniPizza()
     }
-    class SimplePizzaFactory {
+    class PizzaFactory {
         +createPizza(String pizzaType) Pizza
-    }
-    class SimplePizzaStore {
-        -SimplePizzaFactory simplePizzaFactory
-        +setSimplePizzaFactory(SimplePizzaFactory simplePizzaFactory) void
         +orderPizza(String pizzaType) Pizza
     }
     class Client {
-        +simplePizzaFactoryTest() void
+        +fun() void
     }
     <<abstract>> Pizza
 ```
-### 5.6.1.2.PizzaStore代码
+### 5.6.1.2.PizzaFactory代码
     Pizza.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/Pizza.java"
     CheesePizza.java
@@ -879,10 +872,8 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/ClamPizza.java"
     PepperoniPizza.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/PepperoniPizza.java"
-    SimplePizzaFactory.java
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/SimplePizzaFactory.java"
-    SimplePizzaStore.java
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/SimplePizzaStore.java"
+    PizzaFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/PizzaFactory.java"
     Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/Client.java"
 
@@ -959,10 +950,12 @@ public static Calendar getInstance(TimeZone zone,
     b.客户端知道它所要创建对象的类(产品类),但不关心如何创建的时候
 ## 6.3.优缺点
 ### 6.3.1.优点
-    a.可以一定程度上解耦,消费者和产品实现类隔离开,只依赖产品接口(抽象产品),产品实现类如何改动与客户端完全无关
-    b.可以一定程度增加扩展性,若增加一个产品实现,只需要实现产品接口,修改工厂创建产品的方法,客户端可以无感知(若客户端不关心具体产品是什么的情况)
-    c.可以一定程度增加代码的封装性、可读性。清楚的代码结构,对于客户端者来说很少的代码量,就可以完成很多工作
+    a.使用工厂方法用来创建客户所需要的产品,隐藏了具体产品类的实例化过程,用户只需要关心所需产品对应的工厂,无须关心创建细节,甚至无须知道具体产品类的类名
+    b.加入新产品时,无须修改抽象工厂和抽象产品提供的接口,无须修改客户端,也无须修改其他的具体工厂和具体产品,而只要添加一个具体工厂和具体产品就可以了。增加了系统的可扩展性,符合OCP开闭原则
+    c.每个产品都对应一个工厂,所以可以在这个产品对应的工厂中更为细致的控制产品的创建过程,而不会影响到其他的产品
 ### 6.3.2.缺点
+    a.每增加一个新产品,都需要编写新的具体产品类,而且还要提供与之对应的具体工厂类,这样系统中类的个数将成对增加,在一定程度上增加了系统的复杂度,有更多的类需要编译和运行,会给系统带来一些额外的开销。
+    b.由于考虑到系统的可扩展性,需要引入抽象层,在客户端代码中均使用抽象层进行定义,增加了系统的抽象性和理解难度,进而增加了系统的实现难度。
 ## 6.4.角色及其职责
     Product(抽象产品)
     工厂类所创建的所有对象的父类,封装了产品对象的公共方法,所有的具体产品为其子类对象
@@ -1043,54 +1036,57 @@ classDiagram
     Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/Client.java"
 ## 6.6.示例
-    Client ..> SimplePizzaStore
-    Client ..> SimplePizzaFactory
-    Client ..> Pizza
-    Client ..> CheesePizza
-    Client ..> ClamPizza
-    Client ..> PepperoniPizza
-    Pizza <|-- CheesePizza
-    Pizza <|-- ClamPizza
-    Pizza <|-- PepperoniPizza
-    SimplePizzaFactory ..> Pizza
-    SimplePizzaFactory ..> CheesePizza
-    SimplePizzaFactory ..> ClamPizza
-    SimplePizzaFactory ..> PepperoniPizza
-    SimplePizzaStore ..> Pizza
-    SimplePizzaStore ..> SimplePizzaFactory
-    class Pizza {
-        String name
-	    String dough
-	    String sauce
-	    ArrayList<String> toppings
-	    +prepare() void
-	    +bake() void
-	    +cut() void
-	    +box() void
-        +getName() String
-	    +toString() String
+### 6.6.1.PizzaStore
+### 6.6.1.1.PizzaStore类图
+```mermaid
+classDiagram
+    Client ..> Product
+    Client ..> Factory
+    Client ..> ConcreteProductA
+    Client ..> ConcreteProductB
+    Client ..> ConcreteProductC
+    Client ..> ConcreteFactoryA
+    Client ..> ConcreteFactoryB
+    Client ..> ConcreteFactoryC
+    ConcreteFactoryA ..> Product
+    ConcreteFactoryA ..> ConcreteProductA
+    ConcreteFactoryB ..> Product
+    ConcreteFactoryB ..> ConcreteProductB
+    ConcreteFactoryC ..> Product
+    ConcreteFactoryC ..> ConcreteProductC
+    Product <|-- ConcreteProductA
+    Product <|-- ConcreteProductB
+    Product <|-- ConcreteProductC
+    Factory <|-- ConcreteFactoryA
+    Factory <|-- ConcreteFactoryB
+    Factory <|-- ConcreteFactoryC
+    Factory ..> Product
+    class Product {
     }
-    class CheesePizza{
-        +CheesePizza()
+    class ConcreteProductA {
     }
-    class ClamPizza{
-        +ClamPizza()
+    class ConcreteProductB {
     }
-    class PepperoniPizza {
-        +PepperoniPizza()
+    class ConcreteProductC {
     }
-    class SimplePizzaFactory {
-        +createPizza(String pizzaType) Pizza
+    class Factory {
+        +factoryMethod()* Product
     }
-    class SimplePizzaStore {
-        -SimplePizzaFactory simplePizzaFactory
-        +setSimplePizzaFactory(SimplePizzaFactory simplePizzaFactory) void
-        +orderPizza(String pizzaType) Pizza
+    class ConcreteFactoryA {
+        +factoryMethod() Product
+    }
+    class ConcreteFactoryB {
+        +factoryMethod() Product
+    }
+    class ConcreteFactoryC {
+        +factoryMethod() Product
     }
     class Client {
-        +simplePizzaFactoryTest() void
+        +fun() void
     }
-    <<abstract>> Pizza
+    <<abstract>> Product
+    <<abstract>> Factory
+```
 ## 6.7.在开源框架中的应用
 # 7.创建型模式-抽象工厂模式
 ## 7.1.简介
