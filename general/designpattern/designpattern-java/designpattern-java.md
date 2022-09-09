@@ -1024,6 +1024,24 @@ classDiagram
     <<abstract>> Factory
 ```
 ### 6.5.2.模型代码
+    Product.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/Product.java"
+    ConcreteProductA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteProductA.java"
+    ConcreteProductB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteProductB.java"
+    ConcreteProductC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteProductC.java"
+    Factory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/Factory.java"
+    ConcreteFactoryA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteFactoryA.java"
+    ConcreteFactoryB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteFactoryB.java"
+    ConcreteFactoryC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteFactoryC.java"
+    Client.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/Client.java"
 ## 6.6.示例
     Client ..> SimplePizzaStore
     Client ..> SimplePizzaFactory
