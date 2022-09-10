@@ -835,10 +835,10 @@ classDiagram
     PizzaFactory ..> ClamPizza
     PizzaFactory ..> PepperoniPizza
     class Pizza {
-        String name
-	    String dough
-	    String sauce
-	    ArrayList<String> toppings
+        #String name
+	    #String dough
+	    #String sauce
+	    #ArrayList<String> toppings
 	    +prepare() void
 	    +bake() void
 	    +cut() void
@@ -1040,9 +1040,6 @@ classDiagram
 ### 6.6.1.1.PizzaFactory类图
 ```mermaid
 classDiagram
-    Client ..> PizzaFactory
-    Client ..> NYPizzaFactory
-    Client ..> ChicagoPizzaFactory
     Client ..> Pizza
     Client ..> ChicagoStyleCheesePizza
     Client ..> ChicagoStyleClamPizza
@@ -1052,6 +1049,10 @@ classDiagram
     Client ..> NYStyleClamPizza
     Client ..> NYStylePepperoniPizza
     Client ..> NYStyleVeggiePizza
+    Client ..> PizzaFactory
+    Client ..> NYPizzaFactory
+    Client ..> ChicagoPizzaFactory
+    Client ..> DependentPizzaFactory
     Pizza <|-- ChicagoStyleCheesePizza
     Pizza <|-- ChicagoStyleClamPizza
     Pizza <|-- ChicagoStylePepperoniPizza
@@ -1062,8 +1063,9 @@ classDiagram
     Pizza <|-- NYStyleVeggiePizza
     PizzaFactory <|-- ChicagoPizzaFactory
     PizzaFactory <|-- NYPizzaFactory
-    ChicagoPizzaFactory ..> ChicagoStyleCheesePizza
+    PizzaFactory ..> Pizza
     ChicagoPizzaFactory ..> Pizza
+    ChicagoPizzaFactory ..> ChicagoStyleCheesePizza
     ChicagoPizzaFactory ..> ChicagoStyleClamPizza
     ChicagoPizzaFactory ..> ChicagoStylePepperoniPizza
     ChicagoPizzaFactory ..> ChicagoStyleVeggiePizza
@@ -1072,7 +1074,15 @@ classDiagram
     NYPizzaFactory ..> NYStyleClamPizza
     NYPizzaFactory ..> NYStylePepperoniPizza
     NYPizzaFactory ..> NYStyleVeggiePizza
-    PizzaFactory ..> Pizza
+    DependentPizzaFactory ..> Pizza
+    DependentPizzaFactory ..> ChicagoStyleCheesePizza
+    DependentPizzaFactory ..> ChicagoStyleClamPizza
+    DependentPizzaFactory ..> ChicagoStylePepperoniPizza
+    DependentPizzaFactory ..> ChicagoStyleVeggiePizza
+    DependentPizzaFactory ..> NYStyleCheesePizza
+    DependentPizzaFactory ..> NYStyleClamPizza
+    DependentPizzaFactory ..> NYStylePepperoniPizza
+    DependentPizzaFactory ..> NYStyleVeggiePizza
     class Pizza {
         #String name
 	    #String dough
@@ -1122,6 +1132,10 @@ classDiagram
     class NYPizzaFactory {
         +createPizza(String pizzaType) Pizza
     }
+    class DependentPizzaFactory {
+        +orderPizza(String pizzaStyle, String pizzaType) Pizza
+        +orderPizza(String pizzaStyle, String pizzaType) Pizza
+    }
     class Client {
         +fun() void
     }
@@ -1129,7 +1143,34 @@ classDiagram
     <<abstract>> PizzaFactory
 ```
 ### 6.6.1.2.PizzaFactory代码
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/classrelation/dependence/Department.java"
+    Pizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/Pizza.java"
+    ChicagoStyleCheesePizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/ChicagoStyleCheesePizza.java"
+    ChicagoStyleClamPizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/ChicagoStyleClamPizza.java"
+    ChicagoStylePepperoniPizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/ChicagoStylePepperoniPizza.java"
+    ChicagoStyleVeggiePizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/ChicagoStyleVeggiePizza.java"
+    NYStyleCheesePizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/NYStyleCheesePizza.java"
+    NYStyleClamPizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/NYStyleClamPizza.java"
+    NYStylePepperoniPizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/NYStylePepperoniPizza.java"
+    NYStyleVeggiePizza.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/NYStyleVeggiePizza.java"
+    PizzaFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/PizzaFactory.java"
+    NYPizzaFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/NYPizzaFactory.java"
+    ChicagoPizzaFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/ChicagoPizzaFactory.java"
+    ChicagoPizzaFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/DependentPizzaFactory.java"
+    Client.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/Client.java"
 ## 6.7.在开源框架中的应用
 # 7.创建型模式-抽象工厂模式
 ## 7.1.简介
