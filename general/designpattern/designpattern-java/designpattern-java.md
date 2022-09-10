@@ -1038,6 +1038,7 @@ classDiagram
 ## 6.6.示例
 ### 6.6.1.PizzaStore
 ### 6.6.1.1.PizzaFactory类图
+    不使用工厂模式类图(耦合度高)
 ```mermaid
 classDiagram
     Client ..> Pizza
@@ -1049,9 +1050,6 @@ classDiagram
     Client ..> NYStyleClamPizza
     Client ..> NYStylePepperoniPizza
     Client ..> NYStyleVeggiePizza
-    Client ..> PizzaFactory
-    Client ..> NYPizzaFactory
-    Client ..> ChicagoPizzaFactory
     Client ..> DependentPizzaFactory
     Pizza <|-- ChicagoStyleCheesePizza
     Pizza <|-- ChicagoStyleClamPizza
@@ -1061,19 +1059,6 @@ classDiagram
     Pizza <|-- NYStyleClamPizza
     Pizza <|-- NYStylePepperoniPizza
     Pizza <|-- NYStyleVeggiePizza
-    PizzaFactory <|-- ChicagoPizzaFactory
-    PizzaFactory <|-- NYPizzaFactory
-    PizzaFactory ..> Pizza
-    ChicagoPizzaFactory ..> Pizza
-    ChicagoPizzaFactory ..> ChicagoStyleCheesePizza
-    ChicagoPizzaFactory ..> ChicagoStyleClamPizza
-    ChicagoPizzaFactory ..> ChicagoStylePepperoniPizza
-    ChicagoPizzaFactory ..> ChicagoStyleVeggiePizza
-    NYPizzaFactory ..> Pizza
-    NYPizzaFactory ..> NYStyleCheesePizza
-    NYPizzaFactory ..> NYStyleClamPizza
-    NYPizzaFactory ..> NYStylePepperoniPizza
-    NYPizzaFactory ..> NYStyleVeggiePizza
     DependentPizzaFactory ..> Pizza
     DependentPizzaFactory ..> ChicagoStyleCheesePizza
     DependentPizzaFactory ..> ChicagoStyleClamPizza
@@ -1122,6 +1107,90 @@ classDiagram
     class NYStyleVeggiePizza {
         +NYStyleVeggiePizza()
     }
+    class DependentPizzaFactory {
+        +orderPizza(String pizzaStyle, String pizzaType) Pizza
+        +orderPizza(String pizzaStyle, String pizzaType) Pizza
+    }
+    class Client {
+        +fun() void
+    }
+    <<abstract>> Pizza
+```
+    使用工厂模式类图(耦合度低)
+```mermaid
+classDiagram
+    Client ..> Pizza
+    Client ..> ChicagoStyleCheesePizza
+    Client ..> ChicagoStyleClamPizza
+    Client ..> ChicagoStylePepperoniPizza
+    Client ..> ChicagoStyleVeggiePizza
+    Client ..> NYStyleCheesePizza
+    Client ..> NYStyleClamPizza
+    Client ..> NYStylePepperoniPizza
+    Client ..> NYStyleVeggiePizza
+    Client ..> PizzaFactory
+    Client ..> NYPizzaFactory
+    Client ..> ChicagoPizzaFactory
+    Pizza <|-- ChicagoStyleCheesePizza
+    Pizza <|-- ChicagoStyleClamPizza
+    Pizza <|-- ChicagoStylePepperoniPizza
+    Pizza <|-- ChicagoStyleVeggiePizza
+    Pizza <|-- NYStyleCheesePizza
+    Pizza <|-- NYStyleClamPizza
+    Pizza <|-- NYStylePepperoniPizza
+    Pizza <|-- NYStyleVeggiePizza
+    PizzaFactory <|-- ChicagoPizzaFactory
+    PizzaFactory <|-- NYPizzaFactory
+    PizzaFactory ..> Pizza
+    ChicagoPizzaFactory ..> Pizza
+    ChicagoPizzaFactory ..> ChicagoStyleCheesePizza
+    ChicagoPizzaFactory ..> ChicagoStyleClamPizza
+    ChicagoPizzaFactory ..> ChicagoStylePepperoniPizza
+    ChicagoPizzaFactory ..> ChicagoStyleVeggiePizza
+    NYPizzaFactory ..> Pizza
+    NYPizzaFactory ..> NYStyleCheesePizza
+    NYPizzaFactory ..> NYStyleClamPizza
+    NYPizzaFactory ..> NYStylePepperoniPizza
+    NYPizzaFactory ..> NYStyleVeggiePizza
+    class Pizza {
+        #String name
+	    #String dough
+	    #String sauce
+	    #ArrayList<String> toppings
+	    +prepare() void
+	    +bake() void
+	    +cut() void
+	    +box() void
+	    +toString() String
+    }
+    class ChicagoStyleCheesePizza{
+        +CheesePizza()
+        +cut() void
+    }
+    class ChicagoStyleClamPizza{
+        +ChicagoStyleClamPizza()
+        +cut() void
+    }
+    class ChicagoStylePepperoniPizza {
+        +ChicagoStylePepperoniPizza()
+        +cut() void
+    }
+    class ChicagoStyleVeggiePizza {
+        +ChicagoStyleVeggiePizza()
+        +cut() void
+    }
+    class NYStyleCheesePizza {
+        +NYStyleCheesePizza()
+    }
+    class NYStyleClamPizza {
+        +NYStyleClamPizza()
+    }
+    class NYStylePepperoniPizza {
+        +NYStylePepperoniPizza()
+    }
+    class NYStyleVeggiePizza {
+        +NYStyleVeggiePizza()
+    }
     class PizzaFactory {
         +createPizza(String pizzaType)* Pizza
         +orderPizza(String pizzaType) Pizza
@@ -1131,10 +1200,6 @@ classDiagram
     }
     class NYPizzaFactory {
         +createPizza(String pizzaType) Pizza
-    }
-    class DependentPizzaFactory {
-        +orderPizza(String pizzaStyle, String pizzaType) Pizza
-        +orderPizza(String pizzaStyle, String pizzaType) Pizza
     }
     class Client {
         +fun() void
