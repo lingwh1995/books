@@ -421,6 +421,7 @@ classDiagram
 ## 4.4.角色及其职责
 ## 4.5.模型
 ### 4.5.1.模型类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> SingletonObject
@@ -430,12 +431,27 @@ classDiagram
         +getInstance() SingletonObject
         +operate() void
     }
+    class Client {
+        +fun() void
+    }
 ```
-### 4.5.2.模型代码
+
+    类图(无Client)
+```mermaid
+classDiagram
+    class SingletonObject {
+        -SingletonObject instance
+        -SingletonObject()
+        +getInstance() SingletonObject
+        +operate() void
+    }
+```
+### 4.5.2.代码
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/model/SingletonObject.java"
 ## 4.6.示例
 ### 4.6.1.饿汉式单例
-### 4.6.1.1.饿汉式单例类图
+### 4.6.1.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> SingletonA
@@ -448,7 +464,17 @@ classDiagram
         +fun() void
     }
 ```
-### 4.6.1.2.饿汉式单例代码
+
+    类图(无Client)
+```mermaid
+classDiagram
+    class SingletonA {
+        -SingletonA SINGLETONA$
+        -SingletonA()
+        +getInstance()$ SingletonA
+    }
+```
+### 4.6.1.2.代码
     SingletonA.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonA.java"
     Client.java
@@ -473,6 +499,7 @@ public class Client {
 ```
 ### 4.6.2.懒汉式单例
 ### 4.6.2.1.饿汉式单例类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> SingletonB
@@ -486,7 +513,17 @@ classDiagram
         +fun2() void
     }
 ```
-### 4.6.2.2.饿汉式单例代码
+
+    类图(无Client)
+```mermaid
+classDiagram
+    class SingletonB {
+        -SingletonB SINGLETONA$
+        -SingletonB()
+        +getInstance()$ SingletonB
+    }
+```
+### 4.6.2.2.代码
     SingletonB.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonB.java"
     Client.java
@@ -536,7 +573,8 @@ public class Client {
 }
 ```
 ### 4.6.3.线程安全的懒汉式单例
-### 4.6.3.1.线程安全的懒汉式类图
+### 4.6.3.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> SingletonC
@@ -549,7 +587,17 @@ classDiagram
         +fun() void
     }
 ```
-### 4.6.3.2.线程安全的懒汉式代码
+
+    类图(无Client)
+```mermaid
+classDiagram
+    class SingletonC {
+        -SingletonC SINGLETONA$
+        -SingletonC()
+        +getInstance()$ SingletonC
+    }
+```
+### 4.6.3.2.代码
     SingletonC.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonC.java"
     Client.java
@@ -588,7 +636,8 @@ public class Client {
 }
 ```
 ### 4.6.4.双重检索懒汉式懒汉式单例
-### 4.6.4.1.双重检索懒汉式单例类图
+### 4.6.4.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> SingletonD
@@ -601,7 +650,16 @@ classDiagram
         +fun() void
     }
 ```
-### 4.6.4.2.双重检索懒汉式单例代码
+    类图(无Client)
+```mermaid
+classDiagram
+    class SingletonD {
+        -SingletonD SINGLETONA$
+        -SingletonD()
+        +getInstance()$ SingletonD
+    }
+```
+### 4.6.4.2.代码
     SingletonD.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonD.java"
     Client.java
@@ -640,7 +698,8 @@ public class Client {
 }
 ```
 ### 4.6.5.静态内部类懒汉式单例
-### 4.6.5.1.静态内部类懒汉式单例类图
+### 4.6.5.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> SingletonE
@@ -656,7 +715,20 @@ classDiagram
         +fun() void
     }
 ```
-### 4.6.5.2.静态内部类懒汉式单例代码
+
+    类图(无Client)
+```mermaid
+classDiagram
+    SingletonE *-- SingletonInstacne :内部类
+    class SingletonE {
+        -SingletonE SINGLETONA
+        +getInstance()$ SingletonE
+    }
+    class SingletonInstacne {
+        -SingletonE INSTANCE
+    }
+```
+### 4.6.5.2.代码
     SingletonE.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonE.java"
     Client.java
@@ -694,7 +766,8 @@ public class Client {
 }
 ```
 ### 4.6.6.枚举单例
-### 4.6.6.1.枚举单例类图
+### 4.6.6.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> SingletonF
@@ -707,7 +780,17 @@ classDiagram
     }
     <<enumeration>> SingletonF
 ```
-### 4.6.6.2.枚举单例代码
+
+    类图(无Client)
+```mermaid
+classDiagram
+    class SingletonF {
+        INSTANCE
+        +doSomething() void
+    }
+    <<enumeration>> SingletonF
+```
+### 4.6.6.2.代码
     SingletonF.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/singleton/SingletonF.java"
     Client.java
@@ -770,6 +853,7 @@ public class Runtime {
     简单工厂模式的创建目标,所有被创建的对象都是某个具体类的实例,它要实现抽象产品中声明的抽象方法(有关抽象类)
 ## 5.5.模型
 ### 5.5.1.模型类图
+    模型类图(有Client)
 ```mermaid
 classDiagram
     Client ..> Factory
@@ -795,6 +879,29 @@ classDiagram
     }
     <<abstract>> Product
 ```
+
+    模型类图(无Client)
+```mermaid
+classDiagram
+    Product <|-- ConcreteProductA
+    Product <|-- ConcreteProductB
+    Product <|-- ConcreteProductC
+    Factory ..> Product
+    Factory ..> ConcreteProductA
+    Factory ..> ConcreteProductB
+    Factory ..> ConcreteProductC
+    class ConcreteProductA{
+    }
+    class ConcreteProductB{
+    }
+    class ConcreteProductC{
+    }
+    class Factory {
+        +factoryMethod(String productType) Product
+        +operate(String productType) void
+    }
+    <<abstract>> Product
+```
 ### 5.5.2.模型代码
     Product.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/model/Product.java"
@@ -811,6 +918,7 @@ classDiagram
 ## 5.6.示例
 ### 5.6.1.不使用简单工厂模式
 #### 5.6.1.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> PizzaStore
@@ -853,6 +961,42 @@ classDiagram
     }
     <<abstract>> Pizza
 ```
+
+    类图(无Client)
+```mermaid
+classDiagram
+    Pizza <|-- CheesePizza
+    Pizza <|-- ClamPizza
+    Pizza <|-- PepperoniPizza
+    PizzaStore ..> Pizza
+    PizzaStore ..> CheesePizza
+    PizzaStore ..> ClamPizza
+    PizzaStore ..> PepperoniPizza
+    class Pizza {
+        #String name
+	    #String dough
+	    #String sauce
+	    #ArrayList<String> toppings
+	    +prepare() void
+	    +bake() void
+	    +cut() void
+	    +box() void
+	    +toString() String
+    }
+    class CheesePizza{
+        +CheesePizza()
+    }
+    class ClamPizza{
+        +ClamPizza()
+    }
+    class PepperoniPizza {
+        +PepperoniPizza()
+    }
+    class PizzaStore {
+        +orderPizza(String pizzaType) Pizza
+    }
+    <<abstract>> Pizza
+```
 #### 5.6.1.2.代码
     Pizza.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/nouse/Pizza.java"
@@ -868,6 +1012,7 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/nouse/Client.java"
 ### 5.6.2.使用简单工厂模式
 #### 5.6.2.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> PizzaSotreFactory
@@ -908,6 +1053,43 @@ classDiagram
     }
     class Client {
         +fun() void
+    }
+    <<abstract>> Pizza
+```
+
+    类图(无Client)
+```mermaid
+classDiagram
+    Pizza <|-- CheesePizza
+    Pizza <|-- ClamPizza
+    Pizza <|-- PepperoniPizza
+    PizzaSotreFactory ..> Pizza
+    PizzaSotreFactory ..> CheesePizza
+    PizzaSotreFactory ..> ClamPizza
+    PizzaSotreFactory ..> PepperoniPizza
+    class Pizza {
+        #String name
+	    #String dough
+	    #String sauce
+	    #ArrayList<String> toppings
+	    +prepare() void
+	    +bake() void
+	    +cut() void
+	    +box() void
+	    +toString() String
+    }
+    class CheesePizza{
+        +CheesePizza()
+    }
+    class ClamPizza{
+        +ClamPizza()
+    }
+    class PepperoniPizza {
+        +PepperoniPizza()
+    }
+    class PizzaSotreFactory {
+        +createPizza(String pizzaType) Pizza
+        +orderPizza(String pizzaType) Pizza
     }
     <<abstract>> Pizza
 ```
@@ -1059,6 +1241,7 @@ public abstract class Calendar {
     提供实际创建对象的方法
 ## 6.5.模型
 ### 6.5.1.模型类图
+    模型类图(有Client)
 ```mermaid
 classDiagram
     Client ..> AbstractProduct
@@ -1109,6 +1292,47 @@ classDiagram
     <<abstract>> AbstractProduct
     <<abstract>> AbstractFactory
 ```
+
+    模型类图(无Client)
+```mermaid
+classDiagram
+    ConcreteFactoryA ..> AbstractProduct
+    ConcreteFactoryA ..> ConcreteProductA
+    ConcreteFactoryB ..> AbstractProduct
+    ConcreteFactoryB ..> ConcreteProductB
+    ConcreteFactoryC ..> AbstractProduct
+    ConcreteFactoryC ..> ConcreteProductC
+    AbstractProduct <|-- ConcreteProductA
+    AbstractProduct <|-- ConcreteProductB
+    AbstractProduct <|-- ConcreteProductC
+    AbstractFactory <|-- ConcreteFactoryA
+    AbstractFactory <|-- ConcreteFactoryB
+    AbstractFactory <|-- ConcreteFactoryC
+    AbstractFactory ..> AbstractProduct
+    class AbstractProduct {
+    }
+    class ConcreteProductA {
+    }
+    class ConcreteProductB {
+    }
+    class ConcreteProductC {
+    }
+    class AbstractFactory {
+        +factoryMethod()* AbstractProduct
+        +operate() void
+    }
+    class ConcreteFactoryA {
+        +factoryMethod() AbstractProduct
+    }
+    class ConcreteFactoryB {
+        +factoryMethod() AbstractProduct
+    }
+    class ConcreteFactoryC {
+        +factoryMethod() AbstractProduct
+    }
+    <<abstract>> AbstractProduct
+    <<abstract>> AbstractFactory
+```
 ### 6.5.2.模型代码
     Product.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/AbstractProduct.java"
@@ -1131,6 +1355,7 @@ classDiagram
 ## 6.6.示例
 ### 6.6.1.不使用工厂模式(实际上使用了简单工厂模式)
 #### 6.6.1.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> Pizza
@@ -1208,6 +1433,72 @@ classDiagram
     }
     <<abstract>> Pizza
 ```
+
+    类图(无Client)
+```mermaid
+classDiagram
+    Pizza <|-- ChicagoStyleCheesePizza
+    Pizza <|-- ChicagoStyleClamPizza
+    Pizza <|-- ChicagoStylePepperoniPizza
+    Pizza <|-- ChicagoStyleVeggiePizza
+    Pizza <|-- NYStyleCheesePizza
+    Pizza <|-- NYStyleClamPizza
+    Pizza <|-- NYStylePepperoniPizza
+    Pizza <|-- NYStyleVeggiePizza
+    PizzaStore ..> Pizza
+    PizzaStore ..> ChicagoStyleCheesePizza
+    PizzaStore ..> ChicagoStyleClamPizza
+    PizzaStore ..> ChicagoStylePepperoniPizza
+    PizzaStore ..> ChicagoStyleVeggiePizza
+    PizzaStore ..> NYStyleCheesePizza
+    PizzaStore ..> NYStyleClamPizza
+    PizzaStore ..> NYStylePepperoniPizza
+    PizzaStore ..> NYStyleVeggiePizza
+    class Pizza {
+        #String name
+	    #String dough
+	    #String sauce
+	    #ArrayList<String> toppings
+	    +prepare() void
+	    +bake() void
+	    +cut() void
+	    +box() void
+	    +toString() String
+    }
+    class ChicagoStyleCheesePizza{
+        +CheesePizza()
+        +cut() void
+    }
+    class ChicagoStyleClamPizza{
+        +ChicagoStyleClamPizza()
+        +cut() void
+    }
+    class ChicagoStylePepperoniPizza {
+        +ChicagoStylePepperoniPizza()
+        +cut() void
+    }
+    class ChicagoStyleVeggiePizza {
+        +ChicagoStyleVeggiePizza()
+        +cut() void
+    }
+    class NYStyleCheesePizza {
+        +NYStyleCheesePizza()
+    }
+    class NYStyleClamPizza {
+        +NYStyleClamPizza()
+    }
+    class NYStylePepperoniPizza {
+        +NYStylePepperoniPizza()
+    }
+    class NYStyleVeggiePizza {
+        +NYStyleVeggiePizza()
+    }
+    class PizzaStore {
+        +orderPizza(String pizzaStyle, String pizzaType) Pizza
+        +orderPizza(String pizzaStyle, String pizzaType) Pizza
+    }
+    <<abstract>> Pizza
+```
 #### 6.6.1.1.代码
     Pizza.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/nouse/Pizza.java"
@@ -1233,6 +1524,7 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/nouse/Client.java"
 ### 6.6.2.使用工厂模式
 #### 6.6.2.1.类图
+    类图(有Client)
 ```mermaid
 classDiagram
     Client ..> Pizza
@@ -1323,6 +1615,83 @@ classDiagram
     <<abstract>> Pizza
     <<abstract>> PizzaStoreFactory
 ```
+
+    类图(无Client)
+```mermaid
+classDiagram
+    Pizza <|-- ChicagoStyleCheesePizza
+    Pizza <|-- ChicagoStyleClamPizza
+    Pizza <|-- ChicagoStylePepperoniPizza
+    Pizza <|-- ChicagoStyleVeggiePizza
+    Pizza <|-- NYStyleCheesePizza
+    Pizza <|-- NYStyleClamPizza
+    Pizza <|-- NYStylePepperoniPizza
+    Pizza <|-- NYStyleVeggiePizza
+    PizzaStoreFactory <|-- ChicagoPizzaStoreFactory
+    PizzaStoreFactory <|-- NYPizzaStoreFactory
+    PizzaStoreFactory ..> Pizza
+    ChicagoPizzaStoreFactory ..> Pizza
+    ChicagoPizzaStoreFactory ..> ChicagoStyleCheesePizza
+    ChicagoPizzaStoreFactory ..> ChicagoStyleClamPizza
+    ChicagoPizzaStoreFactory ..> ChicagoStylePepperoniPizza
+    ChicagoPizzaStoreFactory ..> ChicagoStyleVeggiePizza
+    NYPizzaStoreFactory ..> Pizza
+    NYPizzaStoreFactory ..> NYStyleCheesePizza
+    NYPizzaStoreFactory ..> NYStyleClamPizza
+    NYPizzaStoreFactory ..> NYStylePepperoniPizza
+    NYPizzaStoreFactory ..> NYStyleVeggiePizza
+    class Pizza {
+        #String name
+	    #String dough
+	    #String sauce
+	    #ArrayList<String> toppings
+	    +prepare() void
+	    +bake() void
+	    +cut() void
+	    +box() void
+	    +toString() String
+    }
+    class ChicagoStyleCheesePizza{
+        +CheesePizza()
+        +cut() void
+    }
+    class ChicagoStyleClamPizza{
+        +ChicagoStyleClamPizza()
+        +cut() void
+    }
+    class ChicagoStylePepperoniPizza {
+        +ChicagoStylePepperoniPizza()
+        +cut() void
+    }
+    class ChicagoStyleVeggiePizza {
+        +ChicagoStyleVeggiePizza()
+        +cut() void
+    }
+    class NYStyleCheesePizza {
+        +NYStyleCheesePizza()
+    }
+    class NYStyleClamPizza {
+        +NYStyleClamPizza()
+    }
+    class NYStylePepperoniPizza {
+        +NYStylePepperoniPizza()
+    }
+    class NYStyleVeggiePizza {
+        +NYStyleVeggiePizza()
+    }
+    class PizzaStoreFactory {
+        +createPizza(String pizzaType)* Pizza
+        +orderPizza(String pizzaType) Pizza
+    }
+    class ChicagoPizzaStoreFactory {
+        +createPizza(String pizzaType) Pizza
+    }
+    class NYPizzaStoreFactory {
+        +createPizza(String pizzaType) Pizza
+    }
+    <<abstract>> Pizza
+    <<abstract>> PizzaStoreFactory
+```
 #### 6.6.2.2.代码
     Pizza.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/use/Pizza.java"
@@ -1355,6 +1724,7 @@ classDiagram
     JDK8#集合框架部分代码
     说明
     Collection是抽象工厂,Collection中iterator()方法就是工厂方法,ArrayList和HashSet就是具体工厂,Iterator是抽象产品,具体产品是ArrayList和HasHSet中iterator()方法的return new Itr()创建出来的对象
+
     类图
 ```mermaid
 classDiagram
@@ -1463,6 +1833,7 @@ public class HashSet<E> extends AbstractSet<E> implements Set<E> {
     实现了抽象产品角色所定义的接口,由具体工厂来创建,它同具体工厂之间是多对一的关系
 ## 7.5.模型
 ### 7.5.1.模型类图
+    模型类图(有Client)
 ```mermaid
 classDiagram
     Client ..> ProductPart1LevelA
@@ -1477,6 +1848,91 @@ classDiagram
     Client ..> ConcreteFactoryLevelA
     Client ..> ConcreteFactoryLevelB
     Client ..> ConcreteFactoryLevelC
+    ProductPart1 <|.. ProductPart1LevelA
+    ProductPart1 <|.. ProductPart1LevelB
+    ProductPart1 <|.. ProductPart1LevelC
+    ProductPart2 <|.. ProductPart2LevelA
+    ProductPart2 <|.. ProductPart2LevelB
+    ProductPart2 <|.. ProductPart2LevelC
+    ProductPart3 <|.. ProductPart3LevelA
+    ProductPart3 <|.. ProductPart3LevelB
+    ProductPart3 <|.. ProductPart3LevelC
+    AbstractFactory <|.. ConcreteFactoryLevelA
+    AbstractFactory <|.. ConcreteFactoryLevelB
+    AbstractFactory <|.. ConcreteFactoryLevelC
+    ConcreteFactoryLevelA ..> ProductPart1
+    ConcreteFactoryLevelA ..> ProductPart2
+    ConcreteFactoryLevelA ..> ProductPart3
+    ConcreteFactoryLevelA ..> ProductPart1LevelA
+    ConcreteFactoryLevelA ..> ProductPart2LevelA
+    ConcreteFactoryLevelA ..> ProductPart3LevelA
+    ConcreteFactoryLevelB ..> ProductPart1
+    ConcreteFactoryLevelB ..> ProductPart2
+    ConcreteFactoryLevelB ..> ProductPart3
+    ConcreteFactoryLevelB ..> ProductPart1LevelB
+    ConcreteFactoryLevelB ..> ProductPart2LevelB
+    ConcreteFactoryLevelB ..> ProductPart3LevelB
+    ConcreteFactoryLevelC ..> ProductPart1
+    ConcreteFactoryLevelC ..> ProductPart2
+    ConcreteFactoryLevelC ..> ProductPart3
+    ConcreteFactoryLevelC ..> ProductPart1LevelC
+    ConcreteFactoryLevelC ..> ProductPart2LevelC
+    ConcreteFactoryLevelC ..> ProductPart3LevelC
+    class ProductPart1 {
+    }
+    class ProductPart1LevelA {
+    }
+    class ProductPart1LevelB {
+    }
+    class ProductPart1LevelC {
+    }
+    class ProductPart2 {
+    }
+    class ProductPart2LevelA {
+    }
+    class ProductPart2LevelB {
+    }
+    class ProductPart2LevelC {
+    }
+    class ProductPart3 {
+    }
+    class ProductPart3LevelA {
+    }
+    class ProductPart3LevelB {
+    }
+    class ProductPart3LevelC {
+    }
+    class AbstractFactory {
+        +factoryMethod4ProductPart1()* ProductPart1
+        +factoryMethod4ProductPart2()* ProductPart2
+        +factoryMethod4ProductPart3()* ProductPart3
+    }
+    class ConcreteFactoryLevelA {
+        +factoryMethod4ProductPart1() ProductPart1
+        +factoryMethod4ProductPart2() ProductPart2
+        +factoryMethod4ProductPart3() ProductPart3
+    }
+    class ConcreteFactoryLevelB {
+        +factoryMethod4ProductPart1() ProductPart1
+        +factoryMethod4ProductPart2() ProductPart2
+        +factoryMethod4ProductPart3() ProductPart3
+    }
+    class ConcreteFactoryLevelC {
+        +factoryMethod4ProductPart1() ProductPart1
+        +factoryMethod4ProductPart2() ProductPart2
+        +factoryMethod4ProductPart3() ProductPart3
+    }
+    class Client {
+    }
+    <<interface>> ProductPart1
+    <<interface>> ProductPart2
+    <<interface>> ProductPart3
+    <<abstract>> AbstractFactory
+```
+
+    模型类图(无Client)
+```mermaid
+classDiagram
     ProductPart1 <|.. ProductPart1LevelA
     ProductPart1 <|.. ProductPart1LevelB
     ProductPart1 <|.. ProductPart1LevelC
