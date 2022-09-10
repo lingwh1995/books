@@ -611,7 +611,7 @@ package com.dragonsoft.designpattern.create.singleton;
 import org.junit.Test;
 
 public class Client {
-    	/**
+    /**
 	 * 测试多线程测试静态双重检索线程安全的懒汉式
 	 * 	方法级别的锁：实测执行效率并不是很低
 	 */
@@ -668,7 +668,6 @@ import org.junit.Test;
 public class Client {
     /**
 	 * 测试多线程测试静态内部类线程安全的懒汉式
-	 *
 	 */
 	@Test
 	public void fun() {
@@ -740,19 +739,10 @@ public class Client {
 public class Runtime {
     private static Runtime currentRuntime = new Runtime();
 
-    /**
-     * Returns the runtime object associated with the current Java application.
-     * Most of the methods of class <code>Runtime</code> are instance
-     * methods and must be invoked with respect to the current runtime object.
-     *
-     * @return  the <code>Runtime</code> object associated with the current
-     *          Java application.
-     */
     public static Runtime getRuntime() {
         return currentRuntime;
     }
 
-    /** Don't let anyone else instantiate this class */
     private Runtime() {}
 }
 ```
@@ -798,6 +788,7 @@ classDiagram
     }
     class Factory {
         +factoryMethod(String productType) Product
+        +operate(String productType) void
     }
     class Client {
         +fun() void
@@ -937,6 +928,9 @@ classDiagram
 ## 5.7.在开源框架中的应用
 ## 5.7.1.在JDK中的应用
     JDK8#java.util.Calendar
+    说明
+    其中的createCalendar()方法根据传入参数的不同创建出不同的Calendar抽象类的子类,也就是根据传入参数的不同创建出了不同的对象,对调用这个方法的方法而言,屏蔽了具体的创建过程,只需要传入参数即可获取对象,符合简单工厂模式要求
+
     类图
 ```mermaid
 classDiagram
@@ -961,58 +955,25 @@ classDiagram
     }
     <<abstract>> Calendar
 ```
+
     代码
 ```java
 public abstract class Calendar {
-    /**
-     * Gets a calendar using the default time zone and locale. The
-     * <code>Calendar</code> returned is based on the current time
-     * in the default time zone with the default
-     * {@link Locale.Category#FORMAT FORMAT} locale.
-     *
-     * @return a Calendar.
-     */
     public static Calendar getInstance()
     {
         return createCalendar(TimeZone.getDefault(), Locale.getDefault(Locale.Category.FORMAT));
     }
 
-    /**
-     * Gets a calendar using the specified time zone and default locale.
-     * The <code>Calendar</code> returned is based on the current time
-     * in the given time zone with the default
-     * {@link Locale.Category#FORMAT FORMAT} locale.
-     *
-     * @param zone the time zone to use
-     * @return a Calendar.
-     */
     public static Calendar getInstance(TimeZone zone)
     {
         return createCalendar(zone, Locale.getDefault(Locale.Category.FORMAT));
     }
 
-    /**
-     * Gets a calendar using the default time zone and specified locale.
-     * The <code>Calendar</code> returned is based on the current time
-     * in the default time zone with the given locale.
-     *
-     * @param aLocale the locale for the week data
-     * @return a Calendar.
-     */
     public static Calendar getInstance(Locale aLocale)
     {
         return createCalendar(TimeZone.getDefault(), aLocale);
     }
 
-    /**
-     * Gets a calendar with the specified time zone and locale.
-     * The <code>Calendar</code> returned is based on the current time
-     * in the given time zone with the given locale.
-     *
-     * @param zone the time zone to use
-     * @param aLocale the locale for the week data
-     * @return a Calendar.
-     */
     public static Calendar getInstance(TimeZone zone,
                                        Locale aLocale)
     {
@@ -1075,7 +1036,7 @@ public abstract class Calendar {
     可以看出,在getInstance()方法中调用了createCalendar()方法,只需要传入zone, aLocale,就可以获得一个Calendar对象
 # 6.创建型模式-工厂模式
 ## 6.1.简介
-    工厂模式(FactoryMethod Pattern)又称工厂方法模式(FactoryMethod Pattern)是一种创建型设计模式,工厂方法模式是简单工厂模式的进一步抽象和推广,是GoF设计模式的一种。由于使用了面向对象的多态性,工厂方法模式保持了简单工厂模式的优点,而且克服了它的缺点,同时遵循OCP原则。在工厂方法模式中,提供一个用于创建对象的接口(工厂接口),让其实现类(工厂实现类)决定实例化哪一个类(产品类),并且由该实现类创建对应类的实例。这使得工厂方法模式可以允许系统在不修改工厂角色的情况下引进新产品。
+    工厂模式(FactoryMethod Pattern)又称工厂方法模式(FactoryMethod Pattern)是一种创建型设计模式,工厂方法模式是简单工厂模式的进一步抽象和推广,将原来在简单工厂中创建的对象改为在工厂类的子类中创建,是GoF设计模式的一种。由于使用了面向对象的多态性,工厂方法模式保持了简单工厂模式的优点,而且克服了它的缺点,同时遵循OCP原则。在工厂方法模式中,提供一个用于创建对象的接口(工厂接口),让其实现类(工厂实现类)决定实例化哪一个类(产品类),并且由该实现类创建对应类的实例。这使得工厂方法模式可以允许系统在不修改工厂角色的情况下引进新产品。
 ## 6.2.应用场景
     a.客户端不关心它所要创建对象的类(产品类)的时候
     b.客户端知道它所要创建对象的类(产品类),但不关心如何创建的时候
@@ -1131,6 +1092,7 @@ classDiagram
     }
     class Factory {
         +factoryMethod()* Product
+        +operate() void
     }
     class ConcreteFactoryA {
         +factoryMethod() Product
@@ -1389,6 +1351,93 @@ classDiagram
     Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/use/Client.java"
 ## 6.7.在开源框架中的应用
+### 6.7.1.在JDK中的应用
+    JDK8#集合框架部分代码
+    说明
+    Collection是抽象工厂,Collection中iterator()方法就是工厂方法,ArrayList和HashSet就是具体工厂,Iterator是抽象产品,具体产品是ArrayList和HasHSet中iterator()方法的return new Itr()创建出来的对象
+    类图
+```mermaid
+classDiagram
+    Iterable <|-- Collection
+    Collection <|.. AbstractCollection
+    AbstractCollection <|-- AbstractList
+    AbstractCollection <|-- AbstractSet
+    AbstractList <|-- ArrayList
+    AbstractSet <|-- HashSet
+    Iterable ..> Iterator
+    Collection ..> Iterator
+    AbstractCollection ..> Iterator
+    AbstractList ..> Iterator
+    AbstractSet ..> Iterator
+    ArrayList ..> Iterator
+    HashSet ..> Iterator
+    class Iterable~T~ {
+        iterator() Iterator~T~
+    }
+    class Collection~E~ {
+        iterator() Iterator~E~
+    }
+    class AbstractCollection~E~ {
+        +iterator()* Iterator~E~
+    }
+    class AbstractList~E~ {
+        +iterator()* Iterator~E~
+    }
+    class ArrayList~E~ {
+        +iterator() Iterator~E~
+    }
+    class AbstractSet~E~ {
+        +iterator()* Iterator~E~
+    }
+    class HashSet~E~ {
+        +iterator() Iterator~E~
+    }
+    class Iterator~E~ {
+    }
+    <<interface>> Iterable
+    <<interface>> Collection
+    <<abstract>> AbstractCollection
+    <<abstract>> AbstractList
+    <<abstract>> AbstractSet
+    <<interface>> Iterator
+```
+    代码
+```java
+    Iterable.java
+public interface Iterable<T> {
+    Iterator<T> iterator();
+}
+    Collection.java
+public interface Collection<E> extends Iterable<E> {
+    Iterator<E> iterator();
+}
+    AbstractCollection.java
+public abstract class AbstractCollection<E> implements Collection<E> {
+    public abstract Iterator<E> iterator();
+}
+    AbstractList.java
+public abstract class AbstractList<E> extends AbstractCollection<E> {
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
+}
+    ArrayList.java
+public class ArrayList<E> extends AbstractList<E> {
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
+}
+    AbstractSet.java
+public abstract class AbstractSet<E> extends AbstractCollection<E> {
+    public abstract Iterator<E> iterator();
+}
+    HashSet.java
+public class HashSet<E> extends AbstractSet<E> implements Set<E> {
+    public Iterator<E> iterator() {
+        return map.keySet().iterator();
+    }
+}
+```
 # 7.创建型模式-抽象工厂模式
 ## 7.1.简介
 ## 7.2.应用场景
