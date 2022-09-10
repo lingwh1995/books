@@ -1492,12 +1492,21 @@ classDiagram
     ConcreteFactoryLevelA ..> ProductPart1
     ConcreteFactoryLevelA ..> ProductPart2
     ConcreteFactoryLevelA ..> ProductPart3
+    ConcreteFactoryLevelA ..> ProductPart1LevelA
+    ConcreteFactoryLevelA ..> ProductPart2LevelA
+    ConcreteFactoryLevelA ..> ProductPart3LevelA
     ConcreteFactoryLevelB ..> ProductPart1
     ConcreteFactoryLevelB ..> ProductPart2
     ConcreteFactoryLevelB ..> ProductPart3
+    ConcreteFactoryLevelB ..> ProductPart1LevelB
+    ConcreteFactoryLevelB ..> ProductPart2LevelB
+    ConcreteFactoryLevelB ..> ProductPart3LevelB
     ConcreteFactoryLevelC ..> ProductPart1
     ConcreteFactoryLevelC ..> ProductPart2
     ConcreteFactoryLevelC ..> ProductPart3
+    ConcreteFactoryLevelC ..> ProductPart1LevelC
+    ConcreteFactoryLevelC ..> ProductPart2LevelC
+    ConcreteFactoryLevelC ..> ProductPart3LevelC
     class ProductPart1 {
     }
     class ProductPart1LevelA {
