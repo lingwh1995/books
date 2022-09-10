@@ -1489,6 +1489,15 @@ classDiagram
     AbstractFactory <|.. ConcreteFactoryLevelA
     AbstractFactory <|.. ConcreteFactoryLevelB
     AbstractFactory <|.. ConcreteFactoryLevelC
+    ConcreteFactoryLevelA ..> ProductPart1
+    ConcreteFactoryLevelA ..> ProductPart2
+    ConcreteFactoryLevelA ..> ProductPart3
+    ConcreteFactoryLevelB ..> ProductPart1
+    ConcreteFactoryLevelB ..> ProductPart2
+    ConcreteFactoryLevelB ..> ProductPart3
+    ConcreteFactoryLevelC ..> ProductPart1
+    ConcreteFactoryLevelC ..> ProductPart2
+    ConcreteFactoryLevelC ..> ProductPart3
     class ProductPart1 {
     }
     class ProductPart1LevelA {
