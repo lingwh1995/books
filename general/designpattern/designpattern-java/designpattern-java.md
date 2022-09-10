@@ -1036,7 +1036,7 @@ public abstract class Calendar {
     可以看出,在getInstance()方法中调用了createCalendar()方法,只需要传入zone, aLocale,就可以获得一个Calendar对象
 # 6.创建型模式-工厂模式
 ## 6.1.简介
-    工厂模式(FactoryMethod Pattern)又称工厂方法模式(FactoryMethod Pattern)是一种创建型设计模式,工厂方法模式是简单工厂模式的进一步抽象和推广,将原来在简单工厂中创建的对象改为在工厂类的子类中创建,是GoF设计模式的一种。由于使用了面向对象的多态性,工厂方法模式保持了简单工厂模式的优点,而且克服了它的缺点,同时遵循OCP原则。在工厂方法模式中,提供一个用于创建对象的接口(工厂接口),让其实现类(工厂实现类)决定实例化哪一个类(产品类),并且由该实现类创建对应类的实例。这使得工厂方法模式可以允许系统在不修改工厂角色的情况下引进新产品。
+    工厂模式(Factory Pattern)又称工厂方法模式(FactoryMethod Pattern)是一种创建型设计模式,工厂方法模式是简单工厂模式的进一步抽象和推广,将原来在简单工厂中创建的对象改为在工厂类的子类中创建,是GoF设计模式的一种。由于使用了面向对象的多态性,工厂方法模式保持了简单工厂模式的优点,而且克服了它的缺点,同时遵循OCP原则。在工厂方法模式中,提供一个用于创建对象的接口(工厂接口),让其实现类(工厂实现类)决定实例化哪一个类(产品类),并且由该实现类创建对应类的实例。这使得工厂方法模式可以允许系统在不修改工厂角色的情况下引进新产品。
 ## 6.2.应用场景
     a.客户端不关心它所要创建对象的类(产品类)的时候
     b.客户端知道它所要创建对象的类(产品类),但不关心如何创建的时候
@@ -1049,11 +1049,11 @@ public abstract class Calendar {
     a.每增加一个新产品,都需要编写新的具体产品类,而且还要提供与之对应的具体工厂类,这样系统中类的个数将成对增加,在一定程度上增加了系统的复杂度,有更多的类需要编译和运行,会给系统带来一些额外的开销。
     b.由于考虑到系统的可扩展性,需要引入抽象层,在客户端代码中均使用抽象层进行定义,增加了系统的抽象性和理解难度,进而增加了系统的实现难度。
 ## 6.4.角色及其职责
-    Product(抽象产品)
+    AbstractProduct(抽象产品)
     工厂类所创建的所有对象的父类,封装了产品对象的公共方法,所有的具体产品为其子类对象
     ConcreteProduct(具体产品)
     工厂类所创建的实际对象
-    Factory(抽象工厂)
+    AbstractFactory(抽象工厂)
     提供一个用于创建对象的接口(工厂接口),让其实现类(工厂实现类)决定实例化哪一个类(产品类)
     ConcreteFactory(具体工厂)
     提供实际创建对象的方法
@@ -1061,28 +1061,28 @@ public abstract class Calendar {
 ### 6.5.1.模型类图
 ```mermaid
 classDiagram
-    Client ..> Product
-    Client ..> Factory
+    Client ..> AbstractProduct
+    Client ..> AbstractFactory
     Client ..> ConcreteProductA
     Client ..> ConcreteProductB
     Client ..> ConcreteProductC
     Client ..> ConcreteFactoryA
     Client ..> ConcreteFactoryB
     Client ..> ConcreteFactoryC
-    ConcreteFactoryA ..> Product
+    ConcreteFactoryA ..> AbstractProduct
     ConcreteFactoryA ..> ConcreteProductA
-    ConcreteFactoryB ..> Product
+    ConcreteFactoryB ..> AbstractProduct
     ConcreteFactoryB ..> ConcreteProductB
-    ConcreteFactoryC ..> Product
+    ConcreteFactoryC ..> AbstractProduct
     ConcreteFactoryC ..> ConcreteProductC
-    Product <|-- ConcreteProductA
-    Product <|-- ConcreteProductB
-    Product <|-- ConcreteProductC
-    Factory <|-- ConcreteFactoryA
-    Factory <|-- ConcreteFactoryB
-    Factory <|-- ConcreteFactoryC
-    Factory ..> Product
-    class Product {
+    AbstractProduct <|-- ConcreteProductA
+    AbstractProduct <|-- ConcreteProductB
+    AbstractProduct <|-- ConcreteProductC
+    AbstractFactory <|-- ConcreteFactoryA
+    AbstractFactory <|-- ConcreteFactoryB
+    AbstractFactory <|-- ConcreteFactoryC
+    AbstractFactory ..> AbstractProduct
+    class AbstractProduct {
     }
     class ConcreteProductA {
     }
@@ -1090,28 +1090,28 @@ classDiagram
     }
     class ConcreteProductC {
     }
-    class Factory {
-        +factoryMethod()* Product
+    class AbstractFactory {
+        +factoryMethod()* AbstractProduct
         +operate() void
     }
     class ConcreteFactoryA {
-        +factoryMethod() Product
+        +factoryMethod() AbstractProduct
     }
     class ConcreteFactoryB {
-        +factoryMethod() Product
+        +factoryMethod() AbstractProduct
     }
     class ConcreteFactoryC {
-        +factoryMethod() Product
+        +factoryMethod() AbstractProduct
     }
     class Client {
         +fun() void
     }
-    <<abstract>> Product
-    <<abstract>> Factory
+    <<abstract>> AbstractProduct
+    <<abstract>> AbstractFactory
 ```
 ### 6.5.2.模型代码
     Product.java
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/Product.java"
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/AbstractProduct.java"
     ConcreteProductA.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteProductA.java"
     ConcreteProductB.java
@@ -1119,7 +1119,7 @@ classDiagram
     ConcreteProductC.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteProductC.java"
     Factory.java
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/Factory.java"
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/AbstractFactory.java"
     ConcreteFactoryA.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/ConcreteFactoryA.java"
     ConcreteFactoryB.java
@@ -1346,8 +1346,8 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/use/PizzaStoreFactory.java"
     NYPizzaFactory.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/use/NYPizzaStoreFactory.java"
-    ChicagoPizzaFactory.java
-@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/use/ChicagoStorePizzaFactory.java"
+    ChicagoPizzaStoreFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/use/ChicagoPizzaStoreFactory.java"
     Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/use/Client.java"
 ## 6.7.在开源框架中的应用
@@ -1440,14 +1440,139 @@ public class HashSet<E> extends AbstractSet<E> implements Set<E> {
 ```
 # 7.创建型模式-抽象工厂模式
 ## 7.1.简介
+    抽象工厂模式(Abstract Factory Pattern)是一种创建型设计模式,是工厂方法模式的升级版本,解决了简单工厂模式中工厂类职责太重的问题,抽象工厂中提供一个创建一系列相关或相互依赖对象的接口,这个接口中定义了创建多个不同的对象方法,但是让该接口的子类去实例化具体的类,把实例化具体对象的过程延迟到了子类中去实现。与工厂方法模式不同的是,抽象工厂模式中的具体工厂不再是只能创建一种产品,一个具体的工厂可以创建一个产品族的产品。
 ## 7.2.应用场景
+    a.客户端(应用层)不依赖于产品类实例如何被创建、实现等细节
+    b.强调一系列相关的产品对象(属于同一产品族)一起使用创建对象需要大量重复的代码
+    c.提供一个产品类的库，所有的产品以同样的接口出现，从而使得客户端不依赖于具体的实现
 ## 7.3.优缺点
 ### 7.3.1.优点
+    a.具体产品在应用层的代码隔离,无需关心创建的细节
+    b.将一个系列的产品统一到一起创建
 ### 7.3.2.缺点
+    a.具体产品在应用层的代码隔离，无需关系创建的细节
+    b.将一个系列的产品统一到一起创建
 ## 7.4.角色及其职责
+    AbstractFactory
+    提供了创建产品的接口,它包含多个创建产品的方法,可以创建多个不同等级的产品
+    ConcreteFactory
+    主要是实现抽象工厂中的多个抽象方法,完成具体产品的创建
+    AbstractProduct
+    定义了产品的规范,描述了产品的主要特性和功能,抽象工厂模式有多个抽象产品
+    ConcreteProduct
+    实现了抽象产品角色所定义的接口,由具体工厂来创建,它同具体工厂之间是多对一的关系
 ## 7.5.模型
 ### 7.5.1.模型类图
+```mermaid
+classDiagram
+    Client ..> ProductPart1LevelA
+    Client ..> ProductPart1LevelB
+    Client ..> ProductPart1LevelC
+    Client ..> ProductPart2LevelA
+    Client ..> ProductPart2LevelB
+    Client ..> ProductPart2LevelC
+    Client ..> ProductPart3LevelA
+    Client ..> ProductPart3LevelB
+    Client ..> ProductPart3LevelC
+    Client ..> ConcreteFactoryLevelA
+    Client ..> ConcreteFactoryLevelB
+    Client ..> ConcreteFactoryLevelC
+    ProductPart1 <|.. ProductPart1LevelA
+    ProductPart1 <|.. ProductPart1LevelB
+    ProductPart1 <|.. ProductPart1LevelC
+    ProductPart2 <|.. ProductPart2LevelA
+    ProductPart2 <|.. ProductPart2LevelB
+    ProductPart2 <|.. ProductPart2LevelC
+    ProductPart3 <|.. ProductPart3LevelA
+    ProductPart3 <|.. ProductPart3LevelB
+    ProductPart3 <|.. ProductPart3LevelC
+    AbstractFactory <|.. ConcreteFactoryLevelA
+    AbstractFactory <|.. ConcreteFactoryLevelB
+    AbstractFactory <|.. ConcreteFactoryLevelC
+    class ProductPart1 {
+    }
+    class ProductPart1LevelA {
+    }
+    class ProductPart1LevelB {
+    }
+    class ProductPart1LevelC {
+    }
+    class ProductPart2 {
+    }
+    class ProductPart2LevelA {
+    }
+    class ProductPart2LevelB {
+    }
+    class ProductPart2LevelC {
+    }
+    class ProductPart3 {
+    }
+    class ProductPart3LevelA {
+    }
+    class ProductPart3LevelB {
+    }
+    class ProductPart3LevelC {
+    }
+    class AbstractFactory {
+        +factoryMethod4ProductPart1()* ProductPart1
+        +factoryMethod4ProductPart2()* ProductPart2
+        +factoryMethod4ProductPart3()* ProductPart3
+    }
+    class ConcreteFactoryLevelA {
+        +factoryMethod4ProductPart1() ProductPart1
+        +factoryMethod4ProductPart2() ProductPart2
+        +factoryMethod4ProductPart3() ProductPart3
+    }
+    class ConcreteFactoryLevelB {
+        +factoryMethod4ProductPart1() ProductPart1
+        +factoryMethod4ProductPart2() ProductPart2
+        +factoryMethod4ProductPart3() ProductPart3
+    }
+    class ConcreteFactoryLevelC {
+        +factoryMethod4ProductPart1() ProductPart1
+        +factoryMethod4ProductPart2() ProductPart2
+        +factoryMethod4ProductPart3() ProductPart3
+    }
+    <<interface>> ProductPart1
+    <<interface>> ProductPart2
+    <<interface>> ProductPart3
+    <<abstract>> AbstractFactory
+```
 ### 7.5.2.模型代码
+    ProductPart1.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart1.java"
+    ProductPart1LevelA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart1LevelA.java"
+    ProductPart1LevelB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart1LevelB.java"
+    ProductPart1LevelC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart1LevelC.java"
+    ProductPart2.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart2.java"
+    ProductPart2LevelA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart2LevelA.java"
+    ProductPart2LevelB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart2LevelB.java"
+    ProductPart2LevelC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart2LevelC.java"
+    ProductPart3.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart3.java"
+    ProductPart3LevelA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart3LevelA.java"
+    ProductPart3LevelB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart3LevelB.java"
+    ProductPart3LevelC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ProductPart3LevelC.java"
+    AbstractFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/AbstractFactory.java"
+    ConcreteFactoryLevelA.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ConcreteFactoryLevelA.java"
+    ConcreteFactoryLevelB.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ConcreteFactoryLevelB.java"
+    ConcreteFactoryLevelC.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/ConcreteFactoryLevelC.java"
+    Client.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/Client.java"
 ## 7.6.示例
 ## 7.7.在开源框架中的应用
 # 8.创建型模式-原型模式
