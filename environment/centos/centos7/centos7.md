@@ -411,13 +411,13 @@ chmod +x fastgithub_linux-x64/fastgithub
 
 	以服务形式运行fastGithub
 ```
-sudo ./fastgithub_linux-x64/fastgithub start &&
+sudo ~/fastgithub_linux-x64/fastgithub start &&
 systemctl enable fastgithub
 ```
 
 	以服务形式停止fastgithub
 ```
-sudo ./fastgithub_linux-x64/fastgithub stop
+sudo ~/fastgithub_linux-x64/fastgithub stop
 ```
 
 	测试运行效果
@@ -4518,10 +4518,7 @@ https://lingwh.coding.net/p/java/ci/agent
 ```
 curl -fL 'https://coding.net/public-files/coding-ci/install/linux/install.sh?version=2022.03.22-b3bd8b2ac67f552c7be7bf82c311f6c11083f619' | CODING_SERVER=wss://lingwh.coding.net PACKAGE_URL=https://coding.net JENKINS_VERSION=2.293-cci-v2.2 JENKINS_HOME_VERSION=v43 PYPI_HOST=https://lingwh.coding.net/ci/pypi/simple PYPI_EXTRA_INDEX_URL= LOG_REPORT=http://worker-beat.coding.net bash -s 4ada5d876d32c8990debd64b62823c3a5ecbb959 false default
 ```
-	查看jenkins_home位置
-```
-find / -name jenkins_jome
-```
+
 	查看Coding.net中节点接入状态(这里换成自己的Coding.net用户名)
 	在目标机器(192.168.0.5)上执行生成接入命令,执行成功后到Coding.net中Jenkins节点列表查看节点是否准备就绪,如果接入命令执行成功了,则节点状态显示为在线
 ```
@@ -4546,11 +4543,23 @@ firewall-cmd --reload
 http://192.168.0.5:15740
 ```
 
+	查看Jenkins用户名
+```
+cat /var/spool/mail/root | grep JENKINS_USER | tail -1
+```
 	查看Jenkins密码
-	在agent目录执行下面命令可以看到Jenkins的用户名密码和端口
 ```
-./cci-agent -up -h
+cat /var/spool/mail/root | grep JENKINS_PASSWD | tail -1
 ```
+	查看Jenkins端口
+```
+cat /var/spool/mail/root | grep JENKINS_PORT | tail -1
+```
+	查看jenkins_home位置
+```
+cat /var/spool/mail/root | grep JENKINS_HOME | tail -1
+```
+
 ### 9.2.6.安装配置Jenkins用到的插件
 	Publish Over SSH
 
@@ -4565,7 +4574,7 @@ http://192.168.0.5:15740
 
 # 10.搭建Mycat技术栈
 
-## 10.1.安装myact1.6
+## 10.1.搭建myact1.6
 ### 10.1.1.服务器环境说明
 	192.168.0.6 mycat1.6
 	192.168.0.7 mysql
@@ -4770,7 +4779,7 @@ bin/mycat console #前台启动
 
 # 11.搭建常用私服环境
 ## 11.1.搭建yum私服
-## 11.1.1.安装httpd
+### 11.1.1.安装httpd
 	配置阿里云源
 详细参考-> <a href="/blogs/environment/centos/centos7/shardings/centos7-chapter-2.Linux操作系统初始设置.html#_2-7-配置yml源" target="_blank">配置yml源</a>
 
@@ -4813,7 +4822,7 @@ find / -name httpd.conf
 yum -y remove httpd
 ```
 
-## 11.1.2.安装yum相关工具
+### 11.1.2.安装yum相关工具
 	安装createrepo 和 reposync
 ```
 yum -y install createrepo reposync
@@ -4848,7 +4857,7 @@ createrepo --update /var/www/html/extras/ &&
 createrepo --update /var/www/html/epel/
 ```
 
-## 11.1.3.配置切换使用的源为私服的源
+### 11.1.3.配置切换使用的源为私服的源
 
 ```
 cd /etc/yum.repos.d/ &&
@@ -4871,8 +4880,8 @@ vi CentOS-Base.repo
 	#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
 	gpgcheck=1
 	gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-6
-	
-	#released updates 
+
+	#released updates
 	[updates]
 	name=CentOS-$releasever - Updates - mirrors.aliyun.com
 	failovermethod=priority
@@ -4894,7 +4903,7 @@ vi CentOS-Base.repo
 	gpgcheck=1
 	gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-6
 
-## 11.1.4.重新生成测试机yum缓存配置
+### 11.1.4.重新生成测试机yum缓存配置
 
 	在测试机器上，先清理已有缓存，再重新生成 yum 源缓存配置，将软件包信息缓存本机，提高搜索安装效率。
 ```
@@ -4902,7 +4911,7 @@ yum clean all &&
 yum makecache
 ```
 
-## 11.1.5.使用yum私服来下载软件
+### 11.1.5.使用yum私服来下载软件
 	在测试机上使用yum install xxx来安装包
 
 # 12.搭建SpringCloud技术栈所需组件

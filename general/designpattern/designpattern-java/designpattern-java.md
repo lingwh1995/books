@@ -1037,56 +1037,99 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/factorymethod/model/Client.java"
 ## 6.6.示例
 ### 6.6.1.PizzaStore
-### 6.6.1.1.PizzaStore类图
+### 6.6.1.1.PizzaFactory类图
 ```mermaid
 classDiagram
-    Client ..> Product
-    Client ..> Factory
-    Client ..> ConcreteProductA
-    Client ..> ConcreteProductB
-    Client ..> ConcreteProductC
-    Client ..> ConcreteFactoryA
-    Client ..> ConcreteFactoryB
-    Client ..> ConcreteFactoryC
-    ConcreteFactoryA ..> Product
-    ConcreteFactoryA ..> ConcreteProductA
-    ConcreteFactoryB ..> Product
-    ConcreteFactoryB ..> ConcreteProductB
-    ConcreteFactoryC ..> Product
-    ConcreteFactoryC ..> ConcreteProductC
-    Product <|-- ConcreteProductA
-    Product <|-- ConcreteProductB
-    Product <|-- ConcreteProductC
-    Factory <|-- ConcreteFactoryA
-    Factory <|-- ConcreteFactoryB
-    Factory <|-- ConcreteFactoryC
-    Factory ..> Product
-    class Product {
+    Client ..> PizzaFactory
+    Client ..> NYPizzaFactory
+    Client ..> ChicagoPizzaFactory
+    Client ..> Pizza
+    Client ..> ChicagoStyleCheesePizza
+    Client ..> ChicagoStyleClamPizza
+    Client ..> ChicagoStylePepperoniPizza
+    Client ..> ChicagoStyleVeggiePizza
+    Client ..> NYStyleCheesePizza
+    Client ..> NYStyleClamPizza
+    Client ..> NYStylePepperoniPizza
+    Client ..> NYStyleVeggiePizza
+    Pizza <|-- ChicagoStyleCheesePizza
+    Pizza <|-- ChicagoStyleClamPizza
+    Pizza <|-- ChicagoStylePepperoniPizza
+    Pizza <|-- ChicagoStyleVeggiePizza
+    Pizza <|-- NYStyleCheesePizza
+    Pizza <|-- NYStyleClamPizza
+    Pizza <|-- NYStylePepperoniPizza
+    Pizza <|-- NYStyleVeggiePizza
+    PizzaFactory <|-- ChicagoPizzaFactory
+    PizzaFactory <|-- NYPizzaFactory
+    ChicagoPizzaFactory ..> ChicagoStyleCheesePizza
+    ChicagoPizzaFactory ..> Pizza
+    ChicagoPizzaFactory ..> ChicagoStyleClamPizza
+    ChicagoPizzaFactory ..> ChicagoStylePepperoniPizza
+    ChicagoPizzaFactory ..> ChicagoStyleVeggiePizza
+    NYPizzaFactory ..> Pizza
+    NYPizzaFactory ..> NYStyleCheesePizza
+    NYPizzaFactory ..> NYStyleClamPizza
+    NYPizzaFactory ..> NYStylePepperoniPizza
+    NYPizzaFactory ..> NYStyleVeggiePizza
+    PizzaFactory ..> Pizza
+    class Pizza {
+        #String name
+	    #String dough
+	    #String sauce
+	    #ArrayList<String> toppings
+	    +prepare() void
+	    +bake() void
+	    +cut() void
+	    +box() void
+	    +toString() String
     }
-    class ConcreteProductA {
+    class ChicagoStyleCheesePizza{
+        +CheesePizza()
+        +cut() void
     }
-    class ConcreteProductB {
+    class ChicagoStyleClamPizza{
+        +ChicagoStyleClamPizza()
+        +cut() void
     }
-    class ConcreteProductC {
+    class ChicagoStylePepperoniPizza {
+        +ChicagoStylePepperoniPizza()
+        +cut() void
     }
-    class Factory {
-        +factoryMethod()* Product
+    class ChicagoStyleVeggiePizza {
+        +ChicagoStyleVeggiePizza()
+        +cut() void
     }
-    class ConcreteFactoryA {
-        +factoryMethod() Product
+    class NYStyleCheesePizza {
+        +NYStyleCheesePizza()
     }
-    class ConcreteFactoryB {
-        +factoryMethod() Product
+    class NYStyleClamPizza {
+        +NYStyleClamPizza()
     }
-    class ConcreteFactoryC {
-        +factoryMethod() Product
+    class NYStylePepperoniPizza {
+        +NYStylePepperoniPizza()
+    }
+    class NYStyleVeggiePizza {
+        +NYStyleVeggiePizza()
+    }
+    class PizzaFactory {
+        +createPizza(String pizzaType)* Pizza
+        +orderPizza(String pizzaType) Pizza
+    }
+    class ChicagoPizzaFactory {
+        +createPizza(String pizzaType) Pizza
+    }
+    class NYPizzaFactory {
+        +createPizza(String pizzaType) Pizza
     }
     class Client {
         +fun() void
     }
-    <<abstract>> Product
-    <<abstract>> Factory
+    <<abstract>> Pizza
+    <<abstract>> PizzaFactory
 ```
+### 6.6.1.2.PizzaFactory代码
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/basic/classrelation/dependence/Department.java"
 ## 6.7.在开源框架中的应用
 # 7.创建型模式-抽象工厂模式
 ## 7.1.简介
