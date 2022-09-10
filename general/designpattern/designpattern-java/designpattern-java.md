@@ -935,67 +935,141 @@ classDiagram
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/simplefactory/use/Client.java"
 
 ## 5.7.在开源框架中的应用
-    简单工厂模式
-    JDK8#java.util.Calendar#createCalendar()
+## 5.7.1.在JDK中的应用
+    JDK8#java.util.Calendar
+    类图
+```mermaid
+classDiagram
+    Calendar <|-- GregorianCalendar
+    Calendar <|-- JapaneseImperialCalendar
+    GregorianCalendar <|-- BuddhistCalendar
+    Calendar ..> GregorianCalendar
+    Calendar ..> JapaneseImperialCalendar
+    Calendar ..> BuddhistCalendar
+    class Calendar {
+        +getInstance()$ Calendar
+        +getInstance(TimeZone zone)$ Calendar
+        +getInstance(Locale aLocale)$ Calendar
+        +getInstance(TimeZone zone,Locale aLocale)$ Calendar
+        -createCalendar(TimeZone zone,Locale aLocale)$ Calendar
+    }
+    class BuddhistCalendar {
+    }
+    class JapaneseImperialCalendar {
+    }
+    class GregorianCalendar {
+    }
+    <<abstract>> Calendar
+```
+    代码
 ```java
-private static Calendar createCalendar(TimeZone zone,
-                                        Locale aLocale)
-{
-    CalendarProvider provider =
-        LocaleProviderAdapter.getAdapter(CalendarProvider.class, aLocale)
-                                .getCalendarProvider();
-    if (provider != null) {
-        try {
-            return provider.getInstance(zone, aLocale);
-        } catch (IllegalArgumentException iae) {
-            // fall back to the default instantiation
-        }
+public abstract class Calendar {
+    /**
+     * Gets a calendar using the default time zone and locale. The
+     * <code>Calendar</code> returned is based on the current time
+     * in the default time zone with the default
+     * {@link Locale.Category#FORMAT FORMAT} locale.
+     *
+     * @return a Calendar.
+     */
+    public static Calendar getInstance()
+    {
+        return createCalendar(TimeZone.getDefault(), Locale.getDefault(Locale.Category.FORMAT));
     }
 
-    Calendar cal = null;
+    /**
+     * Gets a calendar using the specified time zone and default locale.
+     * The <code>Calendar</code> returned is based on the current time
+     * in the given time zone with the default
+     * {@link Locale.Category#FORMAT FORMAT} locale.
+     *
+     * @param zone the time zone to use
+     * @return a Calendar.
+     */
+    public static Calendar getInstance(TimeZone zone)
+    {
+        return createCalendar(zone, Locale.getDefault(Locale.Category.FORMAT));
+    }
 
-    if (aLocale.hasExtensions()) {
-        String caltype = aLocale.getUnicodeLocaleType("ca");
-        if (caltype != null) {
-            switch (caltype) {
-            case "buddhist":
-            cal = new BuddhistCalendar(zone, aLocale);
-                break;
-            case "japanese":
-                cal = new JapaneseImperialCalendar(zone, aLocale);
-                break;
-            case "gregory":
-                cal = new GregorianCalendar(zone, aLocale);
-                break;
+    /**
+     * Gets a calendar using the default time zone and specified locale.
+     * The <code>Calendar</code> returned is based on the current time
+     * in the default time zone with the given locale.
+     *
+     * @param aLocale the locale for the week data
+     * @return a Calendar.
+     */
+    public static Calendar getInstance(Locale aLocale)
+    {
+        return createCalendar(TimeZone.getDefault(), aLocale);
+    }
+
+    /**
+     * Gets a calendar with the specified time zone and locale.
+     * The <code>Calendar</code> returned is based on the current time
+     * in the given time zone with the given locale.
+     *
+     * @param zone the time zone to use
+     * @param aLocale the locale for the week data
+     * @return a Calendar.
+     */
+    public static Calendar getInstance(TimeZone zone,
+                                       Locale aLocale)
+    {
+        return createCalendar(zone, aLocale);
+    }
+
+    private static Calendar createCalendar(TimeZone zone,
+                                           Locale aLocale)
+    {
+        CalendarProvider provider =
+            LocaleProviderAdapter.getAdapter(CalendarProvider.class, aLocale)
+                                 .getCalendarProvider();
+        if (provider != null) {
+            try {
+                return provider.getInstance(zone, aLocale);
+            } catch (IllegalArgumentException iae) {
+                // fall back to the default instantiation
             }
         }
-    }
-    if (cal == null) {
-        // If no known calendar type is explicitly specified,
-        // perform the traditional way to create a Calendar:
-        // create a BuddhistCalendar for th_TH locale,
-        // a JapaneseImperialCalendar for ja_JP_JP locale, or
-        // a GregorianCalendar for any other locales.
-        // NOTE: The language, country and variant strings are interned.
-        if (aLocale.getLanguage() == "th" && aLocale.getCountry() == "TH") {
-            cal = new BuddhistCalendar(zone, aLocale);
-        } else if (aLocale.getVariant() == "JP" && aLocale.getLanguage() == "ja"
-                    && aLocale.getCountry() == "JP") {
-            cal = new JapaneseImperialCalendar(zone, aLocale);
-        } else {
-            cal = new GregorianCalendar(zone, aLocale);
+
+        Calendar cal = null;
+
+        if (aLocale.hasExtensions()) {
+            String caltype = aLocale.getUnicodeLocaleType("ca");
+            if (caltype != null) {
+                switch (caltype) {
+                case "buddhist":
+                cal = new BuddhistCalendar(zone, aLocale);
+                    break;
+                case "japanese":
+                    cal = new JapaneseImperialCalendar(zone, aLocale);
+                    break;
+                case "gregory":
+                    cal = new GregorianCalendar(zone, aLocale);
+                    break;
+                }
+            }
         }
+        if (cal == null) {
+            // If no known calendar type is explicitly specified,
+            // perform the traditional way to create a Calendar:
+            // create a BuddhistCalendar for th_TH locale,
+            // a JapaneseImperialCalendar for ja_JP_JP locale, or
+            // a GregorianCalendar for any other locales.
+            // NOTE: The language, country and variant strings are interned.
+            if (aLocale.getLanguage() == "th" && aLocale.getCountry() == "TH") {
+                cal = new BuddhistCalendar(zone, aLocale);
+            } else if (aLocale.getVariant() == "JP" && aLocale.getLanguage() == "ja"
+                       && aLocale.getCountry() == "JP") {
+                cal = new JapaneseImperialCalendar(zone, aLocale);
+            } else {
+                cal = new GregorianCalendar(zone, aLocale);
+            }
+        }
+        return cal;
     }
-    return cal;
-}
-```
-    使用简单工厂模式
-    JDK8#java.util.Calendar#getInstance()
-```java
-public static Calendar getInstance(TimeZone zone,
-                                    Locale aLocale)
-{
-    return createCalendar();
+    ...
 }
 ```
     可以看出,在getInstance()方法中调用了createCalendar()方法,只需要传入zone, aLocale,就可以获得一个Calendar对象
