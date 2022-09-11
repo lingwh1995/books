@@ -1923,6 +1923,7 @@ classDiagram
         +factoryMethod4ProductPart3() ProductPart3
     }
     class Client {
+        +fun void
     }
     <<interface>> ProductPart1
     <<interface>> ProductPart2
@@ -2048,6 +2049,291 @@ classDiagram
     Client.java
 @import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/model/Client.java"
 ## 7.6.示例
+### 7.6.1.不使用抽象工厂模式
+### 7.6.2.使用抽象工厂模式
+    类图(有Client)
+```mermaid
+classDiagram
+    Client ..> AbstractClothesProduceFactory
+    Client ..> AdidasClothesProduceFactory
+    Client ..> NikeClothesProduceFactory
+    Client ..> PumaClothesProduceFactory
+    Client ..> AbstractHat
+    Client ..> AdidasHat
+    Client ..> NikeHat
+    Client ..> PumaHat
+    Client ..> AbstractJacket
+    Client ..> AdidasJacket
+    Client ..> NikeJacket
+    Client ..> PumaJacket
+    Client ..> AbstractShoes
+    Client ..> AdidasShoes
+    Client ..> NikeShoes
+    Client ..> PumaShoes
+    Client ..> AbstractTrousers
+    Client ..> AdidasTrousers
+    Client ..> NikeTrousers
+    Client ..> PumaTrousers
+    AbstractHat <|.. AdidasHat
+    AbstractHat <|.. NikeHat
+    AbstractHat <|.. PumaHat
+    AbstractJacket <|.. AdidasJacket
+    AbstractJacket <|.. NikeJacket
+    AbstractJacket <|.. PumaJacket
+    AbstractShoes <|.. AdidasShoes
+    AbstractShoes <|.. NikeShoes
+    AbstractShoes <|.. PumaShoes
+    AbstractTrousers <|.. AdidasTrousers
+    AbstractTrousers <|.. NikeTrousers
+    AbstractTrousers <|.. PumaTrousers
+    AbstractClothesProduceFactory <|.. AdidasClothesProduceFactory
+    AbstractClothesProduceFactory <|.. NikeClothesProduceFactory
+    AbstractClothesProduceFactory <|.. PumaClothesProduceFactory
+    AdidasClothesProduceFactory ..> AdidasHat
+    AdidasClothesProduceFactory ..> AdidasJacket
+    AdidasClothesProduceFactory ..> AdidasShoes
+    AdidasClothesProduceFactory ..> AdidasTrousers
+    NikeClothesProduceFactory ..> NikeHat
+    NikeClothesProduceFactory ..> NikeJacket
+    NikeClothesProduceFactory ..> NikeShoes
+    NikeClothesProduceFactory ..> NikeTrousers
+    PumaClothesProduceFactory ..> PumaHat
+    PumaClothesProduceFactory ..> PumaJacket
+    PumaClothesProduceFactory ..> PumaShoes
+    PumaClothesProduceFactory ..> PumaTrousers
+    class AbstractHat {
+	    +produce()* void
+    }
+    class AdidasHat {
+        +produce() void
+    }
+    class NikeHat {
+        +produce() void
+    }
+    class PumaHat {
+        +produce() void
+    }
+    class AbstractJacket {
+	    +produce()* void
+    }
+    class AdidasJacket {
+	    +produce() void
+    }
+    class NikeJacket {
+	    +produce() void
+    }
+    class PumaJacket {
+	    +produce() void
+    }
+    class AbstractShoes {
+	    +produce()* void
+    }
+    class AdidasShoes {
+	    +produce() void
+    }
+    class NikeShoes {
+	    +produce() void
+    }
+    class PumaShoes {
+	    +produce() void
+    }
+    class AbstractTrousers {
+	    +produce()* void
+    }
+    class AdidasTrousers {
+	    +produce() void
+    }
+    class NikeTrousers {
+	    +produce() void
+    }
+    class PumaTrousers {
+	    +produce() void
+    }
+    class AbstractClothesProduceFactory {
+	    +produceHat()* AbstractHat
+	    +produceJacket()* AbstractJacket
+	    +produceTrousers()* AbstractTrousers
+	    +produceShoes()* AbstractShoes
+    }
+    class AdidasClothesProduceFactory {
+	    +produceHat() AbstractHat
+	    +produceJacket() AbstractJacket
+	    +produceTrousers() AbstractTrousers
+	    +produceShoes() AbstractShoes
+    }
+    class NikeClothesProduceFactory {
+	    +produceHat() AbstractHat
+	    +produceJacket() AbstractJacket
+	    +produceTrousers() AbstractTrousers
+	    +produceShoes() AbstractShoes
+    }
+    class PumaClothesProduceFactory {
+	    +produceHat() AbstractHat
+	    +produceJacket() AbstractJacket
+	    +produceTrousers() AbstractTrousers
+	    +produceShoes() AbstractShoes
+    }
+    class Client {
+        +fun() void
+    }
+    <<abstract>> AbstractHat
+    <<abstract>> AbstractJacket
+    <<abstract>> AbstractShoes
+    <<abstract>> AbstractTrousers
+    <<abstract>> AbstractClothesProduceFactory
+```
+    类图(无Client)
+```mermaid
+classDiagram
+    AbstractHat <|.. AdidasHat
+    AbstractHat <|.. NikeHat
+    AbstractHat <|.. PumaHat
+    AbstractJacket <|.. AdidasJacket
+    AbstractJacket <|.. NikeJacket
+    AbstractJacket <|.. PumaJacket
+    AbstractShoes <|.. AdidasShoes
+    AbstractShoes <|.. NikeShoes
+    AbstractShoes <|.. PumaShoes
+    AbstractTrousers <|.. AdidasTrousers
+    AbstractTrousers <|.. NikeTrousers
+    AbstractTrousers <|.. PumaTrousers
+    AbstractClothesProduceFactory <|.. AdidasClothesProduceFactory
+    AbstractClothesProduceFactory <|.. NikeClothesProduceFactory
+    AbstractClothesProduceFactory <|.. PumaClothesProduceFactory
+    AdidasClothesProduceFactory ..> AdidasHat
+    AdidasClothesProduceFactory ..> AdidasJacket
+    AdidasClothesProduceFactory ..> AdidasShoes
+    AdidasClothesProduceFactory ..> AdidasTrousers
+    NikeClothesProduceFactory ..> NikeHat
+    NikeClothesProduceFactory ..> NikeJacket
+    NikeClothesProduceFactory ..> NikeShoes
+    NikeClothesProduceFactory ..> NikeTrousers
+    PumaClothesProduceFactory ..> PumaHat
+    PumaClothesProduceFactory ..> PumaJacket
+    PumaClothesProduceFactory ..> PumaShoes
+    PumaClothesProduceFactory ..> PumaTrousers
+    class AbstractHat {
+	    +produce()* void
+    }
+    class AdidasHat {
+        +produce() void
+    }
+    class NikeHat {
+        +produce() void
+    }
+    class PumaHat {
+        +produce() void
+    }
+    class AbstractJacket {
+	    +produce()* void
+    }
+    class AdidasJacket {
+	    +produce() void
+    }
+    class NikeJacket {
+	    +produce() void
+    }
+    class PumaJacket {
+	    +produce() void
+    }
+    class AbstractShoes {
+	    +produce()* void
+    }
+    class AdidasShoes {
+	    +produce() void
+    }
+    class NikeShoes {
+	    +produce() void
+    }
+    class PumaShoes {
+	    +produce() void
+    }
+    class AbstractTrousers {
+	    +produce()* void
+    }
+    class AdidasTrousers {
+	    +produce() void
+    }
+    class NikeTrousers {
+	    +produce() void
+    }
+    class PumaTrousers {
+	    +produce() void
+    }
+    class AbstractClothesProduceFactory {
+	    +produceHat()* AbstractHat
+	    +produceJacket()* AbstractJacket
+	    +produceTrousers()* AbstractTrousers
+	    +produceShoes()* AbstractShoes
+    }
+    class AdidasClothesProduceFactory {
+	    +produceHat() AbstractHat
+	    +produceJacket() AbstractJacket
+	    +produceTrousers() AbstractTrousers
+	    +produceShoes() AbstractShoes
+    }
+    class NikeClothesProduceFactory {
+	    +produceHat() AbstractHat
+	    +produceJacket() AbstractJacket
+	    +produceTrousers() AbstractTrousers
+	    +produceShoes() AbstractShoes
+    }
+    class PumaClothesProduceFactory {
+	    +produceHat() AbstractHat
+	    +produceJacket() AbstractJacket
+	    +produceTrousers() AbstractTrousers
+	    +produceShoes() AbstractShoes
+    }
+    <<abstract>> AbstractHat
+    <<abstract>> AbstractJacket
+    <<abstract>> AbstractShoes
+    <<abstract>> AbstractTrousers
+    <<abstract>> AbstractClothesProduceFactory
+```
+
+    代码
+    AbstractClothesProduceFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AbstractClothesProduceFactory.java"
+    AdidasClothesProduceFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AdidasClothesProduceFactory.java"
+    NikeClothesProduceFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/NikeClothesProduceFactory.java"
+    PumaClothesProduceFactory.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/PumaClothesProduceFactory.java"
+    AbstractHat.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AbstractHat.java"
+    AdidasHat.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AdidasHat.java"
+    NikeHat.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/NikeHat.java"
+    PumaHat.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/PumaHat.java"
+    AbstractJacket.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AbstractJacket.java"
+    AdidasJacket.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AdidasJacket.java"
+    NikeJacket.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/NikeJacket.java"
+    PumaJacket.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/PumaJacket.java"
+    AbstractShoes.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AbstractShoes.java"
+    AdidasShoes.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AdidasShoes.java"
+    NikeShoes.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/NikeShoes.java"
+    PumaShoes.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/PumaShoes.java"
+    AbstractTrousers.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AbstractTrousers.java"
+    AdidasTrousers.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/AdidasTrousers.java"
+    NikeTrousers.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/NikeTrousers.java"
+    PumaTrousers.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/PumaTrousers.java"
+    Client.java
+@import "./projects/JavaSenior/designpattern/src/main/java/com/dragonsoft/designpattern/create/factory/abstractfactory/use/Client.java"
 ## 7.7.在开源框架中的应用
 # 8.创建型模式-原型模式
 ## 8.1.简介
